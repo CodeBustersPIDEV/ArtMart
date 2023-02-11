@@ -1,4 +1,4 @@
-    package com.artmart.connectors;
+package com.artmart.connectors;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class SQLConnection {
     private static SQLConnection instance;
-    private static Connection connection;
+    private Connection connection;
     private final String host="localhost:3306";
     private final String user="root";
     private final String password="";
@@ -26,5 +26,5 @@ public class SQLConnection {
         connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, user, password);
         return connection;
     }
-    
+
 }
