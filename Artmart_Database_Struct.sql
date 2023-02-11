@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 08:19 PM
+-- Generation Time: Feb 11, 2023 at 09:31 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `artmart_pidev`
+-- Database: `artmart`
 --
 
 -- --------------------------------------------------------
@@ -395,7 +395,8 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `picture` blob DEFAULT NULL,
-  `dateOfCreation` datetime DEFAULT current_timestamp()
+  `dateOfCreation` datetime DEFAULT current_timestamp(),
+  `role` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
