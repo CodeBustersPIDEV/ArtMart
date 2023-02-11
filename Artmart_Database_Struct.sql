@@ -92,7 +92,7 @@ CREATE TABLE `Product` (
     dimensions VARCHAR(255) NOT NULL,
     weight DECIMAL(10,2) NOT NULL,
     material VARCHAR(255) NOT NULL,
-    image VARCHAR(255) NOT NULL
+    image VARCHAR(255) NOT NULL,
     FOREIGN KEY (category_ID) REFERENCES Categories(categories_ID)
 );
 
@@ -121,10 +121,12 @@ CREATE TABLE `CustomProduct` (
 
 CREATE TABLE `Chat` (
     chat_ID INT AUTO_INCREMENT PRIMARY KEY,
+    client_ID INT NOT NULL,
     custom_product_ID INT NOT NULL,
     artist_ID INT NOT NULL,
     history TEXT NOT NULL,
-    FOREIGN KEY (custom_product_ID) REFERENCES CustomProduct(custom_product_ID)
+    FOREIGN KEY (client_ID) REFERENCES Client(client_ID),
+    FOREIGN KEY (custom_product_ID) REFERENCES CustomProduct(custom_product_ID),
     FOREIGN KEY (artist_ID) REFERENCES Artist(artist_ID)
 );
 
