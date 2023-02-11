@@ -66,12 +66,12 @@ CREATE TABLE `Comments` (
 );
 
 CREATE TABLE `Categories` (
-  ID INT AUTO_INCREMENT PRIMARY KEY,
+  categories_ID INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE `Tags` (
-  ID INT AUTO_INCREMENT PRIMARY KEY,
+  tags_ID INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
 
@@ -93,6 +93,7 @@ CREATE TABLE `Product` (
     weight DECIMAL(10,2) NOT NULL,
     material VARCHAR(255) NOT NULL,
     image VARCHAR(255) NOT NULL
+    FOREIGN KEY (category_ID) REFERENCES Categories(categories_ID)
 );
 
 CREATE TABLE `ReadyProduct` (
@@ -121,8 +122,10 @@ CREATE TABLE `CustomProduct` (
 CREATE TABLE `Chat` (
     chat_ID INT AUTO_INCREMENT PRIMARY KEY,
     custom_product_ID INT NOT NULL,
+    artist_ID INT NOT NULL,
     history TEXT NOT NULL,
     FOREIGN KEY (custom_product_ID) REFERENCES CustomProduct(custom_product_ID)
+    FOREIGN KEY (artist_ID) REFERENCES Artist(artist_ID)
 );
 
 -- Order
