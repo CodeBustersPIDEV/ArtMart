@@ -8,12 +8,9 @@ public class ArtMart_JAVA_Build {
     public static void main(String[] args) {
         // TODO code application logic here
         try{
-        SQLConnection.getInstance().connect();
-            System.out.println("Connected");
+            SQLConnection.getInstance().connect();
         }catch(SQLException e){
-            System.out.println("Error");
             System.err.println(e.fillInStackTrace());
-            
         }
     }
 }
