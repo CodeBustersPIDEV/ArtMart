@@ -2,15 +2,17 @@
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SQLConnection {
     private static SQLConnection instance;
-    private static Connection connection;
-    private final String host="localhost:3306";
-    private final String user="root";
-    private final String password="";
-    private final String database="artmart";
+    private Connection connection;
+    private String host="localhost:3306";
+    private String user="root";
+    private String password="";
+    private String database="artmart";
 
     private SQLConnection() {
     }
@@ -22,9 +24,21 @@ public class SQLConnection {
         return instance;
     }
 
-    public Connection getConnection() throws SQLException {
+    public void connect() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, user, password);
-        return connection;
     }
-    
+
+    public ResultSet executeQuery(String query) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(query);
+        return statement.executeQuery();
+    }
+
+    public int executeUpdate(String query) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(query);
+        return statement.executeUpdate();
+    }
+
+    public void close() throws SQLException {
+        connection.close();
+    }
 }
