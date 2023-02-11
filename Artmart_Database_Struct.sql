@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 08:19 PM
+-- Generation Time: Feb 11, 2023 at 10:39 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `artmart_pidev`
+-- Database: `artmart_database`
 --
 
 -- --------------------------------------------------------
@@ -73,6 +73,30 @@ CREATE TABLE `blogs` (
   `content` text NOT NULL,
   `date` datetime NOT NULL,
   `author` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_categories`
+--
+
+CREATE TABLE `blog_categories` (
+  `id` int(11) NOT NULL,
+  `blog_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_tags`
+--
+
+CREATE TABLE `blog_tags` (
+  `id` int(11) NOT NULL,
+  `blog_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -193,7 +217,8 @@ CREATE TABLE `media` (
   `ID` int(11) NOT NULL,
   `file_name` varchar(255) NOT NULL,
   `file_type` varchar(255) NOT NULL,
-  `file_path` varchar(255) NOT NULL
+  `file_path` varchar(255) NOT NULL,
+  `blog_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -444,6 +469,22 @@ ALTER TABLE `blogs`
   ADD KEY `author` (`author`);
 
 --
+-- Indexes for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `blog_id` (`blog_id`),
+  ADD KEY `category_id` (`category_id`);
+
+--
+-- Indexes for table `blog_tags`
+--
+ALTER TABLE `blog_tags`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `blog_id` (`blog_id`),
+  ADD KEY `tag_id` (`tag_id`);
+
+--
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -505,7 +546,8 @@ ALTER TABLE `feedback`
 -- Indexes for table `media`
 --
 ALTER TABLE `media`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `blog_id` (`blog_id`);
 
 --
 -- Indexes for table `order`
@@ -638,6 +680,18 @@ ALTER TABLE `artist`
 --
 ALTER TABLE `blogs`
   MODIFY `blogs_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `blog_tags`
+--
+ALTER TABLE `blog_tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -812,6 +866,20 @@ ALTER TABLE `blogs`
   ADD CONSTRAINT `blogs_ibfk_1` FOREIGN KEY (`author`) REFERENCES `user` (`user_ID`);
 
 --
+-- Constraints for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  ADD CONSTRAINT `blog_categories_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blogs` (`blogs_ID`),
+  ADD CONSTRAINT `blog_categories_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`categories_ID`);
+
+--
+-- Constraints for table `blog_tags`
+--
+ALTER TABLE `blog_tags`
+  ADD CONSTRAINT `blog_tags_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blogs` (`blogs_ID`),
+  ADD CONSTRAINT `blog_tags_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`tags_ID`);
+
+--
 -- Constraints for table `chat`
 --
 ALTER TABLE `chat`
@@ -855,6 +923,12 @@ ALTER TABLE `eventreport`
 --
 ALTER TABLE `feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`eventReport_ID`) REFERENCES `eventreport` (`report_ID`);
+
+--
+-- Constraints for table `media`
+--
+ALTER TABLE `media`
+  ADD CONSTRAINT `media_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blogs` (`blogs_ID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `order`
