@@ -1,3 +1,5 @@
+package com.artmart.connectors;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -5,17 +7,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SQLConnection {
+    private static SQLConnection instance;
     private Connection connection;
-    private String host;
-    private String user;
-    private String password;
-    private String database;
+    private String host="localhost:3306";
+    private String user="root";
+    private String password="";
+    private String database="artmart";
 
-    public SQLConnection(String host, String user, String password, String database) {
-        this.host = host;
-        this.user = user;
-        this.password = password;
-        this.database = database;
+    private SQLConnection() {
+    }
+
+    public static SQLConnection getInstance() {
+        if (instance == null) {
+            instance = new SQLConnection();
+        }
+        return instance;
     }
 
     public void connect() throws SQLException {
