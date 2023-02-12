@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class SQLConnection {
     private static SQLConnection instance;
-    private Connection connection;
+    public Connection connection;
     private final String host="localhost:3306";
     private final String user="root";
     private final String password="";

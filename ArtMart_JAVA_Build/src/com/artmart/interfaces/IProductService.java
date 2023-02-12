@@ -1,8 +1,14 @@
 package com.artmart.interfaces;
 
+import com.artmart.models.Product;
+
+import java.util.List;
+
 public interface IProductService {
-    public Product createProduct(Product product);
-    public Product readProduct(int productID);
-    public Product updateProduct(Product product);
-    public void deleteProduct(int productID);
+
+    List<Product> getAllProducts();
+    Product getProductById(int id);
+    int createProduct(Product product);
+    int updateProduct(Product product);
+    int deleteProduct(int id);
 }

@@ -1,25 +1,31 @@
 package com.artmart.services;
 
 import com.artmart.interfaces.IProductService;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import com.artmart.connectors.SQLConnection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Connection;
 import com.artmart.models.Product;
+import com.artmart.dao.ProductDao;
+import com.artmart.interfaces.IProductDao;
+import java.sql.SQLException;
 
-public class ProductService implements IProductService {
-    private final SQLConnection connection;
 
-    public ProductService() {
-        this.connection = SQLConnection.getInstance();
+
+public class ProductService implements IProductDao {
+
+    private ProductDao productDao = new ProductDao();
+
+    public Product getProductById(int id) throws SQLException {
+        return productDao.getProductById(id);
     }
 
-    @Override
-    public Product createProduct(Product product) {
-        try {
-            connection.connect();
-            String query = "INSERT INTO product (name, description, price) VALUES (?, ?, ?)";
-            Prep
+    public int createProduct(Product product) throws SQLException {
+        return productDao.createProduct(product);
+    }
+
+    public int updateProduct(Product product) throws SQLException {
+        return productDao.updateProduct(product);
+    }
+
+    public void deleteProduct(int id) throws SQLException {
+       
+    }
+
+}
