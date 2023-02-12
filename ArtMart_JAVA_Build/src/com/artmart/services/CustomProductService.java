@@ -7,6 +7,7 @@ import com.artmart.models.CustomProduct;
 
 
 public class CustomProductService implements ICustomProductDao {
+    
     private CustomProductDao customProductDao = new CustomProductDao();
 
     @Override
@@ -20,8 +21,8 @@ public class CustomProductService implements ICustomProductDao {
     }
 
     @Override
-    public int updateCustomProduct(CustomProduct customProduct) throws SQLException {
-        return customProductDao.updateCustomProduct(customProduct);
+    public int updateCustomProduct(int id,CustomProduct customProduct) throws SQLException {
+        return customProductDao.updateCustomProduct(id,customProduct);
     }
 
     @Override

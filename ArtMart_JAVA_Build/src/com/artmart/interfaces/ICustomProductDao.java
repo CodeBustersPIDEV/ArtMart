@@ -13,7 +13,7 @@ public interface ICustomProductDao {
 
     int createCustomProduct(CustomProduct customProduct) throws SQLException;
 
-    int updateCustomProduct(CustomProduct customProduct) throws SQLException;
+    int updateCustomProduct(int id,CustomProduct customProduct) throws SQLException;
 
     int deleteCustomProduct(int id) throws SQLException;
 }
