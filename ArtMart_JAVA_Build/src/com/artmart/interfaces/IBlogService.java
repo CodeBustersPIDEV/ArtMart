@@ -1,5 +1,11 @@
 package com.artmart.interfaces;
+import com.artmart.models.Blog;
+import java.util.List;
 
 public interface IBlogService {
-    //test from marwen
+    public int addBlog(Blog b); 
+    public Blog getOneBlog(int blog_id); 
+    public List<Blog> getAllBlogs(); 
+    public boolean  updateBlog(int blog_id, Blog editedBlog); 
+    public boolean  deleteBlog(int blog_id); 
 }
