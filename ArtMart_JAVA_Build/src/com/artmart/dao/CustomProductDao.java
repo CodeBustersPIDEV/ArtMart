@@ -12,11 +12,10 @@ import com.artmart.models.CustomProduct;
 
 
 
-public class CustomProductDao implements ICustomProductService {
+public class CustomProductDao   {
 
-    private SQLConnection sqlConnection = SQLConnection.getInstance();
+    private final SQLConnection sqlConnection = SQLConnection.getInstance();
 
-    @Override
     public CustomProduct getCustomProductById(int id) throws SQLException {
         String query = "SELECT * FROM custom_product WHERE custom_product_ID = ?";
         PreparedStatement statement = sqlConnection.connection.prepareStatement(query);

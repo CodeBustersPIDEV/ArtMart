@@ -1,5 +1,5 @@
 package com.artmart.models;
-
+import com.artmart.models.CustomProduct;
 public class Product {
     private int productId;
     private int categoryId;

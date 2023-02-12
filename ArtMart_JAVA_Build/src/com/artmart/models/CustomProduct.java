@@ -1,5 +1,5 @@
 package com.artmart.models;
-
+import com.artmart.models.Product;
 
 
 public class CustomProduct extends Product {
@@ -8,6 +8,9 @@ public class CustomProduct extends Product {
     public CustomProduct(int customProductId, int productId, int categoryId, String name, String description, String dimensions, float weight, String material, String image) {
         super(productId, categoryId, name, description, dimensions, weight, material, image);
         this.customProductId = customProductId;
+    }
+
+    public CustomProduct() {
     }
 
    
