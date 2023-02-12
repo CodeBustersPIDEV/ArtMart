@@ -12,7 +12,7 @@ public interface IOrderService {
     boolean deleteOrder(int id);
     
     //OrderStatusDao 
-    OrderStatus createOrderStatus(OrderStatus orderStatus);
+    int createOrderStatus(OrderStatus orderStatus);
     OrderStatus getOrderStatus(int id);
     List<OrderStatus> getOrderStatuses();
     boolean updateOrderStatus(OrderStatus orderStatus);

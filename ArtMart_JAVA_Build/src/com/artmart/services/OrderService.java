@@ -74,7 +74,7 @@ public class OrderService implements IOrderService{
     }
 
     @Override
-    public OrderStatus createOrderStatus(OrderStatus orderStatus) {
+    public int createOrderStatus(OrderStatus orderStatus) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
