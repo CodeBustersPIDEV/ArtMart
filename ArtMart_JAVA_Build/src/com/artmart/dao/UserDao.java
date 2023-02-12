@@ -79,12 +79,12 @@ try {
         return null;    }
 
     @Override
-    public boolean deleteAccountU(int userId) {
+    public boolean deleteAccountU(int user_id) {
          try {
         PreparedStatement statement = connection.prepareStatement(
                 "DELETE FROM user WHERE user_ID = ?"
         );
-        statement.setInt(1, userId);
+        statement.setInt(1, user_id);
 
         int rowsAffected = statement.executeUpdate();
         return rowsAffected == 1;

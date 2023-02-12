@@ -7,12 +7,18 @@ package com.artmart.dao;
 
 import com.artmart.interfaces.IArtistDao;
 import com.artmart.models.Artist;
+import java.sql.Connection;
 
 /**
  *
  * @author 21697
  */
 public class ArtistDao implements IArtistDao{
+private Connection connection;
+
+    public ArtistDao(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public Artist createAccountAr(Artist artist) {

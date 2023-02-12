@@ -8,6 +8,7 @@ package com.artmart.dao;
 import com.artmart.interfaces.IAdminDao;
 import com.artmart.models.Admin;
 import com.artmart.models.User;
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -15,6 +16,11 @@ import java.util.List;
  * @author 21697
  */
 public class AdminDao implements IAdminDao{
+private Connection connection;
+
+    public AdminDao(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public Admin createAccountA(Admin admin) {

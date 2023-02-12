@@ -7,12 +7,18 @@ package com.artmart.dao;
 
 import com.artmart.interfaces.IClientDao;
 import com.artmart.models.Client;
+import java.sql.Connection;
 
 /**
  *
  * @author 21697
  */
 public class ClientDao implements IClientDao{
+private Connection connection;
+
+    public ClientDao(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public Client createAccountC(Client client) {
