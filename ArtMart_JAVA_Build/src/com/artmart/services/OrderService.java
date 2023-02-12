@@ -49,7 +49,7 @@ public class OrderService implements IOrderService{
     }
 
     @Override
-    public Order createOrder(Order order) {
+    public int createOrder(Order order) {
         return this.orderDao.createOrder(order);
     }
 
@@ -75,202 +75,202 @@ public class OrderService implements IOrderService{
 
     @Override
     public int createOrderStatus(OrderStatus orderStatus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderStatusDao.createOrderStatus(orderStatus);
     }
 
     @Override
     public OrderStatus getOrderStatus(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderStatusDao.getOrderStatus(id);
     }
 
     @Override
     public List<OrderStatus> getOrderStatuses() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderStatusDao.getOrderStatuses();
     }
 
     @Override
     public boolean updateOrderStatus(OrderStatus orderStatus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderStatusDao.updateOrderStatus(orderStatus);
     }
 
     @Override
     public boolean deleteOrderStatus(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderStatusDao.deleteOrderStatus(id);
     }
 
     @Override
-    public OrderUpdate createOrderUpdate(OrderUpdate orderUpdate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int createOrderUpdate(OrderUpdate orderUpdate) {
+       return this.orderUpdateDao.createOrderUpdate(orderUpdate);
     }
 
     @Override
     public OrderUpdate getOrderUpdate(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderUpdateDao.getOrderUpdate(id);
     }
 
     @Override
     public List<OrderUpdate> getOrderUpdates() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderUpdateDao.getOrderUpdates();
     }
 
     @Override
     public boolean updateOrderUpdate(OrderUpdate orderUpdate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderUpdateDao.updateOrderUpdate(orderUpdate);
     }
 
     @Override
     public boolean deleteOrderUpdate(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return this.orderUpdateDao.deleteOrderUpdate(id);
     }
 
     @Override
-    public Receipt createReceipt(Receipt receipt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int createReceipt(Receipt receipt) {
+        return this.receiptDao.createReceipt(receipt);
     }
 
     @Override
     public Receipt getReceipt(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.receiptDao.getReceipt(id);
     }
 
     @Override
     public List<Receipt> getReceipts() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.receiptDao.getReceipts();
     }
 
     @Override
     public boolean updateReceipt(Receipt receipt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.receiptDao.updateReceipt(receipt);
     }
 
     @Override
     public boolean deleteReceipt(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.receiptDao.deleteReceipt(id);
     }
 
     @Override
-    public Wishlist createWishlist(Wishlist wishlist) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int createWishlist(Wishlist wishlist) {
+        return this.wishlistDao.createWishlist(wishlist);
     }
 
     @Override
     public Wishlist getWishlist(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.wishlistDao.getWishlist(id);
     }
 
     @Override
     public List<Wishlist> getWishlists() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.wishlistDao.getWishlists();
     }
 
     @Override
     public boolean updateWishlist(Wishlist wishlist) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.wishlistDao.updateWishlist(wishlist);
     }
 
     @Override
     public boolean deleteWishlist(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.wishlistDao.deleteWishlist(id);
     }
 
     @Override
-    public OrderRefund createOrderRefund(OrderRefund orderRefund) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int createOrderRefund(OrderRefund orderRefund) {
+        return this.orderRefundDao.createOrderRefund(orderRefund);
     }
 
     @Override
     public OrderRefund getOrderRefund(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderRefundDao.getOrderRefund(id);
     }
 
     @Override
     public List<OrderRefund> getOrderRefunds() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderRefundDao.getOrderRefunds();
     }
 
     @Override
     public boolean updateOrderRefund(OrderRefund orderRefund) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderRefundDao.updateOrderRefund(orderRefund);
     }
 
     @Override
     public boolean deleteOrderRefund(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.orderRefundDao.deleteOrderRefund(id);
     }
 
     @Override
-    public ShippingOption createShippingOption(ShippingOption shippingOption) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int createShippingOption(ShippingOption shippingOption) {
+        return this.shippingOptionDao.createShippingOption(shippingOption);
     }
 
     @Override
     public ShippingOption getShippingOption(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.shippingOptionDao.getShippingOption(id);
     }
 
     @Override
     public List<ShippingOption> getShippingOptions() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.shippingOptionDao.getShippingOptions();
     }
 
     @Override
     public boolean updateShippingOption(ShippingOption shippingOption) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.shippingOptionDao.updateShippingOption(shippingOption);
     }
 
     @Override
     public boolean deleteShippingOption(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.shippingOptionDao.deleteShippingOption(id);
     }
 
     @Override
-    public PaymentOption createPaymentOption(PaymentOption paymentOption) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int createPaymentOption(PaymentOption paymentOption) {
+        return this.paymentOptionDao.createPaymentOption(paymentOption);
     }
 
     @Override
     public PaymentOption getPaymentOption(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.paymentOptionDao.getPaymentOption(id);
     }
 
     @Override
     public List<PaymentOption> getPaymentOptions() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.paymentOptionDao.getPaymentOptions();
     }
 
     @Override
     public boolean updatePaymentOption(PaymentOption paymentOption) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.paymentOptionDao.updatePaymentOption(paymentOption);
     }
 
     @Override
     public boolean deletePaymentOption(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.paymentOptionDao.deletePaymentOption(id);
     }
 
     @Override
-    public SalesReport createSalesReport(SalesReport salesReport) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int createSalesReport(SalesReport salesReport) {
+        return this.salesReportDao.createSalesReport(salesReport);
     }
 
     @Override
     public SalesReport getSalesReport(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.salesReportDao.getSalesReport(id);
     }
 
     @Override
     public List<SalesReport> getSalesReports() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.salesReportDao.getSalesReports();
     }
 
     @Override
     public boolean updateSalesReport(SalesReport salesReport) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.salesReportDao.updateSalesReport(salesReport);
     }
 
     @Override
     public boolean deleteSalesReport(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.salesReportDao.deleteSalesReport(id);
     }
 
 }

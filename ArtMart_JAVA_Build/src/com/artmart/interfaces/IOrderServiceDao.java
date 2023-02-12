@@ -6,7 +6,7 @@ import java.util.List;
 public interface IOrderServiceDao {
         
     //OrderDao
-    Order createOrder(Order order);
+    int createOrder(Order order);
     Order readOrder(int id);
     List<Order> getAllOrders();
     boolean updateOrder(Order order);

@@ -1,7 +1,6 @@
 package com.artmart.interfaces;
 
 import com.artmart.models.OrderRefund;
-import com.artmart.models.Wishlist;
 import java.util.List;
 
 public interface IOrderRefundDao {

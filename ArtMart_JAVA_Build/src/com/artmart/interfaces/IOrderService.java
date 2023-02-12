@@ -5,7 +5,7 @@ import java.util.List;
 public interface IOrderService {
     
     //OrderDao
-    Order createOrder(Order order);
+    int createOrder(Order order);
     Order getOrder(int id);
     List<Order> getOrders();
     boolean updateOrder(Order order);
@@ -19,49 +19,49 @@ public interface IOrderService {
     boolean deleteOrderStatus(int id);
     
     //OrderUpdateDao 
-    OrderUpdate createOrderUpdate(OrderUpdate orderUpdate);
+    int createOrderUpdate(OrderUpdate orderUpdate);
     OrderUpdate getOrderUpdate(int id);
     List<OrderUpdate> getOrderUpdates();
     boolean updateOrderUpdate(OrderUpdate orderUpdate);
     boolean deleteOrderUpdate(int id);
     
     //ReceiptDao 
-    Receipt createReceipt(Receipt receipt);
+    int createReceipt(Receipt receipt);
     Receipt getReceipt(int id);
     List<Receipt> getReceipts();
     boolean updateReceipt(Receipt receipt);
     boolean deleteReceipt(int id);
     
     //WishlistDao 
-    Wishlist createWishlist(Wishlist wishlist);
+    int createWishlist(Wishlist wishlist);
     Wishlist getWishlist(int id);
     List<Wishlist> getWishlists();
     boolean updateWishlist(Wishlist wishlist);
     boolean deleteWishlist(int id);
     
     //OrderRefundDao 
-    OrderRefund createOrderRefund(OrderRefund orderRefund);
+    int createOrderRefund(OrderRefund orderRefund);
     OrderRefund getOrderRefund(int id);
     List<OrderRefund> getOrderRefunds();
     boolean updateOrderRefund(OrderRefund orderRefund);
     boolean deleteOrderRefund(int id);
     
     //ShippingOptionDao 
-    ShippingOption createShippingOption(ShippingOption shippingOption);
+    int createShippingOption(ShippingOption shippingOption);
     ShippingOption getShippingOption(int id);
     List<ShippingOption> getShippingOptions();
     boolean updateShippingOption(ShippingOption shippingOption);
     boolean deleteShippingOption(int id);
     
     //PaymentOptionDao 
-    PaymentOption createPaymentOption(PaymentOption paymentOption);
+    int createPaymentOption(PaymentOption paymentOption);
     PaymentOption getPaymentOption(int id);
     List<PaymentOption> getPaymentOptions();
     boolean updatePaymentOption(PaymentOption paymentOption);
     boolean deletePaymentOption(int id);
     
     //SalesReportDao
-    SalesReport createSalesReport(SalesReport salesReport);
+    int createSalesReport(SalesReport salesReport);
     SalesReport getSalesReport(int id);
     List<SalesReport> getSalesReports();
     boolean updateSalesReport(SalesReport salesReport);

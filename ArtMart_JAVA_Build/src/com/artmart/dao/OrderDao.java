@@ -19,7 +19,8 @@ public class OrderDao implements IOrderServiceDao{
     }
 
     @Override
-    public Order createOrder(Order order) {
+    public int createOrder(Order order) {
+        int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO Order (UserID, ProductID, Quantity, ShippingAddress, PaymentMethod, OrderDate, TotalCost) " +
@@ -32,19 +33,11 @@ public class OrderDao implements IOrderServiceDao{
             statement.setString(5, order.getPaymentMethod());
             statement.setDate(6, new java.sql.Date(order.getOrderDate().getTime()));
             statement.setDouble(7, order.getTotalCost());
-
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                ResultSet generatedKeys = statement.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    int id = generatedKeys.getInt(1);
-                    order.setId(id);
-                }
-            }
+             result = statement.executeUpdate();
         } catch (SQLException e) {
            System.err.println(e.getCause().getMessage());
         }
-        return order;
+        return result;
     }
 
     @Override
