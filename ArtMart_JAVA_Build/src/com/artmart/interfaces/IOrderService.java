@@ -5,9 +5,9 @@ import java.util.List;
 public interface IOrderService {
     
     //OrderDao
-    int createOrder(Order order);
-    Order getOrder(int id);
-    List<Order> getOrders();
+    Order createOrder(Order order);
+    Order readOrder(int id);
+    List<Order> getAllOrders();
     boolean updateOrder(Order order);
     boolean deleteOrder(int id);
     

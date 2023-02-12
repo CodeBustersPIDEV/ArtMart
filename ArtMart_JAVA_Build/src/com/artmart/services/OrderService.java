@@ -10,35 +10,129 @@ import com.artmart.models.Receipt;
 import com.artmart.models.SalesReport;
 import com.artmart.models.ShippingOption;
 import com.artmart.models.Wishlist;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService implements IOrderService{
     
-    SQLConnection connection = SQLConnection.getInstance();
+    private Connection connection;
 
-    @Override
-    public int createOrder(Order order) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public OrderService(Connection connection) {
+        this.connection = SQLConnection.getInstance().getConnection();
     }
 
     @Override
-    public Order getOrder(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Order createOrder(Order order) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO Order (UserID, ProductID, Quantity, ShippingAddress, PaymentMethod, OrderDate, TotalCost) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)"
+            );
+            statement.setInt(1, order.getUserId());
+            statement.setInt(2, order.getProductId());
+            statement.setInt(3, order.getQuantity());
+            statement.setString(4, order.getShippingAddress());
+            statement.setString(5, order.getPaymentMethod());
+            statement.setDate(6, new java.sql.Date(order.getOrderDate().getTime()));
+            statement.setDouble(7, order.getTotalCost());
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                    order.setId(id);
+                }
+            }
+        } catch (SQLException e) {
+           System.err.println(e.getCause().getMessage());
+        }
+        return order;
     }
 
     @Override
-    public List<Order> getOrders() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Order readOrder(int id) {
+        Order order = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM Order WHERE ID = ?"
+            );
+            statement.setInt(1, id);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                order = new Order();
+                order.setId(result.getInt("ID"));
+                order.setUserId(result.getInt("UserID"));
+                order.setProductId(result.getInt("ProductID"));
+                order.setQuantity(result.getInt("Quantity"));
+                order.setShippingAddress(result.getString("ShippingAddress"));
+                order.setPaymentMethod(result.getString("PaymentMethod"));
+                order.setOrderDate(result.getDate("OrderDate"));
+                order.setTotalCost(result.getDouble("TotalCost"));
+            }
+        } catch (SQLException e) {
+           System.err.println(e.getCause().getMessage());
+        }
+        return order;
     }
+
+    @Override
+    public List<Order> getAllOrders() {
+        List<Order> orders = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `Order`");
+            while (resultSet.next()) {
+                Order order = new Order();
+                order.setId(resultSet.getInt("ID"));
+                order.setUserId(resultSet.getInt("UserID"));
+                order.setProductId(resultSet.getInt("ProductID"));
+                order.setQuantity(resultSet.getInt("Quantity"));
+                order.setShippingAddress(resultSet.getString("ShippingAddress"));
+                order.setPaymentMethod(resultSet.getString("PaymentMethod"));
+                order.setOrderDate(resultSet.getDate("OrderDate"));
+                order.setTotalCost(resultSet.getDouble("TotalCost"));
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+           System.err.println(e.getCause().getMessage());
+        }
+        return orders;
+    }
+
 
     @Override
     public boolean updateOrder(Order order) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                "UPDATE `Order` SET UserID = ?, ProductID = ?, Quantity = ?, ShippingAddress = ?, PaymentMethod = ?, OrderDate = ?, TotalCost = ? WHERE ID = ?");
+            statement.setInt(1, order.getUserId());
+            statement.setInt(2, order.getProductId());
+            statement.setInt(3, order.getQuantity());
+            statement.setString(4, order.getShippingAddress());
+            statement.setString(5, order.getPaymentMethod());
+            statement.setDate(6, order.getOrderDate());
+            statement.setDouble(7, order.getTotalCost());
+            statement.setInt(8, order.getId());
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+           System.err.println(e.getCause().getMessage());
+        }
+        return false;
     }
 
     @Override
     public boolean deleteOrder(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM `Order` WHERE ID = ?");
+            statement.setInt(1, id);
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+           System.err.println(e.getCause().getMessage());
+        }
+        return false;
     }
 
     @Override
