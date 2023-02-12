@@ -1,7 +1,10 @@
 package com.artmart.services;
 import com.artmart.connectors.SQLConnection;
+import com.artmart.dao.BlogDao;
+import com.artmart.dao.CommentDao;
 import com.artmart.interfaces.IBlogService;
 import com.artmart.models.Blog;
+import com.artmart.models.Comment;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -13,106 +16,70 @@ import java.util.List;
 
 public class BlogService implements IBlogService{
     
+    private Connection connection;
+    private BlogDao blogDao;
+    private CommentDao commentDao;
+
+    public BlogService() {
+        try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        this.blogDao = new BlogDao(this.connection);
+        this.commentDao = new CommentDao(this.connection);
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
+    }
+    
+    
+    
     @Override
     public int addBlog(Blog b){
-    try {
-      Connection con = SQLConnection.getInstance().getConnection();
-      String sql = "INSERT INTO blogs (title, content, date, author) VALUES (?, ?, ?, ?)";
-      PreparedStatement st = con.prepareStatement(sql);
-      st.setString(1, b.getTitle());
-      st.setString(2, b.getContent());
-      st.setDate(3, (Date) b.getPublishDate());
-      st.setInt(4, b.getAuthor());
-      st.executeUpdate();
-      return 1;
-    } catch (SQLException e) {
-        System.err.println("Error occured");
-        return 0;
-    }
+        return this.blogDao.addBlog(b);
+
     
 }
 
     @Override
     public Blog getOneBlog(int blog_id) {
-    Blog blogFound = null;
-    try {
-      Connection con = SQLConnection.getInstance().getConnection();
-      String sql = "SELECT * FROM blogs WHERE blogs_ID = ?";
-      PreparedStatement st = con.prepareStatement(sql);
-      st.setInt(1, blog_id);
-      ResultSet rs = st.executeQuery();
-      if (rs.next()) {
-          System.out.println(rs.next());
-        blogFound = new Blog(
-          rs.getInt("blogs_ID"),
-          rs.getString("title"),
-          rs.getString("content"),
-          rs.getDate("date"),
-          rs.getInt("author")
-        );
-      }
-      return blogFound;
-    } catch (SQLException e) {
-      System.err.println("Error occured");
-      e.printStackTrace();
-    }
-    return blogFound;
+        return this.blogDao.getOneBlog(blog_id);
+
     }
 
     @Override
     public List<Blog> getAllBlogs() {
-    List<Blog> blogs = new ArrayList<>();
-    try {
-     Connection con = SQLConnection.getInstance().getConnection();
-      String sql = "SELECT * FROM blogs";
-      PreparedStatement st = con.prepareStatement(sql);
-      ResultSet rs = st.executeQuery(sql);
-      while (rs.next()) {
-        blogs.add(new Blog(
-          rs.getInt("blogs_ID"),
-          rs.getString("title"),
-          rs.getString("content"),
-          rs.getDate("date"),
-          rs.getInt("author")
-        ));
-      }
-    } catch (SQLException e) {
-     System.err.println("Error occured");
-           e.printStackTrace();
-
-    }
-    return blogs;
+    return this.blogDao.getAllBlogs();
     }
 
     @Override
     public boolean updateBlog(int blog_id,Blog editedBlog) {
-     try {
-     Connection con = SQLConnection.getInstance().getConnection();
-      String sql = "UPDATE blogs SET title = ?, content = ? WHERE blogs_ID = ?";
-      PreparedStatement st = con.prepareStatement(sql);
-      st.setString(1, editedBlog.getTitle());
-      st.setString(2, editedBlog.getContent());
-      st.setInt(3, blog_id);
-      st.executeUpdate();
-      return true;
-    } catch (SQLException e) {
-     System.err.println("Error occured");
-     return false;
-    }
+         return this.blogDao.updateBlog(blog_id,editedBlog);
+
     }
 
     @Override
     public boolean deleteBlog(int blog_id) {
-     try {
-      Connection con = SQLConnection.getInstance().getConnection();
-      String sql = "DELETE FROM blogs WHERE blogs_ID = ?";
-      PreparedStatement st = con.prepareStatement(sql);
-      st.setInt(1, blog_id);
-      st.executeUpdate();
-      return true;
-    } catch (SQLException e) {
-     System.err.println("Error occured");
-     return false;
+        return this.blogDao.deleteBlog(blog_id);
     }
+
+    @Override
+    public int addComment(Comment c) {
+        return this.commentDao.addComment(c);
     }
+
+    @Override
+    public Comment getOneComment(int comment_id) {
+return this.commentDao.getOneComment(comment_id);    }
+
+    @Override
+    public List<Comment> getAllComments() {
+return this.commentDao.getAllComments();     }
+
+    @Override
+    public boolean updateComment(int comment_id, Comment editedComment) {
+return this.commentDao.updateComment(comment_id,editedComment);     }
+
+    @Override
+    public boolean deleteComment(int comment_id) {
+return this.commentDao.deleteComment(comment_id);     }
+
 }
