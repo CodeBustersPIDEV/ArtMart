@@ -36,7 +36,7 @@ private Connection connection;
     }
 
     @Override
-    public Client updateAccountC(int client_id, Client client) {
+    public boolean updateAccountC(int client_id, Client client) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

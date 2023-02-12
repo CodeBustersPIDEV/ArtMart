@@ -48,7 +48,7 @@ return this.userDao.deleteAccountU(user_id);
     }
 
     @Override
-    public User updateAccountU(int user_id, User user) {
+    public boolean updateAccountU(int user_id, User user) {
 return this.userDao.updateAccountU(user_id, user);
     }
 
@@ -68,7 +68,7 @@ return this.userDao.updateAccountU(user_id, user);
     }
 
     @Override
-    public Client updateAccountC(int client_id, Client client) {
+    public boolean updateAccountC(int client_id, Client client) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -88,7 +88,7 @@ return this.userDao.updateAccountU(user_id, user);
     }
 
     @Override
-    public Artist updateAccountAr(int atist_id, Artist artist) {
+    public boolean updateAccountAr(int atist_id, Artist artist) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -113,7 +113,7 @@ return this.userDao.updateAccountU(user_id, user);
     }
 
     @Override
-    public Admin updateAccountA(int admin_id, Admin admin) {
+    public boolean updateAccountA(int admin_id, Admin admin) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

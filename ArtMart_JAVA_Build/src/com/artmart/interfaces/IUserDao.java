@@ -15,5 +15,5 @@ public interface IUserDao {
     int createAccountU(User user);
     User getUser(int user_id);
     boolean deleteAccountU(int userId);
-    User updateAccountU(int user_id, User user);
+    boolean updateAccountU(int user_id, User user);
 }

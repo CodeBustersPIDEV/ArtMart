@@ -43,7 +43,7 @@ private Connection connection;
     }
 
     @Override
-    public Admin updateAccountA(int admin_id, Admin admin) {
+    public boolean updateAccountA(int admin_id, Admin admin) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

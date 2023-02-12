@@ -18,8 +18,9 @@ import java.sql.Timestamp;
  *
  * @author 21697
  */
-public class UserDao implements IUserDao{
- private Connection connection;
+public class UserDao implements IUserDao {
+
+    private Connection connection;
 
     public UserDao(Connection connection) {
         this.connection = connection;
@@ -27,36 +28,37 @@ public class UserDao implements IUserDao{
 
     @Override
     public int createAccountU(User user) {
-try {
+        try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO user ( name, email, birthday, phoneNumber, username, password, dateOfCreation, role) " +
-                            "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)"
+                    "INSERT INTO user ( name, email, birthday, phoneNumber, username, password, dateOfCreation, role) "
+                    + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)"
             );
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
-            statement.setDate(3,user.getBirthday());
+            statement.setDate(3, (Date)user.getBirthday());
             statement.setInt(4, user.getPhone_nbr());
             statement.setString(5, user.getUsername());
             statement.setString(6, user.getPwd());
-            statement.setTimestamp(7,timestamp);
+            statement.setTimestamp(7, timestamp);
             statement.setString(8, user.getRole());
-                  statement.executeUpdate();
+            statement.executeUpdate();
 
             return 1;
-    } catch (SQLException e) {
-        System.err.println("Error occured");
-        return 0;
-    }    }
+        } catch (SQLException e) {
+            System.err.println("Error occured");
+            return 0;
+        }
+    }
 
     @Override
     public User getUser(int user_id) {
- try {
+        try {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM user WHERE user_ID = ?"
             );
-            statement.setInt(1, user_id);
-            ResultSet resultSet = statement.executeQuery();
+            statement.setInt(1,user_id);
+            ResultSet resultSet= statement.executeQuery();
             if (resultSet.next()) {
                 User user = new User();
                 user.setUser_id(resultSet.getInt("user_ID"));
@@ -72,44 +74,46 @@ try {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;    }
+        return null;
+    }
 
     @Override
     public boolean deleteAccountU(int user_id) {
-         try {
-        PreparedStatement statement = connection.prepareStatement(
-                "DELETE FROM user WHERE user_ID = ?"
-        );
-        statement.setInt(1, user_id);
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "DELETE FROM user WHERE user_ID = ?"
+            );
+            statement.setInt(1, user_id);
 
-        int rowsAffected = statement.executeUpdate();
-        return rowsAffected == 1;
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return false;
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public User updateAccountU(int user_id, User user) {
- try {
+    public boolean updateAccountU(int user_id, User user) {
+        try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE user SET name = ?, email = ?, birthday = ?, phoneNumber = ?, username = ?, password = ? " +"WHERE user_ID = ?"
-);
-statement.setString(1, user.getName());
-statement.setString(2, user.getEmail());
-statement.setDate(3, (Date) user.getBirthday());
-statement.setInt(4, user.getPhone_nbr());
-statement.setString(5, user.getUsername());
-statement.setString(6, user.getPwd());
-statement.setInt(7, user_id);
-int rowsAffected = statement.executeUpdate();
-        if (rowsAffected == 1) {
-            return user;
+                    "UPDATE user SET name = ?, email = ?, birthday = ?, phoneNumber = ?, username = ?, password = ? WHERE user_ID = ?"
+            );
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setDate(3,(Date) user.getBirthday());
+            statement.setInt(4, user.getPhone_nbr());
+            statement.setString(5, user.getUsername());
+            statement.setString(6, user.getPwd());
+            statement.setInt(7, user_id);
+            statement.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return false;
     }
-    return null;    }
-    
+
 }
