@@ -26,31 +26,28 @@ public class UserDao implements IUserDao{
     }
 
     @Override
-    public User createAccountU(User user) {
+    public int createAccountU(User user) {
 try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO user (user_ID, name, email, birthday, phoneNumber, username, password, dateOfCreation, role) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    "INSERT INTO user ( name, email, birthday, phoneNumber, username, password, dateOfCreation, role) " +
+                            "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)"
             );
-            statement.setInt(1, user.getUser_id());
-            statement.setString(2, user.getName());
-            statement.setString(3, user.getEmail());
-            statement.setDate(4, (Date) user.getBirthday());
-            statement.setInt(5, user.getPhone_nbr());
-            statement.setString(6, user.getUsername());
-            statement.setString(7, user.getPwd());
-            statement.setTimestamp(8, (Timestamp) user.getDate_creation());
-            statement.setString(9, user.getRole());
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setDate(3,user.getBirthday());
+            statement.setInt(4, user.getPhone_nbr());
+            statement.setString(5, user.getUsername());
+            statement.setString(6, user.getPwd());
+            statement.setTimestamp(7,timestamp);
+            statement.setString(8, user.getRole());
+                  statement.executeUpdate();
 
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected == 1) {
-                return user;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+            return 1;
+    } catch (SQLException e) {
+        System.err.println("Error occured");
+        return 0;
+    }    }
 
     @Override
     public User getUser(int user_id) {
@@ -69,7 +66,6 @@ try {
                 user.setPhone_nbr(resultSet.getInt("phoneNumber"));
                 user.setUsername(resultSet.getString("username"));
                 user.setPwd(resultSet.getString("password"));
-                user.setDate_creation(resultSet.getTimestamp("dateOfCreation"));
                 user.setRole(resultSet.getString("role"));
                 return user;
             }

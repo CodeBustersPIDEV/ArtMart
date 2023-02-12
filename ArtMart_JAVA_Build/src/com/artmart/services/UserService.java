@@ -33,7 +33,7 @@ private ClientDao clientDao;
     }
 
     @Override
-    public User createAccountU(User user) {
+    public int createAccountU(User user) {
     return this.userDao.createAccountU(user);
     }
 

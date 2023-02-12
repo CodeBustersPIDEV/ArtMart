@@ -6,7 +6,7 @@ import com.artmart.models.Artist;
 import java.util.List;
 public interface IUserService {
     //user DAO
-    User createAccountU(User user);
+    int createAccountU(User user);
     User getUser(int user_id);
     boolean deleteAccountU(int userId);
     User updateAccountU(int user_id, User user);
