@@ -13,31 +13,42 @@ import java.util.Date;
  */
 public class User {
     private int user_id,phone_nbr;
-    private String name,email,usename,pwd;
+    private String name,email,username,pwd,role;
     private Date birthday,date_creation;
     
     public User() {
     }
     
-     public User(int user_id, int phone_nbr, String name, String email, String usename, String pwd, Date birthday, Date date_creation) {
+     public User(int user_id, int phone_nbr, String name, String email, String username, String pwd, Date birthday, Date date_creation,String role) {
         this.user_id = user_id;
         this.phone_nbr = phone_nbr;
         this.name = name;
         this.email = email;
-        this.usename = usename;
+        this.username = username;
         this.pwd = pwd;
         this.birthday = birthday;
         this.date_creation = date_creation;
+                this.role = role;
+
     }
 
-    public User(int phone_nbr, String name, String email, String usename, String pwd, Date birthday, Date date_creation) {
+    public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday, Date date_creation,String role) {
         this.phone_nbr = phone_nbr;
         this.name = name;
         this.email = email;
-        this.usename = usename;
+        this.username = username;
         this.pwd = pwd;
         this.birthday = birthday;
         this.date_creation = date_creation;
+                 this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
     
     
@@ -57,8 +68,8 @@ public class User {
         return email;
     }
 
-    public String getUsename() {
-        return usename;
+    public String getUsername() {
+        return username;
     }
 
     public String getPwd() {
@@ -91,8 +102,8 @@ public class User {
         this.email = email;
     }
 
-    public void setUsename(String usename) {
-        this.usename = usename;
+    public void setUsername(String usename) {
+        this.username = usename;
     }
 
     public void setPwd(String pwd) {

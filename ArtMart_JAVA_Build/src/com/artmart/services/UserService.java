@@ -5,17 +5,13 @@ import com.artmart.models.Admin;
 import com.artmart.models.Artist;
 import com.artmart.models.Client;
 import com.artmart.models.User;
+import java.util.List;
 
 public class UserService implements IUserService{
     SQLConnection connection = SQLConnection.getInstance();
 
     @Override
     public User createAccountU(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    @Override
-    public User viewAccountDetailsU(int user_id) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
@@ -30,15 +26,23 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public User getUser(int user_id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+
+    
+
+    @Override
     public Client createAccountC(Client client) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public Client viewAccountDetailsC(int client_id) {
+@Override
+    public Client getClient(int client_id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+   
     @Override
     public boolean deleteAccountC(int client_d) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -53,12 +57,10 @@ public class UserService implements IUserService{
     public Artist createAccountAr(Artist artist) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public Artist viewAccountDetailsAr(int artist_id) {
+@Override
+    public Artist getArtist(int artist_id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
     @Override
     public boolean deleteAccountAr(int artist_d) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -74,15 +76,6 @@ public class UserService implements IUserService{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public Admin viewAccountDetailsA(int admin_id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void viewListOfUsersA() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public boolean deleteAccountA(int admin_id) {
@@ -91,6 +84,16 @@ public class UserService implements IUserService{
 
     @Override
     public Admin updateAccountA(int admin_id, Admin admin) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<User> viewListOfUsersA() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Admin getAdmin(int admin_id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
