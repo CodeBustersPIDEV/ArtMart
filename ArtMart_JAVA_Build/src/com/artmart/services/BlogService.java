@@ -2,15 +2,13 @@ package com.artmart.services;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.dao.BlogDao;
 import com.artmart.dao.CommentDao;
+import com.artmart.dao.BlogCategoriesDao;
 import com.artmart.interfaces.IBlogService;
 import com.artmart.models.Blog;
+import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,13 +16,16 @@ public class BlogService implements IBlogService{
     
     private Connection connection;
     private BlogDao blogDao;
-    private CommentDao commentDao;
+    private CommentDao commentDao;    
+    private BlogCategoriesDao blogCategories;
+
 
     public BlogService() {
         try{
         this.connection = SQLConnection.getInstance().getConnection();
         this.blogDao = new BlogDao(this.connection);
         this.commentDao = new CommentDao(this.connection);
+        this.blogCategories = new BlogCategoriesDao(this.connection);
         }catch(SQLException e){
             System.err.print(e.getMessage());
         }
@@ -81,5 +82,30 @@ return this.commentDao.updateComment(comment_id,editedComment);     }
     @Override
     public boolean deleteComment(int comment_id) {
 return this.commentDao.deleteComment(comment_id);     }
+
+    @Override
+    public int addBlogCategories(BlogCategories bc) {
+        return this.blogCategories.addBlogCategories(bc);
+    }
+
+    @Override
+    public BlogCategories getOneBlogCategory(int blogsCategory_id) {
+        return this.blogCategories.getOneBlogCategory(blogsCategory_id);
+    }
+
+    @Override
+    public List<BlogCategories> getAllBlogCategories() {
+        return this.blogCategories.getAllBlogCategories();
+    }
+
+    @Override
+    public boolean updateBlogCategory(int blogsCategory_id, BlogCategories editedBlogCat) {
+        return this.blogCategories.updateBlogCategory(blogsCategory_id,editedBlogCat);
+    }
+
+    @Override
+    public boolean deleteBlogCategory(int blogsCategory_id) {
+        return this.blogCategories.deleteBlogCategory(blogsCategory_id);
+    }
 
 }

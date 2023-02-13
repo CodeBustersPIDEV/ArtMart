@@ -1,4 +1,25 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Feb 12, 2023 at 09:19 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `artmart`
+--
 
 -- --------------------------------------------------------
 
@@ -43,6 +64,17 @@ CREATE TABLE `artist` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `blogcategories`
+--
+
+CREATE TABLE `blogcategories` (
+  `blogsCategory_id` int(11) NOT NULL,
+  `category_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `blogs`
 --
 
@@ -53,6 +85,7 @@ CREATE TABLE `blogs` (
   `date` datetime NOT NULL,
   `author` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
@@ -129,6 +162,7 @@ CREATE TABLE `comments` (
   `author` int(11) NOT NULL,
   `blog_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
@@ -399,9 +433,15 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `picture` blob DEFAULT NULL,
-  `dateOfCreation` datetime DEFAULT current_timestamp(),
-  `role` varchar(30) NOT NULL
+  `dateOfCreation` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_ID`, `name`, `email`, `birthday`, `phoneNumber`, `username`, `password`, `picture`, `dateOfCreation`) VALUES
+(1, 'Marwen Touati', 'marwen.touati@esprit.tn', '2013-02-01', '29658649', 'marwAn', '123456789', NULL, '2023-02-12 01:28:10');
 
 -- --------------------------------------------------------
 
@@ -440,6 +480,12 @@ ALTER TABLE `admin`
 ALTER TABLE `artist`
   ADD PRIMARY KEY (`artist_ID`),
   ADD KEY `user_ID` (`user_ID`);
+
+--
+-- Indexes for table `blogcategories`
+--
+ALTER TABLE `blogcategories`
+  ADD PRIMARY KEY (`blogsCategory_id`);
 
 --
 -- Indexes for table `blogs`
@@ -656,10 +702,16 @@ ALTER TABLE `artist`
   MODIFY `artist_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `blogcategories`
+--
+ALTER TABLE `blogcategories`
+  MODIFY `blogsCategory_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `blogs`
 --
 ALTER TABLE `blogs`
-  MODIFY `blogs_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `blogs_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `blog_categories`
@@ -695,7 +747,7 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comments_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `comments_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `customproduct`
@@ -809,7 +861,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
@@ -840,17 +892,11 @@ ALTER TABLE `artist`
   ADD CONSTRAINT `artist_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `user` (`user_ID`);
 
 --
--- Constraints for table `blogs`
---
-ALTER TABLE `blogs`
-  ADD CONSTRAINT `blogs_ibfk_1` FOREIGN KEY (`author`) REFERENCES `user` (`user_ID`);
-
---
 -- Constraints for table `blog_categories`
 --
 ALTER TABLE `blog_categories`
   ADD CONSTRAINT `blog_categories_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blogs` (`blogs_ID`),
-  ADD CONSTRAINT `blog_categories_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`categories_ID`);
+  ADD CONSTRAINT `blog_categories_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `blogcategories` (`blogsCategory_id`);
 
 --
 -- Constraints for table `blog_tags`
