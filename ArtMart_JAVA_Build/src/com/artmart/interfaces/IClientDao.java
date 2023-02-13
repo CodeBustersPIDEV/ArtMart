@@ -15,5 +15,5 @@ public interface IClientDao {
     Client createAccountC(Client client);
      Client getClient(int client_id);
     boolean deleteAccountC(int client_d);
-    Client updateAccountC(int client_id,Client client);
+    boolean updateAccountC(int client_id,Client client);
 }

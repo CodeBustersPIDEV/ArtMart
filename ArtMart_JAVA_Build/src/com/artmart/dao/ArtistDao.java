@@ -27,7 +27,7 @@ private Connection connection;
     }
 
     @Override
-    public Artist updateAccountAr(int atist_id, Artist artist) {
+    public boolean updateAccountAr(int atist_id, Artist artist) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

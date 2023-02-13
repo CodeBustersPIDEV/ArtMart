@@ -15,5 +15,5 @@ public interface IArtistDao {
     Artist createAccountAr(Artist artist);
       Artist getArtist(int artist_id);
     boolean deleteAccountAr(int artist_d);
-    Artist updateAccountAr(int atist_id, Artist artist);
+    boolean updateAccountAr(int atist_id, Artist artist);
 }
