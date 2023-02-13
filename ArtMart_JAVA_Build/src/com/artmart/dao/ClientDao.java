@@ -63,7 +63,7 @@ public class ClientDao implements IClientDao {
             return 1;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
 
         return 0;
@@ -87,7 +87,7 @@ public class ClientDao implements IClientDao {
                 return client;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return null;    }
 
@@ -103,13 +103,26 @@ try {
 
             return user_ser.deleteAccountU(user_id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return false;    }
 
     @Override
     public boolean updateAccountC(int user_id, Client client) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE user nbr_demands = ?, nbr_orders = ? SET  WHERE user_ID = ?"
+            );
+            statement.setInt(1, client.getNbr_cus_demands());
+            statement.setInt(2, client.getNbr_orders());
+            
+            statement.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("Error occured");
+        }
+        return false;      }
 
 }

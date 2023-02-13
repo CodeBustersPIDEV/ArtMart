@@ -9,6 +9,7 @@ import com.artmart.interfaces.IArtistDao;
 import com.artmart.models.Artist;
 import com.artmart.services.UserService;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,7 +64,7 @@ public class ArtistDao implements IArtistDao {
             return 1;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
 
         return 0;
@@ -87,7 +88,7 @@ public class ArtistDao implements IArtistDao {
                 return artist;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return null;
     }
@@ -104,14 +105,28 @@ public class ArtistDao implements IArtistDao {
 
             return user_ser.deleteAccountU(user_id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return false;
     }
 
     @Override
-    public boolean updateAccountAr(int atist_id, Artist artist) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean updateAccountAr(int user_id, Artist artist) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE user bio = ?, nbr_artwork = ? SET  WHERE user_ID = ?"
+            );
+            statement.setString(1, artist.getBio());
+            statement.setInt(2, artist.getNbr_artwork());
+            
+            statement.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("Error occured");
+        }
+        return false;   
     }
 
 }

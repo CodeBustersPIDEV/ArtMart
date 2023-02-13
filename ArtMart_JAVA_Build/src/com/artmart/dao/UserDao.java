@@ -72,7 +72,7 @@ public class UserDao implements IUserDao {
                 return user;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return null;
     }
@@ -88,7 +88,7 @@ public class UserDao implements IUserDao {
             int rowsAffected = statement.executeUpdate();
             return rowsAffected == 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return false;
     }
@@ -111,7 +111,7 @@ public class UserDao implements IUserDao {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return false;
     }

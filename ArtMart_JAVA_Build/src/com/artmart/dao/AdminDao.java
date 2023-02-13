@@ -91,7 +91,7 @@ public class AdminDao implements IAdminDao {
                 return admin;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return null;
     }
@@ -115,7 +115,7 @@ public class AdminDao implements IAdminDao {
             }
             return users;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return null;
     }
@@ -132,7 +132,7 @@ public class AdminDao implements IAdminDao {
 
             return user_ser.deleteAccountU(user_id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return false;
     }
@@ -155,7 +155,7 @@ public class AdminDao implements IAdminDao {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
         }
         return false;
     }
