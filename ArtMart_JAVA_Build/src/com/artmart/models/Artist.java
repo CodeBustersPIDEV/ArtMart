@@ -13,20 +13,28 @@ import java.util.ArrayList;
  */
 public class Artist extends User {
     private int artist_id,nbr_artwork;
-    private ArrayList<String> portfolio;
+    private String bio;
 
     public Artist() {
     }
 
-    public Artist(int artist_id, int nbr_artwork, ArrayList<String> portfolio) {
+    public Artist(int artist_id, int nbr_artwork, String bio) {
         this.artist_id = artist_id;
         this.nbr_artwork = nbr_artwork;
-        this.portfolio = portfolio;
+        this.bio = bio;
     }
 
-    public Artist(int nbr_artwork, ArrayList<String> portfolio) {
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public Artist(int nbr_artwork, String bio) {
         this.nbr_artwork = nbr_artwork;
-        this.portfolio = portfolio;
+        this.bio = bio;
     }
 
     public int getArtist_id() {
@@ -37,9 +45,7 @@ public class Artist extends User {
         return nbr_artwork;
     }
 
-    public ArrayList<String> getPortfolio() {
-        return portfolio;
-    }
+   
 
     public void setArtist_id(int artist_id) {
         this.artist_id = artist_id;
@@ -48,9 +54,4 @@ public class Artist extends User {
     public void setNbr_artwork(int nbr_artwork) {
         this.nbr_artwork = nbr_artwork;
     }
-
-    public void setPortfolio(ArrayList<String> portfolio) {
-        this.portfolio = portfolio;
-    }
-    
 }

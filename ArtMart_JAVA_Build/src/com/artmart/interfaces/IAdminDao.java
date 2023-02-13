@@ -14,7 +14,7 @@ import java.util.List;
  * @author 21697
  */
 public interface IAdminDao {
-     Admin createAccountA(Admin admin);
+     int createAccountA(Admin admin);
     Admin getAdmin(int admin_id);
     List<User> viewListOfUsersA();
     boolean deleteAccountA(int admin_id);

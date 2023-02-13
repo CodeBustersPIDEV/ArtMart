@@ -11,6 +11,8 @@ package com.artmart.models;
  */
 public class Admin extends User {
     private int admin_id;
+    private String department;
+
 
     public Admin(int admin_id) {
         this.admin_id = admin_id;
@@ -23,6 +25,13 @@ public class Admin extends User {
         return admin_id;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
     public void setAdmin_id(int admin_id) {
         this.admin_id = admin_id;
     }

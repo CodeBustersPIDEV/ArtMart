@@ -12,7 +12,7 @@ import com.artmart.models.Client;
  * @author 21697
  */
 public interface IClientDao {
-    Client createAccountC(Client client);
+    int createAccountC(Client client);
      Client getClient(int client_id);
     boolean deleteAccountC(int client_d);
     boolean updateAccountC(int client_id,Client client);

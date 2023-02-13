@@ -8,22 +8,22 @@ public interface IUserService {
     //user DAO
     int createAccountU(User user);
     User getUser(int user_id);
-    boolean deleteAccountU(int userId);
+    boolean deleteAccountU(int user_id);
     boolean updateAccountU(int user_id, User user);
     //client DAO
-     Client createAccountC(Client client);
-     Client getClient(int client_id);
-    boolean deleteAccountC(int client_d);
-    boolean updateAccountC(int client_id,Client client);
+     int createAccountC(Client client);
+     Client getClient(int user_id);
+    boolean deleteAccountC(int user_id);
+    boolean updateAccountC(int user_id,Client client);
      //artist DAO
-    Artist createAccountAr(Artist artist);
-      Artist getArtist(int artist_id);
-    boolean deleteAccountAr(int artist_d);
-    boolean updateAccountAr(int atist_id, Artist artist);
+    int createAccountAr(Artist artist);
+      Artist getArtist(int user_id);
+    boolean deleteAccountAr(int user_id);
+    boolean updateAccountAr(int user_id, Artist artist);
      //admin DAO
-     Admin createAccountA(Admin admin);
-    Admin getAdmin(int admin_id);
+     int createAccountA(Admin admin);
+    Admin getAdmin(int user_id);
     List<User> viewListOfUsersA();
-    boolean deleteAccountA(int admin_id);
-    boolean updateAccountA(int admin_id, Admin admin);
+    boolean deleteAccountA(int user_id);
+    boolean updateAccountA(int user_id, Admin admin);
 }

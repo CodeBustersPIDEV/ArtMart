@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2023 at 09:19 PM
+-- Generation Time: Feb 14, 2023 at 12:04 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -44,7 +44,9 @@ CREATE TABLE `activity` (
 
 CREATE TABLE `admin` (
   `admin_ID` int(11) NOT NULL,
-  `user_ID` int(11) NOT NULL
+  `user_ID` int(11) NOT NULL,
+  `department` varchar(30) NOT NULL,
+  `QR_code` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -57,8 +59,7 @@ CREATE TABLE `artist` (
   `artist_ID` int(11) NOT NULL,
   `user_ID` int(11) NOT NULL,
   `nbr_artwork` int(11) NOT NULL,
-  `portfolio` blob DEFAULT NULL,
-  `qr_code` blob DEFAULT NULL
+  `bio` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -85,7 +86,6 @@ CREATE TABLE `blogs` (
   `date` datetime NOT NULL,
   `author` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 -- --------------------------------------------------------
 
@@ -162,7 +162,6 @@ CREATE TABLE `comments` (
   `author` int(11) NOT NULL,
   `blog_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 -- --------------------------------------------------------
 
