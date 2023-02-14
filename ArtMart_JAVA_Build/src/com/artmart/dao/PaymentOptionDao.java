@@ -12,7 +12,7 @@ public class PaymentOptionDao implements IPaymentOptionDao{
     private Connection connection;
 
     public PaymentOptionDao() {
-                 try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

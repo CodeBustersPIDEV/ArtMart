@@ -15,7 +15,7 @@ public class ProductDao implements IProductDao{
     private Connection sqlConnection;
 
     public ProductDao() {
-                 try{
+    try{
         this.sqlConnection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

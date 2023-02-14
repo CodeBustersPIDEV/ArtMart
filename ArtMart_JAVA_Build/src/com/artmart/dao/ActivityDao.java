@@ -16,11 +16,11 @@ public class ActivityDao implements IActivityDao {
     private Connection connection;
 
     public ActivityDao() {
-         try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());
-        }
+    }
     }
     
     @Override

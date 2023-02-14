@@ -15,7 +15,7 @@ public class UserDao implements IUserDao {
     private Connection connection;
 
     public UserDao() {
-             try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

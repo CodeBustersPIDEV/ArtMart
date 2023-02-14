@@ -15,7 +15,7 @@ public class CommentDao implements ICommentServiceDao{
      private Connection connection;
 
     public CommentDao() {
-                 try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

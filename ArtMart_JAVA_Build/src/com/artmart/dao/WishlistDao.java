@@ -12,7 +12,7 @@ public class WishlistDao implements IWishlistDao{
     private Connection connection;
 
     public WishlistDao() {
-             try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

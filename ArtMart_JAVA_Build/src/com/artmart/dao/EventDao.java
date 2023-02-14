@@ -16,7 +16,7 @@ public class EventDao implements IEventDao{
     private Connection connection;
 
     public EventDao() {
-                 try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

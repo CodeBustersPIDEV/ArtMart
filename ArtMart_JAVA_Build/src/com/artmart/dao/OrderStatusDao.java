@@ -12,7 +12,7 @@ public class OrderStatusDao implements IOrderStatusDao{
     private Connection connection;
 
     public OrderStatusDao() {
-                 try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());
@@ -30,7 +30,7 @@ public class OrderStatusDao implements IOrderStatusDao{
 
       return stmt.executeUpdate();
     } catch (SQLException e) {
-      System.err.println(e.getCause().getMessage());
+        System.err.print(e.getMessage());
     }
     return 0;
     }
@@ -52,7 +52,7 @@ public class OrderStatusDao implements IOrderStatusDao{
         return orderStatus;
       }
     } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+        System.err.print(e.getMessage());
     }
     return null;
     }
@@ -74,9 +74,9 @@ public class OrderStatusDao implements IOrderStatusDao{
             }
             return orderStatuses;
     } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+        System.err.print(e.getMessage());
     }
-            return null;
+        return null;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class OrderStatusDao implements IOrderStatusDao{
         statement.setInt(4, orderStatus.getId());
         return true;
     } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+        System.err.print(e.getMessage());
     }
         return false;
     }
@@ -102,7 +102,7 @@ public class OrderStatusDao implements IOrderStatusDao{
       stmt.setInt(1, id);
       return true;
     } catch (SQLException e) {
-         System.err.println(e.getCause().getMessage());
+        System.err.print(e.getMessage());
     }
     return false;
     }

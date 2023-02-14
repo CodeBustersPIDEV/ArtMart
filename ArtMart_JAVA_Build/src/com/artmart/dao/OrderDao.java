@@ -16,7 +16,7 @@ public class OrderDao implements IOrderServiceDao{
     private Connection connection;
 
     public OrderDao() {
-                 try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

@@ -12,7 +12,7 @@ public class ShippingOptionDao implements IShippingOptionDao{
     private Connection connection;
 
     public ShippingOptionDao() {
-             try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

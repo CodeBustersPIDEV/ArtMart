@@ -12,7 +12,7 @@ public class SalesReportDao implements ISalesReportDao{
     private Connection connection;
 
     public SalesReportDao() {
-             try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

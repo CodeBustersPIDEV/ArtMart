@@ -16,7 +16,7 @@ public class ArtistDao implements IArtistDao {
     private Connection connection;
 
     public ArtistDao() {
-                 try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

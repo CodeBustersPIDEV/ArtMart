@@ -19,7 +19,7 @@ public class AdminDao implements IAdminDao {
     private Connection connection;
 
     public AdminDao() {
-        try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

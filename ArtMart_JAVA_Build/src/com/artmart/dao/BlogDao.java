@@ -16,7 +16,7 @@ public class BlogDao implements IBlogServiceDao {
     private Connection connection;
 
     public BlogDao() {
-     try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

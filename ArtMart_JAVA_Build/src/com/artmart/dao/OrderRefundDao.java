@@ -13,7 +13,7 @@ public class OrderRefundDao implements IOrderRefundDao{
     private Connection connection;
 
     public OrderRefundDao() {
-                 try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());
@@ -29,7 +29,7 @@ public class OrderRefundDao implements IOrderRefundDao{
             preparedStatement.setString(3, orderRefund.getReason());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.print(e.getMessage());
         }
         return result;
     }
@@ -48,7 +48,7 @@ public class OrderRefundDao implements IOrderRefundDao{
                 orderRefund.setReason(resultSet.getString("reason"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.print(e.getMessage());
         }
         return orderRefund;
     }
@@ -67,7 +67,7 @@ public class OrderRefundDao implements IOrderRefundDao{
             orderRefunds.add(orderRefund);
         }
     } catch (SQLException e) {
-        e.printStackTrace();
+        System.err.print(e.getMessage());
     }
     return orderRefunds;
 }
@@ -84,7 +84,7 @@ public class OrderRefundDao implements IOrderRefundDao{
         int rowsUpdated = statement.executeUpdate();
         return rowsUpdated == 1;
     } catch (SQLException e) {
-        e.printStackTrace();
+        System.err.print(e.getMessage());
         return false;
     }
     }
@@ -98,7 +98,7 @@ public class OrderRefundDao implements IOrderRefundDao{
         int rowsDeleted = statement.executeUpdate();
         return rowsDeleted == 1;
     } catch (SQLException e) {
-        e.printStackTrace();
+        System.err.print(e.getMessage());
         return false;
     }
     }

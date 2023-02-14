@@ -15,7 +15,7 @@ public class TagDao implements ITagDao{
     private Connection connection;
 
     public TagDao() {
-             try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());

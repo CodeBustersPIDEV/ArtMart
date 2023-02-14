@@ -15,7 +15,7 @@ public class MediaDao implements IMediaDao{
     private Connection connection;
 
     public MediaDao() {
-                 try{
+    try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
             System.err.print(e.getMessage());
