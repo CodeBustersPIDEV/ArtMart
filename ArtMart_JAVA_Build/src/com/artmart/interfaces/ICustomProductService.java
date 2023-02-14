@@ -7,10 +7,10 @@ import com.artmart.models.CustomProduct;
 import java.util.List;  
 
 public interface ICustomProductService {
-
+List<CustomProduct> getAllCustomProducts();
     CustomProduct getCustomProductById(int id);
 
-    List<CustomProduct> getAllCustomProducts();
+   
 
     int createCustomProduct(CustomProduct customProduct);
 
