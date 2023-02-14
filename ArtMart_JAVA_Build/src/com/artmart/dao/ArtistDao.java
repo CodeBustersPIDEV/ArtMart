@@ -16,9 +16,9 @@ public class ArtistDao implements IArtistDao {
     private Connection connection;
 
     public ArtistDao() {
-    try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        }catch(SQLException e){
+        try {
+            this.connection = SQLConnection.getInstance().getConnection();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
@@ -52,7 +52,7 @@ public class ArtistDao implements IArtistDao {
                     + "VALUES ( ?,?,? )"
             );
             clientStatement.setInt(1, userId);
-            clientStatement.setInt(2, artist.getNbr_artwork());
+            clientStatement.setInt(2, 0);
             clientStatement.setString(3, artist.getBio());
 
             clientStatement.executeUpdate();
@@ -69,7 +69,7 @@ public class ArtistDao implements IArtistDao {
     public Artist getArtist(int user_id) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM artis WHERE user_ID = ?"
+                    "SELECT * FROM artist WHERE user_ID = ?"
             );
             statement.setInt(1, user_id);
             ResultSet resultSet = statement.executeQuery();
@@ -109,19 +109,19 @@ public class ArtistDao implements IArtistDao {
     public boolean updateAccountAr(int user_id, Artist artist) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE user bio = ?, nbr_artwork = ? SET  WHERE user_ID = ?"
+                    "UPDATE artist SET bio = ?, nbr_artwork = ?   WHERE user_ID = ?"
             );
             statement.setString(1, artist.getBio());
             statement.setInt(2, artist.getNbr_artwork());
-            
+            statement.setInt(3, user_id);
+
             statement.executeUpdate();
-
-            return true;
-
+            UserService user_ser = new UserService();
+            return user_ser.updateAccountU(user_id, artist);
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            e.printStackTrace();
         }
-        return false;   
+        return false;
     }
 
 }

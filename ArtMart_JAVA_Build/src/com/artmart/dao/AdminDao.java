@@ -15,21 +15,21 @@ import java.util.List;
 import com.artmart.services.UserService;
 
 public class AdminDao implements IAdminDao {
-
+    
     private Connection connection;
-
+    
     public AdminDao() {
-    try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        }catch(SQLException e){
+        try {
+            this.connection = SQLConnection.getInstance().getConnection();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
-
+    
     @Override
     public int createAccountA(Admin admin) {
         try {
-
+            
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO user ( name, email, birthday, phoneNumber, username, password, dateOfCreation, role) "
                     + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS
@@ -59,13 +59,13 @@ public class AdminDao implements IAdminDao {
             adminStatement.setString(2, admin.getDepartment());
             adminStatement.executeUpdate();
             return 1;
-
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
     }
-
+    
     @Override
     public Admin getAdmin(int user_id) {
         try {
@@ -80,8 +80,8 @@ public class AdminDao implements IAdminDao {
                 admin.setUser_id(resultSet.getInt("user_ID"));
                 admin.setDepartment(resultSet.getString("department"));
                 UserService user_ser = new UserService();
-                User ad=new User();
-                ad=user_ser.getUser(user_id);
+                User ad = new User();
+                ad = user_ser.getUser(user_id);
                 
                 return admin;
             }
@@ -90,7 +90,7 @@ public class AdminDao implements IAdminDao {
         }
         return null;
     }
-
+    
     @Override
     public List<User> viewListOfUsersA() {
         List<User> users = new ArrayList<>();
@@ -99,7 +99,6 @@ public class AdminDao implements IAdminDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
             while (resultSet.next()) {
                 User user = new User();
-                user.setUser_id(resultSet.getInt("admin_ID"));
                 user.setName(resultSet.getString("name"));
                 user.setEmail(resultSet.getString("email"));
                 user.setBirthday(resultSet.getDate("birthday"));
@@ -114,7 +113,7 @@ public class AdminDao implements IAdminDao {
         }
         return null;
     }
-
+    
     @Override
     public boolean deleteAccountA(int user_id) {
         try {
@@ -124,33 +123,29 @@ public class AdminDao implements IAdminDao {
             statement.setInt(1, user_id);
             statement.executeUpdate();
             UserService user_ser = new UserService();
-
             return user_ser.deleteAccountU(user_id);
         } catch (SQLException e) {
             System.err.println("Error occured");
         }
         return false;
     }
-
+    
     @Override
-    public boolean updateAccountA(int admin_id, Admin admin) {
+    public boolean updateAccountA(int user_id, Admin admin) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE user SET name = ?, email = ?, birthday = ?, phoneNumber = ?, username = ?, password = ? WHERE admin_ID = ?"
+                    "UPDATE admin SET  department= ? WHERE user_ID = ?"
             );
-            statement.setString(1, admin.getName());
-            statement.setString(2, admin.getEmail());
-            statement.setDate(3, new java.sql.Date(admin.getBirthday().getTime()));
-            statement.setInt(4, admin.getPhone_nbr());
-            statement.setString(5, admin.getUsername());
-            statement.setString(6, admin.getPwd());
-            statement.setInt(7, admin_id);
+            
+            statement.setString(1, admin.getDepartment());
+            
+            statement.setInt(2, user_id);
             statement.executeUpdate();
-
-            return true;
-
+            UserService user_ser = new UserService();
+            return user_ser.updateAccountU(user_id, admin);
+            
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            e.printStackTrace();
         }
         return false;
     }

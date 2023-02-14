@@ -8,6 +8,10 @@ import java.util.List;
 
 public class EventService implements IEventService{
 
+    private int x;
+
+
+
     @Override
     public int createEvent(Event event) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

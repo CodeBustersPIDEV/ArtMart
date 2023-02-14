@@ -22,12 +22,10 @@ public class OrderStatusDao implements IOrderStatusDao{
     @Override
     public int createOrderStatus(OrderStatus orderStatus) {
     try {
-      PreparedStatement stmt = connection.prepareStatement(
-          "INSERT INTO OrderStatus (OrderID, Status, Date) VALUES (?, ?, ?)");
+      PreparedStatement stmt = connection.prepareStatement("INSERT INTO OrderStatus (OrderID, Status, Date) VALUES (?, ?, ?)");
       stmt.setInt(1, orderStatus.getOrderId());
       stmt.setString(2, orderStatus.getStatus());
       stmt.setDate(3, orderStatus.getDate());
-
       return stmt.executeUpdate();
     } catch (SQLException e) {
         System.err.print(e.getMessage());

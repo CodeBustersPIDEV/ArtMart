@@ -84,4 +84,11 @@ public class ProductDao implements IProductDao{
         statement.setInt(1, id);
     }
 
+    @Override
+    public int createProductAndCustomProduct(Product baseProduct) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+
     }
