@@ -16,9 +16,9 @@ public class ClientDao implements IClientDao {
     private Connection connection;
 
     public ClientDao() {
-    try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        }catch(SQLException e){
+        try {
+            this.connection = SQLConnection.getInstance().getConnection();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
@@ -48,18 +48,18 @@ public class ClientDao implements IClientDao {
                 return 0;
             }
             PreparedStatement clientStatement = connection.prepareStatement(
-                    "INSERT INTO artist (user_ID, nbr_demands,nbr_orders) "
+                    "INSERT INTO client (user_ID, nbr_demands,nbr_orders) "
                     + "VALUES ( ?,?,? )"
             );
             clientStatement.setInt(1, userId);
-            clientStatement.setInt(2, client.getNbr_cus_demands());
-            clientStatement.setInt(3, client.getNbr_orders());
+            clientStatement.setInt(2, 0);
+            clientStatement.setInt(3, 0);
 
             clientStatement.executeUpdate();
             return 1;
 
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            e.printStackTrace();
         }
 
         return 0;
@@ -67,9 +67,9 @@ public class ClientDao implements IClientDao {
 
     @Override
     public Client getClient(int user_id) {
- try {
+        try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM artis WHERE user_ID = ?"
+                    "SELECT * FROM client WHERE user_ID = ?"
             );
             statement.setInt(1, user_id);
             ResultSet resultSet = statement.executeQuery();
@@ -85,40 +85,43 @@ public class ClientDao implements IClientDao {
         } catch (SQLException e) {
             System.err.println("Error occured");
         }
-        return null;    }
+        return null;
+    }
 
     @Override
     public boolean deleteAccountC(int user_id) {
-try {
+        try {
             PreparedStatement statement = connection.prepareStatement(
-                    "DELETE FROM artist WHERE user_ID = ?"
+                    "DELETE FROM client WHERE user_ID = ?"
             );
             statement.setInt(1, user_id);
             statement.executeUpdate();
             UserService user_ser = new UserService();
-
             return user_ser.deleteAccountU(user_id);
         } catch (SQLException e) {
             System.err.println("Error occured");
         }
-        return false;    }
+        return false;
+    }
 
     @Override
     public boolean updateAccountC(int user_id, Client client) {
-try {
+        try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE user nbr_demands = ?, nbr_orders = ? SET  WHERE user_ID = ?"
+                    "UPDATE client SET nbr_demands = ?, nbr_orders = ?   WHERE user_ID = ?"
             );
             statement.setInt(1, client.getNbr_cus_demands());
             statement.setInt(2, client.getNbr_orders());
-            
+            statement.setInt(3, user_id);
+
             statement.executeUpdate();
 
-            return true;
-
+            UserService user_ser = new UserService();
+            return user_ser.updateAccountU(user_id, client);
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            e.printStackTrace();
         }
-        return false;      }
+        return false;
+    }
 
 }
