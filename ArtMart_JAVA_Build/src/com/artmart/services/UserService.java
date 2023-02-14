@@ -1,6 +1,5 @@
 package com.artmart.services;
 
-import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IUserService;
 import com.artmart.models.Admin;
 import com.artmart.models.Artist;
@@ -8,30 +7,13 @@ import com.artmart.models.Client;
 import com.artmart.models.User;
 import java.util.List;
 import com.artmart.dao.*;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class UserService implements IUserService {
 
-    private Connection connection;
-    private UserDao userDao;
-    private ArtistDao artistDao;
-    private AdminDao adminDao;
-    private ClientDao clientDao;
-
-    public UserService() {
-        try {
-
-            this.connection = SQLConnection.getInstance().getConnection();
-            this.userDao = new UserDao(this.connection);
-            this.artistDao = new ArtistDao(this.connection);
-            this.adminDao = new AdminDao(this.connection);
-            this.clientDao = new ClientDao(this.connection);
-
-        } catch (SQLException e) {
-            System.err.print(e.getMessage());
-        }
-    }
+    private final UserDao userDao = new UserDao();
+    private final ArtistDao artistDao = new ArtistDao();
+    private final AdminDao adminDao = new AdminDao();
+    private final ClientDao clientDao = new ClientDao();
 
     @Override
     public int createAccountU(User user) {

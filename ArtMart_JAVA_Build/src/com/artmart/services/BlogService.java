@@ -1,5 +1,5 @@
 package com.artmart.services;
-import com.artmart.connectors.SQLConnection;
+
 import com.artmart.dao.BlogDao;
 import com.artmart.dao.CommentDao;
 import com.artmart.dao.BlogCategoriesDao;
@@ -11,42 +11,21 @@ import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
 import com.artmart.models.Media;
 import com.artmart.models.Tag;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 
 public class BlogService implements IBlogService{
     
-    private Connection connection;
-    private BlogDao blogDao;
-    private CommentDao commentDao;    
-    private BlogCategoriesDao blogCategories;
-    private TagDao tag;
-    private MediaDao media;
-
-
-    public BlogService() {
-        try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        this.blogDao = new BlogDao(this.connection);
-        this.commentDao = new CommentDao(this.connection);
-        this.blogCategories = new BlogCategoriesDao(this.connection);
-        this.tag = new TagDao(this.connection);
-        this.media = new MediaDao(this.connection);
-        }catch(SQLException e){
-            System.err.print(e.getMessage());
-        }
-    }
-    
-    
+    private final BlogDao blogDao = new BlogDao();
+    private final CommentDao commentDao = new CommentDao();    
+    private final BlogCategoriesDao blogCategories = new BlogCategoriesDao();
+    private final TagDao tag = new TagDao();
+    private final MediaDao media = new MediaDao();
     
     @Override
     public int addBlog(Blog b){
         return this.blogDao.addBlog(b);
-
-    
-}
+    }
 
     @Override
     public Blog getOneBlog(int blog_id) {

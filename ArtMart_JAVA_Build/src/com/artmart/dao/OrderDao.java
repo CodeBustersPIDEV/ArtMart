@@ -1,5 +1,6 @@
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,8 +15,12 @@ public class OrderDao implements IOrderServiceDao{
     
     private Connection connection;
 
-    public OrderDao(Connection connection) {
-        this.connection = connection;
+    public OrderDao() {
+                 try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
     @Override

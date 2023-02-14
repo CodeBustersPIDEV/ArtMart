@@ -1,5 +1,6 @@
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import java.sql.Connection;
 import com.artmart.interfaces.*;
 import com.artmart.models.OrderRefund;
@@ -11,8 +12,12 @@ public class OrderRefundDao implements IOrderRefundDao{
     
     private Connection connection;
 
-    public OrderRefundDao(Connection connection) {
-        this.connection = connection;
+    public OrderRefundDao() {
+                 try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
     @Override

@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IAdminDao;
 import com.artmart.models.Admin;
 import com.artmart.models.User;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import com.artmart.services.UserService;
 
-/**
- *
- * @author 21697
- */
 public class AdminDao implements IAdminDao {
 
     private Connection connection;
 
-    public AdminDao(Connection connection) {
-        this.connection = connection;
+    public AdminDao() {
+        try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
     @Override

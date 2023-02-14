@@ -1,5 +1,6 @@
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.ICommentServiceDao;
 import com.artmart.models.Comment;
 import java.sql.Connection;
@@ -13,8 +14,12 @@ import java.util.ArrayList;
 public class CommentDao implements ICommentServiceDao{
      private Connection connection;
 
-    public CommentDao(Connection connection) {
-        this.connection = connection;
+    public CommentDao() {
+                 try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
     @Override

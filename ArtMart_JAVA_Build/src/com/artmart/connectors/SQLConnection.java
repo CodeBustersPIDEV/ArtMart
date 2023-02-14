@@ -5,8 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLConnection {
+    
     private static SQLConnection instance;
-    public Connection connection;
+    private Connection connection;
     private final String host="localhost:3306";
     private final String user="root";
     private final String password="";

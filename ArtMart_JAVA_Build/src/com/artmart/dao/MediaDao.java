@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IMediaDao;
 import com.artmart.models.Media;
-import com.artmart.models.Tag;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,16 +10,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author marwen
- */
 public class MediaDao implements IMediaDao{
     
     private Connection connection;
 
-    public MediaDao(Connection connection) {
-        this.connection = connection;
+    public MediaDao() {
+                 try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
     @Override

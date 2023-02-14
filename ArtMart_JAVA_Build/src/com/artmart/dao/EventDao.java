@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IEventDao;
 import com.artmart.models.Event;
 import java.sql.Connection;
@@ -14,16 +11,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author GhassenZ
- */
 public class EventDao implements IEventDao{
     
     private Connection connection;
 
-    public EventDao(Connection connection) {
-        this.connection = connection;
+    public EventDao() {
+                 try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
 

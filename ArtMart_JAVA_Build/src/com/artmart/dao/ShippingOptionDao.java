@@ -1,16 +1,22 @@
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import java.sql.Connection;
 import com.artmart.interfaces.*;
 import com.artmart.models.ShippingOption;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ShippingOptionDao implements IShippingOptionDao{
     
     private Connection connection;
 
-    public ShippingOptionDao(Connection connection) {
-        this.connection = connection;
+    public ShippingOptionDao() {
+             try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
     @Override

@@ -8,7 +8,7 @@ import com.artmart.models.CustomProduct;
 
 public class CustomProductService implements ICustomProductDao {
     
-    private CustomProductDao customProductDao = new CustomProductDao();
+    private final CustomProductDao customProductDao = new CustomProductDao();
 
     @Override
     public CustomProduct getCustomProductById(int id) throws SQLException {

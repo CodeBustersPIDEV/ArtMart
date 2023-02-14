@@ -1,16 +1,22 @@
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import java.sql.Connection;
 import com.artmart.interfaces.*;
 import com.artmart.models.PaymentOption;
+import java.sql.SQLException;
 import java.util.List;
 
 public class PaymentOptionDao implements IPaymentOptionDao{
     
     private Connection connection;
 
-    public PaymentOptionDao(Connection connection) {
-        this.connection = connection;
+    public PaymentOptionDao() {
+                 try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
    @Override
     public int createPaymentOption(PaymentOption paymentOption) {

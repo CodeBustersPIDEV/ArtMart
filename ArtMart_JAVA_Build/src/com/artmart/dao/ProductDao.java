@@ -3,6 +3,7 @@ package com.artmart.dao;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IProductDao;
 import com.artmart.models.Product;
+import java.sql.Connection;
 
 
 import java.sql.PreparedStatement;
@@ -11,11 +12,22 @@ import java.sql.SQLException;
 
 public class ProductDao implements IProductDao{
 
-    private SQLConnection sqlConnection = SQLConnection.getInstance();
+    private Connection sqlConnection;
+
+    public ProductDao() {
+                 try{
+        this.sqlConnection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
+    }
+    
+    
+    
     @Override
     public Product getProductById(int id) throws SQLException {
         String query = "SELECT * FROM product WHERE product_ID = ?";
-        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        PreparedStatement statement = this.sqlConnection.prepareStatement(query);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
 
@@ -38,7 +50,7 @@ public class ProductDao implements IProductDao{
      @Override
     public int createProduct(Product product) throws SQLException {
         String query = "INSERT INTO product (category_ID, name, description, dimensions, weight, material, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        PreparedStatement statement = this.sqlConnection.prepareStatement(query);
         statement.setInt(1, product.getCategoryId());
         statement.setString(2, product.getName());
         statement.setString(3, product.getDescription());
@@ -53,7 +65,7 @@ public class ProductDao implements IProductDao{
     @Override
     public int updateProduct(int id,Product product) throws SQLException {
         String query = "UPDATE product SET category_ID = ?, name = ?, description = ?, dimensions = ?, weight = ?, material = ?, image = ? WHERE product_ID = ?";
-        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        PreparedStatement statement = this.sqlConnection.prepareStatement(query);
         statement.setInt(1, product.getCategoryId());
         statement.setString(2, product.getName());
         statement.setString(3, product.getDescription());
@@ -68,7 +80,7 @@ public class ProductDao implements IProductDao{
     @Override
     public void deleteProduct(int id) throws SQLException {
         String query = "DELETE FROM product WHERE product_ID = ?";
-        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        PreparedStatement statement = this.sqlConnection.prepareStatement(query);
         statement.setInt(1, id);
     }
 

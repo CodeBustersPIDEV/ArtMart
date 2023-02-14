@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IUserDao;
 import com.artmart.models.User;
 import java.sql.Connection;
@@ -14,16 +10,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-/**
- *
- * @author 21697
- */
 public class UserDao implements IUserDao {
 
     private Connection connection;
 
-    public UserDao(Connection connection) {
-        this.connection = connection;
+    public UserDao() {
+             try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
     @Override
