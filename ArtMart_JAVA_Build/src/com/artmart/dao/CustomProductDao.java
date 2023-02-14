@@ -1,24 +1,23 @@
 package com.artmart.dao;
 
 import com.artmart.connectors.SQLConnection;
-import com.artmart.models.CustomProduct;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.artmart.interfaces.ICustomProductDao;
-import com.artmart.interfaces.ICustomProductService;
 import com.artmart.models.CustomProduct;
+import com.artmart.models.Product;
 
 
-
-public class CustomProductDao   {
+public class CustomProductDao {
 
     private final SQLConnection sqlConnection = SQLConnection.getInstance();
+    
+    private ProductDao productDAO = new ProductDao();
 
     public CustomProduct getCustomProductById(int id) throws SQLException {
-        String query = "SELECT * FROM custom_product WHERE custom_product_ID = ?";
-        PreparedStatement statement = sqlConnection.connection.prepareStatement(query);
+        String query = "SELECT * FROM customproduct WHERE custom_product_ID = ?";
+        //Pull Product Desc from Prodcut DAO
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
 
@@ -32,27 +31,30 @@ public class CustomProductDao   {
 
         return null;
     }
+    
+    //PullAllCustom products
 
-    public int createCustomProduct(CustomProduct customProduct) throws SQLException {
-        String query = "INSERT INTO custom_product (product_ID) VALUES (?)";
-        PreparedStatement statement = sqlConnection.connection.prepareStatement(query);
-        statement.setInt(1, customProduct.getProductId());
-
+    public int createCustomProduct(Product baseProduct) throws SQLException {
+        String query = "INSERT INTO customproduct (product_ID) VALUES (?)";
+        productDAO.createProduct(baseProduct);
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        statement.setInt(1, baseProduct.getProductId());
         return statement.executeUpdate();
     }
 
-    public int updateCustomProduct(CustomProduct customProduct) throws SQLException {
-        String query = "UPDATE custom_product SET product_ID = ? WHERE custom_product_ID = ?";
-        PreparedStatement statement = sqlConnection.connection.prepareStatement(query);
+    public int updateCustomProduct(int id,CustomProduct customProduct) throws SQLException {
+        productDAO.updateProduct(id,customProduct);
+        String query = "UPDATE customproduct SET product_ID = ? WHERE custom_product_ID = ?";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
         statement.setInt(1, customProduct.getProductId());
-        statement.setInt(2, customProduct.getCustomProductId());
+        statement.setInt(2, id);
 
         return statement.executeUpdate();
     }
 
     public int deleteCustomProduct(int id) throws SQLException {
-        String query = "DELETE FROM custom_product WHERE custom_product_ID = ?";
-        PreparedStatement statement = sqlConnection.connection.prepareStatement(query);
+        String query = "DELETE FROM customproduct WHERE custom_product_ID = ?";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
         statement.setInt(1, id);
 
         return statement.executeUpdate();

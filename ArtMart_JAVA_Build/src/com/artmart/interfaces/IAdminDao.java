@@ -18,5 +18,5 @@ public interface IAdminDao {
     Admin getAdmin(int admin_id);
     List<User> viewListOfUsersA();
     boolean deleteAccountA(int admin_id);
-    Admin updateAccountA(int admin_id, Admin admin);
+    boolean updateAccountA(int admin_id, Admin admin);
 }

@@ -18,48 +18,47 @@ import java.sql.Timestamp;
  *
  * @author 21697
  */
-public class UserDao implements IUserDao{
- private Connection connection;
+public class UserDao implements IUserDao {
+
+    private Connection connection;
 
     public UserDao(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public User createAccountU(User user) {
-try {
+    public int createAccountU(User user) {
+        try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO user (user_ID, name, email, birthday, phoneNumber, username, password, dateOfCreation, role) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    "INSERT INTO user ( name, email, birthday, phoneNumber, username, password, dateOfCreation, role) "
+                    + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)"
             );
-            statement.setInt(1, user.getUser_id());
-            statement.setString(2, user.getName());
-            statement.setString(3, user.getEmail());
-            statement.setDate(4, (Date) user.getBirthday());
-            statement.setInt(5, user.getPhone_nbr());
-            statement.setString(6, user.getUsername());
-            statement.setString(7, user.getPwd());
-            statement.setTimestamp(8, (Timestamp) user.getDate_creation());
-            statement.setString(9, user.getRole());
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setDate(3, (Date)user.getBirthday());
+            statement.setInt(4, user.getPhone_nbr());
+            statement.setString(5, user.getUsername());
+            statement.setString(6, user.getPwd());
+            statement.setTimestamp(7, timestamp);
+            statement.setString(8, user.getRole());
+            statement.executeUpdate();
 
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected == 1) {
-                return user;
-            }
+            return 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error occured");
+            return 0;
         }
-        return null;
     }
 
     @Override
     public User getUser(int user_id) {
- try {
+        try {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM user WHERE user_ID = ?"
             );
-            statement.setInt(1, user_id);
-            ResultSet resultSet = statement.executeQuery();
+            statement.setInt(1,user_id);
+            ResultSet resultSet= statement.executeQuery();
             if (resultSet.next()) {
                 User user = new User();
                 user.setUser_id(resultSet.getInt("user_ID"));
@@ -69,51 +68,52 @@ try {
                 user.setPhone_nbr(resultSet.getInt("phoneNumber"));
                 user.setUsername(resultSet.getString("username"));
                 user.setPwd(resultSet.getString("password"));
-                user.setDate_creation(resultSet.getTimestamp("dateOfCreation"));
                 user.setRole(resultSet.getString("role"));
                 return user;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;    }
+        return null;
+    }
 
     @Override
     public boolean deleteAccountU(int user_id) {
-         try {
-        PreparedStatement statement = connection.prepareStatement(
-                "DELETE FROM user WHERE user_ID = ?"
-        );
-        statement.setInt(1, user_id);
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "DELETE FROM user WHERE user_ID = ?"
+            );
+            statement.setInt(1, user_id);
 
-        int rowsAffected = statement.executeUpdate();
-        return rowsAffected == 1;
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return false;
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public User updateAccountU(int user_id, User user) {
- try {
+    public boolean updateAccountU(int user_id, User user) {
+        try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE user SET name = ?, email = ?, birthday = ?, phoneNumber = ?, username = ?, password = ? " +"WHERE user_ID = ?"
-);
-statement.setString(1, user.getName());
-statement.setString(2, user.getEmail());
-statement.setDate(3, (Date) user.getBirthday());
-statement.setInt(4, user.getPhone_nbr());
-statement.setString(5, user.getUsername());
-statement.setString(6, user.getPwd());
-statement.setInt(7, user_id);
-int rowsAffected = statement.executeUpdate();
-        if (rowsAffected == 1) {
-            return user;
+                    "UPDATE user SET name = ?, email = ?, birthday = ?, phoneNumber = ?, username = ?, password = ? WHERE user_ID = ?"
+            );
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setDate(3,(Date) user.getBirthday());
+            statement.setInt(4, user.getPhone_nbr());
+            statement.setString(5, user.getUsername());
+            statement.setString(6, user.getPwd());
+            statement.setInt(7, user_id);
+            statement.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return false;
     }
-    return null;    }
-    
+
 }

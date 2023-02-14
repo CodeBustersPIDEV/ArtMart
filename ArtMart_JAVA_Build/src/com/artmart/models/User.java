@@ -5,7 +5,7 @@
  */
 package com.artmart.models;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -32,14 +32,13 @@ public class User {
 
     }
 
-    public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday, Date date_creation,String role) {
+    public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday,String role) {
         this.phone_nbr = phone_nbr;
         this.name = name;
         this.email = email;
         this.username = username;
         this.pwd = pwd;
         this.birthday = birthday;
-        this.date_creation = date_creation;
                  this.role = role;
     }
 
@@ -117,6 +116,8 @@ public class User {
     public void setDate_creation(Date date_creation) {
         this.date_creation = date_creation;
     }
+
+   
 
    
     

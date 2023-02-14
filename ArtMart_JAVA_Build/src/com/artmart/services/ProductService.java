@@ -1,6 +1,5 @@
 package com.artmart.services;
 
-import com.artmart.interfaces.IProductService;
 import com.artmart.models.Product;
 import com.artmart.dao.ProductDao;
 import com.artmart.interfaces.IProductDao;
@@ -20,8 +19,8 @@ public class ProductService implements IProductDao {
         return productDao.createProduct(product);
     }
 
-    public int updateProduct(Product product) throws SQLException {
-        return productDao.updateProduct(product);
+    public int updateProduct(int id,Product product) throws SQLException {
+        return productDao.updateProduct(id,product);
     }
 
     public void deleteProduct(int id) throws SQLException {
