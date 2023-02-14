@@ -1,5 +1,6 @@
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IBlogServiceDao;
 import com.artmart.models.Blog;
 import java.sql.Connection;
@@ -14,8 +15,12 @@ public class BlogDao implements IBlogServiceDao {
     
     private Connection connection;
 
-    public BlogDao(Connection connection) {
-        this.connection = connection;
+    public BlogDao() {
+    try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
     
 

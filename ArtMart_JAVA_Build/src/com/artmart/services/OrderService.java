@@ -1,5 +1,4 @@
 package com.artmart.services;
-import com.artmart.connectors.SQLConnection;
 import com.artmart.dao.*;
 import com.artmart.interfaces.IOrderService;
 import com.artmart.models.Order;
@@ -11,42 +10,19 @@ import com.artmart.models.Receipt;
 import com.artmart.models.SalesReport;
 import com.artmart.models.ShippingOption;
 import com.artmart.models.Wishlist;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class OrderService implements IOrderService{
     
-    private Connection connection;
-    
-    private OrderDao orderDao;
-    private OrderRefundDao orderRefundDao;
-    private OrderStatusDao orderStatusDao;
-    private OrderUpdateDao orderUpdateDao;
-    private PaymentOptionDao paymentOptionDao;
-    private ReceiptDao receiptDao;
-    private SalesReportDao salesReportDao;
-    private ShippingOptionDao shippingOptionDao;
-    private WishlistDao wishlistDao;
-    
-    public OrderService() {
-        try{
-            
-        this.connection = SQLConnection.getInstance().getConnection();
-        this.orderDao = new OrderDao(this.connection);
-        this.orderRefundDao = new OrderRefundDao(this.connection);
-        this.orderStatusDao = new OrderStatusDao(this.connection);
-        this.orderUpdateDao = new OrderUpdateDao(this.connection);
-        this.paymentOptionDao = new PaymentOptionDao(this.connection);
-        this.receiptDao = new ReceiptDao(this.connection);
-        this.salesReportDao = new SalesReportDao(this.connection);
-        this.shippingOptionDao = new ShippingOptionDao(this.connection);
-        this.wishlistDao = new WishlistDao(this.connection);
-        
-        }catch(SQLException e){
-            System.err.print(e.getMessage());
-        }
-    }
+    private final OrderDao orderDao = new OrderDao();
+    private final OrderRefundDao orderRefundDao = new OrderRefundDao();
+    private final OrderStatusDao orderStatusDao = new OrderStatusDao();
+    private final OrderUpdateDao orderUpdateDao = new OrderUpdateDao();
+    private final PaymentOptionDao paymentOptionDao = new PaymentOptionDao();
+    private final ReceiptDao receiptDao = new ReceiptDao();
+    private final SalesReportDao salesReportDao = new SalesReportDao();
+    private final ShippingOptionDao shippingOptionDao = new ShippingOptionDao();
+    private final WishlistDao wishlistDao = new WishlistDao();
 
     @Override
     public int createOrder(Order order) {

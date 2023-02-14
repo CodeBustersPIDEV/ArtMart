@@ -1,16 +1,22 @@
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import java.sql.Connection;
 import com.artmart.interfaces.*;
 import com.artmart.models.OrderUpdate;
+import java.sql.SQLException;
 import java.util.List;
 
 public class OrderUpdateDao implements IOrderUpdateDao{
     
     private Connection connection;
 
-    public OrderUpdateDao(Connection connection) {
-        this.connection = connection;
+    public OrderUpdateDao() {
+                 try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
     @Override

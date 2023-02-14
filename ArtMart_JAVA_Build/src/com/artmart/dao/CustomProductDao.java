@@ -6,13 +6,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.artmart.models.CustomProduct;
 import com.artmart.models.Product;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+
 
 
 public class CustomProductDao {
 
-    private final SQLConnection sqlConnection = SQLConnection.getInstance();
+    private Connection sqlConnection;
+
+    public CustomProductDao () {
+    try{
+        this.sqlConnection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
+    }
+    
     
     private ProductDao productDAO = new ProductDao();
     
@@ -24,6 +36,7 @@ public CustomProduct getCustomProductById(int id) throws SQLException {
     PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
     statement.setInt(1, id);
     ResultSet resultSet = statement.executeQuery();
+
 
     if (resultSet.next()) {
         int productId = resultSet.getInt("product_ID");
@@ -43,6 +56,16 @@ public CustomProduct getCustomProductById(int id) throws SQLException {
                 productResultSet.getString("material"),
                 productResultSet.getString("image")
             );
+
+    public CustomProduct getCustomProductById(int id) throws SQLException {
+        String query = "SELECT * FROM customproduct WHERE custom_product_ID = ?";
+        //Pull Product Desc from Prodcut DAO
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+
             CustomProduct customProduct = new CustomProduct(
                 resultSet.getInt("custom_product_ID"),
                 productId,
@@ -100,7 +123,7 @@ public CustomProduct getCustomProductById(int id) throws SQLException {
     public int createCustomProduct(Product baseProduct) throws SQLException {
         String query = "INSERT INTO customproduct (product_ID) VALUES (?)";
         productDAO.createProduct(baseProduct);
-        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
         statement.setInt(1, baseProduct.getProductId());
         return statement.executeUpdate();
     }
@@ -108,7 +131,7 @@ public CustomProduct getCustomProductById(int id) throws SQLException {
     public int updateCustomProduct(int id,CustomProduct customProduct) throws SQLException {
         productDAO.updateProduct(id,customProduct);
         String query = "UPDATE customproduct SET product_ID = ? WHERE custom_product_ID = ?";
-        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
         statement.setInt(1, customProduct.getProductId());
         statement.setInt(2, id);
 
@@ -117,7 +140,7 @@ public CustomProduct getCustomProductById(int id) throws SQLException {
 
     public int deleteCustomProduct(int id) throws SQLException {
         String query = "DELETE FROM customproduct WHERE custom_product_ID = ?";
-        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
         statement.setInt(1, id);
 
         return statement.executeUpdate();

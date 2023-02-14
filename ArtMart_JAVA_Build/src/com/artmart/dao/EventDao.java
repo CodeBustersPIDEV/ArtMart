@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IEventDao;
 import com.artmart.models.Event;
 import java.sql.Connection;
@@ -14,16 +11,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author GhassenZ
- */
 public class EventDao implements IEventDao{
     
     private Connection connection;
 
-    public EventDao(Connection connection) {
-        this.connection = connection;
+    public EventDao() {
+    try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
 
@@ -61,19 +58,19 @@ public class EventDao implements IEventDao{
             );
             statement.setInt(1, eventID);
 
-            ResultSet result = statement.executeQuery();
-            if (result.next()) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
                 event = new Event();
-                event.setEventID(result.getInt("event_ID"));
-                event.setName(result.getString("name"));
-                event.setLocation(result.getString("location"));
-                event.setType(result.getString("type"));
-                event.setDescription(result.getString("description"));
-                event.setEntryFee(result.getDouble("entryFee"));
-                event.setCapacity(result.getInt("capacity"));
-                event.setStartDate(result.getDate("startDate"));
-                event.setEndDate(result.getDate("endDate"));
-                event.setUserID(result.getInt("user_id"));
+                event.setEventID(resultSet.getInt("event_ID"));
+                event.setName(resultSet.getString("name"));
+                event.setLocation(resultSet.getString("location"));
+                event.setType(resultSet.getString("type"));
+                event.setDescription(resultSet.getString("description"));
+                event.setEntryFee(resultSet.getDouble("entryFee"));
+                event.setCapacity(resultSet.getInt("capacity"));
+                event.setStartDate(resultSet.getDate("startDate"));
+                event.setEndDate(resultSet.getDate("endDate"));
+                event.setUserID(resultSet.getInt("user_id"));
             }
         } catch (SQLException e) {
            System.err.println(e.getCause().getMessage());
@@ -89,7 +86,6 @@ public class EventDao implements IEventDao{
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Event");
             while (resultSet.next()) {
                 Event event = new Event();
-                event = new Event();
                 event.setEventID(resultSet.getInt("event_ID"));
                 event.setName(resultSet.getString("name"));
                 event.setLocation(resultSet.getString("location"));
@@ -133,7 +129,7 @@ public class EventDao implements IEventDao{
     @Override
     public boolean deleteEvent(int eventID) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM Event WHERE ID = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM Event WHERE event_ID = ?");
             statement.setInt(1, eventID);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {

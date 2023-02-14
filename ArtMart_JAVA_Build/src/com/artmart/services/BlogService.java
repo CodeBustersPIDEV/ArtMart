@@ -1,44 +1,31 @@
 package com.artmart.services;
-import com.artmart.connectors.SQLConnection;
+
 import com.artmart.dao.BlogDao;
 import com.artmart.dao.CommentDao;
 import com.artmart.dao.BlogCategoriesDao;
+import com.artmart.dao.MediaDao;
+import com.artmart.dao.TagDao;
 import com.artmart.interfaces.IBlogService;
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
-import java.sql.Connection;
-import java.sql.SQLException;
+import com.artmart.models.Media;
+import com.artmart.models.Tag;
 import java.util.List;
 
 
 public class BlogService implements IBlogService{
     
-    private Connection connection;
-    private BlogDao blogDao;
-    private CommentDao commentDao;    
-    private BlogCategoriesDao blogCategories;
-
-
-    public BlogService() {
-        try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        this.blogDao = new BlogDao(this.connection);
-        this.commentDao = new CommentDao(this.connection);
-        this.blogCategories = new BlogCategoriesDao(this.connection);
-        }catch(SQLException e){
-            System.err.print(e.getMessage());
-        }
-    }
-    
-    
+    private final BlogDao blogDao = new BlogDao();
+    private final CommentDao commentDao = new CommentDao();    
+    private final BlogCategoriesDao blogCategories = new BlogCategoriesDao();
+    private final TagDao tag = new TagDao();
+    private final MediaDao media = new MediaDao();
     
     @Override
     public int addBlog(Blog b){
         return this.blogDao.addBlog(b);
-
-    
-}
+    }
 
     @Override
     public Blog getOneBlog(int blog_id) {
@@ -106,6 +93,56 @@ return this.commentDao.deleteComment(comment_id);     }
     @Override
     public boolean deleteBlogCategory(int blogsCategory_id) {
         return this.blogCategories.deleteBlogCategory(blogsCategory_id);
+    }
+
+    @Override
+    public int addTag(Tag t) {
+        return this.tag.addTag(t);
+    }
+
+    @Override
+    public Tag getOneTag(int tag_id) {
+        return this.tag.getOneTag(tag_id);
+    }
+
+    @Override
+    public List<Tag> getAllTags() {
+        return this.tag.getAllTags();
+    }
+
+    @Override
+    public boolean updateTag(int tag_id, Tag editedTag) {
+        return this.tag.updateTag(tag_id,editedTag);
+    }
+
+    @Override
+    public boolean deleteTag(int tag_id) {
+        return this.tag.deleteTag(tag_id);
+    }
+
+    @Override
+    public int addMedia(Media m) {
+        return this.media.addMedia(m);
+    }
+
+    @Override
+    public Media getOneMedia(int media_id) {
+        return this.media.getOneMedia(media_id);
+    }
+
+    @Override
+    public List<Media> getAllMedias() {
+        return this.media.getAllMedias();
+    }
+
+    @Override
+    public boolean updateMedia(int media_id, Media editedMedia) {
+        return this.media.updateMedia(media_id,editedMedia);
+    }
+
+    @Override
+    public boolean deleteMedia(int media_id) {
+        return this.media.deleteMedia(media_id);
     }
 
 }

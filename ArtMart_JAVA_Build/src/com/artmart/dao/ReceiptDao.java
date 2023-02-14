@@ -1,16 +1,22 @@
 package com.artmart.dao;
 
+import com.artmart.connectors.SQLConnection;
 import java.sql.Connection;
 import com.artmart.interfaces.*;
 import com.artmart.models.Receipt;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ReceiptDao implements IOrderReceiptDao{
     
     private Connection connection;
 
-    public ReceiptDao(Connection connection) {
-        this.connection = connection;
+    public ReceiptDao() {
+     try{
+        this.connection = SQLConnection.getInstance().getConnection();
+        }catch(SQLException e){
+            System.err.print(e.getMessage());
+        }
     }
 
        @Override
