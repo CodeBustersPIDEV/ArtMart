@@ -25,8 +25,8 @@ public class ArtMart_JAVA_Build {
             
 
 System.out.println(cc.getAllCustomProducts());
-//y.createChat(new Chat(1, 10, 1, "wa"));
-//y.deleteChat(3);
+//y.createChat(new Chat(1, 10, 1, "aaaaaaa"));
+y.deleteChat(6);
 System.out.println(y.getAllChats());
 //y.updateChat(4, new Chat(4,1, 10, 1, "normal"));
           // x.createProduct(new Product(1, "amir", "soltani", "Test",2, "Test", "Test"));
