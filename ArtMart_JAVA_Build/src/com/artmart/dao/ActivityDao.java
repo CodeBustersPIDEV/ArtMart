@@ -6,7 +6,6 @@ package com.artmart.dao;
 
 import com.artmart.interfaces.IActivityDao;
 import com.artmart.models.Activity;
-import com.artmart.models.Event;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
