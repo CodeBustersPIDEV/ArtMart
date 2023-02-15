@@ -1,7 +1,7 @@
 package com.artmart.models;
 
 public class Product {
-    private int productId;
+    int productId;
     private int categoryId;
     private String name;
     private String description;
@@ -21,11 +21,29 @@ public class Product {
         this.image = image;
     }
 
+    public Product(int categoryId, String name, String description, String dimensions, float weight, String material, String image) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.description = description;
+        this.dimensions = dimensions;
+        this.weight = weight;
+        this.material = material;
+        this.image = image;
+    }
+
     public Product() {
     }
 
     public Product(int productId) {
         this.productId = productId;
+    }
+
+    public Product(int aInt, String string, String string0, double aDouble, int aInt0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Product(int aInt, int aInt0, int aInt1, String string, String string0, String string1, int aInt2, String string2, String string3) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getProductId() {
@@ -91,4 +109,35 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public String getProductName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getProductDescription() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public double getProductPrice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getProductQuantity() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+public String toString() {
+    return "Product{" +
+           "productId=" + productId +
+           ", categoryId=" + categoryId +
+           ", name='" + name + '\'' +
+           ", description='" + description + '\'' +
+           ", dimensions='" + dimensions + '\'' +
+           ", weight=" + weight +
+           ", material='" + material + '\'' +
+           ", image='" + image + '\'' +
+           '}';
+}
+
 }

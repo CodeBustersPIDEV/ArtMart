@@ -3,6 +3,7 @@ import com.artmart.interfaces.ICustomProductDao;
 import com.artmart.dao.CustomProductDao;
 import java.sql.SQLException;
 import com.artmart.models.CustomProduct;
+import java.util.List;
 
 
 
@@ -28,5 +29,10 @@ public class CustomProductService implements ICustomProductDao {
     @Override
     public int deleteCustomProduct(int id) throws SQLException {
         return customProductDao.deleteCustomProduct(id);
+    }
+
+    @Override
+    public List<CustomProduct> getAllCustomProducts() throws SQLException {
+return customProductDao.getAllCustomProducts();
     }
 }
