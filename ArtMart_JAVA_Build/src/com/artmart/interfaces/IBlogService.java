@@ -2,6 +2,7 @@ package com.artmart.interfaces;
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
+import com.artmart.models.HasCategory;
 import com.artmart.models.Media;
 import com.artmart.models.Tag;
 import java.util.List;
@@ -36,10 +37,15 @@ public interface IBlogService {
     public boolean  deleteTag(int tag_id); 
     
     //Media DAO
-    
-      public int addMedia(Media m); 
+    public int addMedia(Media m); 
     public Media getOneMedia(int media_id); 
     public List<Media> getAllMedias(); 
     public boolean  updateMedia(int media_id, Media editedMedia); 
     public boolean  deleteMedia(int media_id);
+    
+    //Has Category DAO
+    public int addBlog2HasCat(HasCategory hc);
+    public List<HasCategory> getAllCatbyBlog(int blog_id);
+    public boolean updateHasCat(int blog_id , HasCategory editedHC);
+    public boolean deleteHasCat(int blog_id);
 }

@@ -3,12 +3,14 @@ package com.artmart.services;
 import com.artmart.dao.BlogDao;
 import com.artmart.dao.CommentDao;
 import com.artmart.dao.BlogCategoriesDao;
+import com.artmart.dao.HasCategoryDao;
 import com.artmart.dao.MediaDao;
 import com.artmart.dao.TagDao;
 import com.artmart.interfaces.IBlogService;
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
+import com.artmart.models.HasCategory;
 import com.artmart.models.Media;
 import com.artmart.models.Tag;
 import java.util.List;
@@ -21,7 +23,7 @@ public class BlogService implements IBlogService{
     private final BlogCategoriesDao blogCategories = new BlogCategoriesDao();
     private final TagDao tag = new TagDao();
     private final MediaDao media = new MediaDao();
-    
+    private final HasCategoryDao hasCategory = new HasCategoryDao();
     @Override
     public int addBlog(Blog b){
         return this.blogDao.addBlog(b);
@@ -143,6 +145,26 @@ return this.commentDao.deleteComment(comment_id);     }
     @Override
     public boolean deleteMedia(int media_id) {
         return this.media.deleteMedia(media_id);
+    }
+
+    @Override
+    public int addBlog2HasCat(HasCategory hc) {
+        return this.hasCategory.addBlog2HasCat(hc);
+    }
+
+    @Override
+    public List<HasCategory> getAllCatbyBlog(int blog_id) {
+        return this.hasCategory.getAllCatbyBlog(blog_id);    
+    }
+
+    @Override
+    public boolean updateHasCat(int blog_id, HasCategory editedHC) {
+        return this.hasCategory.updateHasCat(blog_id,editedHC);  
+    }
+
+    @Override
+    public boolean deleteHasCat(int blog_id) {
+        return this.hasCategory.deleteHasCat(blog_id);  
     }
 
 }
