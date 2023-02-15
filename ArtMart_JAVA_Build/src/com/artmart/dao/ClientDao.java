@@ -3,6 +3,7 @@ package com.artmart.dao;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IClientDao;
 import com.artmart.models.Client;
+import com.artmart.models.User;
 import com.artmart.services.UserService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 public class ClientDao implements IClientDao {
 
     private Connection connection;
+  private UserDao userDao;
 
     public ClientDao() {
         try {
@@ -26,32 +28,11 @@ public class ClientDao implements IClientDao {
     @Override
     public int createAccountC(Client client) {
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO user ( name, email, birthday, phoneNumber, username, password, dateOfCreation, role) "
-                    + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS
-            );
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            statement.setString(1, client.getName());
-            statement.setString(2, client.getEmail());
-            statement.setDate(3, client.getBirthday());
-            statement.setInt(4, client.getPhone_nbr());
-            statement.setString(5, client.getUsername());
-            statement.setString(6, client.getPwd());
-            statement.setTimestamp(7, timestamp);
-            statement.setString(8, client.getRole());
-            statement.executeUpdate();
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-            int userId = -1;
-            if (generatedKeys.next()) {
-                userId = generatedKeys.getInt(1);
-            } else {
-                return 0;
-            }
             PreparedStatement clientStatement = connection.prepareStatement(
                     "INSERT INTO client (user_ID, nbr_demands,nbr_orders) "
                     + "VALUES ( ?,?,? )"
             );
-            clientStatement.setInt(1, userId);
+            clientStatement.setInt(1, userDao.createAccountU(client));
             clientStatement.setInt(2, 0);
             clientStatement.setInt(3, 0);
 
@@ -74,7 +55,7 @@ public class ClientDao implements IClientDao {
             statement.setInt(1, user_id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                Client client = new Client();
+                Client client = new Client(userDao.getUser(user_id));
                 client.setClient_id(resultSet.getInt("artist_ID"));
                 client.setUser_id(resultSet.getInt("user_ID"));
                 client.setNbr_cus_demands(resultSet.getInt("nbr_demands"));
@@ -96,8 +77,8 @@ public class ClientDao implements IClientDao {
             );
             statement.setInt(1, user_id);
             statement.executeUpdate();
-            UserService user_ser = new UserService();
-            return user_ser.deleteAccountU(user_id);
+            boolean user=userDao.deleteAccountU(user_id);
+            return user;
         } catch (SQLException e) {
             System.err.println("Error occured");
         }
@@ -115,9 +96,8 @@ public class ClientDao implements IClientDao {
             statement.setInt(3, user_id);
 
             statement.executeUpdate();
-
-            UserService user_ser = new UserService();
-            return user_ser.updateAccountU(user_id, client);
+ boolean user=userDao.updateAccountU(user_id, client);
+            return user;
         } catch (SQLException e) {
             e.printStackTrace();
         }

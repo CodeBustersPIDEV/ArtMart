@@ -8,16 +8,19 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao implements IUserDao {
 
     private Connection connection;
 
     public UserDao() {
-    try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        }catch(SQLException e){
+        try {
+            this.connection = SQLConnection.getInstance().getConnection();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
@@ -25,22 +28,29 @@ public class UserDao implements IUserDao {
     @Override
     public int createAccountU(User user) {
         try {
+
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO user ( name, email, birthday, phoneNumber, username, password, dateOfCreation, role) "
-                    + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)"
+                    + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS
             );
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
-            statement.setDate(3, (Date)user.getBirthday());
+            statement.setDate(3, (Date) user.getBirthday());
             statement.setInt(4, user.getPhone_nbr());
             statement.setString(5, user.getUsername());
             statement.setString(6, user.getPwd());
             statement.setTimestamp(7, timestamp);
             statement.setString(8, user.getRole());
             statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            int userId = -1;
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            } else {
+                return 0;
+            }
 
-            return 1;
         } catch (SQLException e) {
             System.err.println("Error occured");
             return 0;
@@ -53,8 +63,8 @@ public class UserDao implements IUserDao {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM user WHERE user_ID = ?"
             );
-            statement.setInt(1,user_id);
-            ResultSet resultSet= statement.executeQuery();
+            statement.setInt(1, user_id);
+            ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 User user = new User();
                 user.setUser_id(resultSet.getInt("user_ID"));
@@ -67,6 +77,29 @@ public class UserDao implements IUserDao {
                 user.setRole(resultSet.getString("role"));
                 return user;
             }
+        } catch (SQLException e) {
+            System.err.println("Error occured");
+        }
+        return null;
+    }
+
+    @Override
+    public List<User> viewListOfUsers() {
+        List<User> users = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
+            while (resultSet.next()) {
+                User user = new User();
+                user.setName(resultSet.getString("name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setBirthday(resultSet.getDate("birthday"));
+                user.setPhone_nbr(resultSet.getInt("phoneNumber"));
+                user.setUsername(resultSet.getString("username"));
+                user.setPwd(resultSet.getString("password"));
+                users.add(user);
+            }
+            return users;
         } catch (SQLException e) {
             System.err.println("Error occured");
         }
@@ -97,7 +130,7 @@ public class UserDao implements IUserDao {
             );
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
-            statement.setDate(3,(Date) user.getBirthday());
+            statement.setDate(3, (Date) user.getBirthday());
             statement.setInt(4, user.getPhone_nbr());
             statement.setString(5, user.getUsername());
             statement.setString(6, user.getPwd());

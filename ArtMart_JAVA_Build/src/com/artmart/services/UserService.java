@@ -10,31 +10,12 @@ import com.artmart.dao.*;
 
 public class UserService implements IUserService {
 
-    private final UserDao userDao = new UserDao();
+    private final UserDao userDao= new UserDao();
     private final ArtistDao artistDao = new ArtistDao();
     private final AdminDao adminDao = new AdminDao();
     private final ClientDao clientDao = new ClientDao();
 
-    @Override
-    public int createAccountU(User user) {
-        return this.userDao.createAccountU(user);
-    }
-
-    @Override
-    public User getUser(int user_id) {
-        return this.userDao.getUser(user_id);
-    }
-
-    @Override
-    public boolean deleteAccountU(int user_id) {
-        return this.userDao.deleteAccountU(user_id);
-    }
-
-    @Override
-    public boolean updateAccountU(int user_id, User user) {
-        return this.userDao.updateAccountU(user_id, user);
-    }
-
+   
     @Override
     public int createAccountC(Client client) {
         return this.clientDao.createAccountC(client);
@@ -86,8 +67,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> viewListOfUsersA() {
-       return this.adminDao.viewListOfUsersA();
+    public List<User> viewListOfUsers() {
+       return this.userDao.viewListOfUsers();
     }
 
     @Override

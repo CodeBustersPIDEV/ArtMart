@@ -5,6 +5,8 @@
  */
 package com.artmart.models;
 
+import java.sql.Date;
+
 /**
  *
  * @author 21697
@@ -19,6 +21,11 @@ public class Admin extends User {
     }
 
     public Admin() {
+        
+    }
+
+    public Admin(User user) {
+        super(user.getPhone_nbr(), user.getName(), user.getEmail(), user.getUsername(), user.getPwd(), user.getBirthday(), user.getRole());
     }
 
     public int getAdmin_id() {

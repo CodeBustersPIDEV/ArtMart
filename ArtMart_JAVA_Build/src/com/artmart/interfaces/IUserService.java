@@ -5,11 +5,7 @@ import com.artmart.models.Admin;
 import com.artmart.models.Artist;
 import java.util.List;
 public interface IUserService {
-    //user DAO
-    int createAccountU(User user);
-    User getUser(int user_id);
-    boolean deleteAccountU(int user_id);
-    boolean updateAccountU(int user_id, User user);
+   
     //client DAO
      int createAccountC(Client client);
      Client getClient(int user_id);
@@ -23,7 +19,7 @@ public interface IUserService {
      //admin DAO
      int createAccountA(Admin admin);
     Admin getAdmin(int user_id);
-    List<User> viewListOfUsersA();
+    List<User> viewListOfUsers();
     boolean deleteAccountA(int user_id);
     boolean updateAccountA(int user_id, Admin admin);
 }
