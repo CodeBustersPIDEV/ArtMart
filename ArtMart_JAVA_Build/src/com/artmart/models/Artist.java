@@ -24,6 +24,10 @@ public class Artist extends User {
         this.bio = bio;
     }
 
+    public Artist(User user) {
+        super(user.getPhone_nbr(), user.getName(), user.getEmail(), user.getUsername(), user.getPwd(), user.getBirthday(), user.getRole());
+    }
+
     public void setBio(String bio) {
         this.bio = bio;
     }

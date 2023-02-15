@@ -117,6 +117,11 @@ public class User {
         this.date_creation = date_creation;
     }
 
+    @Override
+    public String toString() {
+        return "User{" + "user_id=" + user_id + ", phone_nbr=" + phone_nbr + ", name=" + name + ", email=" + email + ", username=" + username + ", pwd=" + pwd + ", role=" + role + ", birthday=" + birthday + ", date_creation=" + date_creation + '}';
+    }
+
    
 
    
