@@ -23,7 +23,7 @@ CREATE TABLE `artist` (
 CREATE TABLE `admin` (
     admin_ID INT AUTO_INCREMENT PRIMARY KEY,
     user_ID INT NOT NULL,
-    departement VARCHAR(255),
+    department VARCHAR(255),
     FOREIGN KEY (user_ID) REFERENCES User(user_ID)
 );
 
