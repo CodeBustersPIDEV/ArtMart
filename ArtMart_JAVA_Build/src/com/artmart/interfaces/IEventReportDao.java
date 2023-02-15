@@ -5,6 +5,7 @@
 package com.artmart.interfaces;
 
 import com.artmart.models.EventReport;
+import java.util.List;
 
 /**
  *
@@ -13,9 +14,9 @@ import com.artmart.models.EventReport;
 public interface IEventReportDao {
     
     int createEventReport(EventReport eventReport);
-    EventReport getEventReport(int reportID);
-    EventReport getAllEventReports(int reportID);
+    EventReport getEventReport(int eventReportID);
+    List <EventReport> getAllEventReports();
     boolean updateEventReport(EventReport eventReport);
-    boolean deleteEventReport(int reportID);
+    boolean deleteEventReport(int eventReportID);
     
 }

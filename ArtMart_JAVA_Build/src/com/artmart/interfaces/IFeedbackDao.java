@@ -5,6 +5,7 @@
 package com.artmart.interfaces;
 
 import com.artmart.models.Feedback;
+import java.util.List;
 
 /**
  *
@@ -14,7 +15,7 @@ public interface IFeedbackDao {
     
     int createFeedback(Feedback feedback);
     Feedback getFeedback(int feedbackID);
-    Feedback getAllFeedbacks(int feedbackID);
+    List<Feedback> getAllFeedbacks();
     boolean updateFeedback(Feedback feedback);
     boolean deleteFeedback(int feedbackID);
 }
