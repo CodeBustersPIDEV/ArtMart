@@ -6,8 +6,8 @@
 package com.artmart.dao;
 
 import com.artmart.connectors.SQLConnection;
-import com.artmart.interfaces.IHasCategory;
-import com.artmart.models.HasCategory;
+import com.artmart.interfaces.IHasTag;
+import com.artmart.models.HasTag;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,11 +19,11 @@ import java.util.List;
  *
  * @author marwen
  */
-public class HasCategoryDao implements IHasCategory {
+public class HasTagDao implements IHasTag{
     
-    private Connection connection;
+     private Connection connection;
 
-    public HasCategoryDao() {
+    public HasTagDao() {
     try{
         this.connection = SQLConnection.getInstance().getConnection();
         }catch(SQLException e){
@@ -32,12 +32,12 @@ public class HasCategoryDao implements IHasCategory {
     }
 
     @Override
-    public int addBlog2HasCat(HasCategory hc) {
+    public int addBlog2HasTag(HasTag ht) {
 try {
-      String sql = "INSERT INTO has_blog_category (blog_id, category_id) VALUES (?, ?)";
+      String sql = "INSERT INTO blog_tags (blog_id, tag_id) VALUES (?, ?)";
       PreparedStatement st = connection.prepareStatement(sql);
-      st.setInt(1, hc.getBlog_id());
-      st.setInt(2, hc.getCategory_id());
+      st.setInt(1, ht.getBlog_id());
+      st.setInt(2, ht.getTag_id());
       st.executeUpdate();
       return 1;
     } catch (SQLException e) {
@@ -46,18 +46,18 @@ try {
     }    }
 
     @Override
-    public List<HasCategory> getAllCatbyBlog(int blog_id) {
-    List<HasCategory> blog_hasCat = new ArrayList<>();
+    public List<HasTag> getAllTagsbyBlog(int blog_id) {
+  List<HasTag> blog_hasTag = new ArrayList<>();
     try {
-      String sql = "SELECT * FROM has_blog_category WHERE blog_id = ?";
+      String sql = "SELECT * FROM blog_tags WHERE blog_id = ?";
       PreparedStatement st = connection.prepareStatement(sql);
       st.setInt(1, blog_id);
       ResultSet rs = st.executeQuery(sql);
       while (rs.next()) {
-        blog_hasCat.add(new HasCategory(
+        blog_hasTag.add(new HasTag(
           rs.getInt("id"),
           rs.getInt("blog_id"),
-          rs.getInt("category_id")
+          rs.getInt("tag_id")
         ));
       }
     } catch (SQLException e) {
@@ -65,26 +65,27 @@ try {
            e.printStackTrace();
 
     }
-    return blog_hasCat;    }
+    return blog_hasTag;
+    }
 
     @Override
-    public boolean updateHasCat(int blog_id, HasCategory editedHC) {
-  try {
-      String sql = "UPDATE has_blog_category SET category_id = ? WHERE blog_id = ?";
+    public boolean updateHasTag(int blog_id, HasTag editedHT) {
+ try {
+      String sql = "UPDATE blog_tags SET tag_id = ? WHERE blog_id = ?";
       PreparedStatement st = connection.prepareStatement(sql);
-      st.setInt(1, editedHC.getCategory_id());
+      st.setInt(1, editedHT.getTag_id());
       st.setInt(2, blog_id);
       st.executeUpdate();
       return true;
     } catch (SQLException e) {
      System.err.println("Error occured");
      return false;
-    }    }
+    }     }
 
     @Override
-    public boolean deleteHasCat(int blog_id) {
+    public boolean deleteHasTag(int blog_id) {
   try {
-      String sql = "DELETE FROM has_blog_category WHERE blog_id = ?";
+      String sql = "DELETE FROM blog_tags WHERE blog_id = ?";
       PreparedStatement st = connection.prepareStatement(sql);
       st.setInt(1, blog_id);
       st.executeUpdate();
@@ -92,5 +93,6 @@ try {
     } catch (SQLException e) {
      System.err.println("Error occured");
      return false;
-    }    }
+    }        }
+    
 }
