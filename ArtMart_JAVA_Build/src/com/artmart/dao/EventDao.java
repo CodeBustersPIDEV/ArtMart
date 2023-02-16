@@ -11,27 +11,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventDao implements IEventDao{
-    
+public class EventDao implements IEventDao {
+
     private Connection connection;
 
     public EventDao() {
-    try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        }catch(SQLException e){
+        try {
+            this.connection = SQLConnection.getInstance().getConnection();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
-
 
     @Override
     public int createEvent(Event event) {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                // `event`(`eventID`, `name`, `location`, `type`, `description`, `entryFee`, `capacity`, `start_date`, `end_date`
-                "INSERT INTO event (userID, name, location, type, description, entryFee, capacity, startDate, endDate) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    "INSERT INTO event (userID, name, location, type, description, entryFee, capacity, startDate, endDate) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
             );
             statement.setInt(1, event.getUserID());
             statement.setString(2, event.getName());
@@ -39,14 +37,14 @@ public class EventDao implements IEventDao{
             statement.setString(4, event.getType());
             statement.setString(5, event.getDescription());
             statement.setDouble(6, event.getEntryFee());
-            statement.setInt(7,event.getCapacity());
+            statement.setInt(7, event.getCapacity());
             statement.setDate(8, event.getStartDate());
             statement.setDate(9, event.getEndDate());
-             result = statement.executeUpdate();
+            result = statement.executeUpdate();
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
-        return result;    
+        return result;
     }
 
     @Override
@@ -54,7 +52,7 @@ public class EventDao implements IEventDao{
         Event event = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM Event WHERE eventID = ?"
+                    "SELECT * FROM Event WHERE eventID = ?"
             );
             statement.setInt(1, eventID);
 
@@ -73,9 +71,9 @@ public class EventDao implements IEventDao{
                 event.setEndDate(resultSet.getDate("endDate"));
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
-        return event;    
+        return event;
     }
 
     @Override
@@ -99,7 +97,7 @@ public class EventDao implements IEventDao{
                 events.add(event);
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return events;
     }
@@ -108,9 +106,9 @@ public class EventDao implements IEventDao{
     public boolean updateEvent(Event event) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "UPDATE Event" + 
-                "SET userID = ?, name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?" +
-                "WHERE eventID = ?"
+                    "UPDATE Event"
+                    + "SET userID = ?, name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?"
+                    + "WHERE eventID = ?"
             );
             statement.setInt(1, event.getUserID());
             statement.setString(2, event.getName());
@@ -118,13 +116,13 @@ public class EventDao implements IEventDao{
             statement.setString(4, event.getType());
             statement.setString(5, event.getDescription());
             statement.setDouble(6, event.getEntryFee());
-            statement.setInt(7,event.getCapacity());
+            statement.setInt(7, event.getCapacity());
             statement.setDate(8, event.getStartDate());
             statement.setDate(9, event.getEndDate());
             statement.setInt(10, event.getEventID());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return false;
     }
@@ -136,9 +134,9 @@ public class EventDao implements IEventDao{
             statement.setInt(1, eventID);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return false;
     }
-    
+
 }

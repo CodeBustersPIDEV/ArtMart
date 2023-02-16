@@ -50,9 +50,8 @@ public class UserDao implements IUserDao {
             } else {
                 return 0;
             }
-
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
             return 0;
         }
     }
@@ -78,7 +77,7 @@ public class UserDao implements IUserDao {
                 return user;
             }
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
         }
         return null;
     }
@@ -101,7 +100,7 @@ public class UserDao implements IUserDao {
             }
             return users;
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
         }
         return null;
     }
@@ -117,7 +116,7 @@ public class UserDao implements IUserDao {
             int rowsAffected = statement.executeUpdate();
             return rowsAffected == 1;
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
         }
         return false;
     }
@@ -136,11 +135,9 @@ public class UserDao implements IUserDao {
             statement.setString(6, user.getPwd());
             statement.setInt(7, user_id);
             statement.executeUpdate();
-
             return true;
-
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
         }
         return false;
     }

@@ -3,6 +3,7 @@ package com.artmart.models;
 import java.sql.*;
 
 public class Receipt {
+
     private int id;
     private int orderId;
     private int productId;
@@ -25,7 +26,7 @@ public class Receipt {
         this.totalCost = totalCost;
         this.date = date;
     }
-    
+
     public Receipt(int orderId, int productId, int quantity, double price, double tax, double totalCost, Date date) {
         this.orderId = orderId;
         this.productId = productId;
@@ -104,7 +105,5 @@ public class Receipt {
     public String toString() {
         return "Receipt{" + "id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity + ", price=" + price + ", tax=" + tax + ", totalCost=" + totalCost + ", date=" + date + '}';
     }
-    
-    
-    
+
 }

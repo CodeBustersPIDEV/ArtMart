@@ -4,20 +4,16 @@ import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.ICategoriesDao;
 import com.artmart.models.Categories;
 
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesDao implements ICategoriesDao{
+public class CategoriesDao implements ICategoriesDao {
+
     private final SQLConnection sqlConnection = SQLConnection.getInstance();
-    
-    
-    
-    
+
     @Override
     public int createCategories(Categories categories) throws SQLException {
         String query = "INSERT INTO Categories (name) VALUES (?)";
@@ -26,62 +22,54 @@ public class CategoriesDao implements ICategoriesDao{
 
         return statement.executeUpdate();
     }
-    
+
     @Override
-   public int updateCategories(int id, Categories categories) throws SQLException {
-    String query = "UPDATE Categories SET Categories_ID = ?, name = ? WHERE Categories_ID = ?";
-    PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
-    statement.setInt(1, categories.getCategories_ID());
-  statement.setString(2, categories.getName());
+    public int updateCategories(int id, Categories categories) throws SQLException {
+        String query = "UPDATE Categories SET Categories_ID = ?, name = ? WHERE Categories_ID = ?";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        statement.setInt(1, categories.getCategories_ID());
+        statement.setString(2, categories.getName());
 
-    statement.setInt(3, id);
-    return statement.executeUpdate();
-}
+        statement.setInt(3, id);
+        return statement.executeUpdate();
+    }
 
+    @Override
     public int deleteCategories(int id) throws SQLException {
         String query = "DELETE FROM Categories WHERE Categories_ID = ?";
         PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
         statement.setInt(1, id);
-              return statement.executeUpdate();
+        return statement.executeUpdate();
 
     }
 
     @Override
-     public Categories getCategoriesById(int CategoriesID) throws SQLException {
-    String query = "SELECT categories_ID, name FROM Categories WHERE Categories_ID = ?";
-    PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
-    statement.setInt(1, CategoriesID);
-    ResultSet result = statement.executeQuery();
-    if (result.next()) {
-        String name = result.getString("name");
-        return new Categories(CategoriesID, name);
-    } else {
-        return null;
+    public Categories getCategoriesById(int CategoriesID) throws SQLException {
+        String query = "SELECT categories_ID, name FROM Categories WHERE Categories_ID = ?";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        statement.setInt(1, CategoriesID);
+        ResultSet result = statement.executeQuery();
+        if (result.next()) {
+            String name = result.getString("name");
+            return new Categories(CategoriesID, name);
+        } else {
+            return null;
+        }
     }
-}
-     
+
     @Override
-     public List<Categories> getAllCategories() throws SQLException {
-    List<Categories> categoriess = new ArrayList<>();
-    String query = "SELECT categories_ID, name FROM Categories";
-    PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
-    ResultSet result = statement.executeQuery();
-    while (result.next()) {
-        int CategoriesID = result.getInt("categories_ID");
-        String name = result.getString("name");
-        Categories x = new Categories(CategoriesID, name);
-       categoriess.add(x);
+    public List<Categories> getAllCategories() throws SQLException {
+        List<Categories> categoriess = new ArrayList<>();
+        String query = "SELECT categories_ID, name FROM Categories";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        ResultSet result = statement.executeQuery();
+        while (result.next()) {
+            int CategoriesID = result.getInt("categories_ID");
+            String name = result.getString("name");
+            Categories x = new Categories(CategoriesID, name);
+            categoriess.add(x);
+        }
+        return categoriess;
     }
-    return categoriess;
+
 }
-
-
-    }
-
-   
-
-    
-
-
-
-    

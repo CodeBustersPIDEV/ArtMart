@@ -3,15 +3,16 @@ package com.artmart.models;
 import java.sql.*;
 
 public class OrderRefund {
+
     private int id;
     private int orderId;
     private double refundAmount;
     private String reason;
     private Date date;
-    
+
     public OrderRefund() {
     }
-    
+
     public OrderRefund(int id, int orderId, double refundAmount, String reason, Date date) {
         this.id = id;
         this.orderId = orderId;
@@ -71,5 +72,5 @@ public class OrderRefund {
     public String toString() {
         return "OrderRefund{" + "id=" + id + ", orderId=" + orderId + ", refundAmount=" + refundAmount + ", reason=" + reason + ", date=" + date + '}';
     }
-    
+
 }

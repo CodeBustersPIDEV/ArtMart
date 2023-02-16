@@ -44,7 +44,7 @@ public class ProductReviewDao {
                 productReview.setDate(resultSet.getDate("date"));
             }
         } catch (SQLException e) {
-            System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return productReview;
     }
@@ -66,7 +66,7 @@ public class ProductReviewDao {
                 reviews.add(productReview);
             }
         } catch (SQLException e) {
-            System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return reviews;
     }
@@ -84,7 +84,7 @@ public class ProductReviewDao {
 
             return statement.executeUpdate();
         } catch (SQLException e) {
-            System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return 0;
     }
@@ -106,7 +106,7 @@ public class ProductReviewDao {
 
             return statement.executeUpdate();
         } catch (SQLException e) {
-            System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return 0;
     }
@@ -121,7 +121,7 @@ public class ProductReviewDao {
 
             return statement.executeUpdate();
         } catch (SQLException e) {
-            System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return 0;
     }

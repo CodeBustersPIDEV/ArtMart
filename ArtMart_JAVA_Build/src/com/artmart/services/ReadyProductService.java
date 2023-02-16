@@ -9,16 +9,11 @@ import com.artmart.models.ProductReview;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author rymae
- */
 public class ReadyProductService implements IReadyProductDao, IProductReviewDao {
 
     private final ReadyProductDao readyProductDao = new ReadyProductDao();
     private final ProductReviewDao productReviewDao = new ProductReviewDao();
 
-    //ReadyProduct
     @Override
     public List<ReadyProduct> getAllReadyProducts() throws SQLException {
         return readyProductDao.getAllReadyProducts();

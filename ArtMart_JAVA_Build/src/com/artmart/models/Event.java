@@ -1,16 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.artmart.models;
 
 import java.sql.*;
 
-/**
- *
- * @author GhassenZ
- */
 public class Event {
+
     private int eventID;
     private String name;
     private String location;
@@ -50,8 +43,6 @@ public class Event {
         this.userID = userID;
     }
 
-    
-    
     public int getEventID() {
         return eventID;
     }

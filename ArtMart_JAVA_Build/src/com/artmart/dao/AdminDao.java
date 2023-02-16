@@ -3,16 +3,10 @@ package com.artmart.dao;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IAdminDao;
 import com.artmart.models.Admin;
-import com.artmart.models.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import com.artmart.services.UserService;
 
 public class AdminDao implements IAdminDao {
 
@@ -40,7 +34,7 @@ public class AdminDao implements IAdminDao {
             return 1;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.print(e.getMessage());
         }
         return 0;
     }
@@ -62,7 +56,7 @@ public class AdminDao implements IAdminDao {
                 return admin;
             }
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
         }
         return null;
     }
@@ -78,7 +72,7 @@ public class AdminDao implements IAdminDao {
             boolean us = userDao.deleteAccountU(user_id);
             return us;
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
         }
         return false;
     }
@@ -97,7 +91,7 @@ public class AdminDao implements IAdminDao {
             boolean user = userDao.updateAccountU(user_id, admin);
             return user;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.print(e.getMessage());
         }
         return false;
     }

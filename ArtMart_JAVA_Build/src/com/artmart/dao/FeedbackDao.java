@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.artmart.dao;
 
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IFeedbackDao;
-import com.artmart.models.Event;
 import com.artmart.models.Feedback;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,43 +11,37 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author GhassenZ
- */
-public class FeedbackDao implements IFeedbackDao{
+public class FeedbackDao implements IFeedbackDao {
 
     private Connection connection;
 
     public FeedbackDao() {
-        try{
+        try {
             this.connection = SQLConnection.getInstance().getConnection();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
-    }   
-    
-    //feedbackID, eventReportID, rating, comment, date
+    }
+
     @Override
     public int createFeedback(Feedback feedback) {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO activity (eventReportID, rating, comment, date) " +
-                "VALUES (?, ?, ?, ?)"
+                    "INSERT INTO activity (eventReportID, rating, comment, date) "
+                    + "VALUES (?, ?, ?, ?)"
             );
             statement.setInt(1, feedback.getEventReportID());
             statement.setInt(2, feedback.getRating());
             statement.setString(3, feedback.getComment());
             statement.setDate(4, feedback.getDate());
-            
+
             result = statement.executeUpdate();
-        } 
-        catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
         }
-        
-        return result;    
+
+        return result;
     }
 
     @Override
@@ -60,8 +49,8 @@ public class FeedbackDao implements IFeedbackDao{
         Feedback feedback = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM Feedback" +
-                "WHERE feedbackID = ?"
+                    "SELECT * FROM Feedback"
+                    + "WHERE feedbackID = ?"
             );
             statement.setInt(1, feedbackID);
 
@@ -75,9 +64,9 @@ public class FeedbackDao implements IFeedbackDao{
                 feedback.setDate(resultSet.getDate("date"));
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
-        return feedback;    
+        return feedback;
     }
 
     @Override
@@ -96,7 +85,7 @@ public class FeedbackDao implements IFeedbackDao{
                 feedbacks.add(feedback);
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return feedbacks;
     }
@@ -105,20 +94,20 @@ public class FeedbackDao implements IFeedbackDao{
     public boolean updateFeedback(Feedback feedback) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "UPDATE Feedback" + 
-                "SET eventReportID = ?, rating = ?, comment = ?, date = ?" +
-                "WHERE feedbackID = ?"
+                    "UPDATE Feedback"
+                    + "SET eventReportID = ?, rating = ?, comment = ?, date = ?"
+                    + "WHERE feedbackID = ?"
             );
             statement.setInt(1, feedback.getEventReportID());
             statement.setInt(2, feedback.getRating());
             statement.setString(3, feedback.getComment());
             statement.setDate(4, feedback.getDate());
             statement.setInt(1, feedback.getEventReportID());
-            
+
             return statement.executeUpdate() > 0;
-            
+
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return false;
     }
@@ -127,16 +116,16 @@ public class FeedbackDao implements IFeedbackDao{
     public boolean deleteFeedback(int feedbackID) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "DELETE FROM Feedback" + 
-                "WHERE feedbackID = ?"
+                    "DELETE FROM Feedback"
+                    + "WHERE feedbackID = ?"
             );
             statement.setInt(1, feedbackID);
-            
+
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return false;
     }
-    
+
 }

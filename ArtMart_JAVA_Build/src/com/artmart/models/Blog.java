@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.models;
+
 import java.util.Date;
-/**
- *
- * @author marwen
- */
+
 public class Blog {
+
     private int id;
     private String title;
     private String content;
@@ -18,13 +12,14 @@ public class Blog {
 
     public Blog() {
     }
+
     public Blog(String title, String content, Date publishDate, int author) {
         this.title = title;
         this.content = content;
         this.publishDate = publishDate;
         this.author = author;
     }
-    
+
     public Blog(int id, String title, String content, Date publishDate, int author) {
         this.id = id;
         this.title = title;
@@ -83,7 +78,4 @@ public class Blog {
         this.author = author;
     }
 
-
-    
-    
 }

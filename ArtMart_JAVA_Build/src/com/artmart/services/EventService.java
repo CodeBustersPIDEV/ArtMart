@@ -1,4 +1,5 @@
 package com.artmart.services;
+
 import com.artmart.interfaces.IEventService;
 import com.artmart.models.Activity;
 import com.artmart.models.Event;
@@ -6,11 +7,9 @@ import com.artmart.models.EventReport;
 import com.artmart.models.Feedback;
 import java.util.List;
 
-public class EventService implements IEventService{
+public class EventService implements IEventService {
 
     private int x;
-
-
 
     @Override
     public int createEvent(Event event) {
@@ -111,5 +110,5 @@ public class EventService implements IEventService{
     public boolean deleteFeedback(int feedbackID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

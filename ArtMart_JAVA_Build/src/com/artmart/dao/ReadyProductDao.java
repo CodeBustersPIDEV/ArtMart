@@ -58,7 +58,6 @@ public class ReadyProductDao {
                 return readyProduct;
             }
         }
-
         return null;
     }
 
@@ -96,7 +95,6 @@ public class ReadyProductDao {
                 readyProducts.add(readyProduct);
             }
         }
-
         return readyProducts;
     }
 
@@ -114,7 +112,6 @@ public class ReadyProductDao {
         PreparedStatement statement = sqlConnection.prepareStatement(query);
         statement.setInt(1, readyProduct.getProductId());
         statement.setInt(2, id);
-
         return statement.executeUpdate();
     }
 
@@ -122,7 +119,6 @@ public class ReadyProductDao {
         String query = "DELETE FROM readyproduct WHERE ready_product_ID = ?";
         PreparedStatement statement = sqlConnection.prepareStatement(query);
         statement.setInt(1, id);
-
         return statement.executeUpdate();
     }
 

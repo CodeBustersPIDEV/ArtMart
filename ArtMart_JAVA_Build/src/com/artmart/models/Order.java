@@ -3,6 +3,7 @@ package com.artmart.models;
 import java.sql.*;
 
 public class Order {
+
     private int id;
     private int userId;
     private int productId;
@@ -11,7 +12,7 @@ public class Order {
     private String paymentMethod;
     private Date orderDate;
     private double totalCost;
-    
+
     public Order() {
     }
 
@@ -55,7 +56,7 @@ public class Order {
     public int getProductId() {
         return productId;
     }
-    
+
     public void setProductId(int productId) {
         this.productId = productId;
     }
@@ -104,5 +105,5 @@ public class Order {
     public String toString() {
         return "Order{" + "userId=" + userId + ", productId=" + productId + ", quantity=" + quantity + ", shippingAddress=" + shippingAddress + ", paymentMethod=" + paymentMethod + ", orderDate=" + orderDate + ", totalCost=" + totalCost + '}';
     }
-    
+
 }

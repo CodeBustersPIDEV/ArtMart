@@ -8,14 +8,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderRefundDao implements IOrderRefundDao{
-    
+public class OrderRefundDao implements IOrderRefundDao {
+
     private Connection connection;
 
     public OrderRefundDao() {
-    try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        }catch(SQLException e){
+        try {
+            this.connection = SQLConnection.getInstance().getConnection();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
@@ -55,51 +55,51 @@ public class OrderRefundDao implements IOrderRefundDao{
 
     @Override
     public List<OrderRefund> getOrderRefunds() {
-    List<OrderRefund> orderRefunds = new ArrayList<>();
-    try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM orderrefund")) {
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            OrderRefund orderRefund = new OrderRefund();
-            orderRefund.setId(resultSet.getInt("id"));
-            orderRefund.setOrderId(resultSet.getInt("order_id"));
-            orderRefund.setRefundAmount(resultSet.getDouble("refundamount"));
-            orderRefund.setReason(resultSet.getString("reason"));
-            orderRefunds.add(orderRefund);
+        List<OrderRefund> orderRefunds = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM orderrefund")) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                OrderRefund orderRefund = new OrderRefund();
+                orderRefund.setId(resultSet.getInt("id"));
+                orderRefund.setOrderId(resultSet.getInt("order_id"));
+                orderRefund.setRefundAmount(resultSet.getDouble("refundamount"));
+                orderRefund.setReason(resultSet.getString("reason"));
+                orderRefunds.add(orderRefund);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
         }
-    } catch (SQLException e) {
-        System.err.print(e.getMessage());
+        return orderRefunds;
     }
-    return orderRefunds;
-}
 
     @Override
     public boolean updateOrderRefund(OrderRefund orderRefund) {
         try {
-        String sql = "UPDATE orderrefund SET order_id = ?, refundamount = ?, date = ? WHERE id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, orderRefund.getOrderId());
-        statement.setDouble(2, orderRefund.getRefundAmount());
-        statement.setDate(3, new java.sql.Date(orderRefund.getDate().getTime()));
-        statement.setInt(4, orderRefund.getId());
-        int rowsUpdated = statement.executeUpdate();
-        return rowsUpdated == 1;
-    } catch (SQLException e) {
-        System.err.print(e.getMessage());
-        return false;
-    }
+            String sql = "UPDATE orderrefund SET order_id = ?, refundamount = ?, date = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, orderRefund.getOrderId());
+            statement.setDouble(2, orderRefund.getRefundAmount());
+            statement.setDate(3, new java.sql.Date(orderRefund.getDate().getTime()));
+            statement.setInt(4, orderRefund.getId());
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated == 1;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public boolean deleteOrderRefund(int id) {
-     try {
-        String sql = "DELETE FROM orderrefund WHERE id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, id);
-        int rowsDeleted = statement.executeUpdate();
-        return rowsDeleted == 1;
-    } catch (SQLException e) {
-        System.err.print(e.getMessage());
-        return false;
-    }
+        try {
+            String sql = "DELETE FROM orderrefund WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted == 1;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            return false;
+        }
     }
 }

@@ -7,27 +7,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WishlistDao implements IWishlistDao{
-    
+public class WishlistDao implements IWishlistDao {
+
     private Connection conn;
 
     public WishlistDao() {
-    try{
-        this.conn = SQLConnection.getInstance().getConnection();
-        }catch(SQLException e){
+        try {
+            this.conn = SQLConnection.getInstance().getConnection();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
 
     @Override
-    public int createWishlist(Wishlist wishlist){
+    public int createWishlist(Wishlist wishlist) {
         String sql = "INSERT INTO wishlist (user_id, product_id, date) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, wishlist.getUserId());
             stmt.setInt(2, wishlist.getProductId());
             stmt.setDate(3, new java.sql.Date(wishlist.getDate().getTime()));
             return stmt.executeUpdate();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
         return 0;
@@ -45,7 +45,7 @@ public class WishlistDao implements IWishlistDao{
                     return null;
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
         return null;
@@ -56,18 +56,18 @@ public class WishlistDao implements IWishlistDao{
         List<Wishlist> wishlists = new ArrayList<>();
         String sql = "SELECT * FROM wishlist";
         try (PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+                ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 wishlists.add(new Wishlist(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("product_id"), rs.getDate("date")));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
         return wishlists;
     }
 
     @Override
-    public boolean updateWishlist(Wishlist wishlist){
+    public boolean updateWishlist(Wishlist wishlist) {
         String sql = "UPDATE wishlist SET user_id = ?, product_id = ?, date = ? WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, wishlist.getUserId());
@@ -76,7 +76,7 @@ public class WishlistDao implements IWishlistDao{
             stmt.setInt(4, wishlist.getId());
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
         return false;
@@ -89,8 +89,7 @@ public class WishlistDao implements IWishlistDao{
             stmt.setInt(1, id);
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
         return false;

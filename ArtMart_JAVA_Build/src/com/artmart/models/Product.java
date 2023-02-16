@@ -1,6 +1,7 @@
 package com.artmart.models;
 
 public class Product {
+
     int productId;
     private int categoryId;
     private String name;
@@ -125,19 +126,19 @@ public class Product {
     public int getProductQuantity() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
-public String toString() {
-    return "Product{" +
-           "productId=" + productId +
-           ", categoryId=" + categoryId +
-           ", name='" + name + '\'' +
-           ", description='" + description + '\'' +
-           ", dimensions='" + dimensions + '\'' +
-           ", weight=" + weight +
-           ", material='" + material + '\'' +
-           ", image='" + image + '\'' +
-           '}';
-}
+    public String toString() {
+        return "Product{"
+                + "productId=" + productId
+                + ", categoryId=" + categoryId
+                + ", name='" + name + '\''
+                + ", description='" + description + '\''
+                + ", dimensions='" + dimensions + '\''
+                + ", weight=" + weight
+                + ", material='" + material + '\''
+                + ", image='" + image + '\''
+                + '}';
+    }
 
 }

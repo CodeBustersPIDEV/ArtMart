@@ -1,6 +1,7 @@
 package com.artmart.models;
 
 public class PaymentOption {
+
     private int id;
     private String name;
     private String availableCountries;
@@ -47,6 +48,5 @@ public class PaymentOption {
     public String toString() {
         return "PaymentOption{" + "id=" + id + ", name=" + name + ", availableCountries=" + availableCountries + '}';
     }
-    
-    
+
 }
