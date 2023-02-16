@@ -26,9 +26,9 @@ public class ArtMart_JAVA_Build {
 //System.out.println(z.getAllCategories());
 //System.out.println(cc.getCustomProductById(2));
 //System.out.println(y.getAllChats());
-    //  cc.createCustomProduct(new Product(1, "amir", "soltani", "Test",2, "Test", "Test"));
+    cc.createCustomProduct(new Product(1, "amir", "soltani", "Test",2, "Test", "Test"));
 //x.updateProduct(9, new Product(1, "amwaaaaaaaaaaaaaair", "haaaaaaaaaa", "Test",2, "Test", "Test"));
-cc.deleteCustomProduct(21);
+//cc.deleteCustomProduct(21);
         }catch(SQLException e){
             System.err.println(e.fillInStackTrace());
              System.out.println("connection failed ");
