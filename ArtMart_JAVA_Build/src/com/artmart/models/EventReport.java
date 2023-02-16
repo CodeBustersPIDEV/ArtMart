@@ -9,15 +9,15 @@ package com.artmart.models;
  * @author GhassenZ
  */
 public class EventReport {
-    private int reportID;
+    private int eventReportID;
     private int eventID;
     private int attendance;
 
     public EventReport() {
     }
 
-    public EventReport(int reportID, int eventID, int attendance) {
-        this.reportID = reportID;
+    public EventReport(int eventReportID, int eventID, int attendance) {
+        this.eventReportID = eventReportID;
         this.eventID = eventID;
         this.attendance = attendance;
     }
@@ -27,12 +27,12 @@ public class EventReport {
         this.attendance = attendance;
     }
 
-    public int getReportID() {
-        return reportID;
+    public int getEventReportID() {
+        return eventReportID;
     }
 
-    public void setReportID(int reportID) {
-        this.reportID = reportID;
+    public void setEventReportID(int eventReportID) {
+        this.eventReportID = eventReportID;
     }
 
     public int getEventID() {
@@ -53,6 +53,6 @@ public class EventReport {
 
     @Override
     public String toString() {
-        return "EventReport{" + "reportID=" + reportID + ", eventID=" + eventID + ", attendance=" + attendance + '}';
+        return "EventReport{" + "eventReportID=" + eventReportID + ", eventID=" + eventID + ", attendance=" + attendance + '}';
     }
 }

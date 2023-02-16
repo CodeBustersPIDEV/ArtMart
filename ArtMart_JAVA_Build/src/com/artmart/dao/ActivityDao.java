@@ -18,9 +18,9 @@ public class ActivityDao implements IActivityDao {
     public ActivityDao() {
     try{
         this.connection = SQLConnection.getInstance().getConnection();
-        }catch(SQLException e){
+        } catch(SQLException e){
             System.err.print(e.getMessage());
-    }
+        }
     }
     
     @Override
@@ -28,7 +28,7 @@ public class ActivityDao implements IActivityDao {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO activity (event_ID, startDate, endDate, title, host) " +
+                "INSERT INTO activity (eventID, startDate, endDate, title, host) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
             );
             statement.setInt(1, activity.getEventID());
@@ -48,15 +48,15 @@ public class ActivityDao implements IActivityDao {
         Activity activity = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM activity WHERE activity_ID = ?"
+                "SELECT * FROM activity WHERE activityID = ?"
             );
             statement.setInt(1, activityID);
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 activity = new Activity();
-                activity.setEventID(resultSet.getInt("activity_ID"));
-                activity.setEventID(resultSet.getInt("event_ID"));
+                activity.setActivityID(resultSet.getInt("activityID"));
+                activity.setEventID(resultSet.getInt("eventID"));
                 activity.setStartDate(resultSet.getDate("startDate"));
                 activity.setEndDate(resultSet.getDate("endDate"));
                 activity.setTitle(resultSet.getString("title"));
@@ -76,8 +76,8 @@ public class ActivityDao implements IActivityDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM activity");
             while (resultSet.next()) {
                 Activity activity = new Activity();
-                activity.setEventID(resultSet.getInt("activity_ID"));
-                activity.setEventID(resultSet.getInt("event_ID"));
+                activity.setActivityID(resultSet.getInt("activityID"));
+                activity.setEventID(resultSet.getInt("eventID"));
                 activity.setStartDate(resultSet.getDate("startDate"));
                 activity.setEndDate(resultSet.getDate("endDate"));
                 activity.setTitle(resultSet.getString("title"));
@@ -92,9 +92,9 @@ public class ActivityDao implements IActivityDao {
 
     @Override
     public boolean updateActivity(Activity activity) {
-        try {//event_ID, startDate, endDate, title, host
+        try {//eventID, startDate, endDate, title, host
             PreparedStatement statement = connection.prepareStatement(
-                "UPDATE Activity SET event_ID = ?, startDate = ?, endDate = ?, title = ?, host = ? WHERE activity_ID = ?");
+                "UPDATE Activity SET eventID = ?, startDate = ?, endDate = ?, title = ?, host = ? WHERE activityID = ?");
             statement.setInt(1, activity.getEventID());
             statement.setDate(2, activity.getStartDate());
             statement.setDate(3, activity.getEndDate());            
@@ -112,7 +112,7 @@ public class ActivityDao implements IActivityDao {
     @Override
     public boolean deleteActivity(int activityID) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM Activity WHERE activity_ID = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM Activity WHERE activityID = ?");
             statement.setInt(1, activityID);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {

@@ -29,19 +29,19 @@ public class EventDao implements IEventDao{
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                // `event`(`event_ID`, `name`, `location`, `type`, `description`, `entryFee`, `capacity`, `start_date`, `end_date`
-                "INSERT INTO event (name, location, type, description, entryFee, capacity, startDate, endDate, user_id) " +
+                // `event`(`eventID`, `name`, `location`, `type`, `description`, `entryFee`, `capacity`, `start_date`, `end_date`
+                "INSERT INTO event (userID, name, location, type, description, entryFee, capacity, startDate, endDate) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
             );
-            statement.setString(1, event.getName());
-            statement.setString(2, event.getLocation());
-            statement.setString(3, event.getType());
-            statement.setString(4, event.getDescription());
-            statement.setDouble(5, event.getEntryFee());
-            statement.setInt(6,event.getCapacity());
-            statement.setDate(7, event.getStartDate());
-            statement.setDate(8, event.getEndDate());
-            statement.setInt(9, event.getUserID());
+            statement.setInt(1, event.getUserID());
+            statement.setString(2, event.getName());
+            statement.setString(3, event.getLocation());
+            statement.setString(4, event.getType());
+            statement.setString(5, event.getDescription());
+            statement.setDouble(6, event.getEntryFee());
+            statement.setInt(7,event.getCapacity());
+            statement.setDate(8, event.getStartDate());
+            statement.setDate(9, event.getEndDate());
              result = statement.executeUpdate();
         } catch (SQLException e) {
            System.err.println(e.getCause().getMessage());
@@ -54,14 +54,15 @@ public class EventDao implements IEventDao{
         Event event = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM Event WHERE event_ID = ?"
+                "SELECT * FROM Event WHERE eventID = ?"
             );
             statement.setInt(1, eventID);
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 event = new Event();
-                event.setEventID(resultSet.getInt("event_ID"));
+                event.setEventID(resultSet.getInt("eventID"));
+                event.setUserID(resultSet.getInt("userID"));
                 event.setName(resultSet.getString("name"));
                 event.setLocation(resultSet.getString("location"));
                 event.setType(resultSet.getString("type"));
@@ -70,7 +71,6 @@ public class EventDao implements IEventDao{
                 event.setCapacity(resultSet.getInt("capacity"));
                 event.setStartDate(resultSet.getDate("startDate"));
                 event.setEndDate(resultSet.getDate("endDate"));
-                event.setUserID(resultSet.getInt("user_id"));
             }
         } catch (SQLException e) {
            System.err.println(e.getCause().getMessage());
@@ -86,7 +86,8 @@ public class EventDao implements IEventDao{
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Event");
             while (resultSet.next()) {
                 Event event = new Event();
-                event.setEventID(resultSet.getInt("event_ID"));
+                event.setEventID(resultSet.getInt("eventID"));
+                event.setUserID(resultSet.getInt("userID"));
                 event.setName(resultSet.getString("name"));
                 event.setLocation(resultSet.getString("location"));
                 event.setType(resultSet.getString("type"));
@@ -95,7 +96,6 @@ public class EventDao implements IEventDao{
                 event.setCapacity(resultSet.getInt("capacity"));
                 event.setStartDate(resultSet.getDate("startDate"));
                 event.setEndDate(resultSet.getDate("endDate"));
-                event.setUserID(resultSet.getInt("user_id"));
                 events.add(event);
             }
         } catch (SQLException e) {
@@ -108,16 +108,19 @@ public class EventDao implements IEventDao{
     public boolean updateEvent(Event event) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "UPDATE Event SET name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?, user_id = ? WHERE event_ID = ?");
-            statement.setString(1, event.getName());
-            statement.setString(2, event.getLocation());
-            statement.setString(3, event.getType());
-            statement.setString(4, event.getDescription());
-            statement.setDouble(5, event.getEntryFee());
-            statement.setInt(6,event.getCapacity());
-            statement.setDate(7, event.getStartDate());
-            statement.setDate(8, event.getEndDate());
-            statement.setInt(9, event.getUserID());
+                "UPDATE Event" + 
+                "SET userID = ?, name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?" +
+                "WHERE eventID = ?"
+            );
+            statement.setInt(1, event.getUserID());
+            statement.setString(2, event.getName());
+            statement.setString(3, event.getLocation());
+            statement.setString(4, event.getType());
+            statement.setString(5, event.getDescription());
+            statement.setDouble(6, event.getEntryFee());
+            statement.setInt(7,event.getCapacity());
+            statement.setDate(8, event.getStartDate());
+            statement.setDate(9, event.getEndDate());
             statement.setInt(10, event.getEventID());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -129,7 +132,7 @@ public class EventDao implements IEventDao{
     @Override
     public boolean deleteEvent(int eventID) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM Event WHERE event_ID = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM Event WHERE eventID = ?");
             statement.setInt(1, eventID);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
