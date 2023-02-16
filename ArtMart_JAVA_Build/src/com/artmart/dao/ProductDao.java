@@ -4,11 +4,10 @@ import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IProductDao;
 import com.artmart.models.Product;
 import java.sql.Connection;
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ProductDao implements IProductDao{
 
@@ -48,9 +47,9 @@ public class ProductDao implements IProductDao{
         return null;
     }
      @Override
-    public int createProduct(Product product) throws SQLException {
-        String query = "INSERT INTO product (category_ID, name, description, dimensions, weight, material, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement statement = this.sqlConnection.prepareStatement(query);
+    public int createProduct(Product product)  {
+        try {
+PreparedStatement statement = this.sqlConnection.prepareStatement( "INSERT INTO product (category_ID, name, description, dimensions, weight, material, image) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS );
         statement.setInt(1, product.getCategoryId());
         statement.setString(2, product.getName());
         statement.setString(3, product.getDescription());
@@ -58,8 +57,21 @@ public class ProductDao implements IProductDao{
         statement.setFloat(5, product.getWeight());
         statement.setString(6, product.getMaterial());
         statement.setString(7, product.getImage());
-
-        return statement.executeUpdate();
+     statement.execute();
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                   
+                return generatedKeys.getInt(1);
+              
+            } else {
+                 System.out.println("waaaaaaaaaaa");
+                return 0;
+            }}
+       catch (SQLException e) {
+            System.err.println("Error occured");
+            return 0;
+        }
+      
     }
     
     @Override
@@ -73,7 +85,7 @@ public class ProductDao implements IProductDao{
         statement.setFloat(5, product.getWeight());
         statement.setString(6, product.getMaterial());
         statement.setString(7, product.getImage());
-        statement.setInt(8, product.getProductId());
+        statement.setInt(8, id);
 
         return statement.executeUpdate();
     }
@@ -82,13 +94,10 @@ public class ProductDao implements IProductDao{
         String query = "DELETE FROM product WHERE product_ID = ?";
         PreparedStatement statement = this.sqlConnection.prepareStatement(query);
         statement.setInt(1, id);
+        statement.executeUpdate();
     }
 
-    @Override
-    public int createProductAndCustomProduct(Product baseProduct) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
 
 
     }
