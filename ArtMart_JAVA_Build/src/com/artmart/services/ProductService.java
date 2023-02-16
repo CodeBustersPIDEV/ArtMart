@@ -31,10 +31,7 @@ public class ProductService implements IProductDao {
        
     }
 
-    @Override
-    public int createProductAndCustomProduct(Product baseProduct) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
    
         
