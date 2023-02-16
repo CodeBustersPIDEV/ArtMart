@@ -7,12 +7,15 @@ package com.artmart.interfaces;
 
 import com.artmart.models.ReadyProduct;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
  * @author rymae
  */
 public interface IReadyProductDao {
+
+    List<ReadyProduct> getAllReadyProducts() throws SQLException;
 
     ReadyProduct getReadyProductById(int id) throws SQLException;
 

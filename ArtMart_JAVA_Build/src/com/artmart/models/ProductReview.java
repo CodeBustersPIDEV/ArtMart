@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.models;
 
 import java.util.Date;
@@ -20,6 +15,9 @@ public class ProductReview {
     private String text;
     private int rating;
     private Date date;
+
+    public ProductReview() {
+    }
 
     public ProductReview(int readyProductId, String username, String title, String text, int rating, Date date) {
         this.readyProductId = readyProductId;
