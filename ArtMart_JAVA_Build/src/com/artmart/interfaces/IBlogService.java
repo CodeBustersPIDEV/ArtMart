@@ -4,6 +4,7 @@ import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
 import com.artmart.models.HasCategory;
+import com.artmart.models.HasTag;
 import com.artmart.models.Media;
 import com.artmart.models.Tag;
 import java.util.List;
@@ -67,4 +68,12 @@ public interface IBlogService {
     public boolean updateHasCat(int blog_id, HasCategory editedHC);
 
     public boolean deleteHasCat(int blog_id);
+    
+     public int addBlog2HasTag(HasTag ht);
+
+    public List<HasTag> getAllTagsbyBlog(int blog_id);
+
+    public boolean updateHasTag(int blog_id, HasTag editedHT);
+
+    public boolean deleteHasTag(int blog_id);
 }
