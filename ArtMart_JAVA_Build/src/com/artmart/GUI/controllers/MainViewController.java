@@ -22,8 +22,7 @@ public class MainViewController implements Initializable {
     private void goToOrder(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Order.fxml"));
-
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/OrderGUIMenu.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("Order Managment");

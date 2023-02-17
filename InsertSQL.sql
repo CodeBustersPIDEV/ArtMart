@@ -38,16 +38,8 @@ INSERT INTO shippingOption(Name, Carrier, ShippingSpeed, ShippingFee, AvailableR
 
 INSERT INTO paymentOption(Name, AvailableCountries) VALUES ('Credit Card', 'US');
 
-INSERT INTO order(UserID, ProductID, Quantity, ShippingAddress, PaymentMethod, OrderDate, TotalCost) VALUES (1, 1, 1, 1, 1, '2023-02-17', 609.00);
-
-INSERT INTO receipt (orderID, productID, quantity, price, tax, totalCost, date) 
-VALUES (1, 2, 1, 10.0, 1.5, 11.5, '2023-02-16');
-
 INSERT INTO wishlist (userID, productID, date) 
 VALUES (1, 2, '2023-02-16');
-
-INSERT INTO orderRefund (orderID, refundAmount, reason, date) 
-VALUES (1, 50.0, 'Wrong product received', '2023-02-16');
 
 INSERT INTO salesReport (productID, totalSales, averageSalesPerDay, date) 
 VALUES (1, 5000.0, 200.0, '2023-02-16');

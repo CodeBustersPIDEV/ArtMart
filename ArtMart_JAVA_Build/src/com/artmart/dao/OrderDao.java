@@ -28,16 +28,17 @@ public class OrderDao implements IOrderServiceDao {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO Order (UserID, ProductID, Quantity, ShippingAddress, PaymentMethod, OrderDate, TotalCost) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)"
+                    "INSERT INTO `order`(UserID, ProductID, Quantity, ShippingMethod, ShippingAddress, PaymentMethod, OrderDate, TotalCost) "
+                    + "VALUES (?, ?,?, ?, ?, ?, ?, ?)"
             );
             statement.setInt(1, order.getUserId());
             statement.setInt(2, order.getProductId());
             statement.setInt(3, order.getQuantity());
-            statement.setString(4, order.getShippingAddress());
-            statement.setString(5, order.getPaymentMethod());
-            statement.setDate(6, new java.sql.Date(order.getOrderDate().getTime()));
-            statement.setDouble(7, order.getTotalCost());
+            statement.setInt(4, order.getShippingOption());
+            statement.setString(5, order.getShippingAddress());
+            statement.setInt(6, order.getPaymentMethod());
+            statement.setDate(7, new java.sql.Date(order.getOrderDate().getTime()));
+            statement.setDouble(8, order.getTotalCost());
             result = statement.executeUpdate();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -50,7 +51,7 @@ public class OrderDao implements IOrderServiceDao {
         Order order = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM Order WHERE ID = ?"
+                    "SELECT * FROM Order WHERE order_ID = ?"
             );
             statement.setInt(1, id);
 
@@ -62,7 +63,8 @@ public class OrderDao implements IOrderServiceDao {
                 order.setProductId(result.getInt("ProductID"));
                 order.setQuantity(result.getInt("Quantity"));
                 order.setShippingAddress(result.getString("ShippingAddress"));
-                order.setPaymentMethod(result.getString("PaymentMethod"));
+                order.setShippingOption(result.getInt("ShippingMethod"));
+                order.setPaymentMethod(result.getInt("PaymentMethod"));
                 order.setOrderDate(result.getDate("OrderDate"));
                 order.setTotalCost(result.getDouble("TotalCost"));
             }
@@ -85,7 +87,8 @@ public class OrderDao implements IOrderServiceDao {
                 order.setProductId(resultSet.getInt("ProductID"));
                 order.setQuantity(resultSet.getInt("Quantity"));
                 order.setShippingAddress(resultSet.getString("ShippingAddress"));
-                order.setPaymentMethod(resultSet.getString("PaymentMethod"));
+                order.setShippingOption(resultSet.getInt("ShippingMethod"));
+                order.setPaymentMethod(resultSet.getInt("PaymentMethod"));
                 order.setOrderDate(resultSet.getDate("OrderDate"));
                 order.setTotalCost(resultSet.getDouble("TotalCost"));
                 orders.add(order);
@@ -100,15 +103,16 @@ public class OrderDao implements IOrderServiceDao {
     public boolean updateOrder(Order order) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE `Order` SET UserID = ?, ProductID = ?, Quantity = ?, ShippingAddress = ?, PaymentMethod = ?, OrderDate = ?, TotalCost = ? WHERE ID = ?");
+                    "UPDATE `Order` SET UserID = ?, ProductID = ?, Quantity = ?, ShippingMethod = ?, ShippingAddress = ?, PaymentMethod = ?, OrderDate = ?, TotalCost = ? WHERE order_ID = ?");
             statement.setInt(1, order.getUserId());
             statement.setInt(2, order.getProductId());
             statement.setInt(3, order.getQuantity());
-            statement.setString(4, order.getShippingAddress());
-            statement.setString(5, order.getPaymentMethod());
-            statement.setDate(6, order.getOrderDate());
-            statement.setDouble(7, order.getTotalCost());
-            statement.setInt(8, order.getId());
+            statement.setInt(4, order.getShippingOption());
+            statement.setString(5, order.getShippingAddress());
+            statement.setInt(6, order.getPaymentMethod());
+            statement.setDate(7, order.getOrderDate());
+            statement.setDouble(8, order.getTotalCost());
+            statement.setInt(9, order.getId());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -119,7 +123,7 @@ public class OrderDao implements IOrderServiceDao {
     @Override
     public boolean deleteOrder(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM `Order` WHERE ID = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM `Order` WHERE order_ID = ?");
             statement.setInt(1, id);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {

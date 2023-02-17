@@ -21,7 +21,7 @@ public class PaymentOptionDao implements IPaymentOptionDao {
 
     @Override
     public int createPaymentOption(PaymentOption paymentOption) {
-        String sql = "INSERT INTO payment_option (name, available_countries) VALUES (?, ?)";
+        String sql = "INSERT INTO payment_option (name, availablecountries) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, paymentOption.getName());
             stmt.setString(2, paymentOption.getAvailableCountries());
@@ -34,12 +34,12 @@ public class PaymentOptionDao implements IPaymentOptionDao {
 
     @Override
     public PaymentOption getPaymentOption(int id) {
-        String sql = "SELECT * FROM payment_option WHERE id = ?";
+        String sql = "SELECT * FROM paymentoption WHERE paymentOption_ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new PaymentOption(rs.getInt("id"), rs.getString("name"), rs.getString("available_countries"));
+                    return new PaymentOption(rs.getInt("paymentOption_ID"), rs.getString("name"), rs.getString("availablecountries"));
                 } else {
                     return null;
                 }
@@ -53,10 +53,10 @@ public class PaymentOptionDao implements IPaymentOptionDao {
     @Override
     public List<PaymentOption> getPaymentOptions() {
         List<PaymentOption> paymentOptions = new ArrayList<>();
-        String sql = "SELECT * FROM payment_option";
+        String sql = "SELECT * FROM paymentoption";
         try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                paymentOptions.add(new PaymentOption(rs.getInt("id"), rs.getString("name"), rs.getString("available_countries")));
+                paymentOptions.add(new PaymentOption(rs.getInt("paymentOption_ID"), rs.getString("name"), rs.getString("availablecountries")));
             }
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -66,7 +66,7 @@ public class PaymentOptionDao implements IPaymentOptionDao {
 
     @Override
     public boolean updatePaymentOption(PaymentOption paymentOption) {
-        String sql = "UPDATE payment_option SET name = ?, available_countries = ? WHERE id = ?";
+        String sql = "UPDATE paymentoption SET name = ?, availablecountries = ? WHERE paymentOption_ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, paymentOption.getName());
             stmt.setString(2, paymentOption.getAvailableCountries());
@@ -81,7 +81,7 @@ public class PaymentOptionDao implements IPaymentOptionDao {
 
     @Override
     public boolean deletePaymentOption(int id) {
-        String sql = "DELETE FROM payment_option WHERE id = ?";
+        String sql = "DELETE FROM paymentoption WHERE paymentOption_ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             int rowsDeleted = stmt.executeUpdate();
