@@ -19,19 +19,19 @@ public class ArtMart_JAVA_Build {
         ProductDao x = new ProductDao();
         ChatDao y = new ChatDao();
         CategoriesDao z = new CategoriesDao();
-     
-        try{
+
+        try {
             Connection con = SQLConnection.getInstance().getConnection();
             System.out.println("successfully connected ");
 //System.out.println(z.getAllCategories());
 //System.out.println(cc.getCustomProductById(2));
 //System.out.println(y.getAllChats());
-    cc.createCustomProduct(new Product(1, "amir", "soltani", "Test",2, "Test", "Test"));
+            cc.createCustomProduct(new Product(1, "amir", "soltani", "Test", 2, "Test", "Test"));
 //x.updateProduct(9, new Product(1, "amwaaaaaaaaaaaaaair", "haaaaaaaaaa", "Test",2, "Test", "Test"));
 //cc.deleteCustomProduct(21);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.err.println(e.fillInStackTrace());
-             System.out.println("connection failed ");
+            System.out.println("connection failed ");
         }
     }
 }
