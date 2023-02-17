@@ -25,8 +25,8 @@ public class EventService implements IEventDao {
     }
 
     @Override
-    public boolean updateEvent(Event event) {
-        return dao.updateEvent(event);
+    public boolean updateEvent(int id,Event event) {
+        return dao.updateEvent(id,event);
     }
 
     @Override

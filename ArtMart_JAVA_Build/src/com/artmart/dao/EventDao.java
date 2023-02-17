@@ -102,8 +102,14 @@ public class EventDao implements IEventDao {
         return events;
     }
 
+    
+
+    
+    
+
+    
     @Override
-    public boolean updateEvent(Event event) {
+    public boolean updateEvent(int id,Event event) {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE Event" + 

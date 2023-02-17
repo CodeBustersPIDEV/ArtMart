@@ -14,7 +14,7 @@ public interface IEventService {
 
     List<Event> getAllEvents();
 
-    boolean updateEvent(Event event);
+    boolean updateEvent(int id,Event event);
 
     boolean deleteEvent(int eventID);
 
