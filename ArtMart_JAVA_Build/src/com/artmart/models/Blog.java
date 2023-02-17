@@ -12,7 +12,11 @@ public class Blog {
 
     public Blog() {
     }
-
+public Blog(String title, String content, int author) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+    }
     public Blog(String title, String content, Date publishDate, int author) {
         this.title = title;
         this.content = content;
