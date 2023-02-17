@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.models;
 
-import java.util.ArrayList;
-
-/**
- *
- * @author 21697
- */
 public class Artist extends User {
-    private int artist_id,nbr_artwork;
+
+    private int artist_id, nbr_artwork;
     private String bio;
 
     public Artist() {
@@ -48,8 +38,6 @@ public class Artist extends User {
     public int getNbr_artwork() {
         return nbr_artwork;
     }
-
-   
 
     public void setArtist_id(int artist_id) {
         this.artist_id = artist_id;

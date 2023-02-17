@@ -2,10 +2,6 @@ package com.artmart.models;
 
 import java.util.Date;
 
-/**
- *
- * @author rymae
- */
 public class ProductReview {
 
     private int reviewId;

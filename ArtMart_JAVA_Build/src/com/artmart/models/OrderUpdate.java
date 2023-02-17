@@ -3,6 +3,7 @@ package com.artmart.models;
 import java.sql.*;
 
 public class OrderUpdate {
+
     private int id;
     private int orderId;
     private String updateMessage;
@@ -60,5 +61,5 @@ public class OrderUpdate {
     public String toString() {
         return "OrderUpdate{" + "id=" + id + ", orderId=" + orderId + ", updateMessage=" + updateMessage + ", date=" + date + '}';
     }
-    
+
 }

@@ -4,6 +4,7 @@ import com.artmart.dao.BlogDao;
 import com.artmart.dao.CommentDao;
 import com.artmart.dao.BlogCategoriesDao;
 import com.artmart.dao.HasCategoryDao;
+import com.artmart.dao.HasTagDao;
 import com.artmart.dao.MediaDao;
 import com.artmart.dao.TagDao;
 import com.artmart.interfaces.IBlogService;
@@ -11,21 +12,23 @@ import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
 import com.artmart.models.HasCategory;
+import com.artmart.models.HasTag;
 import com.artmart.models.Media;
 import com.artmart.models.Tag;
 import java.util.List;
 
+public class BlogService implements IBlogService {
 
-public class BlogService implements IBlogService{
-    
     private final BlogDao blogDao = new BlogDao();
-    private final CommentDao commentDao = new CommentDao();    
+    private final CommentDao commentDao = new CommentDao();
     private final BlogCategoriesDao blogCategories = new BlogCategoriesDao();
     private final TagDao tag = new TagDao();
     private final MediaDao media = new MediaDao();
     private final HasCategoryDao hasCategory = new HasCategoryDao();
+    private final HasTagDao hasTag = new HasTagDao();
+
     @Override
-    public int addBlog(Blog b){
+    public int addBlog(Blog b) {
         return this.blogDao.addBlog(b);
     }
 
@@ -37,12 +40,12 @@ public class BlogService implements IBlogService{
 
     @Override
     public List<Blog> getAllBlogs() {
-    return this.blogDao.getAllBlogs();
+        return this.blogDao.getAllBlogs();
     }
 
     @Override
-    public boolean updateBlog(int blog_id,Blog editedBlog) {
-         return this.blogDao.updateBlog(blog_id,editedBlog);
+    public boolean updateBlog(int blog_id, Blog editedBlog) {
+        return this.blogDao.updateBlog(blog_id, editedBlog);
 
     }
 
@@ -58,19 +61,23 @@ public class BlogService implements IBlogService{
 
     @Override
     public Comment getOneComment(int comment_id) {
-return this.commentDao.getOneComment(comment_id);    }
+        return this.commentDao.getOneComment(comment_id);
+    }
 
     @Override
     public List<Comment> getAllComments() {
-return this.commentDao.getAllComments();     }
+        return this.commentDao.getAllComments();
+    }
 
     @Override
     public boolean updateComment(int comment_id, Comment editedComment) {
-return this.commentDao.updateComment(comment_id,editedComment);     }
+        return this.commentDao.updateComment(comment_id, editedComment);
+    }
 
     @Override
     public boolean deleteComment(int comment_id) {
-return this.commentDao.deleteComment(comment_id);     }
+        return this.commentDao.deleteComment(comment_id);
+    }
 
     @Override
     public int addBlogCategories(BlogCategories bc) {
@@ -89,7 +96,7 @@ return this.commentDao.deleteComment(comment_id);     }
 
     @Override
     public boolean updateBlogCategory(int blogsCategory_id, BlogCategories editedBlogCat) {
-        return this.blogCategories.updateBlogCategory(blogsCategory_id,editedBlogCat);
+        return this.blogCategories.updateBlogCategory(blogsCategory_id, editedBlogCat);
     }
 
     @Override
@@ -114,7 +121,7 @@ return this.commentDao.deleteComment(comment_id);     }
 
     @Override
     public boolean updateTag(int tag_id, Tag editedTag) {
-        return this.tag.updateTag(tag_id,editedTag);
+        return this.tag.updateTag(tag_id, editedTag);
     }
 
     @Override
@@ -139,7 +146,7 @@ return this.commentDao.deleteComment(comment_id);     }
 
     @Override
     public boolean updateMedia(int media_id, Media editedMedia) {
-        return this.media.updateMedia(media_id,editedMedia);
+        return this.media.updateMedia(media_id, editedMedia);
     }
 
     @Override
@@ -154,17 +161,37 @@ return this.commentDao.deleteComment(comment_id);     }
 
     @Override
     public List<HasCategory> getAllCatbyBlog(int blog_id) {
-        return this.hasCategory.getAllCatbyBlog(blog_id);    
+        return this.hasCategory.getAllCatbyBlog(blog_id);
     }
 
     @Override
     public boolean updateHasCat(int blog_id, HasCategory editedHC) {
-        return this.hasCategory.updateHasCat(blog_id,editedHC);  
+        return this.hasCategory.updateHasCat(blog_id, editedHC);
     }
 
     @Override
     public boolean deleteHasCat(int blog_id) {
-        return this.hasCategory.deleteHasCat(blog_id);  
+        return this.hasCategory.deleteHasCat(blog_id);
+    }
+
+    @Override
+    public int addBlog2HasTag(HasTag ht) {
+        return this.hasTag.addBlog2HasTag(ht);
+    }
+
+    @Override
+    public List<HasTag> getAllTagsbyBlog(int blog_id) {
+        return this.hasTag.getAllTagsbyBlog(blog_id);
+    }
+
+    @Override
+    public boolean updateHasTag(int blog_id, HasTag editedHT) {
+        return this.hasTag.updateHasTag(blog_id,editedHT);
+    }
+
+    @Override
+    public boolean deleteHasTag(int blog_id) {
+        return this.hasTag.deleteHasTag(blog_id);
     }
 
 }

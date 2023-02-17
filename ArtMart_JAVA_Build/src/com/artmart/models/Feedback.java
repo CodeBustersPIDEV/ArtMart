@@ -1,16 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.artmart.models;
 
 import java.sql.*;
 
-/**
- *
- * @author GhassenZ
- */
 public class Feedback {
+
     private int feedbackID;
     private int eventReportID;
     private int rating;
@@ -34,7 +27,7 @@ public class Feedback {
         this.comment = comment;
         this.date = date;
     }
-    
+
     public int getFeedbackID() {
         return feedbackID;
     }

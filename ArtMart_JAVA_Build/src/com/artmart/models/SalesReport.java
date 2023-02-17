@@ -3,6 +3,7 @@ package com.artmart.models;
 import java.sql.*;
 
 public class SalesReport {
+
     private int id;
     private int productId;
     private double totalSales;
@@ -11,7 +12,7 @@ public class SalesReport {
 
     public SalesReport() {
     }
-    
+
     public SalesReport(int id, int productId, double totalSales, double averageSalesPerDay, Date date) {
         this.id = id;
         this.productId = productId;
@@ -71,6 +72,5 @@ public class SalesReport {
     public String toString() {
         return "SalesReport{" + "id=" + id + ", productId=" + productId + ", totalSales=" + totalSales + ", averageSalesPerDay=" + averageSalesPerDay + ", date=" + date + '}';
     }
-    
-    
+
 }

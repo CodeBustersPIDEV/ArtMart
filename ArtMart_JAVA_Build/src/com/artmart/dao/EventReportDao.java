@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.artmart.dao;
 
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IEventReportDao;
-import com.artmart.models.Activity;
-import com.artmart.models.Event;
 import com.artmart.models.EventReport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,37 +11,33 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author GhassenZ
- */
-public class EventReportDao implements IEventReportDao{
-    
-        private Connection connection;
+public class EventReportDao implements IEventReportDao {
 
-        public EventReportDao() {
-        try{
+    private Connection connection;
+
+    public EventReportDao() {
+        try {
             this.connection = SQLConnection.getInstance().getConnection();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
-        //reportID, eventID, attendance
+
     @Override
     public int createEventReport(EventReport eventReport) {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO activity (eventID, attendance) " +
-                "VALUES (?, ?)"
+                    "INSERT INTO activity (eventID, attendance) "
+                    + "VALUES (?, ?)"
             );
             statement.setInt(1, eventReport.getEventID());
             statement.setInt(2, eventReport.getAttendance());
-             result = statement.executeUpdate();
+            result = statement.executeUpdate();
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
-        return result;    
+        return result;
     }
 
     @Override
@@ -55,8 +45,8 @@ public class EventReportDao implements IEventReportDao{
         EventReport eventReport = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM EventReport " + 
-                "WHERE reportID = ?"
+                    "SELECT * FROM EventReport "
+                    + "WHERE reportID = ?"
             );
             statement.setInt(1, eventReportID);
 
@@ -68,7 +58,7 @@ public class EventReportDao implements IEventReportDao{
                 eventReport.setAttendance(resultSet.getInt("attendance"));
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return eventReport;
     }
@@ -86,11 +76,11 @@ public class EventReportDao implements IEventReportDao{
                 eventReport.setEventReportID(resultSet.getInt("reportID"));
                 eventReport.setEventID(resultSet.getInt("eventID"));
                 eventReport.setAttendance(resultSet.getInt("attendance"));
-                
+
                 eventReports.add(eventReport);
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return eventReports;
     }
@@ -99,16 +89,16 @@ public class EventReportDao implements IEventReportDao{
     public boolean updateEventReport(EventReport eventReport) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "UPDATE EventReport " +
-                "SET eventID = ?, attendance = ? " +
-                "WHERE reportID = ?"
+                    "UPDATE EventReport "
+                    + "SET eventID = ?, attendance = ? "
+                    + "WHERE reportID = ?"
             );
             statement.setInt(1, eventReport.getEventID());
             statement.setInt(1, eventReport.getAttendance());
             statement.setInt(1, eventReport.getEventReportID());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return false;
     }
@@ -117,15 +107,15 @@ public class EventReportDao implements IEventReportDao{
     public boolean deleteEventReport(int eventReportID) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "DELETE FROM EventReport" +
-                    " WHERE reportID = ?"
+                    "DELETE FROM EventReport"
+                    + " WHERE reportID = ?"
             );
             statement.setInt(1, eventReportID);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return false;
     }
-    
+
 }

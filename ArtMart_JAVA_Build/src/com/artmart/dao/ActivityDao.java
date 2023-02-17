@@ -16,31 +16,31 @@ public class ActivityDao implements IActivityDao {
     private Connection connection;
 
     public ActivityDao() {
-    try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        } catch(SQLException e){
+        try {
+            this.connection = SQLConnection.getInstance().getConnection();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
-    
+
     @Override
     public int createActivity(Activity activity) {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO activity (eventID, startDate, endDate, title, host) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    "INSERT INTO activity (eventID, startDate, endDate, title, host) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
             );
             statement.setInt(1, activity.getEventID());
             statement.setDate(2, activity.getStartDate());
             statement.setDate(3, activity.getEndDate());
             statement.setString(4, activity.getTitle());
             statement.setString(5, activity.getHost());
-             result = statement.executeUpdate();
+            result = statement.executeUpdate();
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.println(e.getCause().getMessage());
         }
-        return result;    
+        return result;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ActivityDao implements IActivityDao {
         Activity activity = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM activity WHERE activityID = ?"
+                    "SELECT * FROM activity WHERE activityID = ?"
             );
             statement.setInt(1, activityID);
 
@@ -63,7 +63,7 @@ public class ActivityDao implements IActivityDao {
                 activity.setHost(resultSet.getString("host"));
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.println(e.getCause().getMessage());
         }
         return activity;
     }
@@ -85,30 +85,30 @@ public class ActivityDao implements IActivityDao {
                 activities.add(activity);
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.println(e.getCause().getMessage());
         }
         return activities;
     }
 
     @Override
     public boolean updateActivity(Activity activity) {
-        try {//eventID, startDate, endDate, title, host
+        try {
             PreparedStatement statement = connection.prepareStatement(
-                "UPDATE Activity SET eventID = ?, startDate = ?, endDate = ?, title = ?, host = ? WHERE activityID = ?");
+                    "UPDATE Activity SET eventID = ?, startDate = ?, endDate = ?, title = ?, host = ? WHERE activityID = ?");
             statement.setInt(1, activity.getEventID());
             statement.setDate(2, activity.getStartDate());
-            statement.setDate(3, activity.getEndDate());            
+            statement.setDate(3, activity.getEndDate());
             statement.setString(4, activity.getTitle());
             statement.setString(5, activity.getHost());
-            statement.setInt(6,activity.getActivityID());
+            statement.setInt(6, activity.getActivityID());
 
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.println(e.getCause().getMessage());
         }
         return false;
     }
-    
+
     @Override
     public boolean deleteActivity(int activityID) {
         try {
@@ -116,10 +116,9 @@ public class ActivityDao implements IActivityDao {
             statement.setInt(1, activityID);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.println(e.getCause().getMessage());
         }
         return false;
     }
-    
-    
+
 }

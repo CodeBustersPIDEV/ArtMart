@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.models;
 
-import java.sql.Date;
+public class Client extends User {
 
-/**
- *
- * @author 21697
- */
-public class Client extends User{
-    private int client_id,nbr_orders,nbr_cus_demands;
+    private int client_id, nbr_orders, nbr_cus_demands;
 
     public Client() {
     }
@@ -55,5 +45,5 @@ public class Client extends User{
     public void setNbr_cus_demands(int nbr_cus_demands) {
         this.nbr_cus_demands = nbr_cus_demands;
     }
-    
+
 }

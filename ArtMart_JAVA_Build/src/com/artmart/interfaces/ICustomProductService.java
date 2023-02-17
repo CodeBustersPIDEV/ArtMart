@@ -2,15 +2,13 @@ package com.artmart.interfaces;
 
 import com.artmart.models.CustomProduct;
 
-
-
-import java.util.List;  
+import java.util.List;
 
 public interface ICustomProductService {
-List<CustomProduct> getAllCustomProducts();
-    CustomProduct getCustomProductById(int id);
 
-   
+    List<CustomProduct> getAllCustomProducts();
+
+    CustomProduct getCustomProductById(int id);
 
     int createCustomProduct(CustomProduct customProduct);
 

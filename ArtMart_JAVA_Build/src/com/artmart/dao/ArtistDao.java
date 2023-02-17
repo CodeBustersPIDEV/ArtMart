@@ -3,7 +3,6 @@ package com.artmart.dao;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IArtistDao;
 import com.artmart.models.Artist;
-import com.artmart.models.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +11,8 @@ import java.sql.SQLException;
 public class ArtistDao implements IArtistDao {
 
     private Connection connection;
-  private UserDao userDao;
+    private UserDao userDao;
+
     public ArtistDao() {
         try {
             this.connection = SQLConnection.getInstance().getConnection();
@@ -36,7 +36,7 @@ public class ArtistDao implements IArtistDao {
             return 1;
 
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
         }
 
         return 0;
@@ -60,7 +60,7 @@ public class ArtistDao implements IArtistDao {
                 return artist;
             }
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
         }
         return null;
     }
@@ -73,10 +73,10 @@ public class ArtistDao implements IArtistDao {
             );
             statement.setInt(1, user_id);
             statement.executeUpdate();
-         boolean user=userDao.deleteAccountU(user_id);
+            boolean user = userDao.deleteAccountU(user_id);
             return user;
         } catch (SQLException e) {
-            System.err.println("Error occured");
+            System.err.print(e.getMessage());
         }
         return false;
     }
@@ -92,10 +92,10 @@ public class ArtistDao implements IArtistDao {
             statement.setInt(3, user_id);
 
             statement.executeUpdate();
-         boolean user=userDao.updateAccountU(user_id, artist);
+            boolean user = userDao.updateAccountU(user_id, artist);
             return user;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.print(e.getMessage());
         }
         return false;
     }

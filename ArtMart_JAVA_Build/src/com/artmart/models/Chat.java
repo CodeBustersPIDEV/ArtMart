@@ -1,4 +1,3 @@
-
 package com.artmart.models;
 
 public class Chat {
@@ -70,13 +69,11 @@ public class Chat {
     public void setHistory(String history) {
         this.history = history;
     }
+
     @Override
     public String toString() {
-    return "Chat [chat_ID=" + chat_ID + "\n client_ID=" + client_ID + "\ncustom_product_ID=" + custom_product_ID
-            + "\n artist_ID=" + artist_ID + "\n history=" + history + "\n********************************************"+ "]";
-}
+        return "Chat [chat_ID=" + chat_ID + "\n client_ID=" + client_ID + "\ncustom_product_ID=" + custom_product_ID
+                + "\n artist_ID=" + artist_ID + "\n history=" + history + "\n********************************************" + "]";
+    }
 
-   
-
-    
 }

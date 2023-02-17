@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.models;
 
-/**
- *
- * @author marwen
- */
 public class HasTag {
+
     private int id;
     private int blog_id;
     private int tag_id;
@@ -29,7 +21,6 @@ public class HasTag {
         this.tag_id = tag_id;
     }
 
-    
     public int getId() {
         return id;
     }
@@ -58,5 +49,5 @@ public class HasTag {
     public String toString() {
         return "HasTag{" + "id=" + id + ", blog_id=" + blog_id + ", tag_id=" + tag_id + '}';
     }
-    
+
 }

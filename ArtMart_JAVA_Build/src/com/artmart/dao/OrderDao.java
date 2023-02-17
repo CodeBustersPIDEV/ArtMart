@@ -11,14 +11,14 @@ import com.artmart.interfaces.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class OrderDao implements IOrderServiceDao{
-    
+public class OrderDao implements IOrderServiceDao {
+
     private Connection connection;
 
     public OrderDao() {
-    try{
-        this.connection = SQLConnection.getInstance().getConnection();
-        }catch(SQLException e){
+        try {
+            this.connection = SQLConnection.getInstance().getConnection();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
     }
@@ -28,8 +28,8 @@ public class OrderDao implements IOrderServiceDao{
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO Order (UserID, ProductID, Quantity, ShippingAddress, PaymentMethod, OrderDate, TotalCost) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)"
+                    "INSERT INTO Order (UserID, ProductID, Quantity, ShippingAddress, PaymentMethod, OrderDate, TotalCost) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)"
             );
             statement.setInt(1, order.getUserId());
             statement.setInt(2, order.getProductId());
@@ -38,9 +38,9 @@ public class OrderDao implements IOrderServiceDao{
             statement.setString(5, order.getPaymentMethod());
             statement.setDate(6, new java.sql.Date(order.getOrderDate().getTime()));
             statement.setDouble(7, order.getTotalCost());
-             result = statement.executeUpdate();
+            result = statement.executeUpdate();
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return result;
     }
@@ -50,7 +50,7 @@ public class OrderDao implements IOrderServiceDao{
         Order order = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM Order WHERE ID = ?"
+                    "SELECT * FROM Order WHERE ID = ?"
             );
             statement.setInt(1, id);
 
@@ -67,7 +67,7 @@ public class OrderDao implements IOrderServiceDao{
                 order.setTotalCost(result.getDouble("TotalCost"));
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return order;
     }
@@ -91,17 +91,16 @@ public class OrderDao implements IOrderServiceDao{
                 orders.add(order);
             }
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return orders;
     }
-
 
     @Override
     public boolean updateOrder(Order order) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "UPDATE `Order` SET UserID = ?, ProductID = ?, Quantity = ?, ShippingAddress = ?, PaymentMethod = ?, OrderDate = ?, TotalCost = ? WHERE ID = ?");
+                    "UPDATE `Order` SET UserID = ?, ProductID = ?, Quantity = ?, ShippingAddress = ?, PaymentMethod = ?, OrderDate = ?, TotalCost = ? WHERE ID = ?");
             statement.setInt(1, order.getUserId());
             statement.setInt(2, order.getProductId());
             statement.setInt(3, order.getQuantity());
@@ -112,7 +111,7 @@ public class OrderDao implements IOrderServiceDao{
             statement.setInt(8, order.getId());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return false;
     }
@@ -124,7 +123,7 @@ public class OrderDao implements IOrderServiceDao{
             statement.setInt(1, id);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-           System.err.println(e.getCause().getMessage());
+            System.err.print(e.getMessage());
         }
         return false;
     }

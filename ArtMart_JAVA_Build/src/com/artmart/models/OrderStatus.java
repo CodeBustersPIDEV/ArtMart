@@ -3,6 +3,7 @@ package com.artmart.models;
 import java.sql.*;
 
 public class OrderStatus {
+
     private int id;
     private int orderId;
     private String status;
@@ -10,7 +11,7 @@ public class OrderStatus {
 
     public OrderStatus() {
     }
-    
+
     public OrderStatus(int id, int orderId, String status, Date date) {
         this.id = id;
         this.orderId = orderId;
@@ -23,7 +24,6 @@ public class OrderStatus {
         this.status = status;
         this.date = date;
     }
-
 
     public int getId() {
         return id;
@@ -61,6 +61,5 @@ public class OrderStatus {
     public String toString() {
         return "OrderStatus{" + "id=" + id + ", orderId=" + orderId + ", status=" + status + ", date=" + date + '}';
     }
-    
-    
+
 }

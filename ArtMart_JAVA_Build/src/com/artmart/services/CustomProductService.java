@@ -1,14 +1,13 @@
 package com.artmart.services;
+
 import com.artmart.interfaces.ICustomProductDao;
 import com.artmart.dao.CustomProductDao;
 import java.sql.SQLException;
 import com.artmart.models.CustomProduct;
 import java.util.List;
 
-
-
 public class CustomProductService implements ICustomProductDao {
-    
+
     private final CustomProductDao customProductDao = new CustomProductDao();
 
     @Override
@@ -22,8 +21,8 @@ public class CustomProductService implements ICustomProductDao {
     }
 
     @Override
-    public int updateCustomProduct(int id,CustomProduct customProduct) throws SQLException {
-        return customProductDao.updateCustomProduct(id,customProduct);
+    public int updateCustomProduct(int id, CustomProduct customProduct) throws SQLException {
+        return customProductDao.updateCustomProduct(id, customProduct);
     }
 
     @Override
@@ -33,6 +32,6 @@ public class CustomProductService implements ICustomProductDao {
 
     @Override
     public List<CustomProduct> getAllCustomProducts() throws SQLException {
-return customProductDao.getAllCustomProducts();
+        return customProductDao.getAllCustomProducts();
     }
 }

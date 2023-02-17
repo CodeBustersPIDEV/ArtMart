@@ -1,4 +1,5 @@
 package com.artmart.services;
+
 import com.artmart.dao.*;
 import com.artmart.interfaces.IOrderService;
 import com.artmart.models.Order;
@@ -12,8 +13,8 @@ import com.artmart.models.ShippingOption;
 import com.artmart.models.Wishlist;
 import java.util.List;
 
-public class OrderService implements IOrderService{
-    
+public class OrderService implements IOrderService {
+
     private final OrderDao orderDao = new OrderDao();
     private final OrderRefundDao orderRefundDao = new OrderRefundDao();
     private final OrderStatusDao orderStatusDao = new OrderStatusDao();
@@ -41,12 +42,12 @@ public class OrderService implements IOrderService{
 
     @Override
     public boolean updateOrder(Order order) {
-         return this.orderDao.updateOrder(order);
+        return this.orderDao.updateOrder(order);
     }
 
     @Override
     public boolean deleteOrder(int id) {
-         return this.orderDao.deleteOrder(id);
+        return this.orderDao.deleteOrder(id);
     }
 
     @Override
@@ -76,7 +77,7 @@ public class OrderService implements IOrderService{
 
     @Override
     public int createOrderUpdate(OrderUpdate orderUpdate) {
-       return this.orderUpdateDao.createOrderUpdate(orderUpdate);
+        return this.orderUpdateDao.createOrderUpdate(orderUpdate);
     }
 
     @Override
@@ -96,7 +97,7 @@ public class OrderService implements IOrderService{
 
     @Override
     public boolean deleteOrderUpdate(int id) {
-       return this.orderUpdateDao.deleteOrderUpdate(id);
+        return this.orderUpdateDao.deleteOrderUpdate(id);
     }
 
     @Override

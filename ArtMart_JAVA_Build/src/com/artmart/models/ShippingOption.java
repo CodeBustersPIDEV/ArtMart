@@ -1,6 +1,7 @@
 package com.artmart.models;
 
 public class ShippingOption {
+
     private int id;
     private String name;
     private String carrier;

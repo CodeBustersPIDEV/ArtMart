@@ -1,25 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.models;
 
 import java.sql.Date;
 
-/**
- *
- * @author 21697
- */
 public class User {
-    private int user_id,phone_nbr;
-    private String name,email,username,pwd,role;
-    private Date birthday,date_creation;
-    
+
+    private int user_id, phone_nbr;
+    private String name, email, username, pwd, role;
+    private Date birthday, date_creation;
+
     public User() {
     }
-    
-     public User(int user_id, int phone_nbr, String name, String email, String username, String pwd, Date birthday, Date date_creation,String role) {
+
+    public User(int user_id, int phone_nbr, String name, String email, String username, String pwd, Date birthday, Date date_creation, String role) {
         this.user_id = user_id;
         this.phone_nbr = phone_nbr;
         this.name = name;
@@ -28,18 +20,18 @@ public class User {
         this.pwd = pwd;
         this.birthday = birthday;
         this.date_creation = date_creation;
-                this.role = role;
+        this.role = role;
 
     }
 
-    public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday,String role) {
+    public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday, String role) {
         this.phone_nbr = phone_nbr;
         this.name = name;
         this.email = email;
         this.username = username;
         this.pwd = pwd;
         this.birthday = birthday;
-                 this.role = role;
+        this.role = role;
     }
 
     public String getRole() {
@@ -49,8 +41,7 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-    
-    
+
     public int getUser_id() {
         return user_id;
     }
@@ -82,8 +73,6 @@ public class User {
     public Date getDate_creation() {
         return date_creation;
     }
-
-   
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
@@ -122,10 +111,4 @@ public class User {
         return "User{" + "user_id=" + user_id + ", phone_nbr=" + phone_nbr + ", name=" + name + ", email=" + email + ", username=" + username + ", pwd=" + pwd + ", role=" + role + ", birthday=" + birthday + ", date_creation=" + date_creation + '}';
     }
 
-   
-
-   
-    
-    
-    
 }

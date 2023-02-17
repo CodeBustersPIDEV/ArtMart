@@ -3,6 +3,7 @@ package com.artmart.models;
 import java.sql.*;
 
 public class Wishlist {
+
     private int id;
     private int userId;
     private int productId;
@@ -11,7 +12,6 @@ public class Wishlist {
     public Wishlist() {
     }
 
-    
     public Wishlist(int id, int userId, int productId, Date date) {
         this.id = id;
         this.userId = userId;
@@ -61,6 +61,5 @@ public class Wishlist {
     public String toString() {
         return "Wishlist{" + "id=" + id + ", userId=" + userId + ", productId=" + productId + ", date=" + date + '}';
     }
-    
-    
+
 }
