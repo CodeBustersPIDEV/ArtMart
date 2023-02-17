@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
-public class Main_ViewController implements Initializable {
+public class BlogGUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

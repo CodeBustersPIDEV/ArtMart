@@ -9,8 +9,9 @@ public class ArtMart_JAVA_Build extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Main_View.fxml"));
-        Scene scene = new Scene(root, 300, 275);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
