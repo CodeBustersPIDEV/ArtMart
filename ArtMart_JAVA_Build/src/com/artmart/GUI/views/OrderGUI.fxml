@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="448.0" prefWidth="649.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.OrderGUIController">
+    <stylesheets>
+        <URL value="@/com/artmart/GUI/styles/ordergui.css" />
+    </stylesheets>
+    <children>
+          <Label layoutX="67.0" layoutY="80.0" text="UserID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="userIdTextField" layoutX="171.0" layoutY="76.0" promptText="User_Id" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label layoutX="58.0" layoutY="123.0" text="ProductID:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="productIdTextField" layoutX="171.0" layoutY="119.0" promptText="Product_Id" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label layoutX="365.0" layoutY="80.0" text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="quantityTextField" layoutX="427.0" layoutY="76.0" promptText="Quantity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label layoutX="57.0" layoutY="174.0" text="Shipping Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="shippingAddressStreetTextField" layoutX="171.0" layoutY="170.0" promptText="Street" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="shippingAddressCityTextField" layoutX="171.0" layoutY="206.0" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <TextField fx:id="shippingAddressStateTextField" layoutX="171.0" layoutY="244.0" promptText="State" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <TextField fx:id="shippingAddressZipTextField" layoutX="171.0" layoutY="283.0" promptText="Zip Code" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label layoutX="58.0" layoutY="337.0" text="Payment Method:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <TextField fx:id="paymentMethodTextField" layoutX="171.0" layoutY="333.0" promptText="Payment" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label layoutX="74.0" layoutY="387.0" text="Order Date:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <TextField fx:id="orderDateTextField" layoutX="171.0" layoutY="383.0" promptText="Order" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <Label layoutX="362.0" layoutY="337.0" text="Total Cost:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+        <TextField fx:id="totalCostTextField" layoutX="437.0" layoutY="333.0" promptText="Total" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Button fx:id="placeOrderBtn" layoutX="486.0" layoutY="383.0" mnemonicParsing="false" text="Confirm" />
+      </children>
+</AnchorPane>
