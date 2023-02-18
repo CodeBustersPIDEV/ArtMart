@@ -4,6 +4,10 @@ public class BlogCategories {
 
     private int id;
     private String name;
+    
+    public BlogCategories() {
+
+    }
 
     public BlogCategories(int id, String name) {
         this.id = id;

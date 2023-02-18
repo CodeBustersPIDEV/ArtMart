@@ -48,6 +48,8 @@ public class AddBlogController implements Initializable {
 //    Date sqlDate = new Date(System.currentTimeMillis());
     private final BlogService blogService = new BlogService();
         private List<BlogCategories> blogCategoriesList;
+                Blog resBlog = new Blog();
+                BlogCategories resBlogCategories = new BlogCategories();
 
 
     /**
@@ -69,10 +71,10 @@ public class AddBlogController implements Initializable {
         FXMLLoader loader =new FXMLLoader(getClass().getResource("./MainView.fxml"));
         Blog blog=new Blog(blog_title.getText(),blog_content.getText(),2);
         blogService.addBlog(blog);
-        Blog resBlog = new Blog();
-//        resBlog=blogService.getOneBlog();
-//        HasCategory hc = new HasCategory();
-//        blogService.addBlog2HasCat(hc)
+        resBlog=blogService.getOneBlogByTitle(blog_title.getText());
+        resBlogCategories=blogService.getOneBlogCategory(blog_category.getSelectionModel().getSelectedItem());
+        HasCategory hc = new HasCategory(resBlog.getId(),resBlogCategories.getId());
+        blogService.addBlog2HasCat(hc);
         Parent root;
         root=loader.load();
         add_blog.getScene().setRoot(root);

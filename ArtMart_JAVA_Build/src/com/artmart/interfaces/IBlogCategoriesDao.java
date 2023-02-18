@@ -9,6 +9,8 @@ public interface IBlogCategoriesDao {
 
     public BlogCategories getOneBlogCategory(int blogsCategory_id);
 
+    public BlogCategories getOneBlogCategory(String blogsCategory_name);
+    
     public List<BlogCategories> getAllBlogCategories();
 
     public boolean updateBlogCategory(int blogsCategory_id, BlogCategories editedBlogCat);

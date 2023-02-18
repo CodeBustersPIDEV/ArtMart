@@ -8,6 +8,8 @@ public interface IBlogServiceDao {
     public int addBlog(Blog b);
 
     public Blog getOneBlog(int blog_id);
+    
+    public Blog getOneBlogByTitle(String blog_title);
 
     public List<Blog> getAllBlogs();
 

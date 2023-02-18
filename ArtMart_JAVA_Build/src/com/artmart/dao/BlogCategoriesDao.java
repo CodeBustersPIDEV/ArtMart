@@ -41,14 +41,14 @@ public class BlogCategoriesDao implements IBlogCategoriesDao {
         BlogCategories blogCategoryFound = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM blogcategories WHERE blogsCategory_id = ?"
+                    "SELECT * FROM blogcategories WHERE categories_ID = ?"
             );
             statement.setInt(1, blogsCategory_id);
 
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 blogCategoryFound = new BlogCategories(
-                        result.getInt("blogsCategory_id"),
+                        result.getInt("categories_ID"),
                         result.getString("name")
                 );
             }
@@ -58,6 +58,28 @@ public class BlogCategoriesDao implements IBlogCategoriesDao {
         return blogCategoryFound;
     }
 
+        @Override
+    public BlogCategories getOneBlogCategory(String blogsCategory_name) {
+        BlogCategories blogCategoryFound = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM blogcategories WHERE name = ?"
+            );
+            statement.setString(1, blogsCategory_name);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                blogCategoryFound = new BlogCategories(
+                        result.getInt("categories_ID"),
+                        result.getString("name")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return blogCategoryFound;
+    }
+    
     @Override
     public List<BlogCategories> getAllBlogCategories() {
         List<BlogCategories> blogCategoriesList = new ArrayList<>();
@@ -80,7 +102,7 @@ public class BlogCategoriesDao implements IBlogCategoriesDao {
     @Override
     public boolean updateBlogCategory(int blogsCategory_id, BlogCategories editedBlogCat) {
         try {
-            String sql = "UPDATE blogcategories SET name = ? WHERE blogsCategory_id = ?";
+            String sql = "UPDATE blogcategories SET name = ? WHERE categories_ID = ?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, editedBlogCat.getName());
             st.setInt(2, blogsCategory_id);
@@ -95,7 +117,7 @@ public class BlogCategoriesDao implements IBlogCategoriesDao {
     @Override
     public boolean deleteBlogCategory(int blogsCategory_id) {
         try {
-            String sql = "DELETE FROM blogcategories WHERE blogsCategory_id = ?";
+            String sql = "DELETE FROM blogcategories WHERE categories_ID = ?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, blogsCategory_id);
             st.executeUpdate();

@@ -64,6 +64,30 @@ public class BlogDao implements IBlogServiceDao {
         }
         return blogFound;
     }
+    
+     public Blog getOneBlogByTitle(String blog_title) {
+        Blog blogFound = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM blogs WHERE title = ?"
+            );
+            statement.setString(1, blog_title);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                blogFound = new Blog(
+                        result.getInt("blogs_ID"),
+                        result.getString("title"),
+                        result.getString("content"),
+                        result.getDate("date"),
+                        result.getInt("author")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return blogFound;
+    }
 
     @Override
     public List<Blog> getAllBlogs() {

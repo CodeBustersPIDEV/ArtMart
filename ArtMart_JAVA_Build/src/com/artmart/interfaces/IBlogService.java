@@ -14,6 +14,8 @@ public interface IBlogService {
     public int addBlog(Blog b);
 
     public Blog getOneBlog(int blog_id);
+    
+    public Blog getOneBlogByTitle(String blog_title);
 
     public List<Blog> getAllBlogs();
 
@@ -34,6 +36,8 @@ public interface IBlogService {
     public int addBlogCategories(BlogCategories bc);
 
     public BlogCategories getOneBlogCategory(int blogsCategory_id);
+    
+    public BlogCategories getOneBlogCategory(String blogsCategory_name);
 
     public List<BlogCategories> getAllBlogCategories();
 

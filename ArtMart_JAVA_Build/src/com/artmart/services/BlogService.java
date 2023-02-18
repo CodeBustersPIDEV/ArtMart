@@ -37,6 +37,12 @@ public class BlogService implements IBlogService {
         return this.blogDao.getOneBlog(blog_id);
 
     }
+    
+    @Override
+    public Blog getOneBlogByTitle(String blog_title) {
+        return this.blogDao.getOneBlogByTitle(blog_title);
+
+    }
 
     @Override
     public List<Blog> getAllBlogs() {
@@ -89,6 +95,11 @@ public class BlogService implements IBlogService {
         return this.blogCategories.getOneBlogCategory(blogsCategory_id);
     }
 
+    @Override
+    public BlogCategories getOneBlogCategory(String blogsCategory_name) {
+        return this.blogCategories.getOneBlogCategory(blogsCategory_name);
+    }
+    
     @Override
     public List<BlogCategories> getAllBlogCategories() {
         return this.blogCategories.getAllBlogCategories();
