@@ -1,18 +1,14 @@
 package com.artmart.models;
 
-import java.util.List;
-
 public class CustomProduct extends Product {
 
     private int customProductId;
-    private Product product;
 
     public CustomProduct() {
     }
 
     public CustomProduct(Product p) {
         super(p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
-
     }
 
     public CustomProduct(int customid, Product p) {
@@ -34,16 +30,8 @@ public class CustomProduct extends Product {
 
     @Override
     public String toString() {
-        return "CustomProduct{"
-                + "customProductId=" + customProductId
-                + "\nproductId=" + productId
-                + "\nproduct=" + product.toString()
-                + "\n*****************************************************"
-                + '}';
+        return "CustomProduct{" + "customProductId=" + customProductId + super.toString() + '}';
     }
 
-    public void initData(List<CustomProduct> allCustomProducts) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
 }

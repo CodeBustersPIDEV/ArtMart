@@ -4,6 +4,7 @@ import com.artmart.interfaces.ICustomProductDao;
 import com.artmart.dao.CustomProductDao;
 import java.sql.SQLException;
 import com.artmart.models.CustomProduct;
+import com.artmart.models.Product;
 import java.util.List;
 
 public class CustomProductService implements ICustomProductDao {
@@ -16,7 +17,7 @@ public class CustomProductService implements ICustomProductDao {
     }
 
     @Override
-    public int createCustomProduct(CustomProduct customProduct) throws SQLException {
+    public int createCustomProduct(Product customProduct) throws SQLException {
         return customProductDao.createCustomProduct(customProduct);
     }
 
