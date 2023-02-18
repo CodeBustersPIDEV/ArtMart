@@ -9,5 +9,6 @@
       <Label layoutX="264.0" layoutY="53.0" text="Blog Menu" />
       <Button fx:id="link_add_blog" layoutX="162.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Add Blog" />
       <Button fx:id="link_list_blogs" layoutX="351.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToBlogList" text="Consult Blogs" />
+      <Button fx:id="back_btn" layoutX="41.0" layoutY="38.0" mnemonicParsing="false" onAction="#goBackToAppMenu" text="Back" />
    </children>
 </AnchorPane>
