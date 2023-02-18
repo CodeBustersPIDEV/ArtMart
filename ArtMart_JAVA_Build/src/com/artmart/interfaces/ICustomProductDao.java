@@ -1,6 +1,7 @@
 package com.artmart.interfaces;
 
 import com.artmart.models.CustomProduct;
+import com.artmart.models.Product;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,7 +12,7 @@ public interface ICustomProductDao {
 
     CustomProduct getCustomProductById(int id) throws SQLException;
 
-    int createCustomProduct(CustomProduct customProduct) throws SQLException;
+    int createCustomProduct(Product customProduct) throws SQLException;
 
     int updateCustomProduct(int id, CustomProduct customProduct) throws SQLException;
 
