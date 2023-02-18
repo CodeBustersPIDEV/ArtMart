@@ -101,8 +101,7 @@ public class MainViewController implements Initializable {
     private void goToBlog(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog.fxml"));
-
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/BlogMenu.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("Blog Managment");
