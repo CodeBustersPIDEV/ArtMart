@@ -32,8 +32,8 @@ public class ActivityService implements IActivityDao{
     }
 
     @Override
-    public boolean updateActivity(Activity activity) {
-        return dao.updateActivity(activity);
+    public boolean updateActivity(int activityID, Activity activity) {
+        return dao.updateActivity(activityID, activity);
     }
 
     @Override
