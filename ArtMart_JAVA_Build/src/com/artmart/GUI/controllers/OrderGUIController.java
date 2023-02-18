@@ -67,6 +67,8 @@ public class OrderGUIController implements Initializable {
         );
         this.paymentMethodDropdownField.setItems(paymentOptions);
         this.shippingMethodDropdownField.setItems(shippingOptions);
+        this.paymentMethodDropdownField.getSelectionModel().selectFirst();
+        this.shippingMethodDropdownField.getSelectionModel().selectFirst();
     }
 
     @FXML

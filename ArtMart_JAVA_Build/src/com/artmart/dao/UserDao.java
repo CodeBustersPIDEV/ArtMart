@@ -90,6 +90,7 @@ public class UserDao implements IUserDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
             while (resultSet.next()) {
                 User user = new User();
+                user.setUser_id(resultSet.getInt("user_id"));
                 user.setName(resultSet.getString("name"));
                 user.setEmail(resultSet.getString("email"));
                 user.setBirthday(resultSet.getDate("birthday"));
