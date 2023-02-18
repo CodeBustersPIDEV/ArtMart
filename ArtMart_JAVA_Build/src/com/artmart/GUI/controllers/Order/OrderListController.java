@@ -28,6 +28,11 @@ public class OrderListController implements Initializable {
 
     public void setUser(User user) {
         this.user = user;
+        this.refreshList();
+    }
+    
+    public void refreshList(){
+        orderCard.getChildren().clear();
         OrderService orderService = new OrderService();
         List<Order> orderList = orderService.getOrdersById(this.user.getUser_id());
         orderList.forEach(order -> {
@@ -35,13 +40,12 @@ public class OrderListController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderCard.fxml"));
                 Parent root = loader.load();
                 OrderCardController controller = loader.getController();
-                controller.setOrder(order);
+                controller.setupData(order,this);
                 root.setId(""+order.getId());
                 orderCard.getChildren().add(root);
             } catch (IOException e) {
                 System.out.print(e.getCause());
             }
         });
-
     }
 }

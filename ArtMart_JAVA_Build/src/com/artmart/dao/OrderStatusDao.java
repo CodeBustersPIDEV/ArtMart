@@ -96,14 +96,14 @@ public class OrderStatusDao implements IOrderStatusDao {
     }
 
     @Override
-    public boolean updateOrderStatus(OrderStatus orderStatus) {
+    public boolean updateOrderStatus(int id,OrderCurrentStatus status) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE OrderStatus SET OrderID = ?, Status = ?, Date = ? WHERE orderStatus_ID = ?");
-            statement.setInt(1, orderStatus.getOrderId());
-            statement.setString(2, orderStatus.getStatus());
-            statement.setDate(3, new java.sql.Date(orderStatus.getDate().getTime()));
-            statement.setInt(4, orderStatus.getId());
-            return true;
+            PreparedStatement statement = connection.prepareStatement("UPDATE OrderStatus SET Status = ?, Date = ? WHERE OrderID = ?");
+            statement.setString(1, status.getStatus());
+            System.err.print(status.getStatus());
+            statement.setDate(2, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            statement.setInt(3, id);
+            return statement.executeUpdate()>0;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -113,10 +113,9 @@ public class OrderStatusDao implements IOrderStatusDao {
     @Override
     public boolean deleteOrderStatus(int id) {
         try {
-            PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM OrderStatus WHERE orderStatus_ID = ?");
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM OrderStatus WHERE OrderID = ?");
             stmt.setInt(1, id);
-            return true;
+            return stmt.executeUpdate()>0;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }

@@ -165,6 +165,7 @@ public class OrderDao implements IOrderServiceDao {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM `Order` WHERE order_ID = ?");
             statement.setInt(1, id);
+            this.orderStatusDao.deleteOrderStatus(id);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.print(e.getMessage());

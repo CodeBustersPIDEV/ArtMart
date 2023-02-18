@@ -1,6 +1,7 @@
 package com.artmart.interfaces;
 
 import com.artmart.models.*;
+import com.artmart.utils.OrderCurrentStatus;
 import java.util.List;
 
 public interface IOrderService {
@@ -25,7 +26,7 @@ public interface IOrderService {
 
     List<OrderStatus> getOrderStatuses();
 
-    boolean updateOrderStatus(OrderStatus orderStatus);
+    boolean updateOrderStatus(int id,OrderCurrentStatus status);
 
     boolean deleteOrderStatus(int id);
 

@@ -11,6 +11,7 @@ import com.artmart.models.Receipt;
 import com.artmart.models.SalesReport;
 import com.artmart.models.ShippingOption;
 import com.artmart.models.Wishlist;
+import com.artmart.utils.OrderCurrentStatus;
 import java.util.List;
 
 public class OrderService implements IOrderService {
@@ -76,8 +77,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public boolean updateOrderStatus(OrderStatus orderStatus) {
-        return this.orderStatusDao.updateOrderStatus(orderStatus);
+    public boolean updateOrderStatus(int id,OrderCurrentStatus status) {
+        return this.orderStatusDao.updateOrderStatus(id,status);
     }
 
     @Override
