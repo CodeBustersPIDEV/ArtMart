@@ -36,6 +36,7 @@ public class BlogGUIController implements Initializable {
                 controller.setBlogTitle(blog.getTitle());
                 container.getChildren().add(pane);                   
                 controller.setUsername(username);
+                controller.setBlogID(Integer.toString(blog.getId()));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.printStackTrace();
