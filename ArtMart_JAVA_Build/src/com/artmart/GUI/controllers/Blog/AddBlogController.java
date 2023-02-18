@@ -44,7 +44,7 @@ public class AddBlogController implements Initializable {
     private Button add_imageBlog;
     @FXML
     private Button add_blog;
-    Date sqlDate = new Date(System.currentTimeMillis());
+//    Date sqlDate = new Date(System.currentTimeMillis());
     private final BlogService blogService = new BlogService();
         private List<BlogCategories> blogCategoriesList;
 
@@ -66,7 +66,7 @@ public class AddBlogController implements Initializable {
     private void add(ActionEvent event) throws IOException {
         try{
         FXMLLoader loader =new FXMLLoader(getClass().getResource("./MainView.fxml"));
-        Blog blog=new Blog(blog_title.getText(),blog_content.getText(),sqlDate,2);
+        Blog blog=new Blog(blog_title.getText(),blog_content.getText(),2);
         blogService.addBlog(blog);
         Parent root;
         root=loader.load();
