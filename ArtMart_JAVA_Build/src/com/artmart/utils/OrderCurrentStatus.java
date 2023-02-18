@@ -20,7 +20,6 @@ public enum OrderCurrentStatus {
     try {
         return OrderCurrentStatus.valueOf(status);
     } catch (IllegalArgumentException e) {
-        // handle invalid status
         return null;
     }
 }

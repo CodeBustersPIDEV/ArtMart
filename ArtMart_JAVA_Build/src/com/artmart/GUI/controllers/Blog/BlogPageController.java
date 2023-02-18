@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.artmart.GUI.controllers;
+package com.artmart.GUI.controllers.Blog;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,9 +12,9 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author mahou
+ * @author marwen
  */
-public class CustomProductGUIController implements Initializable {
+public class BlogPageController implements Initializable {
 
     /**
      * Initializes the controller class.

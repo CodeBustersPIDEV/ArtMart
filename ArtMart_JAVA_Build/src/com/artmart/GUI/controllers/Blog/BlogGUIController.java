@@ -1,5 +1,6 @@
-package com.artmart.GUI.controllers;
+package com.artmart.GUI.controllers.Blog;
 
+import com.artmart.GUI.controllers.Blog.BlogCardController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.services.BlogService;
@@ -28,7 +29,7 @@ public class BlogGUIController implements Initializable {
         for(Blog blog : blogList){ 
             String username = userService.getUser(blog.getAuthor()).getUsername();
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/BlogCard.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCard.fxml"));
                 Pane pane = loader.load();
                 pane.setId("blog_card"+blog.getId());
                 BlogCardController controller = loader.getController();

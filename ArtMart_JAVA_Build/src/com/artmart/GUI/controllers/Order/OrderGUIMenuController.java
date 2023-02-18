@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.artmart.GUI.controllers;
+package com.artmart.GUI.controllers.Order;
 
 import com.artmart.dao.ProductDao;
 import com.artmart.dao.UserDao;
@@ -62,7 +62,7 @@ public class OrderGUIMenuController implements Initializable {
         try {
             this.SelectUserAndProduct();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/Order.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             

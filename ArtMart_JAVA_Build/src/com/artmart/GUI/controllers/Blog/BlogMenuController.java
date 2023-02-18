@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.artmart.GUI.controllers;
+package com.artmart.GUI.controllers.Blog;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +42,7 @@ public class BlogMenuController implements Initializable {
     private void goToAddBlog(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/addBlog.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/addBlog.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("Blog Managment");
@@ -59,7 +59,7 @@ public class BlogMenuController implements Initializable {
     private void goToBlogList(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
             Scene scene = new Scene(root);
             stage.setTitle("Blog Managment");
             stage.setScene(scene);

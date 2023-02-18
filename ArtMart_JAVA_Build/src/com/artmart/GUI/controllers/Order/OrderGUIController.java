@@ -1,4 +1,4 @@
-package com.artmart.GUI.controllers;
+package com.artmart.GUI.controllers.Order;
 
 import com.artmart.models.Order;
 import com.artmart.models.PaymentOption;
@@ -107,7 +107,7 @@ public class OrderGUIController implements Initializable {
     private void OnOrderCancel(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/OrderGUIMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Order/OrderGUIMenu.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setScene(scene);

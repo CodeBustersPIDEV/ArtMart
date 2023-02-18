@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.BlogMenuController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogMenuController">
    <children>
       <Label layoutX="264.0" layoutY="53.0" text="Blog Menu" />
       <Button fx:id="link_add_blog" layoutX="162.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Add Blog" />
