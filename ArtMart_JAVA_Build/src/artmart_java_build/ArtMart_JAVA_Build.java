@@ -29,12 +29,11 @@ public class ArtMart_JAVA_Build {
         try{
             Connection con = SQLConnection.getInstance().getConnection();
             System.out.println("successfully connected ");
-           // w.createEvent( new Event("wa", "wa", "wa", "wa", 0, 0, new Date(01/01/2001), new Date(01/01/2001), 1));
-            w.updateEvent(2, new Event("wa33333333333333333333333", "wa", "wa", "wa", 0, 0,Date.valueOf("2001-01-01"),Date.valueOf("2001-01-01"), 1));
+       //  z.createCategories(new Categories("amir"));
 //System.out.println(z.getAllCategories());
 //System.out.println(cc.getCustomProductById(2));
 //System.out.println(y.getAllChats());
-    //  cc.createCustomProduct(new Product(1, "amir", "soltani", "Test",2, "Test", "Test"));
+     cc.createCustomProduct(new Product(1, "amir", "soltani", "Test",2, "Test", "Test"));
 //x.updateProduct(9, new Product(1, "amwaaaaaaaaaaaaaair", "haaaaaaaaaa", "Test",2, "Test", "Test"));
 cc.deleteCustomProduct(21);
         }catch(SQLException e){
