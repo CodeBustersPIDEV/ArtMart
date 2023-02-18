@@ -7,12 +7,11 @@ package com.artmart.GUI.controllers;
 
 import com.artmart.dao.ProductDao;
 import com.artmart.dao.UserDao;
-import com.artmart.models.PaymentOption;
 import com.artmart.models.Product;
-import com.artmart.models.ShippingOption;
 import com.artmart.models.User;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -23,36 +22,29 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author mahou
- */
 public class OrderGUIMenuController implements Initializable {
 
-    private UserDao userDao = new UserDao();
-    private ProductDao productDao = new ProductDao();
+    private final UserDao userDao = new UserDao();
+    private final ProductDao productDao = new ProductDao();
     private User connectedUser = new User();
+    private Product productToOrder = new Product();
+    private List<User> userOptionsList;
+    //private List<Product> ProductOptionsList;
+
     @FXML
     private Button createOrder;
     @FXML
     private ComboBox<String> userComboBox;
     @FXML
-    private ComboBox<String> productComboBox;
+    private TextField productId;
 
-    private List<User> userOptionsList;
-
-    private List<Product> ProductOptionsList;
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         userOptionsList = this.userDao.viewListOfUsers();
@@ -61,32 +53,39 @@ public class OrderGUIMenuController implements Initializable {
                 userOptionsList.stream().map(User::getName).collect(Collectors.toList())
         );
         this.userComboBox.setItems(userOptions);
+        this.userComboBox.getSelectionModel().selectFirst();
+        this.productId.setText("1");
     }
 
     @FXML
     private void OnOrderCreatePressEvent(ActionEvent event) {
         try {
+            this.SelectUserAndProduct();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Order.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
+            
+            OrderGUIController controller = loader.getController();
+            controller.setUpData(connectedUser,productToOrder);
+            
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
+            
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
 
-    @FXML
-    private void SelectUser(ActionEvent event) {
-        int listId = userComboBox.getSelectionModel().getSelectedIndex();
-        int selectedUserId = userOptionsList.get(listId).getUser_id();
-        this.connectedUser = this.userDao.getUser(selectedUserId);
-        System.out.println("New User Connected "+connectedUser);
+    private void SelectUserAndProduct() {
+        try {
+            int listId = userComboBox.getSelectionModel().getSelectedIndex();
+            int selectedUserId = userOptionsList.get(listId).getUser_id();
+            this.connectedUser = this.userDao.getUser(selectedUserId);
+            this.productToOrder = this.productDao.getProductById(Integer.valueOf(this.productId.getText()));
+        } catch (SQLException e) {
+            System.out.println("No Product Found");
+        }
     }
-
-    @FXML
-    private void SelectProduct(ActionEvent event) {
-    }
-
 }

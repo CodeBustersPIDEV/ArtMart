@@ -3,8 +3,8 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,26 +14,24 @@
         <URL value="@/com/artmart/GUI/styles/ordergui.css" />
     </stylesheets>
     <children>
-          <Label layoutX="67.0" layoutY="80.0" text="UserID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="userIdTextField" layoutX="171.0" layoutY="76.0" promptText="User_Id" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Label layoutX="58.0" layoutY="123.0" text="ProductID:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField fx:id="productIdTextField" layoutX="171.0" layoutY="119.0" promptText="Product_Id" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Label layoutX="365.0" layoutY="80.0" text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <TextField fx:id="quantityTextField" layoutX="427.0" layoutY="76.0" promptText="Quantity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label layoutX="57.0" layoutY="174.0" text="Shipping Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <TextField fx:id="shippingAddressStreetTextField" layoutX="171.0" layoutY="170.0" promptText="Street" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <TextField fx:id="shippingAddressCityTextField" layoutX="171.0" layoutY="206.0" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <TextField fx:id="shippingAddressStateTextField" layoutX="171.0" layoutY="244.0" promptText="State" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <TextField fx:id="shippingAddressZipTextField" layoutX="171.0" layoutY="283.0" promptText="Zip Code" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <Label layoutX="343.0" layoutY="162.0" text="Payment Method:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-        <Label layoutX="74.0" layoutY="387.0" text="Order Date:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-        <Label layoutX="362.0" layoutY="337.0" text="Total Cost:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-        <TextField fx:id="totalCostTextField" layoutX="437.0" layoutY="333.0" promptText="Total" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <Button fx:id="placeOrderBtn" layoutX="510.0" layoutY="383.0" mnemonicParsing="false" onAction="#OnOrderConfirm" text="Confirm" />
-      <DatePicker fx:id="orderDatePickerField" layoutX="159.0" layoutY="383.0" />
-      <ComboBox fx:id="paymentMethodDropdownField" layoutX="456.0" layoutY="158.0" prefWidth="150.0" />
-      <Label layoutX="343.0" layoutY="223.0" text="Shipping Method:" />
-      <ComboBox fx:id="shippingMethodDropdownField" layoutX="456.0" layoutY="219.0" prefWidth="150.0" />
-      <Button fx:id="cancelOrderBtn" layoutX="454.0" layoutY="383.0" mnemonicParsing="false" onAction="#OnOrderCancel" text="Cancel" />
+          <Label layoutX="353.0" layoutY="143.0" text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="userIdTextField" disable="true" editable="false" layoutX="433.0" layoutY="139.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label layoutX="345.0" layoutY="199.0" text="Product Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="productIdTextField" disable="true" editable="false" layoutX="433.0" layoutY="195.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label layoutX="53.0" layoutY="74.0" text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label layoutX="42.0" layoutY="126.0" text="Shipping Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="shippingAddressStreetTextField" layoutX="147.0" layoutY="122.0" promptText="Street" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="shippingAddressCityTextField" layoutX="147.0" layoutY="159.0" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <TextField fx:id="shippingAddressStateTextField" layoutX="147.0" layoutY="200.0" promptText="State" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <TextField fx:id="shippingAddressZipTextField" layoutX="147.0" layoutY="240.0" promptText="Zip Code" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label layoutX="30.0" layoutY="284.0" text="Payment Method:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <Label layoutX="357.0" layoutY="251.0" text="Total Cost:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+        <TextField fx:id="totalCostTextField" disable="true" editable="false" layoutX="433.0" layoutY="247.0" promptText="Total" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Button fx:id="placeOrderBtn" layoutX="336.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnOrderConfirm" prefHeight="25.0" prefWidth="79.0" text="Confirm" />
+      <ComboBox fx:id="paymentMethodDropdownField" layoutX="147.0" layoutY="280.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label layoutX="30.0" layoutY="328.0" text="Shipping Method:" />
+      <ComboBox fx:id="shippingMethodDropdownField" layoutX="147.0" layoutY="324.0" prefHeight="25.0" prefWidth="149.0" />
+      <Button fx:id="cancelOrderBtn" layoutX="239.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnOrderCancel" prefHeight="25.0" prefWidth="79.0" text="Cancel" />
+      <Spinner fx:id="quantityNumberField" editable="true" layoutX="147.0" layoutY="66.0" />
       </children>
 </AnchorPane>

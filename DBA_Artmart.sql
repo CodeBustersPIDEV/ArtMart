@@ -179,7 +179,7 @@ CREATE TABLE `order` (
     ShippingMethod INT,
     ShippingAddress TEXT,
     PaymentMethod INT,
-    OrderDate DATE,
+    OrderDate DATE DEFAULT CURRENT_TIMESTAMP,
     TotalCost DECIMAL(10,2),
     FOREIGN KEY (UserID) REFERENCES `user`(user_ID),
     FOREIGN KEY (ShippingMethod) REFERENCES `shippingOption`(shippingOption_ID),

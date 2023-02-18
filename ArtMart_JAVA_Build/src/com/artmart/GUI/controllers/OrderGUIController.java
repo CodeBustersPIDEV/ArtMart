@@ -2,7 +2,9 @@ package com.artmart.GUI.controllers;
 
 import com.artmart.models.Order;
 import com.artmart.models.PaymentOption;
+import com.artmart.models.Product;
 import com.artmart.models.ShippingOption;
+import com.artmart.models.User;
 import com.artmart.services.OrderService;
 import java.io.IOException;
 import java.net.URL;
@@ -22,7 +24,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
 public class OrderGUIController implements Initializable {
@@ -33,8 +36,6 @@ public class OrderGUIController implements Initializable {
     @FXML
     private TextField productIdTextField;
     @FXML
-    private TextField quantityTextField;
-    @FXML
     private TextField shippingAddressStreetTextField;
     @FXML
     private TextField shippingAddressCityTextField;
@@ -43,32 +44,22 @@ public class OrderGUIController implements Initializable {
     @FXML
     private TextField shippingAddressZipTextField;
     @FXML
-    private DatePicker orderDatePickerField;
-    @FXML
-    private TextField totalCostTextField;
-    @FXML
     private ComboBox<String> paymentMethodDropdownField;
     @FXML
     private ComboBox<String> shippingMethodDropdownField;
+    @FXML
+    private Spinner<Integer> quantityNumberField;
 
     private List<PaymentOption> paymentOptionsList;
-
     private List<ShippingOption> shippingOptionsList;
+    private User userData = new User();
+    private Product productToOrder = new Product();
+    final int initialValue = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        paymentOptionsList = this.orderService.getPaymentOptions();
-        shippingOptionsList = this.orderService.getShippingOptions();
-        ObservableList<String> paymentOptions = FXCollections.observableArrayList(
-                paymentOptionsList.stream().map(PaymentOption::getName).collect(Collectors.toList())
-        );
-        ObservableList<String> shippingOptions = FXCollections.observableArrayList(
-                shippingOptionsList.stream().map(ShippingOption::getName).collect(Collectors.toList())
-        );
-        this.paymentMethodDropdownField.setItems(paymentOptions);
-        this.shippingMethodDropdownField.setItems(shippingOptions);
-        this.paymentMethodDropdownField.getSelectionModel().selectFirst();
-        this.shippingMethodDropdownField.getSelectionModel().selectFirst();
+        this.setUpSpinner();
+        this.setUpList();
     }
 
     @FXML
@@ -79,20 +70,23 @@ public class OrderGUIController implements Initializable {
             int selectedPaymentId = paymentOptionsList.get(selectedPaymentIndex).getId();
             int selectedShippingId = shippingOptionsList.get(selectedShippingIndex).getId();
 
+            java.util.Date utilDate = new java.util.Date();
+            java.sql.Date todayDate = new java.sql.Date(utilDate.getTime());
+
             String shippingAddress = this.shippingAddressStreetTextField.getText() + " "
                     + this.shippingAddressCityTextField.getText() + " "
                     + this.shippingAddressStateTextField.getText() + " "
                     + this.shippingAddressZipTextField.getText();
 
             Order newOrder = new Order(
-                    Integer.parseInt(this.userIdTextField.getText()),
-                    Integer.parseInt(this.productIdTextField.getText()),
-                    Integer.parseInt(this.quantityTextField.getText()),
+                    this.userData.getUser_id(),
+                    this.productToOrder.getProductId(),
+                    this.quantityNumberField.getValue(),
                     selectedShippingId,
                     shippingAddress,
                     selectedPaymentId,
-                    Date.valueOf(this.orderDatePickerField.getValue()),
-                    Double.parseDouble(this.totalCostTextField.getText())
+                    todayDate,
+                    100
             );
             this.orderService.createOrder(newOrder);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -112,7 +106,7 @@ public class OrderGUIController implements Initializable {
     @FXML
     private void OnOrderCancel(ActionEvent event) {
         try {
-            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/OrderGUIMenu.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -121,6 +115,34 @@ public class OrderGUIController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    public void setUpData(User udata, Product pdata) {
+        this.userData = udata;
+        this.productToOrder = pdata;
+        this.userIdTextField.setText(this.userData.getName());
+        this.productIdTextField.setText(this.productToOrder.getName());
+    }
+
+    private void setUpSpinner() {
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, initialValue);
+        this.quantityNumberField.setValueFactory(valueFactory);
+        this.quantityNumberField.getValueFactory().setValue(initialValue);
+    }
+
+    private void setUpList() {
+        this.paymentOptionsList = this.orderService.getPaymentOptions();
+        this.shippingOptionsList = this.orderService.getShippingOptions();
+        ObservableList<String> paymentOptions = FXCollections.observableArrayList(
+                paymentOptionsList.stream().map(PaymentOption::getName).collect(Collectors.toList())
+        );
+        ObservableList<String> shippingOptions = FXCollections.observableArrayList(
+                shippingOptionsList.stream().map(ShippingOption::getName).collect(Collectors.toList())
+        );
+        this.paymentMethodDropdownField.setItems(paymentOptions);
+        this.shippingMethodDropdownField.setItems(shippingOptions);
+        this.paymentMethodDropdownField.getSelectionModel().selectFirst();
+        this.shippingMethodDropdownField.getSelectionModel().selectFirst();
     }
 
 }
