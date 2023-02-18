@@ -7,6 +7,7 @@ package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
+import com.artmart.models.HasCategory;
 import com.artmart.services.BlogService;
 import java.io.IOException;
 import java.net.URL;
@@ -68,6 +69,10 @@ public class AddBlogController implements Initializable {
         FXMLLoader loader =new FXMLLoader(getClass().getResource("./MainView.fxml"));
         Blog blog=new Blog(blog_title.getText(),blog_content.getText(),2);
         blogService.addBlog(blog);
+        Blog resBlog = new Blog();
+//        resBlog=blogService.getOneBlog();
+//        HasCategory hc = new HasCategory();
+//        blogService.addBlog2HasCat(hc)
         Parent root;
         root=loader.load();
         add_blog.getScene().setRoot(root);
