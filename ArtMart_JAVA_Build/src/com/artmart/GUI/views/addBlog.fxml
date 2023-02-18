@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,7 +24,10 @@
             <Font name="Agency FB" size="18.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="blog_category" layoutX="382.0" layoutY="187.0" prefHeight="31.0" prefWidth="200.0" promptText="Blog Category" />
+      <ComboBox fx:id="blog_category" layoutX="382.0" layoutY="187.0" prefHeight="31.0" prefWidth="200.0" promptText="Blog Category">
+         <effect>
+            <Glow />
+         </effect></ComboBox>
       <TextArea fx:id="blog_content" layoutX="380.0" layoutY="244.0" prefHeight="200.0" prefWidth="200.0" promptText="Blog Content" scrollLeft="2.0" scrollTop="2.0">
          <font>
             <Font name="Agency FB" size="18.0" />

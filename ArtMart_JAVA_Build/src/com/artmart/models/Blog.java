@@ -1,6 +1,6 @@
 package com.artmart.models;
 
-import java.util.Date;
+import java.sql.*;
 
 public class Blog {
 
