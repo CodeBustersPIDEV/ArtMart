@@ -86,7 +86,7 @@ public class EventReportDao implements IEventReportDao {
     }
 
     @Override
-    public boolean updateEventReport(EventReport eventReport) {
+    public boolean updateEventReport(int eventReportID,EventReport eventReport) {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE EventReport "
