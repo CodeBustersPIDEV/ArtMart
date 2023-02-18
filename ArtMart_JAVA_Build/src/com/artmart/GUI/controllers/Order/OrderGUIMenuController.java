@@ -27,7 +27,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 public class OrderGUIMenuController implements Initializable {
 
     private final UserDao userDao = new UserDao();
