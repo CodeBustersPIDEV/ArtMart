@@ -70,7 +70,7 @@ public class OrderDao implements IOrderServiceDao {
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 order = new Order();
-                order.setId(result.getInt("ID"));
+                order.setId(result.getInt("order_ID"));
                 order.setUserId(result.getInt("UserID"));
                 order.setProductId(result.getInt("ProductID"));
                 order.setQuantity(result.getInt("Quantity"));
@@ -94,7 +94,35 @@ public class OrderDao implements IOrderServiceDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM `Order`");
             while (resultSet.next()) {
                 Order order = new Order();
-                order.setId(resultSet.getInt("ID"));
+                order.setId(resultSet.getInt("order_ID"));
+                order.setUserId(resultSet.getInt("UserID"));
+                order.setProductId(resultSet.getInt("ProductID"));
+                order.setQuantity(resultSet.getInt("Quantity"));
+                order.setShippingAddress(resultSet.getString("ShippingAddress"));
+                order.setShippingOption(resultSet.getInt("ShippingMethod"));
+                order.setPaymentMethod(resultSet.getInt("PaymentMethod"));
+                order.setOrderDate(resultSet.getDate("OrderDate"));
+                order.setTotalCost(resultSet.getDouble("TotalCost"));
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> getAllOrdersById(int id) {
+        List<Order> orders = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM `Order` WHERE UserID = ?"
+            );
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Order order = new Order();
+                order.setId(resultSet.getInt("order_ID"));
                 order.setUserId(resultSet.getInt("UserID"));
                 order.setProductId(resultSet.getInt("ProductID"));
                 order.setQuantity(resultSet.getInt("Quantity"));

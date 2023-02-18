@@ -24,7 +24,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.*;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -38,8 +37,6 @@ public class OrderGUIMenuController implements Initializable {
     private List<User> userOptionsList;
     //private List<Product> ProductOptionsList;
 
-    @FXML
-    private Button createOrder;
     @FXML
     private ComboBox<String> userComboBox;
     @FXML
@@ -65,14 +62,14 @@ public class OrderGUIMenuController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/Order.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            
+
             OrderGUIController controller = loader.getController();
-            controller.setUpData(connectedUser,productToOrder);
-            
+            controller.setUpData(connectedUser, productToOrder);
+
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-            
+
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
@@ -86,6 +83,25 @@ public class OrderGUIMenuController implements Initializable {
             this.productToOrder = this.productDao.getProductById(Integer.valueOf(this.productId.getText()));
         } catch (SQLException e) {
             System.out.println("No Product Found");
+        }
+    }
+
+    @FXML
+    private void onViewList(ActionEvent event) {
+        try {
+            this.SelectUserAndProduct();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderList.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            OrderListController controller = loader.getController();
+            controller.setUser(connectedUser);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
         }
     }
 }

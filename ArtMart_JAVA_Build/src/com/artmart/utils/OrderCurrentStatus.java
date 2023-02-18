@@ -1,11 +1,11 @@
 package com.artmart.utils;
 
 public enum OrderCurrentStatus {
-    PENDING("Pending"),
-    PROCESSING("Processing"),
-    SHIPPED("Shipped"),
-    DELIVERED("Delivered"),
-    CANCELED("Canceled");
+    PENDING("PENDING"),
+    PROCESSING("PROCESSING"),
+    SHIPPED("SHIPPED"),
+    DELIVERED("DELIVERED"),
+    CANCELED("CANCELED");
 
     private final String status;
 

@@ -19,6 +19,18 @@ public class OrderStatus {
         this.orderStatus = status;
         this.date = date;
     }
+     public OrderStatus(int id, int orderId, String status, Date date) {
+        this.id = id;
+        this.orderId = orderId;
+        this.orderStatus = OrderCurrentStatus.valueOf(status);
+        this.date = date;
+    }
+
+    public OrderStatus(int orderId, String status, Date date) {
+        this.orderId = orderId;
+        this.orderStatus = OrderCurrentStatus.valueOf(status);
+        this.date = date;
+    }
 
     public OrderStatus(int orderId, OrderCurrentStatus status, Date date) {
         this.orderId = orderId;

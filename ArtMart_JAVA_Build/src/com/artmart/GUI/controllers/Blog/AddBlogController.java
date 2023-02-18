@@ -7,12 +7,10 @@ package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
-import com.artmart.models.Categories;
 import com.artmart.services.BlogService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;

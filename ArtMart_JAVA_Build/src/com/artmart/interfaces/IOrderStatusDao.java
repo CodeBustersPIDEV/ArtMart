@@ -8,6 +8,8 @@ public interface IOrderStatusDao {
     int createOrderStatus(OrderStatus orderStatus);
 
     OrderStatus getOrderStatus(int id);
+    
+    OrderStatus getOrderStatusByOrderId(int id);
 
     List<OrderStatus> getOrderStatuses();
 

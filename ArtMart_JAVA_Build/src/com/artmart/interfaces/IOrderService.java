@@ -10,6 +10,8 @@ public interface IOrderService {
     Order getOrder(int id);
 
     List<Order> getOrders();
+    
+    List<Order> getOrdersById(int id);
 
     boolean updateOrder(Order order);
 
@@ -18,6 +20,8 @@ public interface IOrderService {
     int createOrderStatus(OrderStatus orderStatus);
 
     OrderStatus getOrderStatus(int id);
+    
+    OrderStatus getOrderStatusByOrderId(int id);
 
     List<OrderStatus> getOrderStatuses();
 
