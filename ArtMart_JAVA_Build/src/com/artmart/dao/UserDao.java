@@ -44,7 +44,6 @@ public class UserDao implements IUserDao {
             statement.setString(8, user.getRole());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
-            int userId = -1;
             if (generatedKeys.next()) {
                 return generatedKeys.getInt(1);
             } else {

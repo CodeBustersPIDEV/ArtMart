@@ -8,12 +8,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import com.artmart.models.Order;
 import com.artmart.interfaces.*;
+import com.artmart.models.OrderStatus;
+import com.artmart.utils.OrderCurrentStatus;
+import java.sql.Date;
 import java.util.List;
 import java.util.ArrayList;
 
 public class OrderDao implements IOrderServiceDao {
 
     private Connection connection;
+    private final OrderStatusDao orderStatusDao = new OrderStatusDao();
 
     public OrderDao() {
         try {
@@ -29,7 +33,7 @@ public class OrderDao implements IOrderServiceDao {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO `order`(UserID, ProductID, Quantity, ShippingMethod, ShippingAddress, PaymentMethod, OrderDate, TotalCost) "
-                    + "VALUES (?, ?,?, ?, ?, ?, ?, ?)"
+                    + "VALUES (?, ?,?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS
             );
             statement.setInt(1, order.getUserId());
             statement.setInt(2, order.getProductId());
@@ -39,7 +43,16 @@ public class OrderDao implements IOrderServiceDao {
             statement.setInt(6, order.getPaymentMethod());
             statement.setDate(7, new java.sql.Date(order.getOrderDate().getTime()));
             statement.setDouble(8, order.getTotalCost());
-            result = statement.executeUpdate();
+            statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                System.err.print("created");
+                result = generatedKeys.getInt(1);
+                this.orderStatusDao.createOrderStatus(new OrderStatus(result, OrderCurrentStatus.PENDING, order.getOrderDate()));
+            } else {
+                System.err.print("not created");
+                result = 0;
+            }
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
