@@ -9,8 +9,8 @@
 
 <Pane prefHeight="314.0" prefWidth="1007.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.BlogCardController">
    <children>
-      <Rectangle id="cont" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="314.0" stroke="BLACK" strokeType="INSIDE" styleClass="cont" width="1007.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#263340" height="314.0" stroke="BLACK" strokeType="INSIDE" width="298.0" />
+      <Rectangle id="cont" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="314.0" stroke="BLACK" strokeType="INSIDE" styleClass="cont" width="1007.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d5dbe1" height="314.0" stroke="BLACK" strokeType="INSIDE" width="298.0" />
       <Text fx:id="blog_title" layoutX="308.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blog Title" wrappingWidth="698.6708984375">
          <font>
             <Font size="48.0" />
