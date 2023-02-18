@@ -102,17 +102,13 @@ public class EventDao implements IEventDao {
         return events;
     }
 
-    
-
-    
-    
-
-    
     @Override
-    public boolean updateEvent(int id,Event event) {
+    public boolean updateEvent(int eventID, Event event) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE Event SET userID = ?, name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ? WHERE eventID = ?"
+                    "UPDATE Event" + 
+                    "SET userID = ?, name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?" + 
+                    "WHERE eventID = ?"
             );
             statement.setInt(1, event.getUserID());
             statement.setString(2, event.getName());
@@ -123,7 +119,7 @@ public class EventDao implements IEventDao {
             statement.setInt(7, event.getCapacity());
             statement.setDate(8, event.getStartDate());
             statement.setDate(9, event.getEndDate());
-            statement.setInt(10, id);
+            statement.setInt(10, eventID);
             
             
             return statement.executeUpdate() > 0;
