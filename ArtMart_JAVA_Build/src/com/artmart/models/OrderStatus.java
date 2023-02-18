@@ -1,27 +1,40 @@
 package com.artmart.models;
 
+import com.artmart.utils.OrderCurrentStatus;
 import java.sql.*;
 
 public class OrderStatus {
 
     private int id;
     private int orderId;
-    private String status;
+    private OrderCurrentStatus orderStatus;
     private Date date;
 
     public OrderStatus() {
     }
 
-    public OrderStatus(int id, int orderId, String status, Date date) {
+    public OrderStatus(int id, int orderId, OrderCurrentStatus status, Date date) {
         this.id = id;
         this.orderId = orderId;
-        this.status = status;
+        this.orderStatus = status;
+        this.date = date;
+    }
+     public OrderStatus(int id, int orderId, String status, Date date) {
+        this.id = id;
+        this.orderId = orderId;
+        this.orderStatus = OrderCurrentStatus.valueOf(status);
         this.date = date;
     }
 
     public OrderStatus(int orderId, String status, Date date) {
         this.orderId = orderId;
-        this.status = status;
+        this.orderStatus = OrderCurrentStatus.valueOf(status);
+        this.date = date;
+    }
+
+    public OrderStatus(int orderId, OrderCurrentStatus status, Date date) {
+        this.orderId = orderId;
+        this.orderStatus = status;
         this.date = date;
     }
 
@@ -42,11 +55,11 @@ public class OrderStatus {
     }
 
     public String getStatus() {
-        return status;
+        return orderStatus.getStatus();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.orderStatus = OrderCurrentStatus.valueOf(status);
     }
 
     public Date getDate() {
@@ -59,7 +72,7 @@ public class OrderStatus {
 
     @Override
     public String toString() {
-        return "OrderStatus{" + "id=" + id + ", orderId=" + orderId + ", status=" + status + ", date=" + date + '}';
+        return "OrderStatus{" + "id=" + id + ", orderId=" + orderId + ", status=" + orderStatus.getStatus() + ", date=" + date + '}';
     }
 
 }

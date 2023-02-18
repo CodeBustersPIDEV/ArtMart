@@ -67,7 +67,7 @@ public class BlogCategoriesDao implements IBlogCategoriesDao {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 blogCategoriesList.add(new BlogCategories(
-                        rs.getInt("blogsCategory_id"),
+                        rs.getInt("categories_ID"),
                         rs.getString("name")
                 ));
             }

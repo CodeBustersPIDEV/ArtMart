@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="643.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.MainViewController">
+    <stylesheets>
+        <URL value="@/com/artmart/GUI/styles/main_view.css" />
+    </stylesheets>
+   <children>
+      <Text layoutX="193.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARTMART">
+         <font>
+            <Font name="System Bold" size="53.0" />
+         </font>
+      </Text>
+      <Text layoutX="206.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Global Modal Interface (Only for Testing)" />
+      <Button fx:id="orderBtn" layoutX="159.0" layoutY="230.0" mnemonicParsing="false" onAction="#goToOrder" prefHeight="25.0" prefWidth="105.0" text="Order " />
+      <Button fx:id="userBtn" layoutX="159.0" layoutY="164.0" mnemonicParsing="false" onAction="#goToUser" prefHeight="25.0" prefWidth="105.0" text="User " />
+      <Button fx:id="productBtn" layoutX="159.0" layoutY="299.0" mnemonicParsing="false" onAction="#goToProduct" prefHeight="25.0" prefWidth="105.0" text="Product " />
+      <Button fx:id="eventBtn" layoutX="343.0" layoutY="164.0" mnemonicParsing="false" onAction="#goToEvent" prefHeight="25.0" prefWidth="111.0" text="Event " />
+      <Button fx:id="cProductBtn" layoutX="343.0" layoutY="230.0" mnemonicParsing="false" onAction="#goToCustomProduct" prefHeight="25.0" prefWidth="111.0" text="Custom Product " />
+      <Button fx:id="blogBtn" layoutX="343.0" layoutY="299.0" mnemonicParsing="false" onAction="#goToBlog" prefHeight="25.0" prefWidth="105.0" text="Blog " />
+   </children>
+</AnchorPane>

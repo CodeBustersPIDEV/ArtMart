@@ -44,7 +44,6 @@ public class UserDao implements IUserDao {
             statement.setString(8, user.getRole());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
-            int userId = -1;
             if (generatedKeys.next()) {
                 return generatedKeys.getInt(1);
             } else {
@@ -90,6 +89,7 @@ public class UserDao implements IUserDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
             while (resultSet.next()) {
                 User user = new User();
+                user.setUser_id(resultSet.getInt("user_id"));
                 user.setName(resultSet.getString("name"));
                 user.setEmail(resultSet.getString("email"));
                 user.setBirthday(resultSet.getDate("birthday"));

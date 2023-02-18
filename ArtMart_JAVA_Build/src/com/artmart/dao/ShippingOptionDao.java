@@ -21,7 +21,7 @@ public class ShippingOptionDao implements IShippingOptionDao {
 
     @Override
     public int createShippingOption(ShippingOption shippingOption) {
-        String sql = "INSERT INTO shipping_option (name, carrier, shipping_speed, shipping_fee, available_regions) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO shippingoption (name, carrier, shippingspeed, shippingfee, availableregions) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, shippingOption.getName());
             stmt.setString(2, shippingOption.getCarrier());
@@ -37,13 +37,13 @@ public class ShippingOptionDao implements IShippingOptionDao {
 
     @Override
     public ShippingOption getShippingOption(int id) {
-        String sql = "SELECT * FROM shipping_option WHERE id = ?";
+        String sql = "SELECT * FROM shippingoption WHERE shippingOption_ID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new ShippingOption(rs.getInt("id"), rs.getString("name"), rs.getString("carrier"),
-                            rs.getString("shipping_speed"), rs.getDouble("shipping_fee"), rs.getString("available_regions"));
+                    return new ShippingOption(rs.getInt("shippingOptionID"), rs.getString("name"), rs.getString("carrier"),
+                            rs.getString("shippingspeed"), rs.getDouble("shippingfee"), rs.getString("availableregions"));
                 } else {
                     return null;
                 }
@@ -57,11 +57,11 @@ public class ShippingOptionDao implements IShippingOptionDao {
     @Override
     public List<ShippingOption> getShippingOptions() {
         List<ShippingOption> shippingOptions = new ArrayList<>();
-        String sql = "SELECT * FROM shipping_option";
+        String sql = "SELECT * FROM shippingoption";
         try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                shippingOptions.add(new ShippingOption(rs.getInt("id"), rs.getString("name"), rs.getString("carrier"),
-                        rs.getString("shipping_speed"), rs.getDouble("shipping_fee"), rs.getString("available_regions")));
+                shippingOptions.add(new ShippingOption(rs.getInt("shippingOption_ID"), rs.getString("name"), rs.getString("carrier"),
+                        rs.getString("shippingspeed"), rs.getDouble("shippingfee"), rs.getString("availableregions")));
             }
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -71,7 +71,7 @@ public class ShippingOptionDao implements IShippingOptionDao {
 
     @Override
     public boolean updateShippingOption(ShippingOption shippingOption) {
-        String sql = "UPDATE shipping_option SET name = ?, carrier = ?, shipping_speed = ?, shipping_fee = ?, available_regions = ? WHERE id = ?";
+        String sql = "UPDATE shippingoption SET name = ?, carrier = ?, shippingspeed = ?, shippingfee = ?, availableregions = ? WHERE shippingOption_ID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, shippingOption.getName());
             stmt.setString(2, shippingOption.getCarrier());
@@ -89,7 +89,7 @@ public class ShippingOptionDao implements IShippingOptionDao {
 
     @Override
     public boolean deleteShippingOption(int id) {
-        String sql = "DELETE FROM shipping_option WHERE id = ?";
+        String sql = "DELETE FROM shippingoption WHERE shippingOption_ID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             int rowsDeleted = stmt.executeUpdate();

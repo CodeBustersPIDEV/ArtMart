@@ -41,6 +41,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public List<Order> getOrdersById(int id) {
+        return this.orderDao.getAllOrdersById(id);
+    }
+
+    @Override
     public boolean updateOrder(Order order) {
         return this.orderDao.updateOrder(order);
     }
@@ -58,6 +63,11 @@ public class OrderService implements IOrderService {
     @Override
     public OrderStatus getOrderStatus(int id) {
         return this.orderStatusDao.getOrderStatus(id);
+    }
+
+    @Override
+    public OrderStatus getOrderStatusByOrderId(int id) {
+        return this.orderStatusDao.getOrderStatusByOrderId(id);
     }
 
     @Override

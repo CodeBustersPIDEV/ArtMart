@@ -10,6 +10,8 @@ public interface IOrderServiceDao {
     Order readOrder(int id);
 
     List<Order> getAllOrders();
+    
+    List<Order> getAllOrdersById(int id);
 
     boolean updateOrder(Order order);
 

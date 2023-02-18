@@ -11,7 +11,7 @@ public class SQLConnection {
     private final String host="localhost:3306";
     private final String user="root";
     private final String password="";
-    private final String database="arto";
+    private final String database="artmart";
 
     private SQLConnection() {
     }

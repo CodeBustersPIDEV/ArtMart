@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="398.0" prefWidth="689.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.OrderListController">
+    <stylesheets>
+        <URL value="@/com/artmart/GUI/styles/orderlist.css" />
+    </stylesheets>
+   <children>
+      <ScrollPane layoutX="14.0" layoutY="83.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="296.0" prefWidth="324.0">
+         <content>
+            <VBox fx:id="orderCard" prefHeight="235.0" prefWidth="277.0" />
+         </content>
+      </ScrollPane>
+      <Text layoutX="37.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders List">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

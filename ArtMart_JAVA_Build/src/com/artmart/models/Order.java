@@ -8,30 +8,41 @@ public class Order {
     private int userId;
     private int productId;
     private int quantity;
+    private int shippingOption;
+    private int paymentMethod;
     private String shippingAddress;
-    private String paymentMethod;
     private Date orderDate;
     private double totalCost;
 
     public Order() {
     }
 
-    public Order(int id, int userId, int productId, int quantity, String shippingAddress, String paymentMethod, Date orderDate, double totalCost) {
+    public Order(int id, int userId, int productId, int quantity, String shippingAddress,int shippingOption,int paymentMethod, Date orderDate, double totalCost) {
         this.id = id;
         this.userId = userId;
         this.productId = productId;
         this.quantity = quantity;
         this.shippingAddress = shippingAddress;
+        this.shippingOption = shippingOption;
         this.paymentMethod = paymentMethod;
         this.orderDate = orderDate;
         this.totalCost = totalCost;
     }
 
-    public Order(int userId, int productId, int quantity, String shippingAddress, String paymentMethod, Date orderDate, double totalCost) {
+    public int getShippingOption() {
+        return shippingOption;
+    }
+
+    public void setShippingOption(int shippingOption) {
+        this.shippingOption = shippingOption;
+    }
+
+    public Order(int userId, int productId, int quantity,int shippingOption, String shippingAddress, int paymentMethod, Date orderDate, double totalCost) {
         this.userId = userId;
         this.productId = productId;
         this.quantity = quantity;
         this.shippingAddress = shippingAddress;
+        this.shippingOption = shippingOption;
         this.paymentMethod = paymentMethod;
         this.orderDate = orderDate;
         this.totalCost = totalCost;
@@ -77,11 +88,11 @@ public class Order {
         this.shippingAddress = shippingAddress;
     }
 
-    public String getPaymentMethod() {
+    public int getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    public void setPaymentMethod(int paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
@@ -103,7 +114,8 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "userId=" + userId + ", productId=" + productId + ", quantity=" + quantity + ", shippingAddress=" + shippingAddress + ", paymentMethod=" + paymentMethod + ", orderDate=" + orderDate + ", totalCost=" + totalCost + '}';
+        return "Order{" + "id=" + id + ", userId=" + userId + ", productId=" + productId + ", quantity=" + quantity + ", shippingAddress=" + shippingAddress + ", shippingOption=" + shippingOption + ", paymentMethod=" + paymentMethod + ", orderDate=" + orderDate + ", totalCost=" + totalCost + '}';
     }
+    
 
 }

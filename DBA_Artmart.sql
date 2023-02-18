@@ -176,12 +176,13 @@ CREATE TABLE `order` (
     UserID INT,
     ProductID INT,
     Quantity INT,
-    ShippingAddress INT,
+    ShippingMethod INT,
+    ShippingAddress TEXT,
     PaymentMethod INT,
-    OrderDate DATE,
+    OrderDate DATE DEFAULT CURRENT_TIMESTAMP,
     TotalCost DECIMAL(10,2),
     FOREIGN KEY (UserID) REFERENCES `user`(user_ID),
-    FOREIGN KEY (ShippingAddress) REFERENCES `shippingOption`(shippingOption_ID),
+    FOREIGN KEY (ShippingMethod) REFERENCES `shippingOption`(shippingOption_ID),
     FOREIGN KEY (PaymentMethod) REFERENCES `paymentOption`(paymentOption_ID),
     FOREIGN KEY (ProductID) REFERENCES `product`(product_ID)
 );

@@ -8,12 +8,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import com.artmart.models.Order;
 import com.artmart.interfaces.*;
+import com.artmart.models.OrderStatus;
+import com.artmart.utils.OrderCurrentStatus;
 import java.util.List;
 import java.util.ArrayList;
 
 public class OrderDao implements IOrderServiceDao {
 
     private Connection connection;
+    private final OrderStatusDao orderStatusDao = new OrderStatusDao();
 
     public OrderDao() {
         try {
@@ -28,17 +31,27 @@ public class OrderDao implements IOrderServiceDao {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO Order (UserID, ProductID, Quantity, ShippingAddress, PaymentMethod, OrderDate, TotalCost) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)"
+                    "INSERT INTO `order`(UserID, ProductID, Quantity, ShippingMethod, ShippingAddress, PaymentMethod, OrderDate, TotalCost) "
+                    + "VALUES (?, ?,?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS
             );
             statement.setInt(1, order.getUserId());
             statement.setInt(2, order.getProductId());
             statement.setInt(3, order.getQuantity());
-            statement.setString(4, order.getShippingAddress());
-            statement.setString(5, order.getPaymentMethod());
-            statement.setDate(6, new java.sql.Date(order.getOrderDate().getTime()));
-            statement.setDouble(7, order.getTotalCost());
-            result = statement.executeUpdate();
+            statement.setInt(4, order.getShippingOption());
+            statement.setString(5, order.getShippingAddress());
+            statement.setInt(6, order.getPaymentMethod());
+            statement.setDate(7, new java.sql.Date(order.getOrderDate().getTime()));
+            statement.setDouble(8, order.getTotalCost());
+            statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                System.err.print("created");
+                result = generatedKeys.getInt(1);
+                this.orderStatusDao.createOrderStatus(new OrderStatus(result, OrderCurrentStatus.PENDING, order.getOrderDate()));
+            } else {
+                System.err.print("not created");
+                result = 0;
+            }
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -50,19 +63,20 @@ public class OrderDao implements IOrderServiceDao {
         Order order = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM Order WHERE ID = ?"
+                    "SELECT * FROM Order WHERE order_ID = ?"
             );
             statement.setInt(1, id);
 
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 order = new Order();
-                order.setId(result.getInt("ID"));
+                order.setId(result.getInt("order_ID"));
                 order.setUserId(result.getInt("UserID"));
                 order.setProductId(result.getInt("ProductID"));
                 order.setQuantity(result.getInt("Quantity"));
                 order.setShippingAddress(result.getString("ShippingAddress"));
-                order.setPaymentMethod(result.getString("PaymentMethod"));
+                order.setShippingOption(result.getInt("ShippingMethod"));
+                order.setPaymentMethod(result.getInt("PaymentMethod"));
                 order.setOrderDate(result.getDate("OrderDate"));
                 order.setTotalCost(result.getDouble("TotalCost"));
             }
@@ -80,12 +94,41 @@ public class OrderDao implements IOrderServiceDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM `Order`");
             while (resultSet.next()) {
                 Order order = new Order();
-                order.setId(resultSet.getInt("ID"));
+                order.setId(resultSet.getInt("order_ID"));
                 order.setUserId(resultSet.getInt("UserID"));
                 order.setProductId(resultSet.getInt("ProductID"));
                 order.setQuantity(resultSet.getInt("Quantity"));
                 order.setShippingAddress(resultSet.getString("ShippingAddress"));
-                order.setPaymentMethod(resultSet.getString("PaymentMethod"));
+                order.setShippingOption(resultSet.getInt("ShippingMethod"));
+                order.setPaymentMethod(resultSet.getInt("PaymentMethod"));
+                order.setOrderDate(resultSet.getDate("OrderDate"));
+                order.setTotalCost(resultSet.getDouble("TotalCost"));
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> getAllOrdersById(int id) {
+        List<Order> orders = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM `Order` WHERE UserID = ?"
+            );
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Order order = new Order();
+                order.setId(resultSet.getInt("order_ID"));
+                order.setUserId(resultSet.getInt("UserID"));
+                order.setProductId(resultSet.getInt("ProductID"));
+                order.setQuantity(resultSet.getInt("Quantity"));
+                order.setShippingAddress(resultSet.getString("ShippingAddress"));
+                order.setShippingOption(resultSet.getInt("ShippingMethod"));
+                order.setPaymentMethod(resultSet.getInt("PaymentMethod"));
                 order.setOrderDate(resultSet.getDate("OrderDate"));
                 order.setTotalCost(resultSet.getDouble("TotalCost"));
                 orders.add(order);
@@ -100,15 +143,16 @@ public class OrderDao implements IOrderServiceDao {
     public boolean updateOrder(Order order) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE `Order` SET UserID = ?, ProductID = ?, Quantity = ?, ShippingAddress = ?, PaymentMethod = ?, OrderDate = ?, TotalCost = ? WHERE ID = ?");
+                    "UPDATE `Order` SET UserID = ?, ProductID = ?, Quantity = ?, ShippingMethod = ?, ShippingAddress = ?, PaymentMethod = ?, OrderDate = ?, TotalCost = ? WHERE order_ID = ?");
             statement.setInt(1, order.getUserId());
             statement.setInt(2, order.getProductId());
             statement.setInt(3, order.getQuantity());
-            statement.setString(4, order.getShippingAddress());
-            statement.setString(5, order.getPaymentMethod());
-            statement.setDate(6, order.getOrderDate());
-            statement.setDouble(7, order.getTotalCost());
-            statement.setInt(8, order.getId());
+            statement.setInt(4, order.getShippingOption());
+            statement.setString(5, order.getShippingAddress());
+            statement.setInt(6, order.getPaymentMethod());
+            statement.setDate(7, order.getOrderDate());
+            statement.setDouble(8, order.getTotalCost());
+            statement.setInt(9, order.getId());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -119,7 +163,7 @@ public class OrderDao implements IOrderServiceDao {
     @Override
     public boolean deleteOrder(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM `Order` WHERE ID = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM `Order` WHERE order_ID = ?");
             statement.setInt(1, id);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {

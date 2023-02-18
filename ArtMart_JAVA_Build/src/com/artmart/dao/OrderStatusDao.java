@@ -4,6 +4,7 @@ import com.artmart.connectors.SQLConnection;
 import java.sql.*;
 import com.artmart.interfaces.*;
 import com.artmart.models.OrderStatus;
+import com.artmart.utils.OrderCurrentStatus;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +38,13 @@ public class OrderStatusDao implements IOrderStatusDao {
     public OrderStatus getOrderStatus(int id) {
         try {
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT * FROM OrderStatus WHERE ID = ?");
+                    "SELECT * FROM OrderStatus WHERE orderStatus_ID = ?");
             stmt.setInt(1, id);
 
             ResultSet result = stmt.executeQuery();
             if (result.next()) {
                 OrderStatus orderStatus = new OrderStatus();
-                orderStatus.setId(result.getInt("ID"));
+                orderStatus.setId(result.getInt("orderStatus_ID"));
                 orderStatus.setOrderId(result.getInt("OrderID"));
                 orderStatus.setStatus(result.getString("Status"));
                 orderStatus.setDate(result.getDate("Date"));
@@ -56,6 +57,23 @@ public class OrderStatusDao implements IOrderStatusDao {
     }
 
     @Override
+    public OrderStatus getOrderStatusByOrderId(int id) {
+        OrderStatus orderStatus = new OrderStatus();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM orderstatus WHERE OrderID = ?");
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+            if (result.next()) {
+                orderStatus = new OrderStatus(result.getInt("orderStatus_ID"),id,OrderCurrentStatus.valueOf(result.getString("Status")),result.getDate("Date"));
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getCause());
+        }
+        return orderStatus;
+    }
+
+    @Override
     public List<OrderStatus> getOrderStatuses() {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM OrderStatus");
@@ -64,7 +82,7 @@ public class OrderStatusDao implements IOrderStatusDao {
 
             while (resultSet.next()) {
                 OrderStatus orderStatus = new OrderStatus();
-                orderStatus.setId(resultSet.getInt("ID"));
+                orderStatus.setId(resultSet.getInt("orderStatus_ID"));
                 orderStatus.setOrderId(resultSet.getInt("OrderID"));
                 orderStatus.setStatus(resultSet.getString("Status"));
                 orderStatus.setDate(resultSet.getDate("Date"));
@@ -80,7 +98,7 @@ public class OrderStatusDao implements IOrderStatusDao {
     @Override
     public boolean updateOrderStatus(OrderStatus orderStatus) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE OrderStatus SET OrderID = ?, Status = ?, Date = ? WHERE ID = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE OrderStatus SET OrderID = ?, Status = ?, Date = ? WHERE orderStatus_ID = ?");
             statement.setInt(1, orderStatus.getOrderId());
             statement.setString(2, orderStatus.getStatus());
             statement.setDate(3, new java.sql.Date(orderStatus.getDate().getTime()));
@@ -96,7 +114,7 @@ public class OrderStatusDao implements IOrderStatusDao {
     public boolean deleteOrderStatus(int id) {
         try {
             PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM OrderStatus WHERE ID = ?");
+                    "DELETE FROM OrderStatus WHERE orderStatus_ID = ?");
             stmt.setInt(1, id);
             return true;
         } catch (SQLException e) {
