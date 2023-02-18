@@ -1,5 +1,7 @@
 package com.artmart.models;
 
+import java.sql.Date;
+
 public class Client extends User {
 
     private int client_id, nbr_orders, nbr_cus_demands;
@@ -11,6 +13,10 @@ public class Client extends User {
         this.client_id = client_id;
         this.nbr_orders = nbr_orders;
         this.nbr_cus_demands = nbr_cus_demands;
+    }
+
+    public Client(int phone_nbr, String name, String email, String username, String pwd, Date birthday) {
+        super(phone_nbr, name, email, username, pwd, birthday);
     }
 
     public Client(User user) {

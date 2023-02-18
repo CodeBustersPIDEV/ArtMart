@@ -1,9 +1,15 @@
 package com.artmart.models;
 
+import java.sql.Date;
+
 public class Artist extends User {
 
     private int artist_id, nbr_artwork;
     private String bio;
+
+    public Artist(int phone_nbr, String name, String email, String username, String pwd, Date birthday) {
+        super(phone_nbr, name, email, username, pwd, birthday);
+    }
 
     public Artist() {
     }
@@ -17,6 +23,7 @@ public class Artist extends User {
     public Artist(User user) {
         super(user.getPhone_nbr(), user.getName(), user.getEmail(), user.getUsername(), user.getPwd(), user.getBirthday(), user.getRole());
     }
+    
 
     public void setBio(String bio) {
         this.bio = bio;

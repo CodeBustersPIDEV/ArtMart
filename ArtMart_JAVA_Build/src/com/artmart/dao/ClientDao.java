@@ -28,6 +28,7 @@ public class ClientDao implements IClientDao {
                     "INSERT INTO client (user_ID, nbr_demands,nbr_orders) "
                     + "VALUES ( ?,?,? )"
             );
+           
             clientStatement.setInt(1, userDao.createAccountU(client));
             clientStatement.setInt(2, 0);
             clientStatement.setInt(3, 0);

@@ -37,8 +37,7 @@ public class MainViewController implements Initializable {
     private void goToUser(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/User.fxml"));
-
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("User Managment");
