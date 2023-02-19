@@ -28,6 +28,6 @@
       <TextField id="txtEntryFee" layoutX="70.0" layoutY="327.0" promptText="Entry Fee" />
       <TextArea id="txtAreaDescription" layoutX="267.0" layoutY="113.0" prefHeight="205.0" prefWidth="268.0" promptText="Description" />
       <Button id="btnAddEvent" layoutX="416.0" layoutY="335.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="79.0" text="Save" textAlignment="CENTER" />
-      <Button id="btnCancelEvent" layoutX="307.0" layoutY="335.0" mnemonicParsing="false" onAction="#returnToEventHomrpage" prefHeight="34.0" prefWidth="79.0" text="Cancel" textAlignment="CENTER" />
+      <Button id="btnCancelEvent" layoutX="307.0" layoutY="335.0" mnemonicParsing="false" onAction="#returnToEventHomepage" prefHeight="34.0" prefWidth="79.0" text="Cancel" textAlignment="CENTER" />
    </children>
 </AnchorPane>
