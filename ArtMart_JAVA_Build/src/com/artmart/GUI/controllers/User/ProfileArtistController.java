@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author 21697
  */
-public class ProfileController implements Initializable {
+public class ProfileArtistController implements Initializable {
 
     /**
      * Initializes the controller class.
