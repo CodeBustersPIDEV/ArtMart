@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.User.ProfileClientController">
+   <children>
+      <ImageView fx:id="ProfilePic" fitHeight="150.0" fitWidth="113.0" layoutX="60.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../assets/user.jpeg" />
+         </image>
+      </ImageView>
+      <Button fx:id="UploadPicBtn" layoutX="69.0" layoutY="173.0" mnemonicParsing="false" text="Upload Picture" />
+      <Label layoutX="69.0" layoutY="224.0" text="Name:" />
+      <Label fx:id="usernameProfile" layoutX="188.0" layoutY="91.0" text="Label" />
+      <Label fx:id="nameProfile" layoutX="130.0" layoutY="224.0" prefHeight="17.0" prefWidth="31.0" text="Label" />
+      <Label layoutX="71.0" layoutY="261.0" text="Email:" />
+      <Label fx:id="emailProfile" layoutX="131.0" layoutY="261.0" text="Label" />
+      <Label layoutX="69.0" layoutY="295.0" text="BirthDate:" />
+      <Label fx:id="birthdayProfile" layoutX="131.0" layoutY="295.0" text="Label" />
+      <Label layoutX="71.0" layoutY="332.0" text="Password" />
+      <Button fx:id="changePwdBtn" layoutX="133.0" layoutY="328.0" mnemonicParsing="false" text="Change Password" />
+      <Button fx:id="editProfileBtn" layoutX="520.0" layoutY="365.0" mnemonicParsing="false" text="Edit Profile" />
+      <Label layoutX="293.0" layoutY="51.0" prefHeight="17.0" prefWidth="110.0" text="Number of custom " />
+      <Label layoutX="470.0" layoutY="51.0" text="Number of Orders " />
+      <Label layoutX="302.0" layoutY="68.0" text="demands posted" />
+      <Label layoutX="501.0" layoutY="68.0" text="bought" />
+      <Label fx:id="nbrOrderProfile" layoutX="496.0" layoutY="108.0" text="Label">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="nbrCusDemProfile" layoutX="324.0" layoutY="108.0" text="Label">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="back" layoutX="7.0" layoutY="10.0" mnemonicParsing="false" text="&lt;Back" />
+   </children>
+</AnchorPane>
