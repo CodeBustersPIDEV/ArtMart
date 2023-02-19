@@ -28,11 +28,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-/**
- * FXML Controller class
- *
- * @author mahou
- */
 public class OrderDetailController implements Initializable {
 
     private OrderService orderService;
@@ -65,10 +60,10 @@ public class OrderDetailController implements Initializable {
     private Label orderCost;
 
     private Order order = new Order();
+
     private List<ShippingOption> shippingOptionsList = new ArrayList<>();
+
     private Product product = new Product();
-    @FXML
-    private Button updateBtn;
     @FXML
     private Button closeButton;
     @FXML
@@ -76,14 +71,8 @@ public class OrderDetailController implements Initializable {
 
     private String status;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.updateBtn.setOnAction(e -> {
-            this.OnUpdateOrder();
-        });
         this.ShpiingAddress.setEditable(false);
         this.orderService = new OrderService();
         this.shippingOptionsList = this.orderService.getShippingOptions();
@@ -98,32 +87,12 @@ public class OrderDetailController implements Initializable {
         this.orderService.updateOrderStatus(order.getId(), OrderCurrentStatus.CANCELED);
     }
 
-    private void OnUpdateOrder() {
-        this.ShpiingAddress.setEditable(true);
-        this.ShpiingAddress.setDisable(false);
-        this.shippingOption.setDisable(false);
-        this.updateBtn.setText("Save");
-        this.updateBtn.setOnAction(e -> {
-            this.saveUpdate();
-        });
-    }
-
     public void setupData(Order order, Product product, String status) {
         this.status = status;
         this.order = order;
         this.product = product;
         this.shippingOption.getSelectionModel().select(this.order.getShippingOption() - 1);
         this.setupUI();
-    }
-
-    private void saveUpdate() {
-        this.ShpiingAddress.setEditable(false);
-        this.ShpiingAddress.setDisable(true);
-        this.shippingOption.setDisable(true);
-        this.updateBtn.setText("Update Order");
-        this.updateBtn.setOnAction(e -> {
-            this.OnUpdateOrder();
-        });
     }
 
     @FXML
@@ -156,19 +125,16 @@ public class OrderDetailController implements Initializable {
 
         switch (OrderCurrentStatus.valueOf(this.status)) {
             case PENDING:
-                this.updateBtn.setDisable(false);
                 this.closeButton.setDisable(false);
                 this.ShpiingAddress.setDisable(true);
                 this.shippingOption.setDisable(true);
                 break;
             case PROCESSING:
-                this.updateBtn.setDisable(false);
                 this.closeButton.setDisable(true);
                 this.ShpiingAddress.setDisable(false);
                 this.shippingOption.setDisable(false);
                 break;
             default:
-                this.updateBtn.setDisable(true);
                 this.closeButton.setDisable(true);
                 this.ShpiingAddress.setDisable(true);
                 this.shippingOption.setDisable(true);
