@@ -18,6 +18,8 @@ public interface IBlogService {
     public Blog getOneBlogByTitle(String blog_title);
 
     public List<Blog> getAllBlogs();
+    
+    public List<Blog> getAllBlogsByUser(int user_id);
 
     public boolean updateBlog(int blog_id, Blog editedBlog);
 
