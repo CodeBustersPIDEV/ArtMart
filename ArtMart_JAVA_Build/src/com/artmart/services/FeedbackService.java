@@ -33,8 +33,8 @@ public class FeedbackService implements IFeedbackDao{
     }
 
     @Override
-    public boolean updateFeedback(Feedback feedback) {
-        return dao.updateFeedback(feedback);
+    public boolean updateFeedback(int feedbackID, Feedback feedback) {
+        return dao.updateFeedback(feedbackID, feedback);
     }
 
     @Override

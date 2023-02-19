@@ -11,7 +11,7 @@ public interface IFeedbackDao {
 
     List<Feedback> getAllFeedbacks();
 
-    boolean updateFeedback(Feedback feedback);
+    boolean updateFeedback(int feedbackID, Feedback feedback);
 
     boolean deleteFeedback(int feedbackID);
 }
