@@ -19,6 +19,7 @@ public class UserService implements IUserService {
     public int createAccountC(Client client) {
         return this.clientDao.createAccountC(client);
     }
+    
 
     @Override
     public Client getClient(int user_id) {
@@ -78,6 +79,11 @@ public class UserService implements IUserService {
     @Override
     public boolean updateAccountA(int user_id, Admin admin) {
         return this.adminDao.updateAccountA(user_id, admin);
+    }
+    @Override
+    public boolean authenticate(String username, String password){
+        return this.userDao.authenticate(username, password);
+              
     }
 
 }
