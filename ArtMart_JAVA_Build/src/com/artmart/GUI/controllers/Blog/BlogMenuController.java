@@ -29,6 +29,8 @@ public class BlogMenuController implements Initializable {
     private Button link_add_blog;
     @FXML
     private Button link_list_blogs;
+    @FXML
+    private Button back_btn;
 
     /**
      * Initializes the controller class.
@@ -41,11 +43,10 @@ public class BlogMenuController implements Initializable {
     @FXML
     private void goToAddBlog(ActionEvent event) {
         try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/addBlog.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addBlog.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("Blog Managment");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -58,13 +59,23 @@ public class BlogMenuController implements Initializable {
     @FXML
     private void goToBlogList(ActionEvent event) {
         try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
-            stage.setTitle("Blog Managment");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goBackToAppMenu(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
             System.out.print(e.getMessage());
         }
     }
