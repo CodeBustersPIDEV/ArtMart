@@ -31,6 +31,16 @@ public class BlogMenuController implements Initializable {
     private Button link_list_blogs;
     @FXML
     private Button back_btn;
+    @FXML
+    private Button link_add_blog1;
+    @FXML
+    private Button link_add_blog2;
+    @FXML
+    private Button link_add_blog3;
+    @FXML
+    private Button link_add_blog5;
+    @FXML
+    private Button link_add_blog6;
 
     /**
      * Initializes the controller class.
