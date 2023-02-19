@@ -53,7 +53,7 @@ public class ClientDao implements IClientDao {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Client client = new Client(userDao.getUser(user_id));
-                client.setClient_id(resultSet.getInt("artist_ID"));
+                client.setClient_id(resultSet.getInt("client_ID"));
                 client.setUser_id(resultSet.getInt("user_ID"));
                 client.setNbr_cus_demands(resultSet.getInt("nbr_demands"));
                 client.setNbr_orders(resultSet.getInt("nbr_orders"));

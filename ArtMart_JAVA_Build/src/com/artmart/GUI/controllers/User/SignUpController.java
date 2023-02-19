@@ -56,7 +56,10 @@ public class SignUpController implements Initializable {
     private TextField Phone_nbrField;
     @FXML
     private Button sign_up_btn;
-
+@FXML
+    private Button artistProfilBtn;
+@FXML
+    private Button clientProfileBtn;
     @FXML
     private ComboBox<String> identityField;
     UserService user_ser = new UserService();
@@ -128,7 +131,31 @@ public class SignUpController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-
+    public void OnArtistProfile(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }    public void OnClientProfile(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
     public void OnBack(ActionEvent event) {
         Stage stage = (Stage) sign_up_btn.getScene().getWindow();
         stage.close();
