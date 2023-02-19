@@ -3,12 +3,31 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogMenuController">
    <children>
-      <Label layoutX="264.0" layoutY="53.0" text="Blog Menu" />
-      <Button fx:id="link_add_blog" layoutX="162.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Add Blog" />
-      <Button fx:id="link_list_blogs" layoutX="351.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToBlogList" text="Consult Blogs" />
+      <Label layoutX="214.0" layoutY="44.0" text="Blog Menu">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font></Label>
+      <Button fx:id="link_add_blog" layoutX="147.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Add Blog" />
+      <Button fx:id="link_list_blogs" layoutX="236.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToBlogList" text="Consult Blogs" />
       <Button fx:id="back_btn" layoutX="41.0" layoutY="38.0" mnemonicParsing="false" onAction="#goBackToAppMenu" text="Back" />
+      <Button fx:id="link_add_blog1" layoutX="472.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Delete Blog" />
+      <Button fx:id="link_add_blog2" layoutX="356.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Update Blog" />
+      <Label layoutX="92.0" layoutY="127.0" text="Blog:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="183.0" text="Category:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="link_add_blog3" layoutX="180.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Add Category" />
+      <Button fx:id="link_add_blog5" layoutX="301.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Update Category" />
+      <Button fx:id="link_add_blog6" layoutX="442.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Delete Category" />
    </children>
 </AnchorPane>

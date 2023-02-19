@@ -48,14 +48,15 @@ public class AddBlogController implements Initializable {
     private Button add_imageBlog;
     @FXML
     private Button add_blog;
+    @FXML
+    private Button cancel_btn;
 //    Date sqlDate = new Date(System.currentTimeMillis());
     private final BlogService blogService = new BlogService();
     private List<BlogCategories> blogCategoriesList;
-    Blog resBlog = new Blog();
-    BlogCategories resBlogCategories = new BlogCategories();
+    private Blog resBlog = new Blog();
+    private BlogCategories resBlogCategories = new BlogCategories();
     private int test1,test2;
-    @FXML
-    private Button cancel_btn;
+   
 
 
     /**
