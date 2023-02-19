@@ -11,8 +11,8 @@
     </stylesheets>   
     <children>
       <Text layoutX="243.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Products" />
-      <Button layoutX="45.0" layoutY="169.0" mnemonicParsing="false" text="Create a new Product" />
-<Button layoutX="356.0" layoutY="169.0" mnemonicParsing="false" text="Consult all Products" onAction="#handleConsultAllProductsButton" />
+      <Button layoutX="45.0" layoutY="169.0" mnemonicParsing="false" onAction="#gotoadd" text="Create a new Product" />
+<Button layoutX="356.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleConsultAllProductsButton" text="Consult all Products" />
 
    </children>
 </AnchorPane>

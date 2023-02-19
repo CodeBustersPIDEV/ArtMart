@@ -17,8 +17,8 @@ public class CustomProductService implements ICustomProductDao {
     }
 
     @Override
-    public int createCustomProduct(Product customProduct) throws SQLException {
-        return customProductDao.createCustomProduct(customProduct);
+    public int createCustomProduct(Product baseproduct) throws SQLException {
+        return customProductDao.createCustomProduct(baseproduct);
     }
 
     @Override
