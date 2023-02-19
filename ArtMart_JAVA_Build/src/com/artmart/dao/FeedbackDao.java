@@ -91,7 +91,7 @@ public class FeedbackDao implements IFeedbackDao {
     }
 
     @Override
-    public boolean updateFeedback(Feedback feedback) {
+    public boolean updateFeedback(int feedbackID, Feedback feedback) {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE Feedback"
@@ -102,7 +102,7 @@ public class FeedbackDao implements IFeedbackDao {
             statement.setInt(2, feedback.getRating());
             statement.setString(3, feedback.getComment());
             statement.setDate(4, feedback.getDate());
-            statement.setInt(1, feedback.getEventReportID());
+            statement.setInt(1, feedbackID);
 
             return statement.executeUpdate() > 0;
 

@@ -11,7 +11,7 @@ public interface IEventDao {
 
     List<Event> getAllEvents();
 
-    boolean updateEvent(int id,Event event);
+    boolean updateEvent(int eventID, Event event);
 
     boolean deleteEvent(int eventID);
 

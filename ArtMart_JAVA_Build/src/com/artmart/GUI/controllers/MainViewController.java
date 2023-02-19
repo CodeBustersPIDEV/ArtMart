@@ -10,6 +10,7 @@ import javafx.stage.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import java.io.IOException;
+import javafx.scene.Node;
 
 public class MainViewController implements Initializable {
 
@@ -67,9 +68,8 @@ public class MainViewController implements Initializable {
     @FXML
     private void goToEvent(ActionEvent event) {
         try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Event.fxml"));
-
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/event_home.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("Event Managment");

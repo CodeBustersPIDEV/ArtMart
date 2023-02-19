@@ -91,7 +91,7 @@ public class ActivityDao implements IActivityDao {
     }
 
     @Override
-    public boolean updateActivity(Activity activity) {
+    public boolean updateActivity(int activityID, Activity activity) {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE Activity SET eventID = ?, startDate = ?, endDate = ?, title = ?, host = ? WHERE activityID = ?");
@@ -100,7 +100,7 @@ public class ActivityDao implements IActivityDao {
             statement.setDate(3, activity.getEndDate());
             statement.setString(4, activity.getTitle());
             statement.setString(5, activity.getHost());
-            statement.setInt(6, activity.getActivityID());
+            statement.setInt(6, activityID);
 
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
