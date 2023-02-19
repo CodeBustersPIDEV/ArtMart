@@ -28,9 +28,10 @@ public class ArtistDao implements IArtistDao {
                     "INSERT INTO artist (user_ID, nbr_artwork,bio) "
                     + "VALUES ( ?,?,? )"
             );
+
             clientStatement.setInt(1, userDao.createAccountU(artist));
             clientStatement.setInt(2, 0);
-            clientStatement.setString(3, artist.getBio());
+            clientStatement.setString(3,"");
 
             clientStatement.executeUpdate();
             return 1;

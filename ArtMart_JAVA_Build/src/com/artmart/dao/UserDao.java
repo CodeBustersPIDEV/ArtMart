@@ -42,6 +42,8 @@ public class UserDao implements IUserDao {
             statement.setString(6, user.getPwd());
             statement.setTimestamp(7, timestamp);
             statement.setString(8, user.getRole());
+          //  statement.setString(9, "/assets/user.jpeg");
+
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {

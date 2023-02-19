@@ -28,6 +28,7 @@ public class AdminDao implements IAdminDao {
                     "INSERT INTO admin (user_ID, department) "
                     + "VALUES (?, ?)"
             );
+            admin.setRole("admin");
             adminStatement.setInt(1, userDao.createAccountU(admin));
             adminStatement.setString(2, admin.getDepartment());
             adminStatement.executeUpdate();
