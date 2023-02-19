@@ -33,8 +33,8 @@ public class EventReportService implements IEventReportDao{
     }
 
     @Override
-    public boolean updateEventReport(EventReport eventReport) {
-        return dao.updateEventReport(eventReport);
+    public boolean updateEventReport(int eventReportID,EventReport eventReport) {
+        return dao.updateEventReport(eventReportID, eventReport);
     }
 
     @Override

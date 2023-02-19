@@ -38,7 +38,7 @@ public class CustomproductslistController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try{
-        this.customProductService.createCustomProduct(new Product(1, "amir", "soltani", "Test",2, "Test", "Test"));
+     //   this.customProductService.createCustomProduct(new Product(1, "amir", "soltani", "Test",2, "Test", "Test"));
         this.makeList();
         }catch(SQLException e){}
     }    

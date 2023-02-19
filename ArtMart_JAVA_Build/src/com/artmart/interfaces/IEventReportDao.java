@@ -11,7 +11,7 @@ public interface IEventReportDao {
 
     List<EventReport> getAllEventReports();
 
-    boolean updateEventReport(EventReport eventReport);
+    boolean updateEventReport(int eventReportID,EventReport eventReport);
 
     boolean deleteEventReport(int eventReportID);
 
