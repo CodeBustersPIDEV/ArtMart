@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDao implements IProductDao {
 
@@ -93,5 +95,26 @@ public class ProductDao implements IProductDao {
         PreparedStatement statement = this.sqlConnection.prepareStatement(query);
         statement.setInt(1, id);
         statement.executeUpdate();
+    }
+    
+    public List<Product> getAllProduct() throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT product_ID, category_ID, name, description, dimensions, weight, material, image FROM product";
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        ResultSet result = statement.executeQuery();
+        while (result.next()) {
+            int product_ID = result.getInt("product_ID");
+            int category_ID = result.getInt("category_ID");
+            String name = result.getString("name");
+              String description = result.getString("description");
+                String dimensions = result.getString("dimensions");
+                float weight =result.getFloat("weight");
+                           String material = result.getString("material");
+              String image = result.getString("image");
+                
+            Product product = new Product(product_ID, category_ID, name, description, dimensions, weight, material, image);
+            products.add(product);
+        }
+        return products;
     }
 }

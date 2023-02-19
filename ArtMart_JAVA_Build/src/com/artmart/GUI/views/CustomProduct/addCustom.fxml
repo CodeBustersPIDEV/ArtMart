@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.CustomProduct.AddCustomController">
+   <children>
+      <TextField fx:id="nameField" layoutX="224.0" layoutY="48.0" />
+      <TextField fx:id="descField" layoutX="224.0" layoutY="91.0" prefHeight="63.0" prefWidth="187.0" />
+      <TextField fx:id="dimField" layoutX="224.0" layoutY="161.0" />
+      <TextField fx:id="weightField" layoutX="224.0" layoutY="200.0" />
+      <TextField fx:id="materialField" layoutX="224.0" layoutY="239.0" />
+      <TextField fx:id="categoryComboBox" layoutX="224.0" layoutY="278.0" />
+      <TextField fx:id="imageField" layoutX="224.0" layoutY="320.0" />
+      <Button fx:id="addButton" layoutX="292.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleAddButtonAction" text="ADD" />
+      <Text layoutX="131.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="90.884765625" />
+      <Text layoutX="131.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+      <Text layoutX="131.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dimension" />
+      <Text layoutX="131.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="weight" />
+      <Text layoutX="131.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="material" />
+      <Text layoutX="131.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="category" />
+      <Text layoutX="131.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
+   </children>
+</AnchorPane>
