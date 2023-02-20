@@ -41,6 +41,31 @@ public class MediaDao implements IMediaDao {
     }
 
     @Override
+    public Media getOneMediaByBlogID(int blog_id) {
+        Media mediaFound = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(
+                    "SELECT * FROM media WHERE blog_id = ?"
+            );
+            st.setInt(1, blog_id);
+
+            ResultSet result = st.executeQuery();
+            if (result.next()) {
+                mediaFound = new Media(
+                        result.getInt("media_ID"),
+                        result.getString("file_name"),
+                        result.getString("file_type"),
+                        result.getString("file_path"),
+                        result.getInt("blog_id")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return mediaFound;
+    }
+    
+        @Override
     public Media getOneMedia(int media_id) {
         Media mediaFound = null;
         try {

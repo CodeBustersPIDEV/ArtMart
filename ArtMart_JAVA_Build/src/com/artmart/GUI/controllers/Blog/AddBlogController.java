@@ -76,13 +76,15 @@ public class AddBlogController implements Initializable {
     private Blog resBlog = new Blog();
     private BlogCategories resBlogCategories = new BlogCategories();
     private int test1, test2, test3;
-    private Desktop desktop = Desktop.getDesktop();
+    private final Desktop desktop = Desktop.getDesktop();
     private final FileChooser fileChooser = new FileChooser();
     private Media img = new Media();
     private Image image;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
