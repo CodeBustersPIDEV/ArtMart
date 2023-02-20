@@ -9,11 +9,17 @@ import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.HasCategory;
 import com.artmart.services.BlogService;
+import java.awt.Desktop;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,9 +33,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -55,56 +64,56 @@ public class AddBlogController implements Initializable {
     private List<BlogCategories> blogCategoriesList;
     private Blog resBlog = new Blog();
     private BlogCategories resBlogCategories = new BlogCategories();
-    private int test1,test2;
-
-   
+    private int test1, test2;
+    @FXML
+    private Label pageTitle;
+    private Desktop desktop = Desktop.getDesktop();
+    final FileChooser fileChooser = new FileChooser();
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        blogCategoriesList=blogService.getAllBlogCategories();
+        blogCategoriesList = blogService.getAllBlogCategories();
         ObservableList<String> blogCatList = FXCollections.observableArrayList(
                 blogCategoriesList.stream().map(BlogCategories::getName).collect(Collectors.toList())
         );
         this.blog_category.setItems(blogCatList);
-        }
-       
-    
+    }
+
     @FXML
     private void add(ActionEvent event) throws IOException {
-        try{
-        FXMLLoader loader =new FXMLLoader(getClass().getResource("./MainView.fxml"));
-        Blog blog=new Blog(this.blog_title.getText(),this.blog_content.getText(),2);
-        test1=blogService.addBlog(blog);
-        if(test1==1){
-        resBlog=blogService.getOneBlogByTitle(this.blog_title.getText());
-        resBlogCategories=blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
-        HasCategory hc = new HasCategory(resBlog.getId(),resBlogCategories.getId());
-        test2=blogService.addBlog2HasCat(hc);
-        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("./MainView.fxml"));
+            Blog blog = new Blog(this.blog_title.getText(), this.blog_content.getText(), 2);
+            test1 = blogService.addBlog(blog);
+            if (test1 == 1) {
+                resBlog = blogService.getOneBlogByTitle(this.blog_title.getText());
+                resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
+                HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
+                test2 = blogService.addBlog2HasCat(hc);
+            }
 
-        if(test1==1 && test2==1){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Blog Posted");
-            alert.setHeaderText(null);
-            alert.setContentText("Your blog has been posteded.");
-            alert.showAndWait();        
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Oops!!Can not post your blog.");
-            alert.showAndWait();    
-}
-        }
-        catch(Exception ex){
+            if (test1 == 1 && test2 == 1) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Blog Posted");
+                alert.setHeaderText(null);
+                alert.setContentText("Your blog has been posteded.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Oops!!Can not post your blog.");
+                alert.showAndWait();
+            }
+        } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("An Error occured");
-            alert.showAndWait();            
+            alert.showAndWait();
 
         }
     }
@@ -123,4 +132,20 @@ public class AddBlogController implements Initializable {
         }
     }
 
+    @FXML
+    private void openFileExplorer(ActionEvent event) {
+        try {
+            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            Stage savingStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FileChooser file = new FileChooser();
+            FileChooser file2 = new FileChooser();
+            file.setTitle("Open File");
+            File file1 = file.showOpenDialog(primaryStage);
+            BufferedImage bi = ImageIO.read(file1);
+            File outputfile = new File("../../../assets/BlogAssets/uploads"+file1.getName());
+            ImageIO.write(bi, "png", outputfile);
+        } catch (IOException e) {
+            e.getMessage();
+        }
+    }
 }

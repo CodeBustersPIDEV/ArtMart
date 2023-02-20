@@ -47,16 +47,15 @@ public class BlogManagementPageController implements Initializable {
     @FXML
     public ComboBox<String> userComboBox;
     private List<User> userOptionsList;
-    private BlogService blogService=new BlogService();
-    private UserDao userService=new UserDao();
-    private List<Blog> blogList=new ArrayList<Blog>();
+    private BlogService blogService = new BlogService();
+    private UserDao userService = new UserDao();
+    private List<Blog> blogList = new ArrayList<Blog>();
     private BlogManagementCardController controller;
-    private User connectedUser = new User();                
+    private User connectedUser = new User();
     @FXML
     private ScrollPane bigCont;
     @FXML
     private Button backToBlogMenu;
-
 
     /**
      * Initializes the controller class.
@@ -70,10 +69,7 @@ public class BlogManagementPageController implements Initializable {
                 userOptionsList.stream().map(User::getName).collect(Collectors.toList())
         );
         this.userComboBox.setItems(userOptions);
-    }    
-
-
-
+    }
 
     @FXML
     public void refreshList() {
@@ -81,27 +77,27 @@ public class BlogManagementPageController implements Initializable {
         int listId = userComboBox.getSelectionModel().getSelectedIndex();
         int selectedUserId = userOptionsList.get(listId).getUser_id();
         this.connectedUser = this.userService.getUser(selectedUserId);
-        blogList= blogService.getAllBlogsByUser(connectedUser.getUser_id());
-        for(Blog blog : blogList){ 
+        blogList = blogService.getAllBlogsByUser(connectedUser.getUser_id());
+        for (Blog blog : blogList) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementCard.fxml"));
                 Pane pane = loader.load();
-                pane.setId("blog_card"+blog.getId());
+                pane.setId("blog_card" + blog.getId());
                 this.controller = loader.getController();
                 controller.setBlogTitle(blog.getTitle());
-                container.getChildren().add(pane);                   
+                container.getChildren().add(pane);
                 controller.setBlogID(Integer.toString(blog.getId()));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.getMessage();
-                }
             }
-        
+        }
+
     }
-    
+
     @FXML
     private void backToBlogMenu(ActionEvent event) {
-         try {
+        try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
             Scene scene = new Scene(root);
@@ -113,6 +109,4 @@ public class BlogManagementPageController implements Initializable {
         }
     }
 
-
-    
 }

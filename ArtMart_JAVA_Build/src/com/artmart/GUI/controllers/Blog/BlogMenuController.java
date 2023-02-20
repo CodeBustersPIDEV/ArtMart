@@ -44,7 +44,7 @@ public class BlogMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void goToAddBlog(ActionEvent event) {
@@ -59,7 +59,6 @@ public class BlogMenuController implements Initializable {
             System.out.print(e.getMessage());
         }
 
-    
     }
 
     @FXML
@@ -127,5 +126,5 @@ public class BlogMenuController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-    
+
 }

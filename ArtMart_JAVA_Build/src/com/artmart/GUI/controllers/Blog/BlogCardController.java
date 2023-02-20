@@ -45,24 +45,27 @@ public class BlogCardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
-     public void setBlogTitle(String title) {
+    }
+
+    public void setBlogTitle(String title) {
         this.blog_title.setText(title);
     }
-     public void setPublishDate(String date) {
+
+    public void setPublishDate(String date) {
         this.publishDate.setText(date);
     }
+
     public void setUsername(String user_name) {
         this.username.setText(user_name);
     }
+
     public void setBlogID(String blog_id) {
         this.blog_id.setText(blog_id);
     }
 
     @FXML
     private void viewBlog(ActionEvent event) {
-          try {
+        try {
 //        this.SelectUserAndProduct();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogPage.fxml"));
@@ -73,10 +76,10 @@ public class BlogCardController implements Initializable {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-            
+
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
-    
+
 }

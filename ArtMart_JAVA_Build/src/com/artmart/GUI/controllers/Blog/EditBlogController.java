@@ -57,8 +57,8 @@ public class EditBlogController implements Initializable {
     private Label blogID;
 
     private List<BlogCategories> blogCategoriesList;
-    private final BlogService blogService=new BlogService();
-    private UserDao userService=new UserDao();
+    private final BlogService blogService = new BlogService();
+    private UserDao userService = new UserDao();
     private Blog viewBlog = new Blog();
     private int id;
     private boolean test1;
@@ -66,73 +66,67 @@ public class EditBlogController implements Initializable {
     private Blog resBlog = new Blog();
     private BlogCategories resBlogCategories = new BlogCategories();
 
-
-    
     /**
      * Initializes the controller class.
      */
-    
-
-    
     public void setUpData(String b_ID) {
         this.blogID.setText(b_ID);
-        this.id=Integer.parseInt(this.blogID.getText());
-        this.viewBlog= blogService.getOneBlog(id);
-        
+        this.id = Integer.parseInt(this.blogID.getText());
+        this.viewBlog = blogService.getOneBlog(id);
+
         this.blog_title.setText(this.viewBlog.getTitle());
         this.blog_content.setText(this.viewBlog.getContent());
         this.blog_category.getSelectionModel().selectFirst();
 
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        blogCategoriesList=blogService.getAllBlogCategories();
+        blogCategoriesList = blogService.getAllBlogCategories();
         ObservableList<String> blogCatList = FXCollections.observableArrayList(
                 blogCategoriesList.stream().map(BlogCategories::getName).collect(Collectors.toList())
         );
         this.blog_category.setItems(blogCatList);
-    }    
+    }
 
     @FXML
     private void edit(ActionEvent event) {
-        try{
-        Blog blog=new Blog(this.blog_title.getText(),this.blog_content.getText());
-        this.test1=blogService.updateBlog(this.id,blog);
-        if(this.test1){
-        resBlog=blogService.getOneBlogByTitle(this.blog_title.getText());
-        resBlogCategories=blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
-        HasCategory hc = new HasCategory(resBlog.getId(),resBlogCategories.getId());
-        this.test2=blogService.updateHasCat(this.id,hc);
-        }
+        try {
+            Blog blog = new Blog(this.blog_title.getText(), this.blog_content.getText());
+            this.test1 = blogService.updateBlog(this.id, blog);
+            if (this.test1) {
+                resBlog = blogService.getOneBlogByTitle(this.blog_title.getText());
+                resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
+                HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
+                this.test2 = blogService.updateHasCat(this.id, hc);
+            }
 
-        if(test1 && test2){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Blog Updated");
-            alert.setHeaderText(null);
-            alert.setContentText("Your blog has been updated succesfully.");
-            alert.showAndWait();        
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Oops!!Can not update your blog.");
-            alert.showAndWait();    
-}
-        }
-        catch(Exception ex){
+            if (test1 && test2) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Blog Updated");
+                alert.setHeaderText(null);
+                alert.setContentText("Your blog has been updated succesfully.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Oops!!Can not update your blog.");
+                alert.showAndWait();
+            }
+        } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("An Error occured");
-            alert.showAndWait();            
+            alert.showAndWait();
 
         }
     }
 
     @FXML
     private void goBackToMenu(ActionEvent event) {
-         try {
+        try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
             Scene scene = new Scene(root);
@@ -143,7 +137,5 @@ public class EditBlogController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-    
-    
-    
+
 }

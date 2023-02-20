@@ -30,31 +30,31 @@ public class BlogGUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        BlogService blogService=new BlogService();
-        UserDao userService=new UserDao();
-        List<Blog> blogList=new ArrayList<Blog>();
-        blogList= blogService.getAllBlogs();
-        for(Blog blog : blogList){ 
+        BlogService blogService = new BlogService();
+        UserDao userService = new UserDao();
+        List<Blog> blogList = new ArrayList<Blog>();
+        blogList = blogService.getAllBlogs();
+        for (Blog blog : blogList) {
             String username = userService.getUser(blog.getAuthor()).getUsername();
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCard.fxml"));
                 Pane pane = loader.load();
-                pane.setId("blog_card"+blog.getId());
+                pane.setId("blog_card" + blog.getId());
                 BlogCardController controller = loader.getController();
                 controller.setBlogTitle(blog.getTitle());
-                container.getChildren().add(pane);                   
+                container.getChildren().add(pane);
                 controller.setUsername(username);
                 controller.setBlogID(Integer.toString(blog.getId()));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.printStackTrace();
-                }
             }
-    }     
+        }
+    }
 
     @FXML
     private void goBackToBlogMenu(ActionEvent event) {
-         try {
+        try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
             Scene scene = new Scene(root);
