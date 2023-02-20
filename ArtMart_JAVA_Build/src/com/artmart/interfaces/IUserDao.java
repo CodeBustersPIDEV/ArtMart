@@ -1,3 +1,4 @@
+
 package com.artmart.interfaces;
 
 import com.artmart.models.User;
@@ -14,4 +15,5 @@ public interface IUserDao {
     List<User> viewListOfUsers();
 
     boolean updateAccountU(int user_id, User user);
+    public boolean authenticate(String username, String password);
 }

@@ -12,7 +12,7 @@
         <URL value="@/com/artmart/GUI/styles/orderlist.css" />
     </stylesheets>
    <children>
-      <ScrollPane layoutX="14.0" layoutY="83.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="296.0" prefWidth="324.0">
+      <ScrollPane layoutX="14.0" layoutY="83.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="305.0" prefWidth="310.0">
          <content>
             <VBox fx:id="orderCard" prefHeight="235.0" prefWidth="277.0" />
          </content>

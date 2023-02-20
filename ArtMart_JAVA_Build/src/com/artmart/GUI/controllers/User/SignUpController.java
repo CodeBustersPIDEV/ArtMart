@@ -30,6 +30,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -55,11 +56,14 @@ public class SignUpController implements Initializable {
     private TextField Phone_nbrField;
     @FXML
     private Button sign_up_btn;
-    
+@FXML
+    private Button artistProfilBtn;
+@FXML
+    private Button clientProfileBtn;
     @FXML
     private ComboBox<String> identityField;
-    private User user = new User();
     UserService user_ser = new UserService();
+    private int test1, test2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,54 +72,54 @@ public class SignUpController implements Initializable {
     }
 
     @FXML
-    public void OnSignUp(ActionEvent event) {
+    public void OnSignUp(ActionEvent event) throws IOException {
         // Get form field values
-        String name = nameField.getText();
-        String email = emailField.getText();
-        LocalDate birthday = birthdayField.getValue();
-        int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
-        String username = usernameField.getText();
-        String password = pwdField.getText();
+        try {
+            String name = nameField.getText();
+            String email = emailField.getText();
+            Date birthday = java.sql.Date.valueOf(birthdayField.getValue());
+            int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
+            String username = usernameField.getText();
+            String password = pwdField.getText();
+           User user = new User(phoneNumber, name, email, username, password, birthday);
+            if (identityField.getValue().equals("yes")) {
+                
+                Artist artist = new Artist(user);
+                test1 = user_ser.createAccountAr(artist);
+            } else if (identityField.getValue().equals("no")) {
+                Client client = new Client(user);
+                test2 = user_ser.createAccountC(client);
 
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
-        user.setBirthday(java.sql.Date.valueOf(birthday));
-        user.setPhone_nbr(phoneNumber);
-        user.setUsername(username);
-      //user.setPwd(password);
+            }
 
+            if (test1 == 1 || test2 == 1) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null);
+                alert.setContentText("Account created");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Oops!!Can not create account");
+                alert.showAndWait();
+            }
 
-        
-        if (this.pwdField.equals(cpwdField)) {
-            user.setPwd(pwdField.getText());
-        } else {
-            Alert alert = new Alert(AlertType.INFORMATION);
-
-            alert.setTitle("Warning");
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("The passwords must be identical");
-            alert.show();
-            
-        }
-        
-         if (identityField.getValue().equals("yes")) {
-            user.setRole("artist");
-            Artist artist = new Artist(user);
-            user_ser.createAccountAr(artist);
-        } else  if (identityField.getValue().equals("no")) {
-            user.setRole("client");
-            Client client = new Client(user);
-            user_ser.createAccountC(client);
+            alert.setContentText("An Error occured");
+            alert.showAndWait();
 
         }
-       
     }
-    
-     @FXML
+
+    @FXML
 
     public void OnSignIn(ActionEvent event) {
-         try {
+        try {
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
             Scene scene = new Scene(root);
@@ -127,9 +131,33 @@ public class SignUpController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-    
-     public void OnBack(ActionEvent event) {
-          Stage stage = (Stage) sign_up_btn.getScene().getWindow();
+    public void OnArtistProfile(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }    public void OnClientProfile(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+    public void OnBack(ActionEvent event) {
+        Stage stage = (Stage) sign_up_btn.getScene().getWindow();
         stage.close();
     }
 }

@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
@@ -23,15 +24,16 @@ public class OrderListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         orderCard.setAlignment(Pos.CENTER);
-        orderCard.setSpacing(5);
+        orderCard.setSpacing(10);
+        orderCard.setPadding(new Insets(10, 0, 0, 0));
     }
 
     public void setUser(User user) {
         this.user = user;
         this.refreshList();
     }
-    
-    public void refreshList(){
+
+    public void refreshList() {
         orderCard.getChildren().clear();
         OrderService orderService = new OrderService();
         List<Order> orderList = orderService.getOrdersById(this.user.getUser_id());
@@ -40,8 +42,8 @@ public class OrderListController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderCard.fxml"));
                 Parent root = loader.load();
                 OrderCardController controller = loader.getController();
-                controller.setupData(order,this);
-                root.setId(""+order.getId());
+                controller.setupData(order);
+                root.setId("" + order.getId());
                 orderCard.getChildren().add(root);
             } catch (IOException e) {
                 System.out.print(e.getCause());
