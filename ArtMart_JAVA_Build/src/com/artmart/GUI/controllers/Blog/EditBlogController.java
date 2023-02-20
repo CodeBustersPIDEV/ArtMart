@@ -5,21 +5,15 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
+import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.HasCategory;
 import com.artmart.services.BlogService;
-import java.awt.Desktop;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,16 +31,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.FileChooser;
-import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
  *
  * @author marwen
  */
-public class AddBlogController implements Initializable {
+public class EditBlogController implements Initializable {
 
+    @FXML
+    private Label pageTitle;
     @FXML
     private TextField blog_title;
     @FXML
@@ -56,23 +50,36 @@ public class AddBlogController implements Initializable {
     @FXML
     private Button add_imageBlog;
     @FXML
-    private Button add_blog;
+    private Button edit_blog;
     @FXML
     private Button cancel_btn;
-//    Date sqlDate = new Date(System.currentTimeMillis());
-    private final BlogService blogService = new BlogService();
+    @FXML
+    private Label blogID;
+
     private List<BlogCategories> blogCategoriesList;
+    private final BlogService blogService = new BlogService();
+    private UserDao userService = new UserDao();
+    private Blog viewBlog = new Blog();
+    private int id;
+    private boolean test1;
+    private boolean test2;
     private Blog resBlog = new Blog();
     private BlogCategories resBlogCategories = new BlogCategories();
-    private int test1, test2;
-    @FXML
-    private Label pageTitle;
-    private Desktop desktop = Desktop.getDesktop();
-    final FileChooser fileChooser = new FileChooser();
 
     /**
      * Initializes the controller class.
      */
+    public void setUpData(String b_ID) {
+        this.blogID.setText(b_ID);
+        this.id = Integer.parseInt(this.blogID.getText());
+        this.viewBlog = blogService.getOneBlog(id);
+
+        this.blog_title.setText(this.viewBlog.getTitle());
+        this.blog_content.setText(this.viewBlog.getContent());
+        this.blog_category.getSelectionModel().selectFirst();
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         blogCategoriesList = blogService.getAllBlogCategories();
@@ -83,29 +90,28 @@ public class AddBlogController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) throws IOException {
+    private void edit(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("./MainView.fxml"));
-            Blog blog = new Blog(this.blog_title.getText(), this.blog_content.getText(), 2);
-            test1 = blogService.addBlog(blog);
-            if (test1 == 1) {
+            Blog blog = new Blog(this.blog_title.getText(), this.blog_content.getText());
+            this.test1 = blogService.updateBlog(this.id, blog);
+            if (this.test1) {
                 resBlog = blogService.getOneBlogByTitle(this.blog_title.getText());
                 resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
                 HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
-                test2 = blogService.addBlog2HasCat(hc);
+                this.test2 = blogService.updateHasCat(this.id, hc);
             }
 
-            if (test1 == 1 && test2 == 1) {
+            if (test1 && test2) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Blog Posted");
+                alert.setTitle("Blog Updated");
                 alert.setHeaderText(null);
-                alert.setContentText("Your blog has been posteded.");
+                alert.setContentText("Your blog has been updated succesfully.");
                 alert.showAndWait();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
-                alert.setContentText("Oops!!Can not post your blog.");
+                alert.setContentText("Oops!!Can not update your blog.");
                 alert.showAndWait();
             }
         } catch (Exception ex) {
@@ -122,7 +128,7 @@ public class AddBlogController implements Initializable {
     private void goBackToMenu(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setScene(scene);
@@ -132,20 +138,4 @@ public class AddBlogController implements Initializable {
         }
     }
 
-    @FXML
-    private void openFileExplorer(ActionEvent event) {
-        try {
-            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            Stage savingStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            FileChooser file = new FileChooser();
-            FileChooser file2 = new FileChooser();
-            file.setTitle("Open File");
-            File file1 = file.showOpenDialog(primaryStage);
-            BufferedImage bi = ImageIO.read(file1);
-            File outputfile = new File("../../../assets/BlogAssets/uploads"+file1.getName());
-            ImageIO.write(bi, "png", outputfile);
-        } catch (IOException e) {
-            e.getMessage();
-        }
-    }
 }

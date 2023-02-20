@@ -81,5 +81,5 @@ public Blog(String title, String content, int author) {
     public void setAuthor(int author) {
         this.author = author;
     }
-
+    
 }

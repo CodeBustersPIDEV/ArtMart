@@ -14,4 +14,6 @@ public interface ICommentServiceDao {
     public boolean updateComment(int comment_id, Comment editedComment);
 
     public boolean deleteComment(int comment_id);
+    
+    public boolean deleteAllComments(int blog_id);
 }

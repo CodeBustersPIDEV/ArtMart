@@ -48,6 +48,11 @@ public class BlogService implements IBlogService {
     public List<Blog> getAllBlogs() {
         return this.blogDao.getAllBlogs();
     }
+    
+    @Override
+    public List<Blog> getAllBlogsByUser(int user_id) {
+        return this.blogDao.getAllBlogsByUser(user_id);
+    }
 
     @Override
     public boolean updateBlog(int blog_id, Blog editedBlog) {
@@ -83,6 +88,11 @@ public class BlogService implements IBlogService {
     @Override
     public boolean deleteComment(int comment_id) {
         return this.commentDao.deleteComment(comment_id);
+    }
+    
+    @Override
+    public boolean deleteAllComments(int blog_id) {
+        return this.commentDao.deleteComment(blog_id);
     }
 
     @Override
