@@ -5,13 +5,13 @@ import java.sql.Date;
 public class User {
 
     private int user_id, phone_nbr;
-    private String name, email, username, pwd, role;
+    private String name, email, username, pwd, role, picture;
     private Date birthday, date_creation;
 
     public User() {
     }
 
-    public User(int user_id, int phone_nbr, String name, String email, String username, String pwd, Date birthday, Date date_creation, String role) {
+    public User(int user_id, int phone_nbr, String name, String email, String username, String pwd, Date birthday, Date date_creation, String role, String picture) {
         this.user_id = user_id;
         this.phone_nbr = phone_nbr;
         this.name = name;
@@ -21,7 +21,19 @@ public class User {
         this.birthday = birthday;
         this.date_creation = date_creation;
         this.role = role;
+        this.picture = picture;
 
+    }
+
+    public User(int phone_nbr, String name, String email, String username, String pwd, String role, String picture, Date birthday) {
+        this.phone_nbr = phone_nbr;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.pwd = pwd;
+        this.role = role;
+        this.picture = picture;
+        this.birthday = birthday;
     }
 
     public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday) {
@@ -33,15 +45,7 @@ public class User {
         this.birthday = birthday;
     }
 
-    public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday, String role) {
-        this.phone_nbr = phone_nbr;
-        this.name = name;
-        this.email = email;
-        this.username = username;
-        this.pwd = pwd;
-        this.birthday = birthday;
-        this.role = role;
-    }
+
 
     public String getRole() {
         return role;
@@ -81,6 +85,14 @@ public class User {
 
     public Date getDate_creation() {
         return date_creation;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public void setUser_id(int user_id) {

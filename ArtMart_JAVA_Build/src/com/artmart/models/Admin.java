@@ -14,7 +14,7 @@ public class Admin extends User {
     }
 
     public Admin(User user) {
-        super(user.getPhone_nbr(), user.getName(), user.getEmail(), user.getUsername(), user.getPwd(), user.getBirthday(), user.getRole());
+        super(user.getPhone_nbr(), user.getName(), user.getEmail(), user.getUsername(), user.getPwd(), user.getRole(),user.getPicture(), user.getBirthday());
     }
 
     public int getAdmin_id() {

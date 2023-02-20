@@ -5,7 +5,7 @@
  */
 package com.artmart.GUI.controllers.User;
 
-import com.artmart.models.Artist;
+import com.artmart.models.Admin;
 import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
@@ -27,12 +27,10 @@ import javafx.stage.Stage;
  *
  * @author 21697
  */
-public class ProfileArtistController implements Initializable {
+public class ProfileAdminController implements Initializable {
 
     @FXML
     private ImageView ProfilePic;
-    @FXML
-    private Button UploadPicBtn;
     @FXML
     private Label usernameProfile;
     @FXML
@@ -40,9 +38,7 @@ public class ProfileArtistController implements Initializable {
     @FXML
     private Label emailProfile;
     @FXML
-    private Label nbrArtProfile;
-    @FXML
-    private Label bioProfile;
+    private Label departmentProfile;
     @FXML
     private Label birthdayProfile;
     @FXML
@@ -51,8 +47,7 @@ public class ProfileArtistController implements Initializable {
     private Button backBtn;
     @FXML
     private Label phoneProfile;
-   
-    private Artist artist = new Artist();
+    Admin admin = new Admin();
     UserService user_ser = new UserService();
 
     /**
@@ -60,31 +55,23 @@ public class ProfileArtistController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        artist = user_ser.getArtist(6);
-        nameProfile.setText(artist.getName());
-        usernameProfile.setText(artist.getUsername());
-        emailProfile.setText(artist.getEmail());
-        bioProfile.setText(artist.getBio());
-        phoneProfile.setText(String.valueOf(artist.getPhone_nbr()));
-        nbrArtProfile.setText(String.valueOf(artist.getNbr_artwork()));
-        birthdayProfile.setText(artist.getBirthday().toString());
-        try {
-            Image newImage = new Image(artist.getPicture());
+        admin = user_ser.getAdmin(1);
+        nameProfile.setText(admin.getName());
+        usernameProfile.setText(admin.getUsername());
+        emailProfile.setText(admin.getEmail());
+        phoneProfile.setText(String.valueOf(admin.getPhone_nbr()));
+        birthdayProfile.setText(admin.getBirthday().toString());
+        departmentProfile.setText(admin.getDepartment());
+        /* try {
+            Image newImage = new Image(admin.getPicture());
             ProfilePic.setImage(newImage);
         } catch (Exception e) {
             System.out.println("Error setting image: " + e.getMessage());
-        }
+        }*/
     }
 
     @FXML
-    private void OnBack(ActionEvent event) {
-        Stage stage = (Stage) backBtn.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-
-    public void OnUpdateBtn(ActionEvent event) {
+    private void OnUpdateBtn(ActionEvent event) {
         try {
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/updateProfile.fxml"));
@@ -97,4 +84,11 @@ public class ProfileArtistController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
+
+    @FXML
+    private void OnBack(ActionEvent event) {
+        Stage stage = (Stage) backBtn.getScene().getWindow();
+        stage.close();
+    }
+
 }

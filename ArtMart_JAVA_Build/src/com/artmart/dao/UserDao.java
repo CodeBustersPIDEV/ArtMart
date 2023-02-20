@@ -77,6 +77,8 @@ public class UserDao implements IUserDao {
                 user.setUsername(resultSet.getString("username"));
                 user.setPwd(resultSet.getString("password"));
                 user.setRole(resultSet.getString("role"));
+                user.setPicture(resultSet.getString("picture"));
+                
                 return user;
             }
         } catch (SQLException e) {
@@ -183,7 +185,8 @@ private String hash(String password) {
             return null;
         }
     }
-}
+
+   }
 
 
 

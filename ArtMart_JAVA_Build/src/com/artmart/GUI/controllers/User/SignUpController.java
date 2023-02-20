@@ -30,6 +30,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -56,12 +58,14 @@ public class SignUpController implements Initializable {
     private TextField Phone_nbrField;
     @FXML
     private Button sign_up_btn;
-@FXML
+    @FXML
     private Button artistProfilBtn;
-@FXML
+    @FXML
     private Button clientProfileBtn;
     @FXML
     private ComboBox<String> identityField;
+    @FXML
+   
     UserService user_ser = new UserService();
     private int test1, test2;
 
@@ -81,9 +85,10 @@ public class SignUpController implements Initializable {
             int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
             String username = usernameField.getText();
             String password = pwdField.getText();
-           User user = new User(phoneNumber, name, email, username, password, birthday);
+             
+            User user = new User(phoneNumber, name, email, username, password, birthday);
             if (identityField.getValue().equals("yes")) {
-                
+
                 Artist artist = new Artist(user);
                 test1 = user_ser.createAccountAr(artist);
             } else if (identityField.getValue().equals("no")) {
@@ -131,6 +136,7 @@ public class SignUpController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
+
     public void OnArtistProfile(ActionEvent event) {
         try {
             Stage stage = new Stage();
@@ -143,7 +149,8 @@ public class SignUpController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
-    }    public void OnClientProfile(ActionEvent event) {
+    }
+ public void OnClientProfile(ActionEvent event) {
         try {
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
@@ -156,6 +163,22 @@ public class SignUpController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
+
+    public void OnAdminProfile(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
     public void OnBack(ActionEvent event) {
         Stage stage = (Stage) sign_up_btn.getScene().getWindow();
         stage.close();
