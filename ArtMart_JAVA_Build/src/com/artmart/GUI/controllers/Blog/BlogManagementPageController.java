@@ -76,7 +76,7 @@ public class BlogManagementPageController implements Initializable {
 
 
     @FXML
-    private void refreshList(ActionEvent event) {
+    public void refreshList() {
         this.container.getChildren().clear();
         int listId = userComboBox.getSelectionModel().getSelectedIndex();
         int selectedUserId = userOptionsList.get(listId).getUser_id();
@@ -93,12 +93,12 @@ public class BlogManagementPageController implements Initializable {
                 controller.setBlogID(Integer.toString(blog.getId()));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
-                e.printStackTrace();
+                e.getMessage();
                 }
             }
         
     }
-
+    
     @FXML
     private void backToBlogMenu(ActionEvent event) {
          try {

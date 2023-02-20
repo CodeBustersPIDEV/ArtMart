@@ -70,7 +70,6 @@ public class BlogCardController implements Initializable {
             Scene scene = new Scene(root);
             BlogPageController controller = loader.getController();
             controller.setUpData(this.blog_id.getText());
-//              System.out.println(this.blog_id.getText());
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();

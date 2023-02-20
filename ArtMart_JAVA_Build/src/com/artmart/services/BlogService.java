@@ -89,6 +89,11 @@ public class BlogService implements IBlogService {
     public boolean deleteComment(int comment_id) {
         return this.commentDao.deleteComment(comment_id);
     }
+    
+    @Override
+    public boolean deleteAllComments(int blog_id) {
+        return this.commentDao.deleteComment(blog_id);
+    }
 
     @Override
     public int addBlogCategories(BlogCategories bc) {
