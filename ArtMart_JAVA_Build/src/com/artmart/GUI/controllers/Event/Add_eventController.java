@@ -91,41 +91,62 @@ public class Add_eventController implements Initializable {
             System.out.print(e.getMessage());
         }        
     }
-    
+
     @FXML
     private void onAddEvent(ActionEvent event) {
         name = txtName.getText();
         location = txtLocation.getText();
+        String typeText = (String) comboBoxType.getValue(); 
         description = txtAreaDescription.getText();
-        type = (String) comboBoxType.getValue();
-        entryFee = Float.parseFloat(txtEntryFee.getText());
-        capacity = Integer.parseInt(txtCapacity.getText());
-        startDate = Date.valueOf(dpStartDate.getValue());
-        endDate = Date.valueOf(dpEndDate.getValue());  
-        
-        Event ev = new Event(name, location, type, description, entryFee, capacity, startDate, endDate, userID);
+        String entryFeeText = txtEntryFee.getText();
+        String capacityText =txtCapacity.getText();
+        LocalDate startDateValue = dpStartDate.getValue();
+        String startDateText = startDateValue != null ? String.valueOf(startDateValue) : null;
+        LocalDate endDateValue = dpEndDate.getValue();
+        String endDateText = endDateValue != null ? String.valueOf(endDateValue) : null;
 
-        es = new EventService();
-
-        int result = es.createEvent(ev);
-
-        if (result > 0) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Add Event");
-            alert.setHeaderText(null);
-            alert.setContentText("A new event has been added successfully!");
-            alert.showAndWait();
-            userID++;
-            alert.close();
-            returnToEventHomepage(event);
-        } else {
+        if(name.isEmpty() 
+        || location.isEmpty() 
+        || typeText == null || typeText.isEmpty()
+        || description.isEmpty() 
+        || entryFeeText.isEmpty()
+        || capacityText.isEmpty() 
+        || startDateText == null || startDateText.isEmpty()
+        || endDateText == null || endDateText.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Add Custom Product");
+            alert.setTitle("Missing information");
             alert.setHeaderText(null);
-            alert.setContentText("Failed to add event!");
+            alert.setContentText("Failed to add event! \nComplete missing information.");
             alert.showAndWait();
+        }else {
+            type = (String) comboBoxType.getValue();
+            entryFee = Float.parseFloat(txtEntryFee.getText());
+            capacity = Integer.parseInt(txtCapacity.getText());
+            startDate = Date.valueOf(dpStartDate.getValue());
+            endDate = Date.valueOf(dpEndDate.getValue());  
+            Event ev = new Event(name, location, type, description, entryFee, capacity, startDate, endDate, userID);
+
+            es = new EventService();
+
+            int result = es.createEvent(ev);
+
+            if (result > 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Add Event");
+                alert.setHeaderText(null);
+                alert.setContentText("A new event has been added successfully!");
+                alert.showAndWait();
+                userID++;
+                alert.close();
+                returnToEventHomepage(event);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Add Custom Product");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to add event!");
+                alert.showAndWait();
+            }
         }
     }
-
 
 }
