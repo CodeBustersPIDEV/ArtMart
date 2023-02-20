@@ -11,7 +11,7 @@
         <URL value="@/com/artmart/GUI/styles/event/event_home.css" />
     </stylesheets>
    <children>
-      <Button id="btnAddNewEvent" layoutX="251.0" layoutY="188.0" mnemonicParsing="false" onAction="#goToAddEvent" text="Add New Event" />
+      <Button fx:id="btnGoToAddEvent" layoutX="251.0" layoutY="188.0" mnemonicParsing="false" onAction="#goToAddEvent" text="Add New Event" />
       <Button id="btnReturn" layoutX="4.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnToMain" text="&lt; Back" />
       <Label layoutX="212.0" layoutY="56.0" text="Event Home Page">
          <font>

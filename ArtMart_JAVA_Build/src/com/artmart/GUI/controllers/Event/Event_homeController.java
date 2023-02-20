@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -22,6 +23,9 @@ import javafx.stage.Stage;
  * @author GhassenZ
  */
 public class Event_homeController implements Initializable {
+
+    @FXML
+    private Button btnGoToAddEvent;
 
     /**
      * Initializes the controller class.
