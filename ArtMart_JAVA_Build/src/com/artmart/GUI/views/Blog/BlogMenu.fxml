@@ -14,8 +14,7 @@
       <Button fx:id="link_add_blog" layoutX="147.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Add Blog" />
       <Button fx:id="link_list_blogs" layoutX="236.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToBlogList" text="Consult Blogs" />
       <Button fx:id="back_btn" layoutX="41.0" layoutY="38.0" mnemonicParsing="false" onAction="#goBackToAppMenu" text="Back" />
-      <Button fx:id="link_add_blog1" layoutX="472.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Delete Blog" />
-      <Button fx:id="link_add_blog2" layoutX="356.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Update Blog" />
+      <Button fx:id="link_blog_manage" layoutX="356.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToBlogManagement" text="Blog Management" />
       <Label layoutX="92.0" layoutY="127.0" text="Blog:">
          <font>
             <Font size="24.0" />
@@ -26,8 +25,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="link_add_blog3" layoutX="180.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Add Category" />
-      <Button fx:id="link_add_blog5" layoutX="301.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Update Category" />
-      <Button fx:id="link_add_blog6" layoutX="442.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Delete Category" />
+      <Button fx:id="link_add_category" layoutX="180.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToAddCategory" text="Add Category" />
+      <Button fx:id="link_Cat_manage" layoutX="301.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToCatManagement" text="Category Management" />
    </children>
 </AnchorPane>

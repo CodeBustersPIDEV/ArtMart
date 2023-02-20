@@ -115,4 +115,18 @@ public class CommentDao implements ICommentServiceDao {
             return false;
         }
     }
+    
+    @Override
+    public boolean deleteAllComments(int blog_id) {
+        try {
+            String sql = "DELETE FROM comments WHERE blog_ID = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, blog_id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            return false;
+        }
+    }
 }

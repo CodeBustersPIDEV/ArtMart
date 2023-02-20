@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class ArtistDao implements IArtistDao {
 
     private Connection connection;
-    private UserDao userDao;
+    private UserDao userDao = new UserDao();
 
     public ArtistDao() {
         try {
@@ -25,14 +25,13 @@ public class ArtistDao implements IArtistDao {
     public int createAccountAr(Artist artist) {
         try {
             PreparedStatement clientStatement = connection.prepareStatement(
-                    "INSERT INTO artist (user_ID, nbr_artwork,bio) "
-                    + "VALUES ( ?,?,? )"
+                "INSERT INTO artist (user_ID, nbr_artwork,bio) "
+                    + "VALUES (?,?,?)"
             );
-
+            artist.setRole("artist");
             clientStatement.setInt(1, userDao.createAccountU(artist));
-            clientStatement.setInt(2, 0);
+            clientStatement.setInt(2,0);
             clientStatement.setString(3,"");
-
             clientStatement.executeUpdate();
             return 1;
 

@@ -32,15 +32,11 @@ public class BlogMenuController implements Initializable {
     @FXML
     private Button back_btn;
     @FXML
-    private Button link_add_blog1;
+    private Button link_blog_manage;
     @FXML
-    private Button link_add_blog2;
+    private Button link_add_category;
     @FXML
-    private Button link_add_blog3;
-    @FXML
-    private Button link_add_blog5;
-    @FXML
-    private Button link_add_blog6;
+    private Button link_Cat_manage;
 
     /**
      * Initializes the controller class.
@@ -48,7 +44,7 @@ public class BlogMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void goToAddBlog(ActionEvent event) {
@@ -63,7 +59,6 @@ public class BlogMenuController implements Initializable {
             System.out.print(e.getMessage());
         }
 
-    
     }
 
     @FXML
@@ -89,5 +84,47 @@ public class BlogMenuController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-    
+
+    @FXML
+    private void goToBlogManagement(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goToAddCategory(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addBlog.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goToCatManagement(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addBlog.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
 }

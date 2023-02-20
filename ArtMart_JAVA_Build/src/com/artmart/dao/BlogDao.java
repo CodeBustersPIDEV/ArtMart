@@ -110,6 +110,28 @@ public class BlogDao implements IBlogServiceDao {
         }
         return blogs;
     }
+    
+    @Override
+    public List<Blog> getAllBlogsByUser(int user_id) {
+        List<Blog> blogs = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM blogs where author=?");
+            st.setInt(1, user_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                blogs.add(new Blog(
+                        rs.getInt("blogs_ID"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getDate("date"),
+                        rs.getInt("author")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return blogs;
+    }
 
     @Override
     public boolean updateBlog(int blog_id, Blog editedBlog) {

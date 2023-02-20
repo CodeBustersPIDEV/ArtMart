@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class ClientDao implements IClientDao {
 
     private Connection connection;
-    private UserDao userDao;
+    private UserDao userDao = new UserDao();
 
     public ClientDao() {
         try {
@@ -28,10 +28,10 @@ public class ClientDao implements IClientDao {
                     "INSERT INTO client (user_ID, nbr_demands,nbr_orders) "
                     + "VALUES ( ?,?,? )"
             );
-           
-            clientStatement.setInt(1, userDao.createAccountU(client));
-            clientStatement.setInt(2, 0);
-            clientStatement.setInt(3, 0);
+            client.setRole("client");
+            clientStatement.setInt(1,userDao.createAccountU(client));
+            clientStatement.setInt(2,client.getNbr_cus_demands());
+            clientStatement.setInt(3,client.getNbr_orders());
 
             clientStatement.executeUpdate();
             return 1;
@@ -53,7 +53,7 @@ public class ClientDao implements IClientDao {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Client client = new Client(userDao.getUser(user_id));
-                client.setClient_id(resultSet.getInt("artist_ID"));
+                client.setClient_id(resultSet.getInt("client_ID"));
                 client.setUser_id(resultSet.getInt("user_ID"));
                 client.setNbr_cus_demands(resultSet.getInt("nbr_demands"));
                 client.setNbr_orders(resultSet.getInt("nbr_orders"));

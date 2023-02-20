@@ -33,4 +33,6 @@ public interface IUserService {
     boolean deleteAccountA(int user_id);
 
     boolean updateAccountA(int user_id, Admin admin);
+        public boolean authenticate(String username, String password);
+
 }

@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Artist extends User {
 
-    private int artist_id, nbr_artwork;
+    private int artist_id,nbr_artwork;
     private String bio;
 
     public Artist(int phone_nbr, String name, String email, String username, String pwd, Date birthday) {

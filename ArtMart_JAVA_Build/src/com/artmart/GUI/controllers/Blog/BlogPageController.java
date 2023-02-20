@@ -41,9 +41,9 @@ public class BlogPageController implements Initializable {
     private Label publishDate;
     @FXML
     private TextArea blog_content;
-    
-    private final BlogService blogService=new BlogService();
-    private UserDao userService=new UserDao();
+
+    private final BlogService blogService = new BlogService();
+    private UserDao userService = new UserDao();
     private Blog viewBlog = new Blog();
     private int id;
     @FXML
@@ -52,27 +52,26 @@ public class BlogPageController implements Initializable {
     /**
      * Initializes the controller class.
      */
-     public void setUpData(String b_ID) {
+    public void setUpData(String b_ID) {
         this.blog_id.setText(b_ID);
-        this.id=Integer.parseInt(this.blog_id.getText());
-        this.viewBlog= blogService.getOneBlog(id);
-        
+        this.id = Integer.parseInt(this.blog_id.getText());
+        this.viewBlog = blogService.getOneBlog(id);
+
         this.blog_title.setText(this.viewBlog.getTitle());
         this.username.setText(userService.getUser(this.viewBlog.getAuthor()).getUsername());
         this.publishDate.setText(this.viewBlog.getPublishDate().toString());
         this.blog_content.setText(this.viewBlog.getContent());
 
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-            
-            
-    }    
+    }
 
     @FXML
     private void goBackToMenu(ActionEvent event) {
-         try {
+        try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
             Scene scene = new Scene(root);
@@ -83,6 +82,5 @@ public class BlogPageController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-    
-    
+
 }
