@@ -80,8 +80,6 @@ public class EditBlogController implements Initializable {
         this.viewBlog= blogService.getOneBlog(id);
         
         this.blog_title.setText(this.viewBlog.getTitle());
-//        this.username.setText(userService.getUser(this.viewBlog.getAuthor()).getUsername());
-//        this.publishDate.setText(this.viewBlog.getPublishDate().toString());
         this.blog_content.setText(this.viewBlog.getContent());
         this.blog_category.getSelectionModel().selectFirst();
 
@@ -110,15 +108,15 @@ public class EditBlogController implements Initializable {
 
         if(test1 && test2){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Blog Posted");
+            alert.setTitle("Blog Updated");
             alert.setHeaderText(null);
-            alert.setContentText("Your blog has been posteded.");
+            alert.setContentText("Your blog has been updated succesfully.");
             alert.showAndWait();        
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Oops!!Can not post your blog.");
+            alert.setContentText("Oops!!Can not update your blog.");
             alert.showAndWait();    
 }
         }
