@@ -5,13 +5,13 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
+import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.HasCategory;
 import com.artmart.services.BlogService;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -27,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -36,8 +37,10 @@ import javafx.stage.Stage;
  *
  * @author marwen
  */
-public class AddBlogController implements Initializable {
+public class EditBlogController implements Initializable {
 
+    @FXML
+    private Label pageTitle;
     @FXML
     private TextField blog_title;
     @FXML
@@ -47,21 +50,43 @@ public class AddBlogController implements Initializable {
     @FXML
     private Button add_imageBlog;
     @FXML
-    private Button add_blog;
+    private Button edit_blog;
     @FXML
     private Button cancel_btn;
-//    Date sqlDate = new Date(System.currentTimeMillis());
-    private final BlogService blogService = new BlogService();
+    @FXML
+    private Label blogID;
+
     private List<BlogCategories> blogCategoriesList;
+    private final BlogService blogService=new BlogService();
+    private UserDao userService=new UserDao();
+    private Blog viewBlog = new Blog();
+    private int id;
+    private boolean test1;
+    private boolean test2;
     private Blog resBlog = new Blog();
     private BlogCategories resBlogCategories = new BlogCategories();
-    private int test1,test2;
 
-   
 
+    
     /**
      * Initializes the controller class.
      */
+    
+
+    
+    public void setUpData(String b_ID) {
+        this.blogID.setText(b_ID);
+        this.id=Integer.parseInt(this.blogID.getText());
+        this.viewBlog= blogService.getOneBlog(id);
+        
+        this.blog_title.setText(this.viewBlog.getTitle());
+//        this.username.setText(userService.getUser(this.viewBlog.getAuthor()).getUsername());
+//        this.publishDate.setText(this.viewBlog.getPublishDate().toString());
+        this.blog_content.setText(this.viewBlog.getContent());
+        this.blog_category.getSelectionModel().selectFirst();
+
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         blogCategoriesList=blogService.getAllBlogCategories();
@@ -69,23 +94,21 @@ public class AddBlogController implements Initializable {
                 blogCategoriesList.stream().map(BlogCategories::getName).collect(Collectors.toList())
         );
         this.blog_category.setItems(blogCatList);
-        }
-       
-    
+    }    
+
     @FXML
-    private void add(ActionEvent event) throws IOException {
+    private void edit(ActionEvent event) {
         try{
-        FXMLLoader loader =new FXMLLoader(getClass().getResource("./MainView.fxml"));
-        Blog blog=new Blog(this.blog_title.getText(),this.blog_content.getText(),2);
-        test1=blogService.addBlog(blog);
-        if(test1==1){
+        Blog blog=new Blog(this.blog_title.getText(),this.blog_content.getText());
+        this.test1=blogService.updateBlog(this.id,blog);
+        if(this.test1){
         resBlog=blogService.getOneBlogByTitle(this.blog_title.getText());
         resBlogCategories=blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
         HasCategory hc = new HasCategory(resBlog.getId(),resBlogCategories.getId());
-        test2=blogService.addBlog2HasCat(hc);
+        this.test2=blogService.updateHasCat(this.id,hc);
         }
 
-        if(test1==1 && test2==1){
+        if(test1 && test2){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Blog Posted");
             alert.setHeaderText(null);
@@ -111,9 +134,9 @@ public class AddBlogController implements Initializable {
 
     @FXML
     private void goBackToMenu(ActionEvent event) {
-        try {
+         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setScene(scene);
@@ -122,5 +145,7 @@ public class AddBlogController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-
+    
+    
+    
 }

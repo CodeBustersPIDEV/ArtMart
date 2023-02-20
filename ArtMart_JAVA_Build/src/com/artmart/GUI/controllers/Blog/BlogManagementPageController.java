@@ -45,7 +45,7 @@ public class BlogManagementPageController implements Initializable {
     @FXML
     private VBox container;
     @FXML
-    private ComboBox<String> userComboBox;
+    public ComboBox<String> userComboBox;
     private List<User> userOptionsList;
     private BlogService blogService=new BlogService();
     private UserDao userService=new UserDao();
