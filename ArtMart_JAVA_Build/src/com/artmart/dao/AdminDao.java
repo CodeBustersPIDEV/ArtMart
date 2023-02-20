@@ -29,7 +29,7 @@ public class AdminDao implements IAdminDao {
                     + "VALUES (?, ?)"
             );
             admin.setRole("admin");
-            adminStatement.setInt(1, userDao.createAccountU(admin));
+            adminStatement.setInt(1,userDao.createAccountU(admin));
             adminStatement.setString(2, admin.getDepartment());
             adminStatement.executeUpdate();
             return 1;

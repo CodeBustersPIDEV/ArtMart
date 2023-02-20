@@ -3,6 +3,8 @@ package com.artmart.dao;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IUserDao;
 import com.artmart.models.User;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -144,4 +146,47 @@ public class UserDao implements IUserDao {
         return false;
     }
 
+    @Override
+    public boolean authenticate(String username, String password) {
+    try {
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM user WHERE username = ?"
+        );
+        statement.setString(1, username);
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next()) {
+            String storedPassword = rs.getString("password");
+
+            if (storedPassword.equals(hash(password))) {
+                return true;
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error authenticating user: " + e.getMessage());
+    }
+    
+    return false;
 }
+
+private String hash(String password) {
+    try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashedPassword = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedPassword) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            // Handle exception
+            return null;
+        }
+    }
+}
+
+
+
+
+
+
