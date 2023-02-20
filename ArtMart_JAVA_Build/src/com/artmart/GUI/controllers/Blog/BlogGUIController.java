@@ -1,6 +1,5 @@
 package com.artmart.GUI.controllers.Blog;
 
-import com.artmart.GUI.controllers.Blog.BlogCardController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.services.BlogService;

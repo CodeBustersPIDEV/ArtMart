@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -20,13 +19,9 @@
       </Label>
       <TextField fx:id="blog_title" layoutX="382.0" layoutY="138.0" prefHeight="34.0" prefWidth="200.0" promptText="Blog Title" />
       <ComboBox fx:id="blog_category" layoutX="382.0" layoutY="187.0" prefHeight="31.0" prefWidth="200.0" promptText="Blog Category" />
-      <TextArea fx:id="blog_content" layoutX="380.0" layoutY="244.0" prefHeight="200.0" prefWidth="200.0" promptText="Blog Content" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="271.0" layoutX="14.0" layoutY="155.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="339.0" />
-      <ImageView fitHeight="82.0" fitWidth="88.0" layoutX="141.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../53ecccd45b322417ddabbd26d4c1567e.png" />
-         </image>
-      </ImageView>
+      <TextArea fx:id="blog_content" layoutX="380.0" layoutY="244.0" prefHeight="200.0" prefWidth="200.0" promptText="Blog Content" wrapText="true" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="252.0" layoutX="14.0" layoutY="155.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="339.0" />
+      <ImageView fx:id="blogImage_preview" fitHeight="82.0" fitWidth="88.0" layoutX="141.0" layoutY="218.0" pickOnBounds="true" />
       <Button fx:id="add_imageBlog" layoutX="96.0" layoutY="310.0" onAction="#openFileExplorer" prefHeight="34.0" prefWidth="163.0" text="Upload Blog Image" />
       <Button fx:id="add_blog" layoutX="428.0" layoutY="471.0" onAction="#add" prefHeight="34.0" prefWidth="104.0" text="Add" />
       <Button fx:id="cancel_btn" layoutX="31.0" layoutY="14.0" onAction="#goBackToMenu" text="Cancel" />

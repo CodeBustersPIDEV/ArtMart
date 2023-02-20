@@ -5,7 +5,6 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
-import com.artmart.models.Blog;
 import com.artmart.services.BlogService;
 import java.io.IOException;
 import java.net.URL;

@@ -8,18 +8,12 @@ package com.artmart.GUI.controllers.Blog;
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.HasCategory;
+import com.artmart.models.Media;
 import com.artmart.services.BlogService;
 import java.awt.Desktop;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,9 +30,22 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Iterator;
+import java.util.Optional;
+import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 
 /**
  * FXML Controller class
@@ -58,17 +65,21 @@ public class AddBlogController implements Initializable {
     @FXML
     private Button add_blog;
     @FXML
+    private Label pageTitle;
+    @FXML
     private Button cancel_btn;
-//    Date sqlDate = new Date(System.currentTimeMillis());
+    @FXML
+    private ImageView blogImage_preview;
+
     private final BlogService blogService = new BlogService();
     private List<BlogCategories> blogCategoriesList;
     private Blog resBlog = new Blog();
     private BlogCategories resBlogCategories = new BlogCategories();
-    private int test1, test2;
-    @FXML
-    private Label pageTitle;
+    private int test1, test2, test3;
     private Desktop desktop = Desktop.getDesktop();
-    final FileChooser fileChooser = new FileChooser();
+    private final FileChooser fileChooser = new FileChooser();
+    private Media img = new Media();
+    private Image image;
 
     /**
      * Initializes the controller class.
@@ -80,6 +91,9 @@ public class AddBlogController implements Initializable {
                 blogCategoriesList.stream().map(BlogCategories::getName).collect(Collectors.toList())
         );
         this.blog_category.setItems(blogCatList);
+        File file = new File("src/com/artmart/assets/BlogAssets/alt.png");
+        this.image = new Image(file.toURI().toString());
+        this.blogImage_preview.setImage(image);
     }
 
     @FXML
@@ -92,10 +106,12 @@ public class AddBlogController implements Initializable {
                 resBlog = blogService.getOneBlogByTitle(this.blog_title.getText());
                 resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
                 HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
+                this.img.setBlog_id(resBlog.getId());
+                test3 = blogService.addMedia(img);
                 test2 = blogService.addBlog2HasCat(hc);
             }
 
-            if (test1 == 1 && test2 == 1) {
+            if (test1 == 1 && test2 == 1 && test3 == 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Blog Posted");
                 alert.setHeaderText(null);
@@ -134,18 +150,62 @@ public class AddBlogController implements Initializable {
 
     @FXML
     private void openFileExplorer(ActionEvent event) {
-        try {
-            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            Stage savingStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            FileChooser file = new FileChooser();
-            FileChooser file2 = new FileChooser();
-            file.setTitle("Open File");
-            File file1 = file.showOpenDialog(primaryStage);
-            BufferedImage bi = ImageIO.read(file1);
-            File outputfile = new File("../../../assets/BlogAssets/uploads"+file1.getName());
-            ImageIO.write(bi, "png", outputfile);
-        } catch (IOException e) {
-            e.getMessage();
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        this.fileChooser.setTitle("Select an image");
+        this.fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File file = this.fileChooser.showOpenDialog(primaryStage);
+        if (file != null) {
+            Path sourcePath = file.toPath();
+            Path destinationPath = Paths.get("src/com/artmart/assets/BlogAssets/uploads/" + file.getName());
+            setupMediaInfo(file, destinationPath.toString());
+            try {
+                Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Image Upload");
+                alert.setHeaderText(null);
+                alert.setContentText("Image uploaded successfully.");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        this.image = new Image(file.toURI().toString());
+                        this.blogImage_preview.setImage(image);
+                        this.blogImage_preview.setLayoutX(14);
+                        this.blogImage_preview.setLayoutY(155);
+                        this.blogImage_preview.setFitHeight(252);
+                        this.blogImage_preview.setFitWidth(339);
+                        this.add_imageBlog.setLayoutX(102);
+                        this.add_imageBlog.setLayoutY(471);
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+                System.out.println("Image saved successfully.");
+            } catch (IOException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("An Error occured");
+                alert.showAndWait();
+            }
+        }
+
+    }
+
+    private void setupMediaInfo(File file, String imagePath) {
+        this.img.setFile_name(file.getName());
+        this.img.setFile_path(imagePath);
+        try (ImageInputStream iis = ImageIO.createImageInputStream(file)) {
+            Iterator<ImageReader> readers = ImageIO.getImageReaders(iis);
+            if (readers.hasNext()) {
+                ImageReader reader = readers.next();
+                this.img.setFile_type(reader.getFormatName().toUpperCase());
+            }
+        } catch (IOException ex) {
+            System.out.println("Failed to get the image type.");
+            ex.getMessage();
         }
     }
 }
