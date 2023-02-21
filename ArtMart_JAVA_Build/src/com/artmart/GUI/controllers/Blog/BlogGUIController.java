@@ -34,7 +34,7 @@ public class BlogGUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         BlogService blogService = new BlogService();
         UserDao userService = new UserDao();
-        List<Blog> blogList = new ArrayList<Blog>();
+        List<Blog> blogList = new ArrayList<>();
         blogList = blogService.getAllBlogs();
         for (Blog blog : blogList) {
             String username = userService.getUser(blog.getAuthor()).getUsername();

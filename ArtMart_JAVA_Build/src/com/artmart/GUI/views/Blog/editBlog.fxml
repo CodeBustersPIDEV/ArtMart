@@ -8,7 +8,6 @@
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.EditBlogController">
@@ -33,11 +32,10 @@
             <Font name="Agency FB" size="18.0" />
          </font>
       </TextArea>
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="271.0" layoutX="16.0" layoutY="194.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="339.0" />
-      <Button fx:id="add_imageBlog" layoutX="102.0" layoutY="510.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="163.0" text="Upload Blog Image" />
+      <Button fx:id="edit_imageBlog" layoutX="102.0" layoutY="510.0" mnemonicParsing="false" onAction="#editImageBlog" prefHeight="34.0" prefWidth="163.0" text="Upload Blog Image" />
       <Button fx:id="edit_blog" layoutX="512.0" layoutY="510.0" mnemonicParsing="false" onAction="#edit" prefHeight="34.0" prefWidth="104.0" text="Edit" />
       <Button fx:id="cancel_btn" layoutX="35.0" layoutY="25.0" mnemonicParsing="false" onAction="#goBackToMenu" text="Cancel" />
-      <ImageView fitHeight="271.0" fitWidth="339.0" layoutX="16.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="blogImage" fitHeight="271.0" fitWidth="339.0" layoutX="16.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="blogID" layoutX="718.0" layoutY="30.0" />
    </children>
 </AnchorPane>

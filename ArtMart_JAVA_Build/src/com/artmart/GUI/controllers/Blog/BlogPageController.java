@@ -61,6 +61,7 @@ public class BlogPageController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param b_ID
      */
     public void setUpData(String b_ID) {
@@ -68,8 +69,13 @@ public class BlogPageController implements Initializable {
         this.id = Integer.parseInt(this.blog_id.getText());
         this.viewBlog = blogService.getOneBlog(id);
         this.img = this.blogService.getOneMediaByBlogID(id);
-        File file = new File(img.getFile_path());
-        this.image = new Image(file.toURI().toString());
+        if (!(img == null)) {
+            File file = new File(img.getFile_path());
+            this.image = new Image(file.toURI().toString());
+        } else {
+            File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
+            this.image = new Image(file.toURI().toString());
+        }
 
         this.blog_title.setText(this.viewBlog.getTitle());
         this.username.setText(userService.getUser(this.viewBlog.getAuthor()).getUsername());

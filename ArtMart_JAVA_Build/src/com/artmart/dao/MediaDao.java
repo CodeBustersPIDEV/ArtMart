@@ -130,11 +130,25 @@ public class MediaDao implements IMediaDao {
     }
 
     @Override
-    public boolean deleteMedia(int media_id) {
+    public boolean deleteMediaByBlogID(int blog_id) {
+        try {
+            String sql = "DELETE FROM media WHERE blog_id = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, blog_id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            return false;
+        }
+    }
+    
+        @Override
+    public boolean deleteMedia(int media_ID) {
         try {
             String sql = "DELETE FROM media WHERE media_ID = ?";
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, media_id);
+            st.setInt(1, media_ID);
             st.executeUpdate();
             return true;
         } catch (SQLException e) {
