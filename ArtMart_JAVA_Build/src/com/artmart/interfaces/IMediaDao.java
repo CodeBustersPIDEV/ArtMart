@@ -8,6 +8,8 @@ public interface IMediaDao {
     public int addMedia(Media m);
 
     public Media getOneMedia(int media_id);
+    
+    public Media getOneMediaByBlogID(int blog_id);
 
     public List<Media> getAllMedias();
 

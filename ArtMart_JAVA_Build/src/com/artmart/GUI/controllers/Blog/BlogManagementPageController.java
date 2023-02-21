@@ -8,8 +8,10 @@ package com.artmart.GUI.controllers.Blog;
 import com.artmart.GUI.controllers.Blog.BlogManagementCardController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
+import com.artmart.models.Media;
 import com.artmart.models.User;
 import com.artmart.services.BlogService;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,8 +31,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TouchEvent;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -83,7 +84,17 @@ public class BlogManagementPageController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementCard.fxml"));
                 Pane pane = loader.load();
                 pane.setId("blog_card" + blog.getId());
+                Media img = blogService.getOneMediaByBlogID(blog.getId());
                 this.controller = loader.getController();
+                if (img == null) {
+                    File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
+                    Image image = new Image(file.toURI().toString());
+                    this.controller.setBlogImage(image);
+                } else {
+                    File file = new File(img.getFile_path());
+                    Image image = new Image(file.toURI().toString());
+                    this.controller.setBlogImage(image);
+                }
                 controller.setBlogTitle(blog.getTitle());
                 container.getChildren().add(pane);
                 controller.setBlogID(Integer.toString(blog.getId()));

@@ -1,9 +1,10 @@
 package com.artmart.GUI.controllers.Blog;
 
-import com.artmart.GUI.controllers.Blog.BlogCardController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
+import com.artmart.models.Media;
 import com.artmart.services.BlogService;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,6 +43,16 @@ public class BlogGUIController implements Initializable {
                 Pane pane = loader.load();
                 pane.setId("blog_card" + blog.getId());
                 BlogCardController controller = loader.getController();
+                Media img = blogService.getOneMediaByBlogID(blog.getId());
+                if (img == null) {
+                    File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
+                    Image image = new Image(file.toURI().toString());
+                    controller.setBlogImage(image);
+                } else {
+                    File file = new File(img.getFile_path());
+                    Image image = new Image(file.toURI().toString());
+                    controller.setBlogImage(image);
+                }
                 controller.setBlogTitle(blog.getTitle());
                 container.getChildren().add(pane);
                 controller.setUsername(username);
