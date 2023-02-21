@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -30,11 +31,13 @@ public class CustomProductGUIController implements Initializable {
 
          CustomProductDao cc = new CustomProductDao();
         ProductDao x = new ProductDao();
+    @FXML
+    private ImageView p;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }    
-    @FXML
+   @FXML
     public void handleConsultAllProductsButton(ActionEvent event) {
           try {
             Stage stage = new Stage();
@@ -49,6 +52,7 @@ public class CustomProductGUIController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
+
 
     @FXML
     private void gotoadd(ActionEvent event) throws IOException {

@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -22,6 +23,11 @@ import javafx.stage.Stage;
  * @author GhassenZ
  */
 public class Event_homeController implements Initializable {
+
+    @FXML
+    private Button btnGoToAddEvent;
+    @FXML
+    private Button btnGetAllEvents;
 
     /**
      * Initializes the controller class.
@@ -47,7 +53,7 @@ public class Event_homeController implements Initializable {
     }    
 
     @FXML
-    private void goToAddEvent(ActionEvent event) {
+    private void onGoToAddEvent(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/add_event.fxml"));
@@ -59,6 +65,21 @@ public class Event_homeController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
-    }  
+    } 
+
+    @FXML
+    private void onGetAllEvents(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/list_event.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    } 
 
 }

@@ -20,7 +20,7 @@ public class Client extends User {
     }
 
     public Client(User user) {
-        super(user.getPhone_nbr(), user.getName(), user.getEmail(), user.getUsername(), user.getPwd(), user.getBirthday(), user.getRole());
+        super(user.getPhone_nbr(), user.getName(), user.getEmail(), user.getUsername(), user.getPwd(), user.getRole(),"..\\..\\..\\..\\..\\..\\assets\\user.jpeg", user.getBirthday());
     }
 
     public Client(int nbr_orders, int nbr_cus_demands) {

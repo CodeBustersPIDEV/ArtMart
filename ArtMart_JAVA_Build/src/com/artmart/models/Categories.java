@@ -40,11 +40,10 @@ public class Categories {
 
     @Override
     public String toString() {
-        return "Categories [categories_ID=" + categories_ID + "\n name=" + name + "\n********************************************" + "]";
+      return this.getName();
     }
 
-    public int getname() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
+  
 }

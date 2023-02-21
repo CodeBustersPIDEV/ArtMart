@@ -21,7 +21,7 @@ public class ProductService implements IProductDao {
     }
 
     @Override
-    public int updateProduct(int id, Product product) throws SQLException {
+    public boolean updateProduct(int id, Product product) throws SQLException {
         return productDao.updateProduct(id, product);
     }
 
