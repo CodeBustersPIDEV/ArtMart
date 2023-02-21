@@ -21,6 +21,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -40,6 +42,8 @@ public class BlogManagementCardController implements Initializable {
     private Button link_edit_btn;
     @FXML
     private Label blog_title;
+    @FXML
+    private ImageView imagePreview;
 
     private final BlogService blogService = new BlogService();
 //private BlogManagementPageController controller=new BlogManagementPageController();
@@ -67,10 +71,14 @@ public class BlogManagementCardController implements Initializable {
         this.blog_id.setText(blog_id);
     }
 
+    public void setBlogImage(Image blog_image) {
+        this.imagePreview.setImage(blog_image);
+    }
+
     @FXML
     private void deleteBlog(ActionEvent event) {
 //        this.controller = this.loader.getController();
-        int b_id = Integer.parseInt(this.blog_id.getText());
+        int b_id = Integer.parseInt(this.blog_id.getText());  
         boolean test1 = this.blogService.deleteHasCat(b_id);
         boolean test2 = this.blogService.deleteHasTag(b_id);
         boolean test3 = this.blogService.deleteAllComments(b_id);
