@@ -15,6 +15,7 @@
       <Text fx:id="nameTxt" layoutX="125.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
       <Text fx:id="descTxt" layoutX="128.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desc" />
       <Text fx:id="WaightTxt" layoutX="125.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" />
-      <Button fx:id="deleteBtn" layoutX="118.0" layoutY="159.0" mnemonicParsing="false" onAction="#OnDelete" text="Delete" />
+      <Button fx:id="deleteBtn" layoutX="27.0" layoutY="155.0" mnemonicParsing="false" onAction="#OnDelete" text="Delete" />
+   
    </children>
 </AnchorPane>

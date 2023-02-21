@@ -34,7 +34,7 @@ public class CustomProductGUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }    
-    @FXML
+   @FXML
     public void handleConsultAllProductsButton(ActionEvent event) {
           try {
             Stage stage = new Stage();
@@ -49,6 +49,7 @@ public class CustomProductGUIController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
+
 
     @FXML
     private void gotoadd(ActionEvent event) throws IOException {
