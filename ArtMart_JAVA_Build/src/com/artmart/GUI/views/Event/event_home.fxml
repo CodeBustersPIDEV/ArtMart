@@ -11,12 +11,23 @@
         <URL value="@/com/artmart/GUI/styles/event/event_home.css" />
     </stylesheets>
    <children>
-      <Button fx:id="btnGoToAddEvent" layoutX="251.0" layoutY="188.0" mnemonicParsing="false" onAction="#goToAddEvent" text="Add New Event" />
-      <Button id="btnReturn" layoutX="4.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnToMain" text="&lt; Back" />
+      <Button fx:id="btnGoToAddEvent" layoutX="185.0" layoutY="187.0" mnemonicParsing="false" onAction="#onGoToAddEvent" text="Add New Event">
+         <font>
+            <Font name="Agency FB Bold" size="14.0" />
+         </font></Button>
+      <Button id="btnReturn" layoutX="4.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnToMain" text="&lt; Back">
+         <font>
+            <Font name="Agency FB Bold" size="14.0" />
+         </font></Button>
       <Label layoutX="212.0" layoutY="56.0" text="Event Home Page">
          <font>
             <Font name="Agency FB Bold" size="30.0" />
          </font>
       </Label>
+      <Button fx:id="btnGetAllEvents" layoutX="334.0" layoutY="187.0" mnemonicParsing="false" onAction="#onGetAllEvents" text="View Event List">
+         <font>
+            <Font name="Agency FB Bold" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
