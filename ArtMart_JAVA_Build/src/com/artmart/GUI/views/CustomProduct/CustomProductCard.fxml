@@ -12,10 +12,16 @@
     </stylesheets>
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="282.0" />
-      <Text fx:id="nameTxt" layoutX="125.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-      <Text fx:id="descTxt" layoutX="128.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desc" />
-      <Text fx:id="WaightTxt" layoutX="125.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" />
+      <Text fx:id="nameTxt" layoutX="124.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <Text fx:id="descTxt" layoutX="128.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desc" />
+      <Text fx:id="WaightTxt" layoutX="123.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" />
       <Button fx:id="deleteBtn" layoutX="27.0" layoutY="155.0" mnemonicParsing="false" onAction="#OnDelete" text="Delete" />
+      <Text fx:id="pid" layoutX="130.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PID" />
+      <Text fx:id="CID" layoutX="130.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CID" />
+      <Text fx:id="dim" layoutX="133.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dim" />
+      <Text fx:id="mat" layoutX="130.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Material" />
+      <Text fx:id="img" layoutX="139.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="image" />
+      <Button layoutX="203.0" layoutY="155.0" mnemonicParsing="false" onAction="#goupdate" text="update" />
    
    </children>
 </AnchorPane>

@@ -39,13 +39,7 @@
             this.productId = productId;
         }
 
-        public Product(int aInt, String string, String string0, double aDouble, int aInt0) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public Product(int aInt, int aInt0, int aInt1, String string, String string0, String string1, int aInt2, String string2, String string3) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
+      
 
         public int getProductId() {
             return productId;
