@@ -82,19 +82,38 @@ public class CustomProductCardController implements Initializable {
         this.pid.setText(Integer.toString(pid));
     }
 
-    @FXML
-    private void goupdate(ActionEvent event) throws SQLException {
+    
+   @FXML
+private void goupdate(ActionEvent event) throws SQLException {
     try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/EditCp.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("User Managment");
-            stage.setScene(scene);
-            stage.show();
-              this.controller.makeList();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
+        // create a new instance of the FXMLLoader
+        FXMLLoader loader = new FXMLLoader();
+        // set the location of the FXML file for the EditCpController
+        loader.setLocation(getClass().getResource("/com/artmart/GUI/views/CustomProduct/EditCp.fxml"));
+        // load the FXML file and get the root node of the scene graph
+        Parent root = loader.load();
+        // get a reference to the EditCpController
+        EditCpController editController = loader.getController();
+        // set the ID of the custom product in the EditCpController
+        editController.setProductId(this.p.getProductId());
+        // create a new scene with the root node
+        Scene scene = new Scene(root);
+        // create a new stage and set the scene
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Edit Custom Product");
+        // close the current window
+        Stage currentStage = (Stage) deleteBtn.getScene().getWindow();
+        currentStage.close();
+        // show the new window
+        stage.show();
+    } catch (IOException e) {
+        System.out.print(e.getMessage());
     }
 }
+
+}
+ 
+    
+
+

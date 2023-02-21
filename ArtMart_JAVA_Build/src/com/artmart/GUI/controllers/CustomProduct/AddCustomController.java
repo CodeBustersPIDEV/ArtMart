@@ -41,6 +41,8 @@ public class AddCustomController implements Initializable {
     private TextField imageField;
     @FXML
     private Button addButton;
+    @FXML
+    private ComboBox<?> categoryComboBox2;
 
     /**
      * Initializes the controller class.
