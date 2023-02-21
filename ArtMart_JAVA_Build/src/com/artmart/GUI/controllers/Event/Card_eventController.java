@@ -59,5 +59,9 @@ public class Card_eventController implements Initializable {
         //this.txtUser.setText(event.getUserID());
     }   
 
-
+    @FXML
+    private void onBtnDeleteEvent(ActionEvent event) throws SQLException {
+        this.es.deleteEvent(this.event.getEventID());
+        this.listEventController.makeList();
+    }
 }
