@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.artmart.GUI.controllers.CustomProduct;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import com.artmart.dao.CustomProductDao;
 import com.artmart.models.CustomProduct;
@@ -49,8 +51,9 @@ public class CustomProductCardController implements Initializable {
     private Text dim;
     @FXML
     private Text mat;
+   
     @FXML
-    private Text img;
+    private ImageView img;
  
     /**
      * Initializes the controller class.
@@ -60,18 +63,24 @@ public class CustomProductCardController implements Initializable {
         // TODO
     }    
     
-    public void setCustomProduct(CustomProduct param,CustomproductslistController controller){
-        this.p=param;
-        this.controller = controller;
-           this.pid.setText(Integer.toString(p.getProductId()));
-       this.CID.setText(Integer.toString(p.getCategoryId()));
-           this.dim.setText(p.getDimensions());
-                    this.mat.setText(p.getMaterial());
-                          this.img.setText(p.getImage());
-        this.nameTxt.setText(p.getName());
-        this.descTxt.setText(p.getDescription());
-        this.WaightTxt.setText(""+p.getWeight());
-    }
+  public void setCustomProduct(CustomProduct param,CustomproductslistController controller){
+    this.p=param;
+    this.controller = controller;
+    this.pid.setText(Integer.toString(p.getProductId()));
+    this.CID.setText(Integer.toString(p.getCategoryId()));
+    this.dim.setText(p.getDimensions());
+    this.mat.setText(p.getMaterial());
+
+    // Load the image from the file path stored in CustomProduct object's image field
+    Image image = new Image("file:" + p.getImage());
+    this.img.setImage(image);
+
+    this.nameTxt.setText(p.getName());
+    this.descTxt.setText(p.getDescription());
+    this.WaightTxt.setText(""+p.getWeight());
+}
+
+
 
     @FXML
     private void OnDelete(ActionEvent event) throws SQLException {
@@ -92,11 +101,8 @@ private void goupdate(ActionEvent event) throws SQLException {
         loader.setLocation(getClass().getResource("/com/artmart/GUI/views/CustomProduct/EditCp.fxml"));
         // load the FXML file and get the root node of the scene graph
         Parent root = loader.load();
-        // get a reference to the EditCpController
-        EditCpController editController = loader.getController();
-        // set the ID of the custom product in the EditCpController
-        editController.setProductId(this.p.getProductId());
-        // create a new scene with the root node
+ EditCpController editController = loader.getController();
+editController.setProductId(this.p.getProductId());
         Scene scene = new Scene(root);
         // create a new stage and set the scene
         Stage stage = new Stage();

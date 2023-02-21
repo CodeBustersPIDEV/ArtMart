@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package com.artmart.GUI.controllers.CustomProduct;
+import com.artmart.dao.CategoriesDao;
+import com.artmart.models.Categories;
 import com.artmart.services.CustomProductService;
 import com.artmart.models.Product;
+import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +20,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -36,21 +45,67 @@ public class AddCustomController implements Initializable {
     @FXML
     private TextField materialField;
     @FXML
-    private TextField categoryComboBox;
-    @FXML
     private TextField imageField;
     @FXML
     private Button addButton;
     @FXML
-    private ComboBox<?> categoryComboBox2;
+    private ComboBox<Categories> categoryComboBox2;
+     private final CategoriesDao categoriesDao = new CategoriesDao();
+    @FXML
+    private Button imageButton;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        try {
+            // Get all categories from the database
+            List<Categories> categories = categoriesDao.getAllCategories();
+
+            // Add categories to the ComboBox
+            categoryComboBox2.getItems().addAll(categories);
+
+            // Set the ComboBox to display category names
+            categoryComboBox2.setCellFactory(new Callback<ListView<Categories>, ListCell<Categories>>() {
+                @Override
+                public ListCell<Categories> call(ListView<Categories> param) {
+                    return new ListCell<Categories>() {
+                        @Override
+                        protected void updateItem(Categories item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item == null || empty) {
+                                setText(null);
+                            } else {
+                                setText(item.getName());
+                            }
+                        }
+                    };
+                }
+            });
+
+            // Set the ComboBox to use the category name as the selected value
+            categoryComboBox2.setConverter(new StringConverter<Categories>() {
+                @Override
+                public String toString(Categories category) {
+                    return category == null ? null : category.getName();
+                }
+
+                @Override
+                public Categories fromString(String categoryName) {
+                    return categories.stream()
+                            .filter(category -> category.getName().equals(categoryName))
+                            .findFirst()
+                            .orElse(null);
+                }
+            });
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+     
     @FXML
 private void handleAddButtonAction(ActionEvent event) throws SQLException {
     String name = nameField.getText();
@@ -58,13 +113,24 @@ private void handleAddButtonAction(ActionEvent event) throws SQLException {
     String dim = dimField.getText();
     float weight = Float.parseFloat(weightField.getText());
     String material = materialField.getText();
-     int category =Integer.parseInt(categoryComboBox.getText());
-    String image = imageField.getText();
+  String imagePath = imageField.getText();
+    
+    // Get the selected category from the combo box
+    Categories selectedCategory = (Categories) categoryComboBox2.getSelectionModel().getSelectedItem();
 
-    Product baseProduct = new Product(category, name, desc, dim, weight, material, image);
+    if (selectedCategory == null) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Add Custom Product");
+        alert.setHeaderText(null);
+        alert.setContentText("Please select a category!");
+        alert.showAndWait();
+        return;
+    }
 
-CustomProductService customProductService = new CustomProductService();
-int result = customProductService.createCustomProduct(baseProduct);
+    Product baseProduct = new Product(selectedCategory.getCategories_ID(), name, desc, dim, weight, material, imagePath);
+
+    CustomProductService customProductService = new CustomProductService();
+    int result = customProductService.createCustomProduct(baseProduct);
     if (result > 0) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Add Custom Product");
@@ -80,4 +146,16 @@ int result = customProductService.createCustomProduct(baseProduct);
     }
 }
 
+    @FXML
+    private void handleSelectImageAction(ActionEvent event) {
+         FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Select Image");
+    fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+    File selectedFile = fileChooser.showOpenDialog(imageButton.getScene().getWindow());
+    if (selectedFile != null) {
+        imageField.setText(selectedFile.getAbsolutePath());
+    }
 }
+    }
+
