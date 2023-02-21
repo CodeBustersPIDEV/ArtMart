@@ -21,6 +21,16 @@
             this.material = material;
             this.image = image;
         }
+public Product(int id, int categoryId, String name, String description, String dimensions, int weight, String material, String image) {
+    this.productId = id;
+    this.categoryId = categoryId;
+    this.name = name;
+    this.description = description;
+    this.dimensions = dimensions;
+    this.weight = weight;
+    this.material = material;
+    this.image = image;
+}
 
         public Product(int categoryId, String name, String description, String dimensions, float weight, String material, String image) {
             this.categoryId = categoryId;

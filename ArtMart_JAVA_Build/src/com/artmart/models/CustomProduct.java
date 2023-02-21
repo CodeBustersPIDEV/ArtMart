@@ -17,7 +17,11 @@ public class CustomProduct extends Product {
     }
 
     public CustomProduct(int aInt, int productId, Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
+
+    public CustomProduct(int customProductId) {
+        this.customProductId = customProductId;
     }
 
 

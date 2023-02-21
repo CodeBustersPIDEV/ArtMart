@@ -24,6 +24,7 @@ public class CustomProductDao {
     }
 
 
+
     public CustomProduct getCustomProductById(int id) throws SQLException {
         String query = "SELECT * FROM customproduct WHERE custom_product_ID = ?";
         String productQuery = "SELECT * FROM product WHERE product_ID = ?";
@@ -75,6 +76,14 @@ public class CustomProductDao {
 
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
     public List<CustomProduct> getAllCustomProducts() throws SQLException {
         List<CustomProduct> customProducts = new ArrayList<>();
         String query = "SELECT * FROM customproduct";
