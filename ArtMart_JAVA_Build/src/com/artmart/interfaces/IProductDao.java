@@ -10,8 +10,7 @@ public interface IProductDao {
 
     int createProduct(Product product) throws SQLException;
 
-    int updateProduct(int id, Product product) throws SQLException;
-
+    public boolean updateProduct(int id, Product product) throws SQLException;
     void deleteProduct(int id) throws SQLException;
  List<Product> getAllProduct() throws SQLException;
 }

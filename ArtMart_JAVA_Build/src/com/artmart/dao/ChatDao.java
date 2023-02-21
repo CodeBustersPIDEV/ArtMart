@@ -1,19 +1,14 @@
 package com.artmart.dao;
-
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IChatDao;
 import com.artmart.models.Chat;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 public class ChatDao implements IChatDao {
-
     private final SQLConnection sqlConnection = SQLConnection.getInstance();
-
     @Override
     public int createChat(Chat chat) throws SQLException {
         String query = "INSERT INTO chat (client_ID, custom_product_ID, artist_ID, history) VALUES (?, ?, ?, ?)";
@@ -25,7 +20,6 @@ public class ChatDao implements IChatDao {
 
         return statement.executeUpdate();
     }
-
     @Override
     public int updateChat(int id, Chat chat) throws SQLException {
         String query = "UPDATE chat SET chat_ID = ?, client_ID = ?, custom_product_ID = ?, artist_ID = ?, history = ? WHERE chat_ID = ?";
@@ -82,5 +76,4 @@ public class ChatDao implements IChatDao {
         }
         return chats;
     }
-
 }

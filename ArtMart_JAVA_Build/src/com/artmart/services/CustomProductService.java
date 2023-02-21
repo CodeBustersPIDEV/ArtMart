@@ -35,4 +35,9 @@ public class CustomProductService implements ICustomProductDao {
     public List<CustomProduct> getAllCustomProducts() throws SQLException {
         return customProductDao.getAllCustomProducts();
     }
-}
+      public int getCustomPId(int id) throws SQLException {
+        return customProductDao.getCustomPId(id);
+      }
+  
+      }
+
