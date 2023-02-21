@@ -47,20 +47,26 @@ public class UpdateProfileController implements Initializable {
     private TextField Phone_nbrField;
     @FXML
     private ImageView ProfilePic;
-
+    private String imageUrl;
     UserService user_ser = new UserService();
     User user = new User();
     boolean test2, test1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        user = user_ser.getUser(1);
+        user = user_ser.getUser(7);
         nameField.setText(user.getName());
         emailField.setText(user.getEmail());
         Phone_nbrField.setText(String.valueOf(user.getPhone_nbr()));
         usernameField.setText(user.getUsername());
         birthdayField.setText(user.getBirthday().toString());
         pwdField.setText(user.getPwd());
+        try {
+            Image newImage = new Image(user.getPicture());
+            ProfilePic.setImage(newImage);
+        } catch (Exception e) {
+            System.out.println("Error setting image: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -72,9 +78,11 @@ public class UpdateProfileController implements Initializable {
         int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
         String username = usernameField.getText();
         String password = pwdField.getText();
-
-        User u = new User(phoneNumber, name, email, username, password, birthday);
-        boolean a = user_ser.updateAccountU(6, u);
+        String picture = imageUrl;
+        System.out.println(picture);
+        User u = new User(phoneNumber, name, email, username, password, birthday, picture);
+        System.out.println(picture);
+        boolean a = user_ser.updateAccountU(7, u);
         if (a) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
@@ -114,20 +122,22 @@ public class UpdateProfileController implements Initializable {
 
     }
 
-  @FXML
+    @FXML
     public void OnUpload(ActionEvent event) {
 
-                FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose an image file");
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             try {
+                imageUrl = selectedFile.toURI().toURL().toExternalForm();
+
                 BufferedImage bufferedImage = ImageIO.read(selectedFile);
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 ProfilePic.setImage(image);
-              //  user.setPicture(ProfilePic);
+                //  user.setPicture(ProfilePic);
             } catch (IOException e) {
                 e.printStackTrace();
             }

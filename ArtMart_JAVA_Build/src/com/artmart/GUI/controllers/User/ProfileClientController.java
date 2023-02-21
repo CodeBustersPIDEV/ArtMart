@@ -53,7 +53,7 @@ public class ProfileClientController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-               client=user_ser.getClient(6);
+               client=user_ser.getClient(8);
                nameProfile.setText(client.getName());
                usernameProfile.setText(client.getUsername());
                emailProfile.setText(client.getEmail());

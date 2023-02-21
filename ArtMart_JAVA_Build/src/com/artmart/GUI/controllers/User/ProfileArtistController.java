@@ -60,7 +60,7 @@ public class ProfileArtistController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        artist = user_ser.getArtist(6);
+        artist = user_ser.getArtist(7);
         nameProfile.setText(artist.getName());
         usernameProfile.setText(artist.getUsername());
         emailProfile.setText(artist.getEmail());

@@ -35,6 +35,16 @@ public class User {
         this.picture = picture;
         this.birthday = birthday;
     }
+    
+     public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday, String picture) {
+        this.phone_nbr = phone_nbr;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.pwd = pwd;
+        this.picture = picture;
+        this.birthday = birthday;
+    }
 
     public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday) {
         this.phone_nbr = phone_nbr;

@@ -14,7 +14,6 @@
             <Image url="@../../../../../../assets/user.jpeg" />
          </image>
       </ImageView>
-      <Button fx:id="UploadPicBtn" layoutX="59.0" layoutY="163.0" mnemonicParsing="false" text="Upload Picture" />
       <Label layoutX="170.0" layoutY="65.0" text="Bio">
          <font>
             <Font size="28.0" />
