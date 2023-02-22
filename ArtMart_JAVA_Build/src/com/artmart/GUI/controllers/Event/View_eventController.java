@@ -95,4 +95,18 @@ public class View_eventController implements Initializable {
     private void onBtnEditEvent(ActionEvent event) {
     }
 
+    @FXML
+    private void onBtnReturn(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/list_event.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }        
+    }
 }
