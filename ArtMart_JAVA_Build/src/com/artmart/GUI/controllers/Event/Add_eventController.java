@@ -76,8 +76,8 @@ public class Add_eventController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         comboBoxType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
-    txtAreaDescription.setWrapText(true);
-    txtAreaDescription.setPrefWidth(270);
+        txtAreaDescription.setWrapText(true);
+        txtAreaDescription.setPrefWidth(270);
         
     }    
 
@@ -97,7 +97,7 @@ public class Add_eventController implements Initializable {
     }
 
     @FXML
-    private void onAddEvent(ActionEvent event) {
+    private  void onAddEvent(ActionEvent event) {
         name = txtName.getText();
         location = txtLocation.getText();
         String typeText = (String) comboBoxType.getValue(); 
@@ -140,12 +140,12 @@ public class Add_eventController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("A new event has been added successfully!");
                 alert.showAndWait();
-                userID++;
+                //userID++;
                 alert.close();
-                returnToEventHomepage(event);
+                //returnToEventHomepage(event);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Add Custom Product");
+                alert.setTitle("Add Event");
                 alert.setHeaderText(null);
                 alert.setContentText("Failed to add event!");
                 alert.showAndWait();

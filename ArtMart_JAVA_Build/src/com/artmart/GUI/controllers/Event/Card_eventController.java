@@ -48,6 +48,11 @@ public class Card_eventController implements Initializable {
     @FXML
     private Button btnDeleteEvent;
     @FXML
+    private Text txtEventTitle1;
+    @FXML
+    private Text txtEventLocation1;
+    @FXML
+    private Button btnEditEvent;
 
 
     /**
@@ -81,6 +86,24 @@ public class Card_eventController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/view_event.fxml"));
             Parent root = loader.load();
             View_eventController controller = loader.getController();
+            controller.setUpEventData(this.event);
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }        
+    }
+
+    @FXML
+    private void onBtnEditEvent(ActionEvent event) throws IOException {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/edit_event.fxml"));
+            Parent root = loader.load();
+            Edit_eventController controller = loader.getController();
             controller.setUpEventData(this.event);
             Scene scene = new Scene(root);
             stage.setResizable(false);

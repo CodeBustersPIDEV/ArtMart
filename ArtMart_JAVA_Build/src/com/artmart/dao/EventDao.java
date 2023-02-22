@@ -121,8 +121,8 @@ public class EventDao implements IEventDao {
             statement.setDate(9, event.getEndDate());
             statement.setInt(10, eventID);
             
-            
-            return statement.executeUpdate() > 0;
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
