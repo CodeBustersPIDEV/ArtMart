@@ -31,6 +31,8 @@ import javafx.scene.control.TextArea;
 public class OrderDetailController implements Initializable {
 
     private OrderService orderService;
+    
+    private OrderListController orderListController;
 
     @FXML
     private Label orderId;
@@ -84,15 +86,18 @@ public class OrderDetailController implements Initializable {
     }
 
     private void cancelOrder() {
+        this.orderStatus.setText("CANCELED");
         this.orderService.updateOrderStatus(order.getId(), OrderCurrentStatus.CANCELED);
+        this.orderListController.refreshList();
     }
 
-    public void setupData(Order order, Product product, String status) {
+    public void setupData(Order order, Product product, String status,OrderListController listController) {
         this.status = status;
         this.order = order;
         this.product = product;
         this.shippingOption.getSelectionModel().select(this.order.getShippingOption() - 1);
         this.setupUI();
+        this.orderListController = listController;
     }
 
     @FXML
