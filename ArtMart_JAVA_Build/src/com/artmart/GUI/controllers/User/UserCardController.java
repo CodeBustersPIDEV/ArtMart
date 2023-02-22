@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 
 /**
@@ -38,7 +39,7 @@ public class UserCardController implements Initializable {
     private ImageView profilePic;
     UserService user_ser = new UserService();
     User user = new User();
-
+boolean test1,test2;
     /**
      * Initializes the controller class.
      */
@@ -99,5 +100,25 @@ public class UserCardController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-
+public void OnDeleteProfile()
+{
+            if (user.getRole().equals("artist")) {
+            test1 = user_ser.deleteAccountAr(user.getUser_id());
+        } else if (user.getRole().equals("client")) {
+            test2 = user_ser.deleteAccountC(user.getUser_id());
+        }
+        if (test1 || test2) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Account deleted");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Oops!!Can not delete account");
+            alert.showAndWait();
+        }
+}
 }

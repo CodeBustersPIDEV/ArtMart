@@ -21,7 +21,7 @@
       </Label>
       <Label fx:id="roleField" layoutX="116.0" layoutY="72.0" text="Label" />
       <Button fx:id="profileBtn" layoutX="269.0" layoutY="44.0" mnemonicParsing="false" onAction="#OnClientProfile" text="View Profile" />
-      <Button fx:id="deleteBtn" layoutX="379.0" layoutY="44.0" mnemonicParsing="false" text="Delete Account" />
+      <Button fx:id="deleteBtn" layoutX="379.0" layoutY="44.0" mnemonicParsing="false" onAction="#OnDeleteProfile" text="Delete Account" />
       <Button fx:id="BlockBtn" layoutX="500.0" layoutY="44.0" mnemonicParsing="false" text="Block Acount" />
    </children>
 </AnchorPane>

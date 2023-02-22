@@ -20,7 +20,7 @@ public class Client extends User {
     }
 
     public Client(User user) {
-        super(user.getPhone_nbr(), user.getName(), user.getEmail(), user.getUsername(), user.getPwd(), user.getRole(),"file:/C:/Users/21697/OneDrive/Documents/GitHub/ArtMart/ArtMart_JAVA_Build/assets/user.jpeg", user.getBirthday());
+        super(user.getPhone_nbr(), user.getName(), user.getEmail(), user.getUsername(), user.getPwd(), user.getRole(),user.getPicture(), user.getBirthday());
     }
 
     public Client(int nbr_orders, int nbr_cus_demands) {
