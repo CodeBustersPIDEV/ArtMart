@@ -84,17 +84,15 @@ public class SignUpController implements Initializable {
             int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
             String username = usernameField.getText();
             String password = pwdField.getText();
-            if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty() || email.isEmpty()|| name.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
                 alert.setContentText("You have to fill all the fields");
                 alert.showAndWait();
 
-            }
+            }else{
             User user = new User(phoneNumber, name, email, username, password, birthday);
-           
-            
             
             if (identityField.getValue().equals("yes")) {
                 Artist artist = new Artist(user);
@@ -116,7 +114,7 @@ public class SignUpController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Oops!!Can not create account");
                 alert.showAndWait();
-            }
+            }}
 
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

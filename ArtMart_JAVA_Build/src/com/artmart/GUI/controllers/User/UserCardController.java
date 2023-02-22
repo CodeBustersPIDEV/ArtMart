@@ -39,7 +39,7 @@ public class UserCardController implements Initializable {
     private ImageView profilePic;
     UserService user_ser = new UserService();
     User user = new User();
-boolean test1,test2;
+boolean test1,test2,test3;
     /**
      * Initializes the controller class.
      */
@@ -106,8 +106,11 @@ public void OnDeleteProfile()
             test1 = user_ser.deleteAccountAr(user.getUser_id());
         } else if (user.getRole().equals("client")) {
             test2 = user_ser.deleteAccountC(user.getUser_id());
+        }else
+        {
+            test3=user_ser.deleteAccountA(user.getUser_id());
         }
-        if (test1 || test2) {
+        if (test1 || test2||test3) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);

@@ -31,5 +31,6 @@
       <Label layoutX="69.0" layoutY="328.0" text="Phone Number:" />
       <Label fx:id="phoneProfile" layoutX="177.0" layoutY="328.0" text="Label" />
       <Button fx:id="userListBtn" layoutX="405.0" layoutY="229.0" mnemonicParsing="false" onAction="#OnUserListBtn" text="View Users List " />
+      <Button fx:id="addAdBtn" layoutX="416.0" layoutY="266.0" mnemonicParsing="false" onAction="#OnAddBtn" text="Add Admin" />
    </children>
 </AnchorPane>

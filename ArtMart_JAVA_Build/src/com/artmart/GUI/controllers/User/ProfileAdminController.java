@@ -43,6 +43,8 @@ public class ProfileAdminController implements Initializable {
     private Label birthdayProfile;
     @FXML
     private Button userListBtn;
+     @FXML
+    private Button addAdBtn;
     @FXML
     private Button backBtn;
     @FXML
@@ -55,11 +57,11 @@ public class ProfileAdminController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
-     public void setProfile(int id) {
-         admin = user_ser.getAdmin(id);
+    public void setProfile(int id) {
+        admin = user_ser.getAdmin(id);
         nameProfile.setText(admin.getName());
         usernameProfile.setText(admin.getUsername());
         emailProfile.setText(admin.getEmail());
@@ -73,7 +75,7 @@ public class ProfileAdminController implements Initializable {
         } catch (Exception e) {
             System.out.println("Error setting image: " + e.getMessage());
         }
-     }
+    }
 
     @FXML
     private void OnUpdateBtn(ActionEvent event) {
@@ -90,8 +92,7 @@ public class ProfileAdminController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
-        }
-    
+    }
 
     @FXML
     private void OnUserListBtn(ActionEvent event) {
@@ -111,6 +112,20 @@ public class ProfileAdminController implements Initializable {
     private void OnBack(ActionEvent event) {
         Stage stage = (Stage) backBtn.getScene().getWindow();
         stage.close();
+    }
+    @FXML
+
+    private void OnAddBtn(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/AddAdmin.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
     }
 
 }

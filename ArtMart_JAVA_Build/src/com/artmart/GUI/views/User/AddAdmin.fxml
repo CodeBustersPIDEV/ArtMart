@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.User.AddAdminController">
+   <children>
+      <PasswordField fx:id="pwdField" layoutX="211.0" layoutY="265.0" promptText="password" />
+      <PasswordField fx:id="cpwdField" layoutX="211.0" layoutY="307.0" promptText="confirm password" />
+      <TextField fx:id="nameField" layoutX="210.0" layoutY="64.0" />
+      <Label layoutX="211.0" layoutY="91.0" text="Email" />
+      <Label layoutX="212.0" layoutY="250.0" text="Password" />
+      <Label layoutX="211.0" layoutY="290.0" text="Confirm Password" />
+      <TextField fx:id="emailField" layoutX="211.0" layoutY="108.0" />
+      <TextField fx:id="usernameField" layoutX="210.0" layoutY="149.0" />
+      <Label layoutX="210.0" layoutY="135.0" text="Usename" />
+      <Label layoutX="211.0" layoutY="45.0" text="Name" />
+      <Label layoutX="213.0" layoutY="174.0" text="Birthday" />
+      <DatePicker fx:id="birthdayField" layoutX="210.0" layoutY="188.0" prefHeight="17.0" prefWidth="149.0" />
+      <Button fx:id="addBtn" layoutX="505.0" layoutY="361.0" mnemonicParsing="false" onAction="#OnAddAdmin" text="Add Admin" />
+      <Button fx:id="backBtn" layoutX="12.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnBack" text="&lt; Back" />
+      <TextField fx:id="Phone_nbrField" layoutX="211.0" layoutY="227.0" />
+      <Label layoutX="211.0" layoutY="213.0" text="Phone number" />
+      <TextField fx:id="departmentField" layoutX="210.0" layoutY="349.0" />
+      <Label layoutX="213.0" layoutY="332.0" text="Department" />
+   </children>
+</AnchorPane>
