@@ -134,5 +134,23 @@ public class CustomProductDao {
         this.productDAO.deleteProduct(this.getCustomPId(id));
         return 1;
     }
+    
+    public List<CustomProduct> searchCustomProductByName(String name) throws SQLException {
+    List<CustomProduct> customProducts = new ArrayList<>();
+    String query = "SELECT * FROM customproduct INNER JOIN product ON customproduct.product_ID = product.product_ID WHERE product.name LIKE ?";
+    PreparedStatement statement = sqlConnection.prepareStatement(query);
+    statement.setString(1, "%" + name + "%");
+    ResultSet resultSet = statement.executeQuery();
+
+    while(resultSet.next()) {
+        CustomProduct customProduct = new CustomProduct(
+            resultSet.getInt("custom_product_ID"),
+            this.productDAO.getProductById(resultSet.getInt("product_ID"))
+        );
+        customProducts.add(customProduct);
+    }
+    return customProducts;
+}
+
 
 }

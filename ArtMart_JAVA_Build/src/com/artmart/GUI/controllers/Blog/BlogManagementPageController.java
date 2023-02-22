@@ -48,9 +48,9 @@ public class BlogManagementPageController implements Initializable {
     @FXML
     public ComboBox<String> userComboBox;
     private List<User> userOptionsList;
-    private BlogService blogService = new BlogService();
-    private UserDao userService = new UserDao();
-    private List<Blog> blogList = new ArrayList<Blog>();
+    private final BlogService blogService = new BlogService();
+    private final UserDao userService = new UserDao();
+    private List<Blog> blogList = new ArrayList<>();
     private BlogManagementCardController controller;
     private User connectedUser = new User();
     @FXML

@@ -16,4 +16,6 @@ public interface IMediaDao {
     public boolean updateMedia(int media_id, Media editedMedia);
 
     public boolean deleteMedia(int media_id);
+    
+    public boolean deleteMediaByBlogID(int blog_id);
 }

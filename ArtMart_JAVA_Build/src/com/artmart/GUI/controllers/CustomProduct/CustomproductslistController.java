@@ -66,8 +66,24 @@ public class CustomproductslistController implements Initializable {
         });
     }
 
-   @FXML
+@FXML
 private void onsearch(ActionEvent event) throws SQLException {
-    
+    String keyword = search.getText();
+    List<CustomProduct> matchingProducts = customProductService.searchCustomProductByName(keyword);
+    this.vBox.getChildren().clear();
+    matchingProducts.forEach(CProduct -> {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
+            Parent root = loader.load();
+            CustomProductCardController controller = loader.getController();
+            controller.setCustomProduct(CProduct,this);
+            root.setId("" + CProduct.getCustomProductId());
+            this.vBox.getChildren().add(root);
+        } catch (IOException e) {
+            System.out.print(e.getCause());
+        }
+    });
 }
+
+
 }
