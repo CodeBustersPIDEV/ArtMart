@@ -56,6 +56,12 @@ public class OrderGUIMenuController implements Initializable {
     private Button saveToWishListBtn;
 
     private OrderService orderSerice = new OrderService();
+    @FXML
+    private Button artistviewOrderList;
+    @FXML
+    private Button artistviewOrderList1;
+    @FXML
+    private Button adminViewOrderList;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -135,5 +141,13 @@ public class OrderGUIMenuController implements Initializable {
         LocalDate currentDate = LocalDate.now();
         String formattedDate = currentDate.format(formatter);
         this.orderSerice.createWishlist(new Wishlist(this.connectedUser.getUser_id(), this.productToOrder.getProductId(), Date.valueOf(formattedDate)));
+    }
+
+    @FXML
+    private void OnArtistViewList(ActionEvent event) {
+    }
+
+    @FXML
+    private void OnAdminViewList(ActionEvent event) {
     }
 }
