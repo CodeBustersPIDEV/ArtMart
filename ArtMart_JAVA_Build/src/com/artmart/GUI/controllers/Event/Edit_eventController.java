@@ -100,6 +100,74 @@ public class Edit_eventController implements Initializable {
     }
 
 
+    @FXML
+    private void onBtnConfirm(ActionEvent event) {
+//        try {
+//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/list_event.fxml"));
+//            Scene scene = new Scene(root);
+//            stage.setResizable(false);
+//            stage.setTitle("");
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (IOException e) {
+//            System.out.print(e.getMessage());
+//        }        
+
+        name = txtEventName.getText();
+        location = txtEventLocation.getText();
+        String typeText = (String) comboBoxEventType.getValue(); 
+        description = txtAreaEventDescription.getText();
+        String entryFeeText = txtEventEntryFee.getText();
+        String capacityText =txtEventCapacity.getText();
+        LocalDate startDateValue = dpEventStartDate.getValue();
+        String startDateText = startDateValue != null ? String.valueOf(startDateValue) : null;
+        LocalDate endDateValue = dpEventEndDate.getValue();
+        String endDateText = endDateValue != null ? String.valueOf(endDateValue) : null;
+
+        if(name.isEmpty() 
+        || location.isEmpty() 
+        || typeText == null || typeText.isEmpty()
+        || description.isEmpty() 
+        || entryFeeText.isEmpty()
+        || capacityText.isEmpty() 
+        || startDateText == null || startDateText.isEmpty()
+        || endDateText == null || endDateText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Missing information");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to add event! \nComplete missing information.");
+            alert.showAndWait();
+        }else {
+            type = (String) comboBoxEventType.getValue();
+            entryFee = Float.parseFloat(txtEventEntryFee.getText());
+            capacity = Integer.parseInt(txtEventCapacity.getText());
+            startDate = Date.valueOf(dpEventStartDate.getValue());
+            endDate = Date.valueOf(dpEventEndDate.getValue());  
+            Event ev = new Event(name, location, type, description, entryFee, capacity, startDate, endDate, userID);
+
+            //es = new EventService();
+
+            boolean result = es.updateEvent(eventID, ev);
+            System.out.println(result);
+            if (result) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Edit Event");
+                alert.setHeaderText(null);
+                alert.setContentText("A new event has been updated successfully!");
+                alert.showAndWait();
+                //userID++;
+                alert.close();
+                onBtnCancelEvent(event);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Update Product");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to update event!");
+                alert.showAndWait();
+            }
+        }
+    }
     
     @FXML
     private void onBtnCancelEvent(ActionEvent event) {
