@@ -45,6 +45,14 @@ public class EditCategoryController implements Initializable {
     @FXML
     private void update(ActionEvent event) throws SQLException {
           String x = name.getText();
+          if (x.isEmpty()) {
+Alert alert = new Alert(Alert.AlertType.WARNING);
+alert.setTitle("Add Category");
+alert.setHeaderText(null);
+alert.setContentText("Please enter a category name");
+alert.showAndWait();
+return; 
+}
            Categories u = new Categories(x);
            boolean a = categoriesDao.updateCategories(this.categoryid,u);
             if (a) {

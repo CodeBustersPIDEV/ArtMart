@@ -20,5 +20,5 @@ public interface ICustomProductDao {
     public List<CustomProduct> searchCustomProductByName(String name) throws SQLException;
     public List<CustomProduct> getAllCustomProductsSortedByName() throws SQLException;
     public List<CustomProduct> getAllCustomProductsSortedByWeight() throws SQLException;
-   public List<Integer> getWeightsOfAllCustomProducts() throws SQLException;
+
 }

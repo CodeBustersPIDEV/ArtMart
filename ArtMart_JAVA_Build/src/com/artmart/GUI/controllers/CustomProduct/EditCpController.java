@@ -100,7 +100,14 @@ private void edit(ActionEvent event) throws SQLException, IOException {
     if (selectedImageFile != null) {
         imagePath = selectedImageFile.getAbsolutePath();
     }
-    
+    if (name.isEmpty() || desc.isEmpty() || dim.isEmpty() || material.isEmpty()|| imagePath.isEmpty()) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill in all fields.");
+        alert.showAndWait();
+        return;
+    }
     // create a new product object with the updated values
     Product u = new Product(category.getCategories_ID(), name, desc, dim, weight, material, imagePath);
     // update the product using the ID of the custom product

@@ -47,6 +47,14 @@ public class AddCategoriesController implements Initializable {
     private void addButton(ActionEvent event) throws SQLException {
         
             String n = name.getText();
+            if (n.isEmpty()) {
+Alert alert = new Alert(Alert.AlertType.WARNING);
+alert.setTitle("Add Category");
+alert.setHeaderText(null);
+alert.setContentText("Please enter a category name");
+alert.showAndWait();
+return; // exit the method if the name is empty
+}
     Categories x= new Categories(n);
       CategoriesService CategoriesService = new CategoriesService();
     int result = CategoriesService.createCategories(x);

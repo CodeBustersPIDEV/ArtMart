@@ -49,10 +49,6 @@ public class CustomProductService implements ICustomProductDao {
   }
 
 
-    @Override
-    public List<Integer> getWeightsOfAllCustomProducts() throws SQLException {
-      return customProductDao.getWeightsOfAllCustomProducts();
-    }
   }
       
 

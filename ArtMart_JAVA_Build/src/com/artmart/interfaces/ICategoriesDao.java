@@ -15,5 +15,6 @@ public interface ICategoriesDao {
     public Categories getCategoriesById(int CategoriesID) throws SQLException;
 
     public List<Categories> getAllCategories() throws SQLException;
+    public String getCategoryNameById(int categoryId) throws SQLException;
 
 }

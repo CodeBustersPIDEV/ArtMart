@@ -34,4 +34,7 @@ public class CategoriesService implements ICategoriesDao {
     public List<Categories> getAllCategories() throws SQLException {
         return x.getAllCategories();
     }
+    public String getCategoryNameById(int categoryId) throws SQLException 
+    {
+    return x.getCategoryNameById(categoryId);}
 }

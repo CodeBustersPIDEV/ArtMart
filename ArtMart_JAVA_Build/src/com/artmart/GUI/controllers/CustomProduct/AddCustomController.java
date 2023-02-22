@@ -106,23 +106,36 @@ public class AddCustomController implements Initializable {
     }
 
      
-    @FXML
+  @FXML
 private void handleAddButtonAction(ActionEvent event) throws SQLException {
     String name = nameField.getText();
     String desc = descField.getText();
     String dim = dimField.getText();
-    float weight = Float.parseFloat(weightField.getText());
+    float weight = 0;
+    String weightText = weightField.getText();
     String material = materialField.getText();
-  String imagePath = imageField.getText();
-    
+    String imagePath = imageField.getText();
+
     // Get the selected category from the combo box
     Categories selectedCategory = (Categories) categoryComboBox2.getSelectionModel().getSelectedItem();
 
-    if (selectedCategory == null) {
+    // Check if all fields are filled
+    if (name.isEmpty() || desc.isEmpty() || dim.isEmpty() || weightText.isEmpty() || material.isEmpty() || imagePath.isEmpty() || selectedCategory == null) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Add Custom Product");
         alert.setHeaderText(null);
-        alert.setContentText("Please select a category!");
+        alert.setContentText("Please fill all fields!");
+        alert.showAndWait();
+        return;
+    }
+
+    try {
+        weight = Float.parseFloat(weightText);
+    } catch (NumberFormatException ex) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Add Custom Product");
+        alert.setHeaderText(null);
+        alert.setContentText("Invalid weight value!");
         alert.showAndWait();
         return;
     }
@@ -145,6 +158,7 @@ private void handleAddButtonAction(ActionEvent event) throws SQLException {
         alert.showAndWait();
     }
 }
+
 
     @FXML
     private void handleSelectImageAction(ActionEvent event) {

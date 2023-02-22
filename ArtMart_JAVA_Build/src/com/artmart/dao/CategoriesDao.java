@@ -73,4 +73,17 @@ public boolean updateCategories(int id, Categories categories) throws SQLExcepti
         return categoriess;
     }
 
+public String getCategoryNameById(int categoryId) throws SQLException {
+    String query = "SELECT name FROM Categories WHERE Categories_ID = ?";
+    PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+    statement.setInt(1, categoryId);
+    ResultSet result = statement.executeQuery();
+    if (result.next()) {
+        return result.getString("name");
+    } else {
+        return null;
+    }
+}
+
+
 }
