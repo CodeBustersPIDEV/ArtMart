@@ -10,6 +10,9 @@ public class Comment {
     private int author;
     private int blog_id;
 
+    public Comment() {
+    }
+
     public Comment(int id, String content, Date publishDate, int author, int blog_id) {
         this.id = id;
         this.content = content;
@@ -18,7 +21,7 @@ public class Comment {
         this.blog_id = blog_id;
     }
 
-    public Comment(String content, Date publishDate, int author, int blog_id) {
+    public Comment(String content, int author, int blog_id) {
         this.content = content;
         this.publishDate = publishDate;
         this.author = author;

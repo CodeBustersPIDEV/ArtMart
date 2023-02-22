@@ -7,11 +7,14 @@ package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
+import com.artmart.models.Comment;
 import com.artmart.models.Media;
 import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,11 +25,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -50,20 +55,53 @@ public class BlogPageController implements Initializable {
     private Button backBtn;
     @FXML
     private ImageView blogImage;
+    @FXML
+    private ScrollPane commentSection;
+    @FXML
+    private TextArea comment_content;
+    @FXML
+    private Button post;
+    @FXML
+    private VBox commentContainer;
+    @FXML
+    private SplitPane comments;
 
     private final BlogService blogService = new BlogService();
-    private UserDao userService = new UserDao();
+    private final UserDao userService = new UserDao();
     private Blog viewBlog = new Blog();
     private int id;
     private Image image;
     private Media img = new Media();
-    private Rectangle blogImageBox;
 
     /**
      * Initializes the controller class.
      *
      * @param b_ID
      */
+    
+        private void setupComments(int bc_id) {
+        List<Comment> commentList = new ArrayList<>();
+        commentList = this.blogService.getAllComments(bc_id);
+        if (commentList != null) {
+            for (Comment blog : commentList) {
+                String username = userService.getUser(blog.getAuthor()).getUsername();
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/CommentCard.fxml"));
+                    Pane pane = loader.load();
+                    pane.setId("comment_card" + blog.getId());
+                    CommentCardController controller = loader.getController();
+                    this.commentContainer.getChildren().add(pane);
+                    controller.setCommentContent(blog.getContent());
+                    controller.setUsername(username);
+                    controller.setCommentID(Integer.toString(blog.getId()));
+                    controller.setPostDate(blog.getPublishDate().toString());
+                } catch (IOException e) {
+                    e.getMessage();
+                }
+            }
+        }
+    }
+    
     public void setUpData(String b_ID) {
         this.blog_id.setText(b_ID);
         this.id = Integer.parseInt(this.blog_id.getText());
@@ -82,7 +120,10 @@ public class BlogPageController implements Initializable {
         this.publishDate.setText(this.viewBlog.getPublishDate().toString());
         this.blog_content.setText(this.viewBlog.getContent());
         this.blogImage.setImage(this.image);
+        this.setupComments(id);
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -101,6 +142,17 @@ public class BlogPageController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    @FXML
+    private void postComment(ActionEvent event) {
+        Comment comment = new Comment(this.comment_content.getText(), 1, this.id);
+        int test = this.blogService.addComment(comment);
+        if (test == 1) {
+            this.comment_content.setText("");
+            this.commentContainer.getChildren().clear();
+            setupComments(this.id);
+       }
     }
 
 }

@@ -101,7 +101,7 @@ public class AddBlogController implements Initializable {
     @FXML
     private void add(ActionEvent event) throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("./MainView.fxml"));
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("./MainView.fxml"));
             Blog blog = new Blog(this.blog_title.getText(), this.blog_content.getText(), 2);
             test1 = blogService.addBlog(blog);
             if (test1 == 1) {

@@ -76,8 +76,8 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public List<Comment> getAllComments() {
-        return this.commentDao.getAllComments();
+    public List<Comment> getAllComments(int blog_id) {
+        return this.commentDao.getAllComments(blog_id);
     }
 
     @Override

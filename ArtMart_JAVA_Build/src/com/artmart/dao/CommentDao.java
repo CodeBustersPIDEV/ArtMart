@@ -26,12 +26,11 @@ public class CommentDao implements ICommentServiceDao {
     @Override
     public int addComment(Comment c) {
         try {
-            String sql = "INSERT INTO comments ( content, date, author, blog_ID) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO comments ( content, author, blog_ID) VALUES (?, ?, ?)";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, c.getContent());
-            st.setDate(2, (Date) c.getPublishDate());
-            st.setInt(3, c.getAuthor());
-            st.setInt(4, c.getBlog_id());
+            st.setInt(2, c.getAuthor());
+            st.setInt(3, c.getBlog_id());
             st.executeUpdate();
             return 1;
         } catch (SQLException e) {
@@ -66,12 +65,12 @@ public class CommentDao implements ICommentServiceDao {
     }
 
     @Override
-    public List<Comment> getAllComments() {
+    public List<Comment> getAllComments(int blog_id) {
         List<Comment> comments = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM comments";
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery(sql);
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM comments WHERE blog_ID=?");
+            st.setInt(1, blog_id);
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 comments.add(new Comment(
                         rs.getInt("comments_ID"),
@@ -115,7 +114,7 @@ public class CommentDao implements ICommentServiceDao {
             return false;
         }
     }
-    
+
     @Override
     public boolean deleteAllComments(int blog_id) {
         try {

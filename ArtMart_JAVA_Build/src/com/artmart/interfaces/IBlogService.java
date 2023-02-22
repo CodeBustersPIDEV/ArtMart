@@ -29,7 +29,7 @@ public interface IBlogService {
 
     public Comment getOneComment(int comment_id);
 
-    public List<Comment> getAllComments();
+    public List<Comment> getAllComments(int blog_id);
 
     public boolean updateComment(int comment_id, Comment editedComment);
 
