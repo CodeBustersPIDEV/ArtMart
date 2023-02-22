@@ -163,10 +163,7 @@ public class OrderDetailController implements Initializable {
     }
 
     public Date getEstimatedDeliveryDate() {
-        int minDeliveryTime = this.shippingOption.getMinDeliveryTimeInDays();
         int maxDeliveryTime = this.shippingOption.getMaxDeliveryTimeInDays();
-
-        // Calculate the estimated delivery date
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(this.order.getOrderDate());
         calendar.add(Calendar.DAY_OF_MONTH, maxDeliveryTime);
