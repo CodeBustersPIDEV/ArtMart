@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.Optional;
@@ -117,7 +118,7 @@ public class OrderDetailController implements Initializable {
         this.paymentMethod.setText(this.order.getPaymentMethod() + "");
         this.orderQuantity.setText(this.order.getQuantity() + "");
         this.orderCost.setText("" + this.order.getTotalCost());
-        this.estimatedTime.setText(getEstimatedDeliveryDate());
+        this.estimatedTime.setText(getFormattedEstimatedDeliveryDate());
         switch (OrderCurrentStatus.valueOf(this.status)) {
             case PENDING:
                 this.closeButton.setDisable(false);
@@ -161,12 +162,22 @@ public class OrderDetailController implements Initializable {
 
     }
 
-    public String getEstimatedDeliveryDate() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(this.order.getOrderDate());
-        cal.add(Calendar.DATE, this.shippingOption.getMinDeliveryTimeInDays());
-        Date estimatedDeliveryDate = cal.getTime();
+    public Date getEstimatedDeliveryDate() {
+        int minDeliveryTime = this.shippingOption.getMinDeliveryTimeInDays();
+        int maxDeliveryTime = this.shippingOption.getMaxDeliveryTimeInDays();
 
-        return "";
+        // Calculate the estimated delivery date
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.order.getOrderDate());
+        calendar.add(Calendar.DAY_OF_MONTH, maxDeliveryTime);
+        Date estimatedDeliveryDate = calendar.getTime();
+
+        return estimatedDeliveryDate;
+    }
+
+    public String getFormattedEstimatedDeliveryDate() {
+        Date estimatedDeliveryDate = this.getEstimatedDeliveryDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        return dateFormat.format(estimatedDeliveryDate);
     }
 }
