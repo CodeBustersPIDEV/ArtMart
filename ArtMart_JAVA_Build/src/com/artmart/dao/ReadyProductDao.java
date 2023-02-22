@@ -63,37 +63,17 @@ public class ReadyProductDao {
 
     public List<ReadyProduct> getAllReadyProducts() throws SQLException {
         List<ReadyProduct> readyProducts = new ArrayList<>();
-        String query = "SELECT * FROM readyproduct WHERE ready_product_ID = ?";
-        String productQuery = "SELECT * FROM product WHERE product_ID = ?";
-
+        String query = "SELECT * FROM readyproduct";
+        
         PreparedStatement statement = sqlConnection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
 
-        while (resultSet.next()) {
-            int productId = resultSet.getInt("product_ID");
-
-            PreparedStatement productStatement = sqlConnection.prepareStatement(productQuery);
-            productStatement.setInt(1, productId);
-            ResultSet productResultSet = productStatement.executeQuery();
-
-            if (productResultSet.next()) {
-                Product product = new Product(
-                        productResultSet.getInt("product_ID"),
-                        productResultSet.getInt("category_ID"),
-                        productResultSet.getString("name"),
-                        productResultSet.getString("description"),
-                        productResultSet.getString("dimensions"),
-                        productResultSet.getInt("weight"),
-                        productResultSet.getString("material"),
-                        productResultSet.getString("image")
-                );
+        while(resultSet.next()) {
                 ReadyProduct readyProduct = new ReadyProduct(
                         resultSet.getInt("ready_product_ID"),
-                        productId,
-                        product
+                        this.productDAO.getProductById(resultSet.getInt("product_ID"))
                 );
                 readyProducts.add(readyProduct);
-            }
         }
         return readyProducts;
     }

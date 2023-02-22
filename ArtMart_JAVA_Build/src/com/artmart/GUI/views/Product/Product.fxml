@@ -1,18 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ProductGUIController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ProductGUIController">
     <stylesheets>
-        <URL value="@/com/artmart/GUI/styles/productgui.css"/>
+        <URL value="@/com/artmart/GUI/styles/productgui.css" />
     </stylesheets>
         <children>
-      <Text layoutX="289.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="406.0" stroke="BLACK" strokeType="INSIDE" width="600.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Button fx:id="backBtn" alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBack" prefHeight="18.0" prefWidth="28.0" text="🔙" textAlignment="CENTER">
+         <font>
+            <Font name="Rockwell Nova Bold" size="20.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect></Button>
+      <Text layoutX="118.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested in viewing the available products ?" textAlignment="CENTER">
+         <font>
+            <Font name="Rockwell Nova Bold" size="15.0" />
+         </font></Text>
+      <Text layoutX="207.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here is our best selection" textAlignment="CENTER">
+         <font>
+            <Font name="Rockwell Nova Bold" size="14.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="imagePreview" fitHeight="103.0" fitWidth="116.0" layoutX="107.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="103.0" fitWidth="116.0" layoutX="242.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="103.0" fitWidth="116.0" layoutX="377.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="consultAllReadyProducts" alignment="CENTER" layoutX="231.0" layoutY="320.0" mnemonicParsing="false" onAction="#consultAllReadyProducts" prefHeight="29.0" prefWidth="138.0" text="List all products" textAlignment="CENTER">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>
