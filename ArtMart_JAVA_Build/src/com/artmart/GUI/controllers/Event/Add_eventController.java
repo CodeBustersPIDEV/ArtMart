@@ -24,6 +24,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 /**
@@ -75,6 +76,9 @@ public class Add_eventController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         comboBoxType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
+    txtAreaDescription.setWrapText(true);
+    txtAreaDescription.setPrefWidth(270);
+        
     }    
 
     @FXML
