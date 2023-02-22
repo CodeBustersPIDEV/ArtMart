@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.views.User.ProfileAdminController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.ProfileAdminController">
    <children>
       <ImageView fx:id="ProfilePic" fitHeight="150.0" fitWidth="113.0" layoutX="60.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -30,5 +30,6 @@
       <Button fx:id="backBtn" layoutX="16.0" layoutY="20.0" mnemonicParsing="false" onAction="#OnBack" text="&lt;Back" />
       <Label layoutX="69.0" layoutY="328.0" text="Phone Number:" />
       <Label fx:id="phoneProfile" layoutX="177.0" layoutY="328.0" text="Label" />
+      <Button fx:id="userListBtn" layoutX="405.0" layoutY="229.0" mnemonicParsing="false" onAction="#OnUserListBtn" text="View Users List " />
    </children>
 </AnchorPane>

@@ -64,8 +64,7 @@ public class SignUpController implements Initializable {
     private Button clientProfileBtn;
     @FXML
     private ComboBox<String> identityField;
-    @FXML
-   
+
     UserService user_ser = new UserService();
     private int test1, test2;
 
@@ -76,7 +75,7 @@ public class SignUpController implements Initializable {
     }
 
     @FXML
-    public void OnSignUp(ActionEvent event) throws IOException {
+    public void OnSignUp(ActionEvent event) {
         // Get form field values
         try {
             String name = nameField.getText();
@@ -85,24 +84,32 @@ public class SignUpController implements Initializable {
             int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
             String username = usernameField.getText();
             String password = pwdField.getText();
-             
-            User user = new User(phoneNumber, name, email, username, password, birthday);
-            if (identityField.getValue().equals("yes")) {
+            if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("You have to fill all the fields");
+                alert.showAndWait();
 
+            }
+            User user = new User(phoneNumber, name, email, username, password, birthday);
+           
+            
+            
+            if (identityField.getValue().equals("yes")) {
                 Artist artist = new Artist(user);
                 test1 = user_ser.createAccountAr(artist);
             } else if (identityField.getValue().equals("no")) {
                 Client client = new Client(user);
                 test2 = user_ser.createAccountC(client);
-
             }
-
             if (test1 == 1 || test2 == 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setHeaderText(null);
                 alert.setContentText("Account created");
                 alert.showAndWait();
+
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -140,23 +147,28 @@ public class SignUpController implements Initializable {
     public void OnArtistProfile(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+            Parent root = loader.load();
+            ProfileArtistController controller = loader.getController();
+            controller.setProfile(2);
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setTitle("User Managment");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
- public void OnClientProfile(ActionEvent event) {
+
+    public void OnClientProfile(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+            Parent root = loader.load();
+            ProfileClientController controller = loader.getController();
+            controller.setProfile(5);
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setTitle("User Managment");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -167,10 +179,12 @@ public class SignUpController implements Initializable {
     public void OnAdminProfile(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+            Parent root = loader.load();
+            ProfileAdminController controller = loader.getController();
+            controller.setProfile(1);
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setTitle("User Managment");
             stage.setScene(scene);
             stage.show();
 

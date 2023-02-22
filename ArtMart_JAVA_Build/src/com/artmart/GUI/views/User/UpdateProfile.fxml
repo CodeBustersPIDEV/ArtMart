@@ -9,8 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.User.UpdateProfileController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.UpdateProfileController">
    <children>
       <TextField fx:id="nameField" layoutX="222.0" layoutY="97.0" />
       <Label layoutX="223.0" layoutY="124.0" text="Email" />
@@ -37,5 +36,8 @@
       <TextField fx:id="birthdayField" layoutX="222.0" layoutY="222.0" />
       <TextField fx:id="pwdField" layoutX="222.0" layoutY="297.0" />
       <Button fx:id="UploadPicBtn" layoutX="55.0" layoutY="251.0" mnemonicParsing="false" onAction="#OnUpload" text="Upload Picture" />
+      <TextField fx:id="bioField" layoutX="222.0" layoutY="338.0" />
+      <Label fx:id="bioLabel" layoutX="225.0" layoutY="322.0" text="Bio" />
+      <Label fx:id="departmentLabel" layoutX="227.0" layoutY="322.0" text="Departement" />
    </children>
 </AnchorPane>

@@ -6,6 +6,7 @@
 package com.artmart.GUI.controllers.User;
 
 import com.artmart.models.Artist;
+import com.artmart.models.User;
 import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
@@ -60,7 +61,10 @@ public class ProfileArtistController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        artist = user_ser.getArtist(7);
+        
+    }
+ public void setProfile(int id) {
+         artist = user_ser.getArtist(id);
         nameProfile.setText(artist.getName());
         usernameProfile.setText(artist.getUsername());
         emailProfile.setText(artist.getEmail());
@@ -70,12 +74,12 @@ public class ProfileArtistController implements Initializable {
         birthdayProfile.setText(artist.getBirthday().toString());
         try {
             Image newImage = new Image(artist.getPicture());
+         //   System.out.println(artist.getPicture());
             ProfilePic.setImage(newImage);
         } catch (Exception e) {
             System.out.println("Error setting image: " + e.getMessage());
         }
-    }
-
+ }
     @FXML
     private void OnBack(ActionEvent event) {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -87,14 +91,15 @@ public class ProfileArtistController implements Initializable {
     public void OnUpdateBtn(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/updateProfile.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/updateProfile.fxml"));
+            Parent root = loader.load();
+            UpdateProfileController controller = loader.getController();
+            controller.setUpdate(artist.getUser_id());
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setTitle("User Managment");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
-    }
-}
+    }}
