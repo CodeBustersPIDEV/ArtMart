@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface IUserService {
 
+    User getUser(int user_id);
+
+    boolean updateAccountU(int user_id, User user);
+
     int createAccountC(Client client);
 
     Client getClient(int user_id);
@@ -33,6 +37,7 @@ public interface IUserService {
     boolean deleteAccountA(int user_id);
 
     boolean updateAccountA(int user_id, Admin admin);
-        public boolean authenticate(String username, String password);
+
+    public boolean authenticate(String username, String password);
 
 }

@@ -17,7 +17,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -38,9 +39,14 @@ public class BlogCardController implements Initializable {
     private Label publishDate;
     @FXML
     private Label blog_id;
+    @FXML
+    private ImageView imagePreview;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,6 +67,10 @@ public class BlogCardController implements Initializable {
 
     public void setBlogID(String blog_id) {
         this.blog_id.setText(blog_id);
+    }
+
+    public void setBlogImage(Image blog_image) {
+        this.imagePreview.setImage(blog_image);
     }
 
     @FXML

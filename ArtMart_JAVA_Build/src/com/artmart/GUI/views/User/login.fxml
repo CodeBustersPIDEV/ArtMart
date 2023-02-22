@@ -4,15 +4,27 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="256.0" prefWidth="427.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.User.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="256.0" prefWidth="427.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.LoginController">
    <children>
-      <Button fx:id="LoginBtn" layoutX="188.0" layoutY="174.0" mnemonicParsing="false" text="Log in" AnchorPane.bottomAnchor="57.0" />
+      <Button fx:id="LoginBtn" layoutX="187.0" layoutY="196.0" mnemonicParsing="false" onAction="#OnSignIn" text="Sign in" AnchorPane.bottomAnchor="35.0" />
       <PasswordField fx:id="pwdLoginField" layoutX="139.0" layoutY="128.0" />
       <TextField fx:id="usernameLoginField" layoutX="139.0" layoutY="80.0" />
       <Text layoutX="139.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
       <Text layoutX="139.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <Text layoutX="154.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in" textAlignment="CENTER">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No account? " />
+      <Button fx:id="LoginBtn1" layoutX="84.0" layoutY="221.0" mnemonicParsing="false" onAction="#OnSignUp" text="Sign up" />
+      <Button fx:id="LoginBtn2" layoutX="156.0" layoutY="153.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="115.0" text="Forgot Password">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

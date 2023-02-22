@@ -8,6 +8,11 @@ public class Media {
     private String file_path;
     private int blog_id;
 
+    public Media() {
+    }
+
+    
+    
     public Media(int id, String file_name, String file_type, String file_path, int blog_id) {
         this.id = id;
         this.file_name = file_name;

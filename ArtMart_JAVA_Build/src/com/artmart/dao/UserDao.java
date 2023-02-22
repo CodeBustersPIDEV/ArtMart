@@ -44,7 +44,6 @@ public class UserDao implements IUserDao {
             statement.setString(6, user.getPwd());
             statement.setTimestamp(7, timestamp);
             statement.setString(8, user.getRole());
-          //  statement.setString(9, "/assets/user.jpeg");
 
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
@@ -77,6 +76,8 @@ public class UserDao implements IUserDao {
                 user.setUsername(resultSet.getString("username"));
                 user.setPwd(resultSet.getString("password"));
                 user.setRole(resultSet.getString("role"));
+                user.setPicture(resultSet.getString("picture"));
+
                 return user;
             }
         } catch (SQLException e) {
@@ -129,7 +130,7 @@ public class UserDao implements IUserDao {
     public boolean updateAccountU(int user_id, User user) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE user SET name = ?, email = ?, birthday = ?, phoneNumber = ?, username = ?, password = ? WHERE user_ID = ?"
+                    "UPDATE user SET name = ?, email = ?, birthday = ?, phoneNumber = ?, username = ?, password = ?, picture= ? WHERE user_ID = ?"
             );
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
@@ -137,7 +138,8 @@ public class UserDao implements IUserDao {
             statement.setInt(4, user.getPhone_nbr());
             statement.setString(5, user.getUsername());
             statement.setString(6, user.getPwd());
-            statement.setInt(7, user_id);
+            statement.setString(7, user.getPicture());
+            statement.setInt(8, user_id);
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -148,29 +150,29 @@ public class UserDao implements IUserDao {
 
     @Override
     public boolean authenticate(String username, String password) {
-    try {
-        PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM user WHERE username = ?"
-        );
-        statement.setString(1, username);
-        ResultSet rs = statement.executeQuery();
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM user WHERE username = ?"
+            );
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
 
-        if (rs.next()) {
-            String storedPassword = rs.getString("password");
+            if (rs.next()) {
+                String storedPassword = rs.getString("password");
 
-            if (storedPassword.equals(hash(password))) {
-                return true;
+                if (storedPassword.equals(hash(password))) {
+                    return true;
+                }
             }
+        } catch (SQLException e) {
+            System.err.println("Error authenticating user: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.err.println("Error authenticating user: " + e.getMessage());
-    }
-    
-    return false;
-}
 
-private String hash(String password) {
-    try {
+        return false;
+    }
+
+    private String hash(String password) {
+        try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hashedPassword = md.digest(password.getBytes());
             StringBuilder sb = new StringBuilder();
@@ -183,10 +185,5 @@ private String hash(String password) {
             return null;
         }
     }
+
 }
-
-
-
-
-
-

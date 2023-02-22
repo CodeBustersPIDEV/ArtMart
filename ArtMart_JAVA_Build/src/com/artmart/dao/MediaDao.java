@@ -25,7 +25,7 @@ public class MediaDao implements IMediaDao {
     @Override
     public int addMedia(Media m) {
         try {
-            String sql = "INSERT INTO media (id,file_name,file_type,file_path,blog_id) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO media (media_ID,file_name,file_type,file_path,blog_id) VALUES (?,?,?,?,?)";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, m.getId());
             st.setString(2, m.getFile_name());
@@ -41,18 +41,43 @@ public class MediaDao implements IMediaDao {
     }
 
     @Override
+    public Media getOneMediaByBlogID(int blog_id) {
+        Media mediaFound = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(
+                    "SELECT * FROM media WHERE blog_id = ?"
+            );
+            st.setInt(1, blog_id);
+
+            ResultSet result = st.executeQuery();
+            if (result.next()) {
+                mediaFound = new Media(
+                        result.getInt("media_ID"),
+                        result.getString("file_name"),
+                        result.getString("file_type"),
+                        result.getString("file_path"),
+                        result.getInt("blog_id")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return mediaFound;
+    }
+    
+        @Override
     public Media getOneMedia(int media_id) {
         Media mediaFound = null;
         try {
             PreparedStatement st = connection.prepareStatement(
-                    "SELECT * FROM media WHERE ID = ?"
+                    "SELECT * FROM media WHERE media_ID = ?"
             );
             st.setInt(1, media_id);
 
             ResultSet result = st.executeQuery();
             if (result.next()) {
                 mediaFound = new Media(
-                        result.getInt("ID"),
+                        result.getInt("media_ID"),
                         result.getString("file_name"),
                         result.getString("file_type"),
                         result.getString("file_path"),
@@ -74,7 +99,7 @@ public class MediaDao implements IMediaDao {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 mediaList.add(new Media(
-                        rs.getInt("ID"),
+                        rs.getInt("media_ID"),
                         rs.getString("file_name"),
                         rs.getString("file_type"),
                         rs.getString("file_path"),
@@ -90,7 +115,7 @@ public class MediaDao implements IMediaDao {
     @Override
     public boolean updateMedia(int media_id, Media editedMedia) {
         try {
-            String sql = "UPDATE media SET file_name = ?,file_type = ?,file_path = ? WHERE ID = ?";
+            String sql = "UPDATE media SET file_name = ?,file_type = ?,file_path = ? WHERE media_ID = ?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, editedMedia.getFile_name());
             st.setString(2, editedMedia.getFile_type());
@@ -107,7 +132,7 @@ public class MediaDao implements IMediaDao {
     @Override
     public boolean deleteMedia(int media_id) {
         try {
-            String sql = "DELETE FROM media WHERE ID = ?";
+            String sql = "DELETE FROM media WHERE media_ID = ?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, media_id);
             st.executeUpdate();

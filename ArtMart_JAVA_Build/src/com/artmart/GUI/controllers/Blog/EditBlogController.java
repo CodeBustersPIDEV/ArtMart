@@ -58,7 +58,7 @@ public class EditBlogController implements Initializable {
 
     private List<BlogCategories> blogCategoriesList;
     private final BlogService blogService = new BlogService();
-    private UserDao userService = new UserDao();
+    private final UserDao userService = new UserDao();
     private Blog viewBlog = new Blog();
     private int id;
     private boolean test1;
@@ -68,6 +68,7 @@ public class EditBlogController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param b_ID
      */
     public void setUpData(String b_ID) {
         this.blogID.setText(b_ID);
