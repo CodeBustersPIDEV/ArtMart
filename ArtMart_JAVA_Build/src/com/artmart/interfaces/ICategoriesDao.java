@@ -8,7 +8,7 @@ public interface ICategoriesDao {
 
     public int createCategories(Categories Categories) throws SQLException;
 
-    public int updateCategories(int id, Categories categories) throws SQLException;
+    public boolean updateCategories(int id, Categories categories) throws SQLException;
 
     public int deleteCategories(int id) throws SQLException;
 

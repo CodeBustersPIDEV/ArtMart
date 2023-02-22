@@ -30,9 +30,9 @@ import javafx.stage.Stage;
 public class CustomProductGUIController implements Initializable {
 
          CustomProductDao cc = new CustomProductDao();
-        ProductDao x = new ProductDao();
+         ProductDao x = new ProductDao();
     @FXML
-    private ImageView p;
+    private ImageView img;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -71,4 +71,36 @@ public class CustomProductGUIController implements Initializable {
         }
    
 }
+
+    @FXML
+    private void handleConsultAllChatsButton(ActionEvent event) {
+         try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/chatslist.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Chats Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleCategoriesButton(ActionEvent event) {
+         try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/categorieslist.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Chats Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
 }

@@ -7,6 +7,7 @@ import com.artmart.services.ProductService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -14,9 +15,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -38,6 +42,12 @@ public class CustomproductslistController implements Initializable {
 
     @FXML
     private TextField search;
+    @FXML
+    private RadioButton sweight;
+    @FXML
+    private RadioButton sname;
+    @FXML
+    private Button statisticb;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -85,5 +95,66 @@ private void onsearch(ActionEvent event) throws SQLException {
     });
 }
 
-
+   @FXML
+private void byweight(ActionEvent event) {
+    
+      this.sname.setSelected(false);
+    this.sweight.setSelected(true);
+    this.vBox.getChildren().clear();
+    this.customProductslist.sort(Comparator.comparing(CustomProduct::getWeight));
+    this.customProductslist.forEach(CProduct -> {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
+            Parent root = loader.load();
+            CustomProductCardController controller = loader.getController();
+            controller.setCustomProduct(CProduct, this);
+            root.setId("" + CProduct.getCustomProductId());
+            this.vBox.getChildren().add(root);
+        } catch (IOException e) {
+            System.out.print(e.getCause());
+        }
+    });
 }
+
+@FXML
+private void byname(ActionEvent event) {
+    
+    
+    
+        this.sname.setSelected(true);
+    this.sweight.setSelected(false);
+    this.vBox.getChildren().clear();
+    this.customProductslist.sort(Comparator.comparing(CustomProduct::getName));
+    this.customProductslist.forEach(CProduct -> {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
+            Parent root = loader.load();
+            CustomProductCardController controller = loader.getController();
+            controller.setCustomProduct(CProduct, this);
+            root.setId("" + CProduct.getCustomProductId());
+            this.vBox.getChildren().add(root);
+        } catch (IOException e) {
+            System.out.print(e.getCause());
+        }
+    });
+}
+
+    @FXML
+    private void statistic(ActionEvent event) {
+  
+          try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/WeightStatisticsUI.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Custom Product Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+    }
+
+

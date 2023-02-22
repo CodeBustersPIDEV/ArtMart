@@ -7,7 +7,7 @@ public interface ICategoriesService {
 
     int createCategories(Categories Categories);
 
-    int updateCategories(int id, Categories categories);
+    boolean updateCategories(int id, Categories categories);
 
     int deleteCategories(int id);
 

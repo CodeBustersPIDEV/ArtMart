@@ -32,7 +32,7 @@
       <Text layoutX="112.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORY" />
       <Text layoutX="126.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IMAGE" />
       <TextField fx:id="imageField" layoutX="376.0" layoutY="305.0" prefHeight="31.0" prefWidth="126.0" />
-      <ImageView fitHeight="158.0" fitWidth="339.0" layoutX="275.0" layoutY="86.0">
+      <ImageView fitHeight="186.0" fitWidth="295.0" layoutX="324.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../New_Project-removebg-preview.png" />
          </image>
