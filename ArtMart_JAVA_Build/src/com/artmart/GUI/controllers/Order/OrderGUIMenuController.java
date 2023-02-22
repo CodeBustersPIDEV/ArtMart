@@ -63,7 +63,7 @@ public class OrderGUIMenuController implements Initializable {
             userOptionsList = this.userDao.viewListOfUsers();
             //ProductOptionsList = this.productDao().getAll(;
             ObservableList<String> userOptions = FXCollections.observableArrayList(
-                    userOptionsList.stream().map(User::getName).collect(Collectors.toList())
+                userOptionsList.stream().map(user -> user.getName() + " (" + user.getRole()+ ")").collect(Collectors.toList())
             );
             productOptionsList = this.productDao.getAllProduct();
             ObservableList<String> productComboBox = FXCollections.observableArrayList(
@@ -134,6 +134,6 @@ public class OrderGUIMenuController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate currentDate = LocalDate.now();
         String formattedDate = currentDate.format(formatter);
-        this.orderSerice.createWishlist(new Wishlist(this.connectedUser.getUser_id(), this.productToOrder.getProductId(),Date.valueOf(formattedDate)));
+        this.orderSerice.createWishlist(new Wishlist(this.connectedUser.getUser_id(), this.productToOrder.getProductId(), Date.valueOf(formattedDate)));
     }
 }

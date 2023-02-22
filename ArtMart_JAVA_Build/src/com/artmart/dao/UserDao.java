@@ -99,6 +99,7 @@ public class UserDao implements IUserDao {
                 user.setEmail(resultSet.getString("email"));
                 user.setBirthday(resultSet.getDate("birthday"));
                 user.setPhone_nbr(resultSet.getInt("phoneNumber"));
+                user.setRole(resultSet.getString("role"));
                 user.setUsername(resultSet.getString("username"));
                 user.setPwd(resultSet.getString("password"));
                 users.add(user);
