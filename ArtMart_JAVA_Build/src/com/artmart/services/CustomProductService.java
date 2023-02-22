@@ -38,6 +38,8 @@ public class CustomProductService implements ICustomProductDao {
       public int getCustomPId(int id) throws SQLException {
         return customProductDao.getCustomPId(id);
       }
-  
+  public List<CustomProduct> searchCustomProductByName(String name) throws SQLException {
+      return customProductDao.searchCustomProductByName(name);
+  }
       }
 

@@ -17,4 +17,5 @@ public interface ICustomProductDao {
     int updateCustomProduct(int id, CustomProduct customProduct) throws SQLException;
 
     int deleteCustomProduct(int id) throws SQLException;
+    public List<CustomProduct> searchCustomProductByName(String name) throws SQLException;
 }
