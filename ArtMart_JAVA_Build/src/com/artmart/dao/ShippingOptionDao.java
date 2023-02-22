@@ -42,7 +42,7 @@ public class ShippingOptionDao implements IShippingOptionDao {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new ShippingOption(rs.getInt("shippingOptionID"), rs.getString("name"), rs.getString("carrier"),
+                    return new ShippingOption(rs.getInt("shippingOption_ID"), rs.getString("name"), rs.getString("carrier"),
                             rs.getString("shippingspeed"), rs.getDouble("shippingfee"), rs.getString("availableregions"));
                 } else {
                     return null;
