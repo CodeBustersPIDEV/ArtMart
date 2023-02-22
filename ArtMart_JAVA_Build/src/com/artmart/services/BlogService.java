@@ -179,6 +179,11 @@ public class BlogService implements IBlogService {
     public boolean deleteMedia(int media_id) {
         return this.media.deleteMedia(media_id);
     }
+    
+        @Override
+    public boolean deleteMediaByBlogID(int blog_id) {
+        return this.media.deleteMedia(blog_id);
+    }
 
     @Override
     public int addBlog2HasCat(HasCategory hc) {

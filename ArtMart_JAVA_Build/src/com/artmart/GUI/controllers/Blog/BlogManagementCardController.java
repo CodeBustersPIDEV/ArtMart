@@ -5,7 +5,9 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
+import com.artmart.models.Media;
 import com.artmart.services.BlogService;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -81,8 +83,16 @@ public class BlogManagementCardController implements Initializable {
         int b_id = Integer.parseInt(this.blog_id.getText());  
         boolean test1 = this.blogService.deleteHasCat(b_id);
         boolean test2 = this.blogService.deleteHasTag(b_id);
+        Media m = this.blogService.getOneMediaByBlogID(b_id);
         boolean test3 = this.blogService.deleteAllComments(b_id);
-        if (test1 && test2 && test3) {
+        File file = new File(m.getFile_path());
+        if (file.delete()) {
+            System.out.println("File deleted successfully.");
+        } else {
+            System.out.println("Failed to delete the file.");
+        }
+        boolean test4 = this.blogService.deleteMedia(b_id);
+        if (test1 && test2 && test3 && test4) {
             boolean test = this.blogService.deleteBlog(b_id);
 //       this.controller.refreshList();
 

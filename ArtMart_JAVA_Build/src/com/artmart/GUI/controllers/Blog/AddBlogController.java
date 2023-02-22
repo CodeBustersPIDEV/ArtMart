@@ -109,8 +109,8 @@ public class AddBlogController implements Initializable {
                 resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
                 HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
                 this.img.setBlog_id(resBlog.getId());
-                test3 = blogService.addMedia(img);
                 test2 = blogService.addBlog2HasCat(hc);
+                test3 = blogService.addMedia(img);
             }
 
             if (test1 == 1 && test2 == 1 && test3 == 1) {
