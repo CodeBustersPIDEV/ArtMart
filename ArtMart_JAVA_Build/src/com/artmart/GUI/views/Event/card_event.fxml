@@ -13,7 +13,7 @@
     </stylesheets>
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b9c8d7" height="175.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
-      <Button fx:id="btnViewEvent" layoutX="512.0" layoutY="76.0" mnemonicParsing="false" onAction="#onBtnViewEvent" prefHeight="31.0" prefWidth="74.0" text="View" textAlignment="CENTER" textFill="#1752b8">
+      <Button fx:id="btnViewEvent" layoutX="512.0" layoutY="70.0" mnemonicParsing="false" onAction="#onBtnViewEvent" prefHeight="31.0" prefWidth="74.0" text="View" textAlignment="CENTER" textFill="#1752b8">
          <font>
             <Font name="Agency FB Bold" size="20.0" />
          </font></Button>
@@ -39,7 +39,7 @@
             <Font name="Agency FB Bold" size="20.0" />
          </font>
       </Text>
-      <Button fx:id="btnDeleteEvent" layoutX="515.0" layoutY="127.0" mnemonicParsing="false" onAction="#onBtnDeleteEvent" text="Delete" textFill="#b81b18">
+      <Button fx:id="btnDeleteEvent" layoutX="515.0" layoutY="121.0" mnemonicParsing="false" onAction="#onBtnDeleteEvent" text="Delete" textFill="#b81b18">
          <font>
             <Font name="Agency FB Bold" size="20.0" />
          </font></Button>
@@ -68,5 +68,10 @@
             <Font name="Agency FB Bold" size="25.0" />
          </font>
       </Text>
+      <Button fx:id="btnEditEvent" layoutX="510.0" layoutY="17.0" mnemonicParsing="false" onAction="#onBtnEditEvent" prefHeight="34.0" prefWidth="79.0" text="Edit" textAlignment="CENTER" textFill="#09a83e">
+         <font>
+            <Font name="Agency FB Bold" size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
