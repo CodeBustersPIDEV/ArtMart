@@ -99,5 +99,21 @@ public class Edit_eventController implements Initializable {
         System.out.println("event id"+this.eventID);
     }
 
+
+    
+    @FXML
+    private void onBtnCancelEvent(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/list_event.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }        
+    }
     
 }
