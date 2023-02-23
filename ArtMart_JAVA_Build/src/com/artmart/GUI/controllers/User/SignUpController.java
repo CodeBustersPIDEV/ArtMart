@@ -7,6 +7,7 @@ package com.artmart.GUI.controllers.User;
 
 import com.artmart.models.Artist;
 import com.artmart.models.Client;
+import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.UserService;
 import java.io.IOException;
@@ -59,15 +60,19 @@ public class SignUpController implements Initializable {
     @FXML
     private Button sign_up_btn;
     @FXML
-    private Button artistProfilBtn;
+    private Button log_in_btn;
     @FXML
-    private Button clientProfileBtn;
+    private Button logOutBtn;
+    @FXML
+    private Button ProfileBtn;
+
     @FXML
     private ComboBox<String> identityField;
-    @FXML
-   
+
     UserService user_ser = new UserService();
     private int test1, test2;
+    Session session = new Session();
+    int UserID = session.getUserID("1");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,7 +81,7 @@ public class SignUpController implements Initializable {
     }
 
     @FXML
-    public void OnSignUp(ActionEvent event) throws IOException {
+    public void OnSignUp(ActionEvent event) {
         // Get form field values
         try {
             String name = nameField.getText();
@@ -85,30 +90,40 @@ public class SignUpController implements Initializable {
             int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
             String username = usernameField.getText();
             String password = pwdField.getText();
-             
-            User user = new User(phoneNumber, name, email, username, password, birthday);
-            if (identityField.getValue().equals("yes")) {
-
-                Artist artist = new Artist(user);
-                test1 = user_ser.createAccountAr(artist);
-            } else if (identityField.getValue().equals("no")) {
-                Client client = new Client(user);
-                test2 = user_ser.createAccountC(client);
-
-            }
-
-            if (test1 == 1 || test2 == 1) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText(null);
-                alert.setContentText("Account created");
-                alert.showAndWait();
+            String confirmPassword = cpwdField.getText();
+            String emailFormat = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+            if (username.isEmpty() || password.isEmpty() || email.isEmpty() || name.isEmpty() || birthdayField.getValue().toString().isEmpty() || Phone_nbrField.getText().isEmpty() || identityField.getValue().isEmpty()) {
+                Warning("You have to fill all the fields");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Oops!!Can not create account");
-                alert.showAndWait();
+                if (!password.equals(confirmPassword)) {
+                    Warning("The passwords must be identical");
+                } else if (!email.matches(emailFormat)) {
+                    Warning("The email must be valid");
+                } else {
+                    User user = new User(phoneNumber, name, email, username, password, birthday);
+
+                    if (identityField.getValue().equals("yes")) {
+                        Artist artist = new Artist(user);
+                        test1 = user_ser.createAccountAr(artist);
+                    } else if (identityField.getValue().equals("no")) {
+                        Client client = new Client(user);
+                        test2 = user_ser.createAccountC(client);
+                    }
+                    if (test1 == 1 || test2 == 1) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Success");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Account created");
+                        alert.showAndWait();
+
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Oops!!Can not create account");
+                        alert.showAndWait();
+                    }
+                }
             }
 
         } catch (Exception ex) {
@@ -121,11 +136,20 @@ public class SignUpController implements Initializable {
         }
     }
 
-    @FXML
+    public void Warning(String text) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+        alert.showAndWait();
+    }
 
+    @FXML
     public void OnSignIn(ActionEvent event) {
         try {
-            Stage stage = new Stage();
+            Stage stage = (Stage) log_in_btn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -137,26 +161,28 @@ public class SignUpController implements Initializable {
         }
     }
 
-    public void OnArtistProfile(ActionEvent event) {
+    public void goToProfile(ActionEvent event, String profile) {
         try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+            Stage stage = (Stage) ProfileBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/" + profile + ".fxml"));
+            Parent root = loader.load();
+            if (profile.equals("ProfileArtist")) {
+                ProfileArtistController controller = loader.getController();
+                controller.setProfile(UserID);
+
+            } else if (profile.equals("ProfileAdmin")) {
+                ProfileAdminController controller = loader.getController();
+                controller.setProfile(UserID);
+
+            } else if (profile.equals("ProfileClient")) {
+                ProfileClientController controller = loader.getController();
+                controller.setProfile(UserID);
+
+            }
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setTitle("User Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
- public void OnClientProfile(ActionEvent event) {
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("User Managment");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -164,23 +190,30 @@ public class SignUpController implements Initializable {
         }
     }
 
-    public void OnAdminProfile(ActionEvent event) {
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("User Managment");
-            stage.setScene(scene);
-            stage.show();
+    public void OnProfile(ActionEvent event) {
+        User user = user_ser.getUser(UserID);
 
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
+        if (user.getRole().equals("artist")) {
+            goToProfile(event, "ProfileArtist");
+        } else if (user.getRole().equals("client")) {
+            goToProfile(event, "ProfileClient");
+
+        } else if (user.getRole().equals("admin")) {
+            goToProfile(event, "ProfileAdmin");
+
         }
     }
 
     public void OnBack(ActionEvent event) {
         Stage stage = (Stage) sign_up_btn.getScene().getWindow();
         stage.close();
+    }
+
+    public void OnLogOut(ActionEvent event) {
+        session.logOut("1");
+        Stage stage = (Stage) logOutBtn.getScene().getWindow();
+        stage.close();
+        OnSignIn(event);
+
     }
 }

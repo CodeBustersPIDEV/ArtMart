@@ -96,4 +96,14 @@ public class UserService implements IUserService {
 
     }
 
+    @Override
+    public int getUserIdByUsername(String username) {
+        return this.userDao.getUserIdByUsername(username);
+    }
+
+    @Override
+    public int getUserIdByEmail(String email) {
+        return this.userDao.getUserIdByEmail(email);
+    }
+
 }

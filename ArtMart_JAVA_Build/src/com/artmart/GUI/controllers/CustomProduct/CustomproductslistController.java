@@ -47,6 +47,7 @@ public class CustomproductslistController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
     }
 
     public void makeList() throws SQLException {

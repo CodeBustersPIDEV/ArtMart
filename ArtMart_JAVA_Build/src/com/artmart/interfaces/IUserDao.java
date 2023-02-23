@@ -9,11 +9,16 @@ public interface IUserDao {
 
     User getUser(int user_id);
 
+    int getUserIdByEmail(String email);
+
     boolean deleteAccountU(int userId);
 
     List<User> viewListOfUsers();
 
     boolean updateAccountU(int user_id, User user);
 
+    int getUserIdByUsername(String username);
+
     public boolean authenticate(String username, String password);
+
 }

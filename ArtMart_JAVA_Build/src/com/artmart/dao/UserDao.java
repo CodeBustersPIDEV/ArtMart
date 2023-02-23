@@ -14,6 +14,8 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDao implements IUserDao {
 
@@ -97,6 +99,7 @@ public class UserDao implements IUserDao {
                 user.setUser_id(resultSet.getInt("user_id"));
                 user.setName(resultSet.getString("name"));
                 user.setEmail(resultSet.getString("email"));
+                user.setRole(resultSet.getString("role"));
                 user.setBirthday(resultSet.getDate("birthday"));
                 user.setPhone_nbr(resultSet.getInt("phoneNumber"));
                 user.setUsername(resultSet.getString("username"));
@@ -155,12 +158,12 @@ public class UserDao implements IUserDao {
                     "SELECT * FROM user WHERE username = ?"
             );
             statement.setString(1, username);
-            ResultSet rs = statement.executeQuery();
+            ResultSet user_result = statement.executeQuery();
 
-            if (rs.next()) {
-                String storedPassword = rs.getString("password");
+            if (user_result.next()) {
+                String storedPassword = user_result.getString("password");
 
-                if (storedPassword.equals(hash(password))) {
+                if (storedPassword.equals(password)) {
                     return true;
                 }
             }
@@ -171,19 +174,54 @@ public class UserDao implements IUserDao {
         return false;
     }
 
-    private String hash(String password) {
+    @Override
+    public int getUserIdByUsername(String username) {
+       
+            PreparedStatement statement;
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedPassword = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedPassword) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            // Handle exception
-            return null;
-        }
-    }
+            statement = connection.prepareStatement(
+                    "SELECT * FROM user WHERE username = ?"
+            );
+        
 
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setUser_id(resultSet.getInt("user_ID"));
+
+                return user.getUser_id();
+
+            }
+     }  catch (SQLException e) {
+            System.err.println("Error " + e.getMessage());
+        } 
+        return 0;
+}
+
+
+ @Override
+    public int getUserIdByEmail(String email) {
+       
+            PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(
+                    "SELECT * FROM user WHERE email = ?"
+            );
+        
+
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setUser_id(resultSet.getInt("user_ID"));
+
+                return user.getUser_id();
+
+            }
+     }  catch (SQLException e) {
+            System.err.println("Error  " + e.getMessage());
+        } 
+        return 0;
+}
 }
