@@ -38,6 +38,14 @@ public class ReadyproductsListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            this.displayList();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayList() throws SQLException {
+        try {
             this.vBox.getChildren().clear();
             this.readyProductslist = this.readyProductService.getAllReadyProducts();
             this.readyProductslist.forEach(rp -> {
@@ -64,6 +72,21 @@ public class ReadyproductsListController implements Initializable {
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    public void onAdd(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AddReadyProduct.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Add Ready Product");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

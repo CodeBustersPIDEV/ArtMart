@@ -24,6 +24,9 @@ public class ReadyProduct extends Product {
         this.readyProductId = readyProductId;
     }
 
+    public ReadyProduct(int categories_ID, String name, String description, String dimensions, float weight, String material, String imagePath, float price) {
+    }
+
     public int getReadyProductId() {
         return readyProductId;
     }

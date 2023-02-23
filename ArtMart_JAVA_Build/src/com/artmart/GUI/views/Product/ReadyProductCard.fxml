@@ -9,20 +9,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ReadyProductCardController">
    <children>
       <Label fx:id="pid" layoutX="540.0" layoutY="20.0" text="Id">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#987ed4" height="193.0" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="193.0" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
       <Text fx:id="name" layoutX="234.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
          <font>
             <Font name="Rockwell Nova Bold" size="18.0" />
          </font>
       </Text>
-      <ImageView fitHeight="162.0" fitWidth="192.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imagePreview" fitHeight="162.0" fitWidth="192.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
       <Text layoutX="234.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Material:" textAlignment="CENTER">
          <font>
             <Font name="Rockwell Nova Bold" size="12.0" />
@@ -58,7 +58,15 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="consultAllReadyProducts" alignment="CENTER" layoutX="523.0" layoutY="150.0" mnemonicParsing="false" onAction="" prefHeight="29.0" prefWidth="63.0" text="Details" textAlignment="CENTER">
+      <Button fx:id="delete" alignment="CENTER" layoutX="523.0" layoutY="42.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="29.0" prefWidth="63.0" text="Delete" textAlignment="CENTER">
+         <font>
+            <Font name="Rockwell Nova Bold" size="10.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
+      <Button fx:id="edit" alignment="CENTER" layoutX="523.0" layoutY="9.0" mnemonicParsing="false" onAction="#onEdit" prefHeight="29.0" prefWidth="63.0" text="Edit" textAlignment="CENTER">
          <font>
             <Font name="Rockwell Nova Bold" size="10.0" />
          </font>

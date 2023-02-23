@@ -61,45 +61,101 @@ public class ReadyProductDao {
         return null;
     }
 
+    public int getReadyProductId(int id) throws SQLException {
+        String query = "SELECT product_ID FROM readyproduct WHERE ready_product_ID = ?";
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("product_ID");
+        } else {
+            return 0;
+        }
+
+    }
+
     public List<ReadyProduct> getAllReadyProducts() throws SQLException {
         List<ReadyProduct> readyProducts = new ArrayList<>();
         String query = "SELECT * FROM readyproduct";
-        
+
         PreparedStatement statement = sqlConnection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
 
-        while(resultSet.next()) {
-                ReadyProduct readyProduct = new ReadyProduct(
-                        resultSet.getInt("ready_product_ID"),
-                        this.productDAO.getProductById(resultSet.getInt("product_ID"))
-                );
-                readyProducts.add(readyProduct);
+        while (resultSet.next()) {
+            ReadyProduct readyProduct = new ReadyProduct(
+                    resultSet.getInt("ready_product_ID"),
+                    this.productDAO.getProductById(resultSet.getInt("product_ID"))
+            );
+            readyProducts.add(readyProduct);
         }
         return readyProducts;
     }
 
-    public int createReadyProduct(Product p) throws SQLException {
-        String query = "INSERT INTO readyproduct (product_ID) VALUES (?)";
-        productDAO.createProduct(p);
-        PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setInt(1, p.getProductId());
-        return statement.executeUpdate();
+    public int createReadyProduct(ReadyProduct p) throws SQLException {
+        try {
+            PreparedStatement statement = sqlConnection.prepareStatement(
+                    "INSERT INTO readyproduct (ready_product_ID, price) "
+                    + "VALUES (?, ?)"
+            );
+            statement.setInt(1, productDAO.createProduct(p));
+            statement.setInt(2, p.getPrice());
+            statement.executeUpdate();
+            return 1;
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return 0;
     }
 
-    public int updateReadyProduct(int id, ReadyProduct readyProduct) throws SQLException {
-        productDAO.updateProduct(id, readyProduct);
-        String query = "UPDATE readyproduct SET product_ID = ? WHERE ready_product_ID = ?";
-        PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setInt(1, readyProduct.getProductId());
-        statement.setInt(2, id);
-        return statement.executeUpdate();
+    public boolean updateReadyProduct(int id, ReadyProduct readyProduct) throws SQLException {
+        try {
+            PreparedStatement statement = sqlConnection.prepareStatement(
+                    "UPDATE readyproduct SET  price= ? WHERE ready_product_ID = ?"
+            );
+
+            statement.setInt(1, readyProduct.getPrice());
+
+            statement.setInt(2, id);
+            statement.executeUpdate();
+            boolean readyPr = productDAO.updateProduct(id, readyProduct);
+            return readyPr;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return false;
     }
 
     public int deleteReadyProduct(int id) throws SQLException {
-        String query = "DELETE FROM readyproduct WHERE ready_product_ID = ?";
+        try {
+            PreparedStatement statement = sqlConnection.prepareStatement(
+                    "DELETE FROM readyproduct WHERE ready_product_ID = ?"
+            );
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            this.productDAO.deleteProduct(id);
+            return 1;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return 0;
+    }
+
+    public List<ReadyProduct> searchReadyProductByName(String name) throws SQLException {
+        List<ReadyProduct> readyProducts = new ArrayList<>();
+        String query = "SELECT * FROM readyproduct INNER JOIN product ON readyproduct.product_ID = product.product_ID WHERE product.name LIKE ?";
         PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setInt(1, id);
-        return statement.executeUpdate();
+        statement.setString(1, "%" + name + "%");
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            ReadyProduct readyProduct = new ReadyProduct(
+                    resultSet.getInt("ready_product_ID"),
+                    this.productDAO.getProductById(resultSet.getInt("product_ID"))
+            );
+            readyProducts.add(readyProduct);
+        }
+        return readyProducts;
     }
 
 }
