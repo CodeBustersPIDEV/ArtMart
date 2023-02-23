@@ -1,0 +1,74 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.artmart.models;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ *
+ * @author 21697
+ */
+public class Session {
+    private static Session instance;
+    private int userId;
+    private String username;
+    private String sessionId;
+  private static final Map<String, Session> activeSessions = new HashMap<>();
+
+    public Session() {
+    }
+
+    public static Session getInstance() {
+        if (instance == null) {
+            instance = new Session();
+        }
+        return instance;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+ public static void removeSession(String sessionId) {
+        activeSessions.remove(sessionId);
+    }
+ public static void logIn(String sessionId,Session session) {
+activeSessions.put(sessionId, session);   
+ }
+ public  int getUserID(String sessionId)
+ {
+   
+       Session session =activeSessions.get(sessionId);   
+if (session != null) {
+    int userId = session.getUserId();
+    System.out.println(userId);
+    return userId;
+}
+    return 0;
+ }
+    public boolean isLoggedIn() {
+        return sessionId != null;
+    }}

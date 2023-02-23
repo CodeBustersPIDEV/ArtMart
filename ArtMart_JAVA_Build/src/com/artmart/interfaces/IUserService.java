@@ -11,7 +11,8 @@ public interface IUserService {
     User getUser(int user_id);
 
     boolean updateAccountU(int user_id, User user);
-    
+
+    int getUserIdByUsername(String username);
 
     int createAccountC(Client client);
 
