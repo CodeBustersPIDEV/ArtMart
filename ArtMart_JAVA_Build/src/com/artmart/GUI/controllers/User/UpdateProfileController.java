@@ -124,7 +124,7 @@ public class UpdateProfileController implements Initializable {
         String picture ;
         if(imageUrl.equals("")){
             picture=user.getPicture();
-            System.out.println(picture);
+            //out.println(picture);
         }else
         {
            picture = imageUrl;
@@ -140,7 +140,7 @@ public class UpdateProfileController implements Initializable {
             admin.setDepartment(bio);
             a = user_ser.updateAccountA(userID, admin);
         } else if (user.getRole().equals("client")) {
-            System.out.println(u.getPicture());
+            //System.out.println(u.getPicture());
             Client client = new Client(u);
             a = user_ser.updateAccountC(userID, client);
         }

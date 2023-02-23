@@ -10,6 +10,8 @@ import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -80,9 +82,18 @@ public class ProfileClientController implements Initializable {
 
     @FXML
     public void OnBack(ActionEvent event) {
-        Stage stage = (Stage) backBtn.getScene().getWindow();
+       try{ Stage stage = (Stage) backBtn.getScene().getWindow();
         stage.close();
-    }
+        stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+    }   catch (IOException ex) {
+            Logger.getLogger(ProfileClientController.class.getName()).log(Level.SEVERE, null, ex);
+        }}
 
     @FXML
     public void OnEditProfile(ActionEvent event) {
