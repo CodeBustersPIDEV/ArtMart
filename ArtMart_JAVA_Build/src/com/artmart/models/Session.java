@@ -71,4 +71,12 @@ if (session != null) {
  }
     public boolean isLoggedIn() {
         return sessionId != null;
-    }}
+    }
+public  void logOut(String sessionId)
+ {
+   
+       Session session =activeSessions.remove(sessionId);   
+
+ }
+
+}

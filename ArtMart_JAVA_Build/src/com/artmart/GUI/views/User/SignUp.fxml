@@ -40,5 +40,6 @@
       <Text layoutX="385.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you looking to sell art ?" />
       <ComboBox fx:id="identityField" layoutX="407.0" layoutY="187.0" prefHeight="25.0" prefWidth="79.0" />
       <Button fx:id="ProfileBtn" layoutX="536.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnProfile" text="Profile" />
+      <Button fx:id="logOutBtn" layoutX="475.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnLogOut" text="LogOut" />
    </children>
 </AnchorPane>

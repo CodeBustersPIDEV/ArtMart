@@ -62,6 +62,8 @@ public class SignUpController implements Initializable {
     @FXML
     private Button log_in_btn;
     @FXML
+    private Button logOutBtn;
+    @FXML
     private Button ProfileBtn;
     
     @FXML
@@ -201,5 +203,13 @@ public class SignUpController implements Initializable {
     public void OnBack(ActionEvent event) {
         Stage stage = (Stage) sign_up_btn.getScene().getWindow();
         stage.close();
+    }
+    
+    public void OnLogOut(ActionEvent event)
+    {     session.logOut("1");
+         Stage stage = (Stage) logOutBtn.getScene().getWindow();
+        stage.close();
+        OnSignIn(event);
+        
     }
 }
