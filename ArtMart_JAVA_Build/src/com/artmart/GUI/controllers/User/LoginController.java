@@ -37,6 +37,8 @@ public class LoginController implements Initializable {
     private Label loginMsg;
     @FXML
     private Button LoginBtn;
+     @FXML
+    private Button signUpBtn;
     @FXML
     private Button forgotPwdBtn;
     UserService user_ser = new UserService();
@@ -52,7 +54,9 @@ public class LoginController implements Initializable {
     @FXML
     private void OnSignUp(ActionEvent event) {
         try {
-            Stage stage = new Stage();
+              Stage stage = (Stage) signUpBtn.getScene().getWindow();
+             stage.close();
+             stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
