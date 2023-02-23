@@ -78,8 +78,15 @@ public class BlogPageController implements Initializable {
      *
      * @param b_ID
      */
-    
-        private void setupComments(int bc_id) {
+    public VBox getContainer() {
+        return this.commentContainer;
+    }
+
+    public String getBlogID() {
+        return this.blog_id.getText();
+    }
+
+    public void setupComments(int bc_id) {
         List<Comment> commentList = new ArrayList<>();
         commentList = this.blogService.getAllComments(bc_id);
         if (commentList != null) {
@@ -101,7 +108,7 @@ public class BlogPageController implements Initializable {
             }
         }
     }
-    
+
     public void setUpData(String b_ID) {
         this.blog_id.setText(b_ID);
         this.id = Integer.parseInt(this.blog_id.getText());
@@ -123,10 +130,17 @@ public class BlogPageController implements Initializable {
         this.setupComments(id);
     }
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/CommentCard.fxml"));
+//        CommentCardController controller = loader.getController();
+//        boolean test = controller.getIsEdited();
+//        System.out.println(test);
+//        if (test) {
+//            this.comment_content.setText("");
+//            this.commentContainer.getChildren().clear();
+//            setupComments(this.id);
+//        }
 
     }
 
@@ -152,7 +166,7 @@ public class BlogPageController implements Initializable {
             this.comment_content.setText("");
             this.commentContainer.getChildren().clear();
             setupComments(this.id);
-       }
+        }
     }
 
 }
