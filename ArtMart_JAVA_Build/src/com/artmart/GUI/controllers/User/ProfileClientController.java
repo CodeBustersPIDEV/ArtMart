@@ -46,6 +46,9 @@ public class ProfileClientController implements Initializable {
     @FXML
     private Button backBtn;
     @FXML
+    private Button editProfileBtn;
+    
+    @FXML
     private ImageView ProfilePic;
 
     UserService user_ser = new UserService();
@@ -83,8 +86,9 @@ public class ProfileClientController implements Initializable {
 
     @FXML
     public void OnEditProfile(ActionEvent event) {
-        try {
-            Stage stage = new Stage();
+        try { Stage stage = (Stage) editProfileBtn.getScene().getWindow();
+             stage.close();
+             stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/updateProfile.fxml"));
             Parent root = loader.load();
             UpdateProfileController controller = loader.getController();

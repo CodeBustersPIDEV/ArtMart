@@ -90,7 +90,9 @@ public class ProfileArtistController implements Initializable {
 
     public void OnUpdateBtn(ActionEvent event) {
         try {
-            Stage stage = new Stage();
+            Stage stage = (Stage) editProfileBtn.getScene().getWindow();
+             stage.close();
+             stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/updateProfile.fxml"));
             Parent root = loader.load();
             UpdateProfileController controller = loader.getController();

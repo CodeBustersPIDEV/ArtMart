@@ -24,7 +24,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -32,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 /**
@@ -58,14 +61,18 @@ public class UpdateProfileController implements Initializable {
     @FXML
     private ImageView ProfilePic;
     @FXML
-    private Label departmentLabel;
+    private Label Label;
+
     @FXML
-    private Label bioLabel;
-    private String imageUrl;
+    private Button updateBtn;
+    private String imageUrl="";
     UserService user_ser = new UserService();
     User user = new User();
+    Artist artist = new Artist();
+
     boolean test2, test1, a;
     int userID;
+    Admin admin = new Admin();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,22 +97,17 @@ public class UpdateProfileController implements Initializable {
         }
         if (user.getRole().equals("artist")) {
             bioField.setVisible(true);
-            bioLabel.setVisible(true);
-            departmentLabel.setVisible(false);
-             Artist artist = new Artist(user);
-             bioField.setText(artist.getBio());
-             
-            
+            Label.setText("Bio");
+            Artist art = user_ser.getArtist(user.getUser_id());
+            bioField.setText(art.getBio());
+
         } else if (user.getRole().equals("admin")) {
             bioField.setVisible(true);
-            departmentLabel.setVisible(true);
-            bioLabel.setVisible(false);
-             Admin admin = new Admin(user);
-             bioField.setText(admin.getDepartment());
+            Label.setText("Department");
+            Admin ad = user_ser.getAdmin(user.getUser_id());
+            bioField.setText(ad.getDepartment());
         } else {
-            departmentLabel.setVisible(false);
             bioField.setVisible(false);
-            bioLabel.setVisible(false);
         }
     }
 
@@ -119,22 +121,28 @@ public class UpdateProfileController implements Initializable {
         String username = usernameField.getText();
         String password = pwdField.getText();
         String bio = bioField.getText();
-        String picture = imageUrl;
-        System.out.println(picture);
+        String picture ;
+        if(imageUrl.equals("")){
+            picture=user.getPicture();
+            System.out.println(picture);
+        }else
+        {
+           picture = imageUrl;
+        }
         User u = new User(phoneNumber, name, email, username, password, birthday, picture);
 
         if (user.getRole().equals("artist")) {
-            Artist artist = new Artist(u);
+            artist = new Artist(u);
             artist.setBio(bio);
             a = user_ser.updateAccountAr(userID, artist);
         } else if (user.getRole().equals("admin")) {
-                 Admin admin = new Admin(u);
+            admin = new Admin(u);
             admin.setDepartment(bio);
-            a = user_ser.updateAccountA(userID, admin);         
-        } else if (user.getRole().equals("client")){
+            a = user_ser.updateAccountA(userID, admin);
+        } else if (user.getRole().equals("client")) {
             System.out.println(u.getPicture());
-            Client client =new Client(u);
-          a = user_ser.updateAccountC(userID, client);
+            Client client = new Client(u);
+            a = user_ser.updateAccountC(userID, client);
         }
         if (a) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -148,6 +156,19 @@ public class UpdateProfileController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Oops!!Can not update account");
             alert.showAndWait();
+        }
+        try {
+            Stage stage = (Stage) updateBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
         }
     }
 

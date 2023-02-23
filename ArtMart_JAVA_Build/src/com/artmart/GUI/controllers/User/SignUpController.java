@@ -60,6 +60,8 @@ public class SignUpController implements Initializable {
     @FXML
     private Button sign_up_btn;
     @FXML
+    private Button log_in_btn;
+    @FXML
     private Button ProfileBtn;
     
     @FXML
@@ -130,8 +132,9 @@ public class SignUpController implements Initializable {
     @FXML
 
     public void OnSignIn(ActionEvent event) {
-        try {
-            Stage stage = new Stage();
+        try {Stage stage = (Stage) log_in_btn.getScene().getWindow();
+             stage.close();
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
