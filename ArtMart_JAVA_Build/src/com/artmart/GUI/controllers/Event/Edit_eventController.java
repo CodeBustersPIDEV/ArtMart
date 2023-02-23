@@ -144,7 +144,7 @@ public class Edit_eventController implements Initializable {
             capacity = Integer.parseInt(txtEventCapacity.getText());
             startDate = Date.valueOf(dpEventStartDate.getValue());
             endDate = Date.valueOf(dpEventEndDate.getValue());  
-            Event ev = new Event(name, location, type, description, entryFee, capacity, startDate, endDate, userID);
+            Event ev = new Event(name, location, type, description, entryFee, capacity, startDate, endDate);
 
             //es = new EventService();
 

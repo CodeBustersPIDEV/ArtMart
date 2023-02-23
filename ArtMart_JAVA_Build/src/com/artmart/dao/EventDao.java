@@ -107,19 +107,19 @@ public class EventDao implements IEventDao {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE Event" + 
-                    "SET userID = ?, name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?" + 
+                    "SET name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?" +
                     "WHERE eventID = ?"
             );
-            statement.setInt(1, event.getUserID());
-            statement.setString(2, event.getName());
-            statement.setString(3, event.getLocation());
-            statement.setString(4, event.getType());
-            statement.setString(5, event.getDescription());
-            statement.setDouble(6, event.getEntryFee());
-            statement.setInt(7, event.getCapacity());
-            statement.setDate(8, event.getStartDate());
-            statement.setDate(9, event.getEndDate());
-            statement.setInt(10, eventID);
+            //statement.setInt(1, event.getUserID());
+            statement.setString(1, event.getName());
+            statement.setString(2, event.getLocation());
+            statement.setString(3, event.getType());
+            statement.setString(4, event.getDescription());
+            statement.setDouble(5, event.getEntryFee());
+            statement.setInt(6, event.getCapacity());
+            statement.setDate(7, event.getStartDate());
+            statement.setDate(8, event.getEndDate());
+            statement.setInt(9, eventID);
             
             statement.executeUpdate();
             return true;
