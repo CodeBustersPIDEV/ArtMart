@@ -48,6 +48,8 @@ public class CustomProductGUIController implements Initializable {
             stage.setTitle("Custom Product Managment");
             stage.setScene(scene);
             stage.show();
+                    Stage currentStage = (Stage) img.getScene().getWindow();
+        currentStage.close();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
@@ -66,6 +68,8 @@ public class CustomProductGUIController implements Initializable {
             stage.setTitle("Custom Product Managment");
             stage.setScene(scene);
             stage.show();
+                  Stage currentStage = (Stage) img.getScene().getWindow();
+        currentStage.close();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
@@ -99,6 +103,8 @@ public class CustomProductGUIController implements Initializable {
             stage.setTitle("Chats Managment");
             stage.setScene(scene);
             stage.show();
+                  Stage currentStage = (Stage) img.getScene().getWindow();
+        currentStage.close();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }

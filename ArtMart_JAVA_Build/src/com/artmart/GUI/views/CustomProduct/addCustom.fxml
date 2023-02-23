@@ -33,5 +33,6 @@
             <Image url="@../../../../../../../../New_Project-removebg-preview.png" />
          </image>
       </ImageView>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="Back" />
    </children>
 </AnchorPane>

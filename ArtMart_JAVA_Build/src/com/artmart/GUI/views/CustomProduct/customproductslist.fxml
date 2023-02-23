@@ -23,5 +23,6 @@
       <Text fx:id="total" layoutX="494.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="total" />
       <Text layoutX="443.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Total Weight Is :" />
       <Button fx:id="statisticb" layoutX="474.0" layoutY="192.0" mnemonicParsing="false" onAction="#statistic" text="statistic" />
+      <Button layoutX="525.0" layoutY="403.0" mnemonicParsing="false" onAction="#onexit" text="exit" />
    </children>
 </AnchorPane>

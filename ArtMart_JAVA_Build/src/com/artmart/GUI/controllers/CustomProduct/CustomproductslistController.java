@@ -10,10 +10,13 @@
     import java.util.Comparator;
     import java.util.List;
     import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
     import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
     import javafx.fxml.FXMLLoader;
     import javafx.fxml.Initializable;
+import javafx.scene.Node;
     import javafx.scene.Parent;
     import javafx.scene.Scene;
     import javafx.scene.control.Button;
@@ -85,6 +88,8 @@ import javafx.scene.text.Text;
                     this.vBox.getChildren().add(root);
                 } catch (IOException e) {
                     System.out.print(e.getCause());
+                } catch (SQLException ex) {
+                    Logger.getLogger(CustomproductslistController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
         }
@@ -104,6 +109,8 @@ import javafx.scene.text.Text;
                 this.vBox.getChildren().add(root);
             } catch (IOException e) {
                 System.out.print(e.getCause());
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomproductslistController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -125,7 +132,9 @@ import javafx.scene.text.Text;
                 this.vBox.getChildren().add(root);
             } catch (IOException e) {
                 System.out.print(e.getCause());
-            }
+            } catch (SQLException ex) {
+                  Logger.getLogger(CustomproductslistController.class.getName()).log(Level.SEVERE, null, ex);
+              }
         });
     }
 
@@ -148,7 +157,9 @@ import javafx.scene.text.Text;
                 this.vBox.getChildren().add(root);
             } catch (IOException e) {
                 System.out.print(e.getCause());
-            }
+            }   catch (SQLException ex) {
+                    Logger.getLogger(CustomproductslistController.class.getName()).log(Level.SEVERE, null, ex);
+                }
         });
     }
 
@@ -168,6 +179,16 @@ import javafx.scene.text.Text;
                 System.out.print(e.getMessage());
             }
         }
+
+    @FXML
+    private void onexit(ActionEvent event) throws IOException, SQLException {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
+    Parent root = loader.load();
+    Scene scene = new Scene(root);
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.setScene(scene);
+    stage.show();
+    }
         }
 
 
