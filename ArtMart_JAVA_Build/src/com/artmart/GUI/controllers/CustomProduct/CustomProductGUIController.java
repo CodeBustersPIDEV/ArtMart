@@ -7,6 +7,7 @@ package com.artmart.GUI.controllers.CustomProduct;
 
 import com.artmart.dao.CustomProductDao;
 import com.artmart.dao.ProductDao;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -19,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -33,9 +35,14 @@ public class CustomProductGUIController implements Initializable {
          ProductDao x = new ProductDao();
     @FXML
     private ImageView img;
+      private Image image;
+         
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+  File file = new File("src/com/artmart/GUI/controllers/CustomProduct/artmart.PNG");
+       this.image = new Image(file.toURI().toString());
+       this.img.setImage(image);
     }    
    @FXML
     public void handleConsultAllProductsButton(ActionEvent event) {

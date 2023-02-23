@@ -28,6 +28,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -59,13 +61,20 @@ public class AddCustomController implements Initializable {
      private final CategoriesDao categoriesDao = new CategoriesDao();
     @FXML
     private Button imageButton;
+    @FXML
+    private ImageView img;
+    private Image image;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+          File file = new File("src/com/artmart/GUI/controllers/CustomProduct/artmart.PNG");
+       this.image = new Image(file.toURI().toString());
+       this.img.setImage(image);
         try {
+            
             // Get all categories from the database
             List<Categories> categories = categoriesDao.getAllCategories();
 
