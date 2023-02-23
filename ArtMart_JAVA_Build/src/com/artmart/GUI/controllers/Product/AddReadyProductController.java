@@ -29,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -45,7 +46,7 @@ public class AddReadyProductController implements Initializable {
     @FXML
     private TextField nameF;
     @FXML
-    private TextField descriptionF;
+    private TextArea descriptionF;
     @FXML
     private TextField dimensionsF;
     @FXML
@@ -65,6 +66,8 @@ public class AddReadyProductController implements Initializable {
     private Button backBtn;
     @FXML
     private Button uploadImage;
+
+    ReadyProductService readyProductService = new ReadyProductService();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -136,11 +139,10 @@ public class AddReadyProductController implements Initializable {
             return;
         }
 
-        ReadyProduct baseProduct = new ReadyProduct(selectedCategory.getCategories_ID(), name, description, dimensions, weight, material, imagePath, price);
+        Product basePr = new Product(selectedCategory.getCategories_ID(), name, description, dimensions, weight, material, imagePath);
 
-        ReadyProductService readyProductService = new ReadyProductService();
-
-        int result = readyProductService.createReadyProduct(baseProduct);
+        ReadyProduct readyPr = new ReadyProduct(basePr);
+        int result = readyProductService.createReadyProduct(readyPr);
         if (result > 0) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Add Ready Product");

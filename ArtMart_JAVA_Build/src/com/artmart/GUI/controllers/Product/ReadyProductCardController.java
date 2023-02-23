@@ -5,7 +5,6 @@
  */
 package com.artmart.GUI.controllers.Product;
 
-import com.artmart.GUI.controllers.CustomProduct.EditCpController;
 import com.artmart.dao.ReadyProductDao;
 import com.artmart.models.ReadyProduct;
 import java.io.IOException;
@@ -16,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -72,7 +72,7 @@ public class ReadyProductCardController implements Initializable {
         this.category.setText(Integer.toString(p.getCategoryId()));
         this.dimensions.setText(p.getDimensions());
         this.material.setText(p.getMaterial());
-        //this.price.setText(p.getPrice());
+        this.price.setText(Float.toString(p.getPrice()));
 
         // Load the image from the file path stored in ReadyProduct object's image field
         Image image = new Image("file:" + p.getImage());
@@ -96,27 +96,18 @@ public class ReadyProductCardController implements Initializable {
     @FXML
     private void onEdit(ActionEvent event) throws SQLException {
         try {
-            // create a new instance of the FXMLLoader
-            FXMLLoader loader = new FXMLLoader();
-            // set the location of the FXML file for the EditReadyProductController
-            loader.setLocation(getClass().getResource("/com/artmart/GUI/views/Product/EditReadyProduct.fxml"));
-            // load the FXML file and get the root node of the scene graph
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/EditReadyProduct.fxml"));
             Parent root = loader.load();
-            EditReadyProductController editController = loader.getController();
-            editController.setProductId(this.p.getProductId());
             Scene scene = new Scene(root);
-            // create a new stage and set the scene
-            Stage stage = new Stage();
+            EditReadyProductController controller = loader.getController();
+            controller.setUpData(this.pid.getText());
+            stage.setResizable(false);
             stage.setScene(scene);
-            stage.setTitle("Edit Ready Product");
-            // close the current window
-            Stage currentStage = (Stage) delete.getScene().getWindow();
-            currentStage.close();
-            // show the new window
             stage.show();
+
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
-
 }

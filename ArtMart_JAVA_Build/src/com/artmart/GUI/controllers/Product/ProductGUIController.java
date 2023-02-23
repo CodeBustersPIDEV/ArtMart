@@ -8,8 +8,13 @@ package com.artmart.GUI.controllers.Product;
 import com.artmart.dao.ProductDao;
 import com.artmart.dao.ReadyProductDao;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,22 +35,45 @@ public class ProductGUIController implements Initializable {
 
     ReadyProductDao cc = new ReadyProductDao();
     ProductDao x = new ProductDao();
-    
+
     @FXML
-    private ImageView imagePreview;
+    private ImageView imagePreview1;
+    @FXML
+    private ImageView imagePreview2;
+    @FXML
+    private ImageView imagePreview3;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        List<String> imageUrls = null;
+        try {
+            imageUrls = cc.getRandomProductImages(3);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductGUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (imageUrls.size() >= 1) {
+            setProductImage(imagePreview1, imageUrls.get(0));
+        }
+        if (imageUrls.size() >= 2) {
+            setProductImage(imagePreview2, imageUrls.get(1));
+        }
+        if (imageUrls.size() >= 3) {
+            setProductImage(imagePreview3, imageUrls.get(2));
+        }
     }
-    
-    public void setProductImage(Image product_image) {
-        this.imagePreview.setImage(product_image);
+
+    private void setProductImage(ImageView imageView, String imageUrl) {
+        try {
+            Image productImage = new Image(imageUrl);
+            imageView.setImage(productImage);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error loading image: " + e.getMessage());
+        }
     }
-    
+
     @FXML
     public void consultAllReadyProducts(ActionEvent event) {
-          try {
+        try {
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/readyproductslist.fxml"));
 

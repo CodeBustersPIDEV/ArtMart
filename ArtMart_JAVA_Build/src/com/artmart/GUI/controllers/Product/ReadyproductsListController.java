@@ -19,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -33,6 +35,10 @@ public class ReadyproductsListController implements Initializable {
 
     @FXML
     private VBox vBox;
+    @FXML
+    private TextField search;
+    @FXML
+    private Button searchBtn;
     private List<ReadyProduct> readyProductslist;
 
     @Override
@@ -92,6 +98,25 @@ public class ReadyproductsListController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    @FXML
+    private void onSearch(ActionEvent event) throws SQLException {
+        String keyword = search.getText();
+        List<ReadyProduct> matchingProducts = readyProductService.searchReadyProductByName(keyword);
+        this.vBox.getChildren().clear();
+        matchingProducts.forEach(rP -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductCard.fxml"));
+                Parent root = loader.load();
+                ReadyProductCardController controller = loader.getController();
+                controller.setReadyProduct(rP, this);
+                root.setId("" + rP.getReadyProductId());
+                this.vBox.getChildren().add(root);
+            } catch (IOException e) {
+                System.out.print(e.getCause());
+            }
+        });
     }
 
 }

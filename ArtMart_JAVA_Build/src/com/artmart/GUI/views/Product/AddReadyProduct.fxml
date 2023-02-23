@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Product.AddReadyProductController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.AddReadyProductController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" height="406.0" stroke="BLACK" strokeType="INSIDE" width="600.0">
             <fill>
@@ -32,37 +32,37 @@
                 <DropShadow color="#00000087" />
             </effect>
         </Button>
-        <TextField fx:id="name" layoutX="126.0" layoutY="103.0" prefHeight="25.0" prefWidth="149.0" promptText="Name">
+        <TextField fx:id="nameF" layoutX="126.0" layoutY="103.0" prefHeight="25.0" prefWidth="149.0" promptText="Name">
             <font>
                 <Font name="Rockwell Nova" size="12.0" />
             </font>
         </TextField>
-        <TextField fx:id="material" layoutX="312.0" layoutY="103.0" prefHeight="25.0" prefWidth="149.0" promptText="Material">
+        <TextField fx:id="materialF" layoutX="312.0" layoutY="103.0" prefHeight="25.0" prefWidth="149.0" promptText="Material">
             <font>
                 <Font name="Rockwell Nova" size="12.0" />
             </font>
         </TextField>
-        <TextField fx:id="weight" layoutX="126.0" layoutY="148.0" prefHeight="25.0" prefWidth="150.0" promptText="Weight">
+        <TextField fx:id="weightF" layoutX="126.0" layoutY="148.0" prefHeight="25.0" prefWidth="150.0" promptText="Weight">
             <font>
                 <Font name="Rockwell Nova" size="12.0" />
             </font>
         </TextField>
-        <TextField fx:id="dimensions" layoutX="312.0" layoutY="148.0" prefHeight="25.0" prefWidth="149.0" promptText="Dimensions">
+        <TextField fx:id="dimensionsF" layoutX="312.0" layoutY="148.0" prefHeight="25.0" prefWidth="149.0" promptText="Dimensions">
             <font>
                 <Font name="Rockwell Nova" size="12.0" />
             </font>
         </TextField>
-        <TextField fx:id="price" layoutX="126.0" layoutY="194.0" prefHeight="25.0" prefWidth="150.0" promptText="Price">
+        <TextField fx:id="priceF" layoutX="126.0" layoutY="194.0" prefHeight="25.0" prefWidth="150.0" promptText="Price">
             <font>
                 <Font name="Rockwell Nova" size="12.0" />
             </font>
         </TextField>
-        <TextArea fx:id="description" layoutX="126.0" layoutY="239.0" prefHeight="104.0" prefWidth="150.0" promptText="Description...">
+        <TextArea fx:id="descriptionF" layoutX="126.0" layoutY="239.0" prefHeight="104.0" prefWidth="150.0" promptText="Description...">
             <font>
                 <Font name="Rockwell Nova" size="12.0" />
             </font>
         </TextArea>
-        <ComboBox fx:id="category" editable="true" layoutX="312.0" layoutY="194.0" prefWidth="150.0" promptText="Category" />
+        <ComboBox fx:id="categoryF" editable="true" layoutX="312.0" layoutY="194.0" prefWidth="150.0" promptText="Category" />
         <Button fx:id="uploadImage" alignment="CENTER" layoutX="319.0" layoutY="277.0" mnemonicParsing="false" onAction="#onUpload" prefHeight="29.0" prefWidth="138.0" text="Upload image" textAlignment="CENTER">
             <font>
                 <Font name="Rockwell Nova Bold" size="12.0" />

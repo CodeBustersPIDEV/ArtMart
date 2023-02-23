@@ -11,6 +11,8 @@ import com.artmart.dao.ReadyProductDao;
 import com.artmart.models.Categories;
 import com.artmart.models.Product;
 import com.artmart.models.ReadyProduct;
+import com.artmart.services.ProductService;
+import com.artmart.services.ReadyProductService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +30,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -40,13 +43,17 @@ import javafx.stage.Stage;
 public class EditReadyProductController implements Initializable {
 
     @FXML
+    private Label prodID;
+    @FXML
     private TextField nameF;
     @FXML
-    private TextField descriptionF;
+    private TextArea descriptionF;
     @FXML
     private TextField dimensionsF;
     @FXML
     private TextField weightF;
+    @FXML
+    private TextField priceF;
     @FXML
     private TextField materialF;
     @FXML
@@ -55,12 +62,9 @@ public class EditReadyProductController implements Initializable {
     private TextField imageField;
     @FXML
     private Button edit;
-    private Product viewProduct = new Product();
     private ReadyproductsListController controller = new ReadyproductsListController();
     private final ProductDao productDao = new ProductDao();
     private final CategoriesDao categoriesDao = new CategoriesDao();
-    @FXML
-    private Label prodid;
     // variable to hold the ID of the ready product
     private int readyProductId;
     @FXML
@@ -69,6 +73,9 @@ public class EditReadyProductController implements Initializable {
     private Button uploadImage;
 
     private File selectedImageFile;
+
+    private ReadyProduct viewProd = new ReadyProduct();
+    private int id;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -88,6 +95,49 @@ public class EditReadyProductController implements Initializable {
         }
     }
 
+    public void setUpData(String pid) {
+        try {
+            this.prodID.setText(pid);
+            this.id = Integer.parseInt(this.prodID.getText());
+            ReadyProductService readyProductService = new ReadyProductService();
+
+            int productId = readyProductService.getReadyProductId(id);
+            if (productId == 0) {
+                throw new SQLException("Failed to get product ID from database");
+            }
+            ProductService productService = new ProductService();
+            Product product = productService.getProductById(productId);
+
+            this.viewProd = convertToReadyProduct(product);
+
+            this.nameF.setText(this.viewProd.getName());
+            this.descriptionF.setText(this.viewProd.getDescription());
+            this.dimensionsF.setText(this.viewProd.getDimensions());
+            this.weightF.setText(Float.toString(this.viewProd.getWeight()));
+            this.priceF.setText(Float.toString(this.viewProd.getPrice()));
+            this.materialF.setText(this.viewProd.getMaterial());
+            this.imageField.setText(this.viewProd.getImage());
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to get data from database");
+            alert.showAndWait();
+        }
+    }
+
+    public static ReadyProduct convertToReadyProduct(Product product) {
+        ReadyProduct readyProduct = new ReadyProduct();
+        readyProduct.setProductId(product.getProductId());
+        readyProduct.setName(product.getName());
+        readyProduct.setDescription(product.getDescription());
+        readyProduct.setDimensions(product.getDimensions());
+        readyProduct.setWeight(product.getWeight());
+        readyProduct.setMaterial(product.getMaterial());
+        readyProduct.setImage(product.getImage());
+        return readyProduct;
+    }
+
     @FXML
     private void onEdit(ActionEvent event) throws SQLException, IOException {
         String name = nameF.getText();
@@ -97,6 +147,7 @@ public class EditReadyProductController implements Initializable {
         String material = materialF.getText();
         Categories category = categoryF.getValue();
         String categoryName = category.getName(); // get the name of the selected category
+        float price = Float.parseFloat(priceF.getText());
 
         // Get the selected image file path
         String imagePath = imageField.getText();
@@ -105,7 +156,7 @@ public class EditReadyProductController implements Initializable {
         }
 
         // create a new product object with the updated values
-        Product u = new Product(category.getCategories_ID(), name, description, dimensions, weight, material, imagePath);
+        Product u = new ReadyProduct(category.getCategories_ID(), name, description, dimensions, weight, material, imagePath, price);
         // update the product using the ID of the ready product
         boolean a = productDao.updateProduct(this.readyProductId, u);
         if (a) {

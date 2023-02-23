@@ -6,8 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Product;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ReadyProductDao {
@@ -94,7 +99,7 @@ public class ReadyProductDao {
     public int createReadyProduct(ReadyProduct p) throws SQLException {
         try {
             PreparedStatement statement = sqlConnection.prepareStatement(
-                    "INSERT INTO readyproduct (ready_product_ID, price) "
+                    "INSERT INTO readyproduct (product_ID, price) "
                     + "VALUES (?, ?)"
             );
             statement.setInt(1, productDAO.createProduct(p));
@@ -158,4 +163,23 @@ public class ReadyProductDao {
         return readyProducts;
     }
 
+    public static List<String> getRandomProductImages(int count) throws SQLException {
+        ReadyProductDao readyProductDao = new ReadyProductDao();
+        List<ReadyProduct> products = readyProductDao.getAllReadyProducts();
+        List<String> images = new ArrayList<>();
+
+        Collections.shuffle(products);
+        for (int i = 0; i < count && i < products.size(); i++) {
+            ReadyProduct product = products.get(i);
+            String imagePath = product.getImage();
+            File file = new File(imagePath);
+            if (file.exists()) {
+                images.add(file.toURI().toString());
+            } else {
+                System.out.println("Image file not found: " + imagePath);
+            }
+        }
+
+        return images;
+    }
 }
