@@ -25,7 +25,6 @@ public class UserService implements IUserService {
         return this.userDao.updateAccountU(user_id, user);
     }
 
-  
     @Override
     public int createAccountC(Client client) {
         return this.clientDao.createAccountC(client);
@@ -99,7 +98,12 @@ public class UserService implements IUserService {
 
     @Override
     public int getUserIdByUsername(String username) {
-return this.userDao.getUserIdByUsername(username);    }
+        return this.userDao.getUserIdByUsername(username);
+    }
 
+    @Override
+    public int getUserIdByEmail(String email) {
+        return this.userDao.getUserIdByEmail(email);
+    }
 
 }

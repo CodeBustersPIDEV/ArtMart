@@ -37,6 +37,8 @@ public class LoginController implements Initializable {
     private Label loginMsg;
     @FXML
     private Button LoginBtn;
+    @FXML
+    private Button forgotPwdBtn;
     UserService user_ser = new UserService();
 
     /**
@@ -110,4 +112,21 @@ public class LoginController implements Initializable {
         }
 
     }
+     @FXML
+    private void OnForgotPwd(ActionEvent event) {
+        try {
+                     Stage stage = (Stage) forgotPwdBtn.getScene().getWindow();
+             stage.close();
+             stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/recuperatePwd.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+    
 }

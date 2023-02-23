@@ -9,6 +9,8 @@ public interface IUserDao {
 
     User getUser(int user_id);
 
+    int getUserIdByEmail(String email);
+
     boolean deleteAccountU(int userId);
 
     List<User> viewListOfUsers();

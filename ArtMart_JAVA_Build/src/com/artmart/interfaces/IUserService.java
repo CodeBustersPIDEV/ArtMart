@@ -14,6 +14,8 @@ public interface IUserService {
 
     int getUserIdByUsername(String username);
 
+    int getUserIdByEmail(String email);
+
     int createAccountC(Client client);
 
     Client getClient(int user_id);

@@ -194,7 +194,34 @@ public class UserDao implements IUserDao {
 
             }
      }  catch (SQLException e) {
-            System.err.println("Error authenticating user: " + e.getMessage());
+            System.err.println("Error " + e.getMessage());
         } 
         return 0;
-}}
+}
+
+
+ @Override
+    public int getUserIdByEmail(String email) {
+       
+            PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(
+                    "SELECT * FROM user WHERE email = ?"
+            );
+        
+
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setUser_id(resultSet.getInt("user_ID"));
+
+                return user.getUser_id();
+
+            }
+     }  catch (SQLException e) {
+            System.err.println("Error  " + e.getMessage());
+        } 
+        return 0;
+}
+}
