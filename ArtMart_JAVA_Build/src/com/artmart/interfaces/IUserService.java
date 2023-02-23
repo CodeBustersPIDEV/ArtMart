@@ -11,6 +11,7 @@ public interface IUserService {
     User getUser(int user_id);
 
     boolean updateAccountU(int user_id, User user);
+    
 
     int createAccountC(Client client);
 

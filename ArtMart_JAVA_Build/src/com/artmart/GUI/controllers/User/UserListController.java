@@ -6,6 +6,7 @@
 package com.artmart.GUI.controllers.User;
 
 import com.artmart.GUI.controllers.CustomProduct.CustomProductCardController;
+import com.artmart.models.CustomProduct;
 import com.artmart.models.Media;
 import com.artmart.models.User;
 import com.artmart.services.UserService;
@@ -17,11 +18,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -35,26 +39,32 @@ public class UserListController implements Initializable {
 
     @FXML
     private VBox vbox;
+     @FXML
+    private TextField searchField;
     UserService user_ser = new UserService();
     User user = new User();
     private List<User> userlist;
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            this.makeList();
+            userlist = this.user_ser.viewListOfUsers();
+
+            this.makeList(userlist);
+             searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        Search(newValue);
+    });
         } catch (SQLException ex) {
             Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
         }
+      
     }
 
-    public void makeList() throws SQLException {
-        this.vbox.getChildren().clear();
-        this.userlist = this.user_ser.viewListOfUsers();
-        this.userlist.forEach(u -> {
+    public void makeList(List<User> Users) throws SQLException {
+        this.vbox.getChildren().clear();  
+        Users.forEach(u -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/UserCard.fxml"));
                 Pane pane = loader.load();
@@ -82,5 +92,16 @@ public class UserListController implements Initializable {
             }
         });
     }
-
+public void Search(String searchText)
+{    vbox.getChildren().clear();
+ List<User> searchedUsers = userlist.stream()
+            .filter(u -> u.getUsername().toLowerCase().contains(searchField.getText().toLowerCase()))
+            .collect(Collectors.toList());
+        try {
+            this.makeList(searchedUsers);
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
 }

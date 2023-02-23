@@ -16,4 +16,5 @@ public interface IUserDao {
     boolean updateAccountU(int user_id, User user);
 
     public boolean authenticate(String username, String password);
+    
 }
