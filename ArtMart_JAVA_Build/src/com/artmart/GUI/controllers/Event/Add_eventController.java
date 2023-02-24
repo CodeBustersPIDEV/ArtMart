@@ -142,7 +142,7 @@ public class Add_eventController implements Initializable {
                 alert.showAndWait();
                 //userID++;
                 alert.close();
-                //returnToEventHomepage(event);
+                returnToEventHomepage(event);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Add Event");

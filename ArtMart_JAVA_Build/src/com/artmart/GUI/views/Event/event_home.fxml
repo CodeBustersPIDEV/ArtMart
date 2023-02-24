@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Event_homeController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="650.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Event_homeController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/event/event_home.css" />
     </stylesheets>
    <children>
-      <Button fx:id="btnGoToAddEvent" layoutX="185.0" layoutY="187.0" mnemonicParsing="false" onAction="#onGoToAddEvent" text="Add New Event">
+      <Button fx:id="btnGoToAddEvent" layoutX="152.0" layoutY="216.0" mnemonicParsing="false" onAction="#onGoToAddEvent" text="Add New Event" textFill="#2c8e9c">
          <font>
-            <Font name="Agency FB Bold" size="14.0" />
+            <Font name="Agency FB Bold" size="24.0" />
          </font></Button>
       <Button id="btnReturn" layoutX="4.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnToMain" text="&lt; Back">
          <font>
             <Font name="Agency FB Bold" size="14.0" />
          </font></Button>
-      <Label layoutX="212.0" layoutY="56.0" text="Event Home Page">
+      <Label layoutX="185.0" layoutY="56.0" text="Event Home Page" textFill="#3f68ff">
          <font>
-            <Font name="Agency FB Bold" size="30.0" />
+            <Font name="Agency FB Bold" size="48.0" />
          </font>
       </Label>
-      <Button fx:id="btnGetAllEvents" layoutX="334.0" layoutY="187.0" mnemonicParsing="false" onAction="#onGetAllEvents" text="View Event List">
+      <Button fx:id="btnGetAllEvents" layoutX="340.0" layoutY="216.0" mnemonicParsing="false" onAction="#onGetAllEvents" text="View Event List" textFill="#2c8e9c">
          <font>
-            <Font name="Agency FB Bold" size="14.0" />
+            <Font name="Agency FB Bold" size="24.0" />
          </font>
       </Button>
    </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </AnchorPane>

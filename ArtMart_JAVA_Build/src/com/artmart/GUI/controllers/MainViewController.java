@@ -11,8 +11,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import java.io.IOException;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 
 public class MainViewController implements Initializable {
+
+    @FXML
+    private Button orderBtn;
+    @FXML
+    private Button userBtn;
+    @FXML
+    private Button productBtn;
+    @FXML
+    private Button eventBtn;
+    @FXML
+    private Button cProductBtn;
+    @FXML
+    private Button blogBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

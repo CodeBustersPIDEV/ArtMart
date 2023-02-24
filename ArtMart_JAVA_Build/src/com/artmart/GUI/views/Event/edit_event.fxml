@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Event.Edit_eventController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="640.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Edit_eventController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/event/edit_event.css" />
     </stylesheets>
    <children>
-      <Label alignment="CENTER" layoutX="24.0" layoutY="38.0" prefHeight="65.0" prefWidth="138.0" text="Edit Event">
+      <Label alignment="CENTER" layoutX="24.0" layoutY="38.0" prefHeight="65.0" prefWidth="138.0" text="Edit Event" textFill="#3f68ff">
          <font>
             <Font name="Agency FB Bold" size="33.0" />
          </font>
@@ -25,13 +25,13 @@
       <ComboBox fx:id="comboBoxEventType" layoutX="79.0" layoutY="155.0" prefHeight="25.0" prefWidth="156.0" promptText="Type" />
       <TextField fx:id="txtEventCapacity" layoutX="80.0" layoutY="299.0" prefHeight="25.0" prefWidth="156.0" promptText="Capacity" />
       <TextField fx:id="txtEventEntryFee" layoutX="80.0" layoutY="337.0" prefHeight="25.0" prefWidth="156.0" promptText="Entry Fee" />
-      <TextArea fx:id="txtAreaEventDescription" layoutX="277.0" layoutY="123.0" prefHeight="205.0" prefWidth="268.0" promptText="Description" />
-      <Button fx:id="btnConfirm" layoutX="426.0" layoutY="345.0" mnemonicParsing="false" onAction="#onBtnConfirm" prefHeight="38.0" prefWidth="85.0" text="Confirm" textAlignment="CENTER" textFill="#0d9e31">
+      <TextArea fx:id="txtAreaEventDescription" layoutX="277.0" layoutY="123.0" prefHeight="242.0" prefWidth="299.0" promptText="Description" />
+      <Button fx:id="btnConfirm" layoutX="447.0" layoutY="390.0" mnemonicParsing="false" onAction="#onBtnConfirm" prefHeight="38.0" prefWidth="85.0" text="Confirm" textAlignment="CENTER" textFill="#0d9e31">
          <font>
             <Font name="Agency FB Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelEvent" layoutX="317.0" layoutY="345.0" mnemonicParsing="false" onAction="#onBtnCancelEvent" prefHeight="38.0" prefWidth="85.0" text="Cancel" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnCancelEvent" layoutX="328.0" layoutY="390.0" mnemonicParsing="false" onAction="#onBtnCancelEvent" prefHeight="38.0" prefWidth="85.0" text="Cancel" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="Agency FB Bold" size="20.0" />
          </font>
