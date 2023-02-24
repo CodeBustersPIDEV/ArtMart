@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package com.artmart.GUI.controllers.Event;
+package com.artmart.GUI.controllers.Activity;
 
+import com.artmart.GUI.controllers.Event.Card_eventController;
+import com.artmart.models.Activity;
 import com.artmart.models.Event;
+import com.artmart.services.ActivityService;
 import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
@@ -29,18 +32,19 @@ import javafx.stage.Stage;
  *
  * @author GhassenZ
  */
-public class List_eventController implements Initializable {
-
-    private final EventService es = new EventService();
-    private List<Event> eventList;
+public class ListActivityController implements Initializable {
+    
+    private final ActivityService as = new ActivityService();
+    private List<Activity> activityList;
     @FXML
     private VBox vBox;
-    @FXML
-    private ScrollPane scrollPaneEventList;
     @FXML
     private Button btnSearch;
     @FXML
     private TextField txtSearch;
+    @FXML
+    private ScrollPane scrollPaneActivityList;
+
 
     /**
      * Initializes the controller class.
@@ -50,33 +54,52 @@ public class List_eventController implements Initializable {
         try{
             this.makeList();
         }catch(SQLException e){}
-    }     
+    }    
 
-    public void makeList() throws SQLException {
-        this.eventList = this.es.getAllEvents();
+        public void makeList() throws SQLException {
+        this.activityList = this.as.getAllActivities();
         this.vBox.getChildren().clear();
-        this.eventList.forEach(event -> {
+        this.activityList.forEach(activity -> {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/card_event.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Activity/card_activity.fxml"));
                 Parent root = loader.load();
-                Card_eventController controller = loader.getController();
-                controller.setUpEventData(event, this);
-                root.setId(""+event.getEventID());
+                CardActivityController controller = loader.getController();
+                controller.setUpActivityData(activity, this);
+                root.setId(""+activity.getActivityID());
                 this.vBox.getChildren().add(root);
             } catch (IOException e) {
                 System.out.print(e.getCause());
             }
         });
         // Wrap the VBox in a ScrollPane to make it scrollable
-        this.scrollPaneEventList = new ScrollPane(this.vBox);
-        this.scrollPaneEventList.setFitToWidth(true);
-        this.scrollPaneEventList.setFitToHeight(true);
-        this.scrollPaneEventList.setContent(this.vBox);
+        this.scrollPaneActivityList = new ScrollPane(this.vBox);
+        this.scrollPaneActivityList.setFitToWidth(true);
+        this.scrollPaneActivityList.setFitToHeight(true);
+        this.scrollPaneActivityList.setContent(this.vBox);
     }
-
+    
 
     @FXML
-    private void returnToEventHomepage(ActionEvent event) {
+    private void onBtnSearch(ActionEvent event) {
+        String keyword = this.txtSearch.getText();
+        List<Activity> matchingActivities = this.as.searchActivityByTitle(keyword);
+        this.vBox.getChildren().clear();
+        matchingActivities.forEach(activity -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Activity/card_activity.fxml"));
+                Parent root = loader.load();
+                CardActivityController controller = loader.getController();
+                controller.setUpActivityData(activity,this);
+                root.setId("" + activity.getActivityID());
+                this.vBox.getChildren().add(root);
+            } catch (IOException e) {
+                System.out.print(e.getCause());
+            }
+        });
+    }
+
+    @FXML
+    private void onBtnReturn(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/event_home.fxml"));
@@ -88,25 +111,6 @@ public class List_eventController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }        
-    }
-
-    @FXML
-    private void onBtnSearch(ActionEvent ev) {
-        String keyword = this.txtSearch.getText();
-        List<Event> matchingEvents = this.es.searchEventByName(keyword);
-        this.vBox.getChildren().clear();
-        matchingEvents.forEach(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/card_event.fxml"));
-                Parent root = loader.load();
-                Card_eventController controller = loader.getController();
-                controller.setUpEventData(event,this);
-                root.setId("" + event.getEventID());
-                this.vBox.getChildren().add(root);
-            } catch (IOException e) {
-                System.out.print(e.getCause());
-            }
-        });
     }
 
     @FXML

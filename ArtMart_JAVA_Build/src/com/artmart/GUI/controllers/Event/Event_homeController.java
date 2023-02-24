@@ -25,9 +25,13 @@ import javafx.stage.Stage;
 public class Event_homeController implements Initializable {
 
     @FXML
-    private Button btnGoToAddEvent;
-    @FXML
     private Button btnGetAllEvents;
+    @FXML
+    private Button btnAddEvent;
+    @FXML
+    private Button btnAddActivity;
+    @FXML
+    private Button btnGetAllActivities;
 
     /**
      * Initializes the controller class.
@@ -53,7 +57,7 @@ public class Event_homeController implements Initializable {
     }    
 
     @FXML
-    private void onGoToAddEvent(ActionEvent event) {
+    private void onBtnAddEvent(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/add_event.fxml"));
@@ -68,10 +72,40 @@ public class Event_homeController implements Initializable {
     } 
 
     @FXML
-    private void onGetAllEvents(ActionEvent event) {
+    private void onBtnGetAllEvents(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/list_event.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    } 
+
+    @FXML
+    private void onBtnAddActivity(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Activity/add_activity.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void onBtnGetAllActivities(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Activity/list_activity.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");

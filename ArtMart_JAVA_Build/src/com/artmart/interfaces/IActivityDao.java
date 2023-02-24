@@ -14,5 +14,7 @@ public interface IActivityDao {
     boolean updateActivity(int activityID, Activity activity);
 
     boolean deleteActivity(int activityID);
+    
+    List<Activity> searchActivityByTitle(String title);
 
 }

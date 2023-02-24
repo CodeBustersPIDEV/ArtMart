@@ -15,7 +15,18 @@ import javafx.scene.control.Button;
 
 public class MainViewController implements Initializable {
     @FXML
+    private Button orderBtn;
+    @FXML
     private Button userBtn;
+    @FXML
+    private Button productBtn;
+    @FXML
+    private Button eventBtn;
+    @FXML
+    private Button cProductBtn;
+    @FXML
+    private Button blogBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -88,7 +99,8 @@ public class MainViewController implements Initializable {
     private void goToCustomProduct(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
+            Parent root = FXMLLoader
+                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
 
             Scene scene = new Scene(root);
             stage.setResizable(false);

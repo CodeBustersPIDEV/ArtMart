@@ -29,7 +29,7 @@ public class EventDao implements IEventDao {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO event (userID, name, location, type, description, entryFee, capacity, startDate, endDate) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                   +"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
             );
             statement.setInt(1, event.getUserID());
             statement.setString(2, event.getName());
@@ -106,23 +106,22 @@ public class EventDao implements IEventDao {
     public boolean updateEvent(int eventID, Event event) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE Event" + 
-                    "SET userID = ?, name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?" + 
-                    "WHERE eventID = ?"
+                "UPDATE Event SET name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?"
+               +"WHERE eventID = ?"
             );
-            statement.setInt(1, event.getUserID());
-            statement.setString(2, event.getName());
-            statement.setString(3, event.getLocation());
-            statement.setString(4, event.getType());
-            statement.setString(5, event.getDescription());
-            statement.setDouble(6, event.getEntryFee());
-            statement.setInt(7, event.getCapacity());
-            statement.setDate(8, event.getStartDate());
-            statement.setDate(9, event.getEndDate());
-            statement.setInt(10, eventID);
+            //statement.setInt(1, event.getUserID());
+            statement.setString(1, event.getName());
+            statement.setString(2, event.getLocation());
+            statement.setString(3, event.getType());
+            statement.setString(4, event.getDescription());
+            statement.setDouble(5, event.getEntryFee());
+            statement.setInt(6, event.getCapacity());
+            statement.setDate(7, event.getStartDate());
+            statement.setDate(8, event.getEndDate());
+            statement.setInt(9, eventID);
             
-            
-            return statement.executeUpdate() > 0;
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -140,5 +139,23 @@ public class EventDao implements IEventDao {
         }
         return false;
     }
+    
+    @Override
+    public List<Event> searchEventByName(String name) {
+        List<Event> events = new ArrayList<>();
+        try{
+            String query = "SELECT * FROM Event WHERE name LIKE ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + name + "%");
+            ResultSet resultSet = statement.executeQuery();
 
+            while(resultSet.next()) {
+                Event event = this.getEvent(resultSet.getInt("eventID"));
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return events;
+    }
 }

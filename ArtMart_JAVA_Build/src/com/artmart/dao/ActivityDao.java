@@ -3,6 +3,7 @@ package com.artmart.dao;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IActivityDao;
 import com.artmart.models.Activity;
+import com.artmart.models.Event;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class ActivityDao implements IActivityDao {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO activity (eventID, startDate, endDate, title, host) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    +"VALUES (?, ?, ?, ?, ?)"
             );
             statement.setInt(1, activity.getEventID());
             statement.setDate(2, activity.getStartDate());
@@ -37,6 +38,7 @@ public class ActivityDao implements IActivityDao {
             statement.setString(4, activity.getTitle());
             statement.setString(5, activity.getHost());
             result = statement.executeUpdate();
+            System.out.println(result);
         } catch (SQLException e) {
             System.err.println(e.getCause().getMessage());
         }
@@ -121,4 +123,22 @@ public class ActivityDao implements IActivityDao {
         return false;
     }
 
+    @Override
+    public List<Activity> searchActivityByTitle(String title) {
+        List<Activity> activities = new ArrayList<>();
+        try{
+            String query = "SELECT * FROM Activity WHERE title LIKE ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + title + "%");
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+                Activity activity = this.getActivity(resultSet.getInt("activityID"));
+                activities.add(activity);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return activities;
+    }
 }

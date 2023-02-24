@@ -43,6 +43,19 @@ public class Event {
         this.userID = userID;
     }
 
+    public Event(String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate) {
+        this.name = name;
+        this.location = location;
+        this.type = type;
+        this.description = description;
+        this.entryFee = entryFee;
+        this.capacity = capacity;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+    
+    
+
     public int getEventID() {
         return eventID;
     }

@@ -7,6 +7,7 @@ import com.artmart.dao.ActivityDao;
 
 import com.artmart.interfaces.IActivityDao;
 import com.artmart.models.Activity;
+import com.artmart.models.Event;
 import java.util.List;
 
 /**
@@ -39,5 +40,10 @@ public class ActivityService implements IActivityDao{
     @Override
     public boolean deleteActivity(int activityID) {
         return dao.deleteActivity(activityID);
+    }
+    
+    @Override
+    public List<Activity> searchActivityByTitle(String name){
+        return dao.searchActivityByTitle(name);
     }
 }
