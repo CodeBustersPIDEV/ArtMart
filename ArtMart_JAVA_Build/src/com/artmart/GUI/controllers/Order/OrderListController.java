@@ -42,7 +42,7 @@ public class OrderListController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderCard.fxml"));
                 Parent root = loader.load();
                 OrderCardController controller = loader.getController();
-                controller.setupData(order);
+                controller.setupData(order,this);
                 root.setId("" + order.getId());
                 orderCard.getChildren().add(root);
             } catch (IOException e) {

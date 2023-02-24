@@ -21,7 +21,7 @@ public class WishlistDao implements IWishlistDao {
 
     @Override
     public int createWishlist(Wishlist wishlist) {
-        String sql = "INSERT INTO wishlist (user_id, product_id, date) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO wishlist (userid, productid, date) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, wishlist.getUserId());
             stmt.setInt(2, wishlist.getProductId());
