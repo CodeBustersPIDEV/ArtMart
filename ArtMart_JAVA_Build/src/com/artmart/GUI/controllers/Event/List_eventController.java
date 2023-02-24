@@ -4,6 +4,8 @@
  */
 package com.artmart.GUI.controllers.Event;
 
+import com.artmart.GUI.controllers.CustomProduct.CustomProductCardController;
+import com.artmart.models.CustomProduct;
 import com.artmart.models.Event;
 import com.artmart.services.EventService;
 import java.io.IOException;
@@ -18,7 +20,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -35,6 +39,10 @@ public class List_eventController implements Initializable {
     private VBox vBox;
     @FXML
     private ScrollPane scrollPaneEventList;
+    @FXML
+    private Button btnSearch;
+    @FXML
+    private TextField txtSearch;
 
     /**
      * Initializes the controller class.
@@ -83,6 +91,25 @@ public class List_eventController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }        
+    }
+
+    @FXML
+    private void onBtnSearch(ActionEvent ev) {
+        String keyword = txtSearch.getText();
+        List<Event> matchingEvents = es.searchEventByName(keyword);
+        this.vBox.getChildren().clear();
+        matchingEvents.forEach(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/card_event.fxml"));
+                Parent root = loader.load();
+                Card_eventController controller = loader.getController();
+                controller.setUpEventData(event,this);
+                root.setId("" + event.getEventID());
+                this.vBox.getChildren().add(root);
+            } catch (IOException e) {
+                System.out.print(e.getCause());
+            }
+        });
     }
     
 }
