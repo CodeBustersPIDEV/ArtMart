@@ -69,16 +69,18 @@ import javafx.scene.text.Text;
                 e.printStackTrace();
             }
         }
- private void calculateTotalWeight() {
+ void calculateTotalWeight() throws SQLException {
         float totalWeight = 0;
         for (CustomProduct customProduct : customProductslist) {
             totalWeight += customProduct.getWeight();
         }
         total.setText(String.format("%.2f", totalWeight));
+   
     } 
- private void calculateProduct() {
+ void calculateProduct() throws SQLException {
      int totalProducts = customProductslist.size();
     totalp.setText(String.format("%d", totalProducts));
+  
     }
  
  
