@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -111,7 +112,21 @@ public class Card_eventController implements Initializable {
     
     @FXML
     private void onBtnDeleteEvent(ActionEvent event) throws SQLException {
-        this.es.deleteEvent(this.event.getEventID());
+        boolean result = this.es.deleteEvent(this.event.getEventID());
+            if (result) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Edit Event");
+                alert.setHeaderText(null);
+                alert.setContentText("A new event has been updated successfully!");
+                alert.showAndWait();
+                alert.close();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Update Product");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to update event!");
+                alert.showAndWait();
+            }
         this.listEventController.makeList();
     }
 }

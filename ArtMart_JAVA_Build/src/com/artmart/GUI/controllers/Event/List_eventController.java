@@ -72,7 +72,6 @@ public class List_eventController implements Initializable {
         this.scrollPaneEventList.setFitToWidth(true);
         this.scrollPaneEventList.setFitToHeight(true);
         this.scrollPaneEventList.setContent(this.vBox);
-
     }
 
 

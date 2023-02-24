@@ -37,5 +37,5 @@ public class EventService implements IEventDao {
     @Override
     public List<Event> searchEventByName(String name){
         return dao.searchEventByName(name);
-  }
+    }
 }
