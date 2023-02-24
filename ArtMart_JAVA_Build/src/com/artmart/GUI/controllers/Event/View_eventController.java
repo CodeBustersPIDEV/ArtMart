@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -31,10 +32,9 @@ import javafx.stage.Stage;
 public class View_eventController implements Initializable {
 
     private Event event = new Event();
-    private EventService es =new EventService();
-       //private View_eventController viewEventController = new View_eventController;
+    private final EventService es = new EventService();
     private int eventID;
-    Text description;
+    private Text description;
     
 
     @FXML
@@ -67,24 +67,21 @@ public class View_eventController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        tfEventDescription.setStyle("-fx-border-color: #1752b8; -fx-border-width: 1px;");
-        tfEventDescription.setPrefWidth(270);
-//        tfEventDescription.getChildren().s
+        this.tfEventDescription.setStyle("-fx-border-color: #1752b8; -fx-border-width: 1px;");
+        this.tfEventDescription.setPrefWidth(270);
 
     }    
     
     public void setUpEventData(Event event) {
         this.event = event;
         this.txtEventName.setText(event.getName());
-        txtEventName.setTextAlignment(TextAlignment.CENTER);
+        this.txtEventName.setTextAlignment(TextAlignment.CENTER);
         this.txtEventLocation.setText(event.getLocation());
         this.txtEventStartDate.setText(event.getStartDate().toString());
         this.txtEventEndDate.setText(event.getEndDate().toString());
-//        this.txtEventDescription.setText(event.getDescription());
-//        this.fpEventDescription.getChildren().add(new Text(event.getDescription()));
-        description = new Text(event.getDescription());
-        description.setFill(Color.web("#1752b8"));
-        description.setStyle("-fx-font-family: 'Agency FB'; -fx-font-weight: bold; -fx-font-size: 16px;");
+        this.description = new Text(event.getDescription());
+        this.description.setFill(Color.web("#1752b8"));
+        this.description.setStyle("-fx-font-family: 'Agency FB'; -fx-font-weight: bold; -fx-font-size: 16px;");
         this.tfEventDescription.getChildren().add(description);
         this.txtEventType.setText(event.getType());
         this.txtEventCapacity.setText(String.valueOf(event.getCapacity()));
@@ -92,11 +89,24 @@ public class View_eventController implements Initializable {
         this.eventID = event.getUserID();
     }
 
-
     @FXML
     private void onBtnDeleteEvent(ActionEvent event) {
-        this.es.deleteEvent(this.event.getEventID());
-        onBtnReturn(event);
+        boolean result = this.es.deleteEvent(this.event.getEventID());
+            if (result) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Edit Event");
+                alert.setHeaderText(null);
+                alert.setContentText("A new event has been updated successfully!");
+                alert.showAndWait();
+                alert.close();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Update Product");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to update event!");
+                alert.showAndWait();
+            }
+        this.onBtnReturn(event);
     }
 
     @FXML

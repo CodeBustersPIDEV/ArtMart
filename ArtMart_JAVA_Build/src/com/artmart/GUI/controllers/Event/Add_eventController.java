@@ -9,7 +9,6 @@ import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +32,7 @@ import javafx.stage.Stage;
  */
 public class Add_eventController implements Initializable {
     
-    private EventService es;
+    private final EventService es = new EventService();
     //private int eventID;
     private String name;
     private String location;
@@ -46,6 +45,12 @@ public class Add_eventController implements Initializable {
     //private int userID;
     private int userID = 1;
 
+    
+    private String typeText; 
+    private String entryFeeText;
+    private String capacityText;
+    private String startDateText;
+    private String endDateText;
 
     @FXML
     private Button btnAddEvent;
@@ -56,7 +61,7 @@ public class Add_eventController implements Initializable {
     @FXML
     private TextField txtName;
     @FXML
-    private ComboBox comboBoxType = new ComboBox();
+    private ComboBox comboBoxType = new ComboBox();;
     @FXML
     private TextField txtCapacity;
     @FXML
@@ -73,12 +78,80 @@ public class Add_eventController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        comboBoxType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
-        txtAreaDescription.setWrapText(true);
-        txtAreaDescription.setPrefWidth(270);
         
+        // add event types in comboBox
+        this.comboBoxType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
+        this.txtAreaDescription.setWrapText(true);
     }    
+
+    @FXML
+    private  void onAddEvent(ActionEvent event) {
+        
+        // get the values for creating a new event
+        this.name = this.txtName.getText();
+        this.location = this.txtLocation.getText();
+        this.description = this.txtAreaDescription.getText();
+        this.type = (String) this.comboBoxType.getValue();
+        this.entryFee = Float.parseFloat(this.txtEntryFee.getText());
+        this.capacity = Integer.parseInt(this.txtCapacity.getText());
+        this.startDate = Date.valueOf(this.dpStartDate.getValue());
+        this.endDate = Date.valueOf(this.dpEndDate.getValue());  
+        
+        // convert values for input check
+        this.typeText = (String) this.comboBoxType.getValue(); 
+        this.entryFeeText = this.txtEntryFee.getText();
+        this.capacityText = this.txtCapacity.getText();
+        this.startDateText = this.startDate != null ? String.valueOf(this.startDate) : null;
+        this.endDateText = this.endDate != null ? String.valueOf(this.endDate) : null;        
+        
+        // input check
+        if(name.isEmpty() 
+        || this.location.isEmpty() 
+        || this.typeText == null || this.typeText.isEmpty()
+        || this.description.isEmpty() 
+        || this.entryFeeText.isEmpty()
+        || this.capacityText.isEmpty() 
+        || this.startDateText == null || this.startDateText.isEmpty()
+        || this.endDateText == null || this.endDateText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Missing information");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to add event! \nComplete missing information.");
+            alert.showAndWait();
+        }else {
+            
+            Event ev = new Event(
+                this.name, 
+                this.location, 
+                this.type, 
+                this.description, 
+                this.entryFee, 
+                this.capacity, 
+                this.startDate, 
+                this.endDate, 
+                this.userID
+            );
+
+            int result = es.createEvent(ev);
+
+            if (result > 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Add Event");
+                alert.setHeaderText(null);
+                alert.setContentText("A new event has been added successfully!");
+                alert.showAndWait();
+                //userID++;
+                alert.close();
+                this.returnToEventHomepage(event);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Add Event");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to add event!");
+                alert.showAndWait();
+            }
+        }
+    }
 
     @FXML
     private void returnToEventHomepage(ActionEvent event) {
@@ -94,62 +167,4 @@ public class Add_eventController implements Initializable {
             System.out.print(e.getMessage());
         }        
     }
-
-    @FXML
-    private  void onAddEvent(ActionEvent event) {
-        name = txtName.getText();
-        location = txtLocation.getText();
-        String typeText = (String) comboBoxType.getValue(); 
-        description = txtAreaDescription.getText();
-        String entryFeeText = txtEntryFee.getText();
-        String capacityText =txtCapacity.getText();
-        LocalDate startDateValue = dpStartDate.getValue();
-        String startDateText = startDateValue != null ? String.valueOf(startDateValue) : null;
-        LocalDate endDateValue = dpEndDate.getValue();
-        String endDateText = endDateValue != null ? String.valueOf(endDateValue) : null;
-
-        if(name.isEmpty() 
-        || location.isEmpty() 
-        || typeText == null || typeText.isEmpty()
-        || description.isEmpty() 
-        || entryFeeText.isEmpty()
-        || capacityText.isEmpty() 
-        || startDateText == null || startDateText.isEmpty()
-        || endDateText == null || endDateText.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Missing information");
-            alert.setHeaderText(null);
-            alert.setContentText("Failed to add event! \nComplete missing information.");
-            alert.showAndWait();
-        }else {
-            type = (String) comboBoxType.getValue();
-            entryFee = Float.parseFloat(txtEntryFee.getText());
-            capacity = Integer.parseInt(txtCapacity.getText());
-            startDate = Date.valueOf(dpStartDate.getValue());
-            endDate = Date.valueOf(dpEndDate.getValue());  
-            Event ev = new Event(name, location, type, description, entryFee, capacity, startDate, endDate, userID);
-
-            es = new EventService();
-
-            int result = es.createEvent(ev);
-
-            if (result > 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Add Event");
-                alert.setHeaderText(null);
-                alert.setContentText("A new event has been added successfully!");
-                alert.showAndWait();
-                //userID++;
-                alert.close();
-                returnToEventHomepage(event);
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Add Event");
-                alert.setHeaderText(null);
-                alert.setContentText("Failed to add event!");
-                alert.showAndWait();
-            }
-        }
-    }
-
 }

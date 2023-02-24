@@ -68,10 +68,10 @@ public class List_eventController implements Initializable {
             }
         });
         // Wrap the VBox in a ScrollPane to make it scrollable
-        scrollPaneEventList = new ScrollPane(this.vBox);
-        scrollPaneEventList.setFitToWidth(true);
-        scrollPaneEventList.setFitToHeight(true);
-        scrollPaneEventList.setContent(this.vBox);
+        this.scrollPaneEventList = new ScrollPane(this.vBox);
+        this.scrollPaneEventList.setFitToWidth(true);
+        this.scrollPaneEventList.setFitToHeight(true);
+        this.scrollPaneEventList.setContent(this.vBox);
 
     }
 
@@ -93,8 +93,8 @@ public class List_eventController implements Initializable {
 
     @FXML
     private void onBtnSearch(ActionEvent ev) {
-        String keyword = txtSearch.getText();
-        List<Event> matchingEvents = es.searchEventByName(keyword);
+        String keyword = this.txtSearch.getText();
+        List<Event> matchingEvents = this.es.searchEventByName(keyword);
         this.vBox.getChildren().clear();
         matchingEvents.forEach(event -> {
             try {
