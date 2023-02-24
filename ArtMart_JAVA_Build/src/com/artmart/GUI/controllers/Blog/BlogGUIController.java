@@ -1,8 +1,11 @@
 package com.artmart.GUI.controllers.Blog;
 
+import com.artmart.GUI.controllers.MainViewController;
+import com.artmart.GUI.controllers.User.LoginController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.models.Media;
+import com.artmart.models.Session;
 import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +32,7 @@ public class BlogGUIController implements Initializable {
     private VBox container;
     @FXML
     private Button backToBlogMenu;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -14,7 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 public class MainViewController implements Initializable {
- @FXML
+    @FXML
     private Button userBtn;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -38,9 +38,10 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void goToUser(ActionEvent event) {
-        try {Stage stage = (Stage) userBtn.getScene().getWindow();
-             stage.close();
-             stage = new Stage();
+        try {
+            Stage stage = (Stage) userBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);

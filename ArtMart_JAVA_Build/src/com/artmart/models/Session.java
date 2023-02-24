@@ -79,4 +79,14 @@ public  void logOut(String sessionId)
 
  }
 
+    public static Map<String, Session> getActiveSessions() {
+        return activeSessions;
+    }
+
+    @Override
+    public String toString() {
+        return "Session{" + "userId=" + userId + ", username=" + username + ", sessionId=" + sessionId + '}';
+    }
+
+
 }

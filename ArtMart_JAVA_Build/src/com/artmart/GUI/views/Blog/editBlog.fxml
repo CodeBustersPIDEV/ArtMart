@@ -36,6 +36,6 @@
       <Button fx:id="edit_blog" layoutX="512.0" layoutY="510.0" mnemonicParsing="false" onAction="#edit" prefHeight="34.0" prefWidth="104.0" text="Edit" />
       <Button fx:id="cancel_btn" layoutX="35.0" layoutY="25.0" mnemonicParsing="false" onAction="#goBackToMenu" text="Cancel" />
       <ImageView fx:id="blogImage" fitHeight="271.0" fitWidth="339.0" layoutX="16.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="blogID" layoutX="718.0" layoutY="30.0" />
+      <Label fx:id="blogID" layoutX="718.0" layoutY="30.0" visible="false" />
    </children>
 </AnchorPane>

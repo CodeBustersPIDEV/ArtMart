@@ -9,12 +9,14 @@ import com.artmart.GUI.controllers.Blog.BlogManagementCardController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.models.Media;
+import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -46,6 +48,10 @@ public class BlogManagementPageController implements Initializable {
     @FXML
     private VBox container;
     @FXML
+    private Button backToBlogMenu;
+    @FXML
+    private ScrollPane bigCont;
+    @FXML
     public ComboBox<String> userComboBox;
     private List<User> userOptionsList;
     private final BlogService blogService = new BlogService();
@@ -53,10 +59,8 @@ public class BlogManagementPageController implements Initializable {
     private List<Blog> blogList = new ArrayList<>();
     private BlogManagementCardController controller;
     private User connectedUser = new User();
-    @FXML
-    private ScrollPane bigCont;
-    @FXML
-    private Button backToBlogMenu;
+    HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
 
     /**
      * Initializes the controller class.
@@ -70,15 +74,15 @@ public class BlogManagementPageController implements Initializable {
                 userOptionsList.stream().map(User::getName).collect(Collectors.toList())
         );
         this.userComboBox.setItems(userOptions);
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
+//        this.connectedUser = userService.getUser(session.getUserId());
+        refreshList();
     }
 
     @FXML
     public void refreshList() {
         this.container.getChildren().clear();
-        int listId = userComboBox.getSelectionModel().getSelectedIndex();
-        int selectedUserId = userOptionsList.get(listId).getUser_id();
-        this.connectedUser = this.userService.getUser(selectedUserId);
-        blogList = blogService.getAllBlogsByUser(connectedUser.getUser_id());
+        blogList = blogService.getAllBlogsByUser(this.session.getUserId());
         for (Blog blog : blogList) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementCard.fxml"));

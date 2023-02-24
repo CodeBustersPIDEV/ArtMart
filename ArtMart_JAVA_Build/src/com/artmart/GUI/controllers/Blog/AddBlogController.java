@@ -9,6 +9,8 @@ import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.HasCategory;
 import com.artmart.models.Media;
+import com.artmart.models.Session;
+import com.artmart.models.User;
 import com.artmart.services.BlogService;
 import java.awt.Desktop;
 import java.net.URL;
@@ -36,6 +38,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
 import javafx.scene.control.ButtonType;
@@ -76,13 +79,18 @@ public class AddBlogController implements Initializable {
     private Blog resBlog = new Blog();
     private BlogCategories resBlogCategories = new BlogCategories();
     private int test1, test2, test3;
+    private boolean testImg = false;
     private final Desktop desktop = Desktop.getDesktop();
     private final FileChooser fileChooser = new FileChooser();
     private Media img = new Media();
     private Image image;
+    private User connectedUser = new User();
+    HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -96,43 +104,56 @@ public class AddBlogController implements Initializable {
         File file = new File("src/com/artmart/assets/BlogAssets/alt.png");
         this.image = new Image(file.toURI().toString());
         this.blogImage_preview.setImage(image);
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
     }
 
     @FXML
     private void add(ActionEvent event) throws IOException {
-        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("./MainView.fxml"));
-            Blog blog = new Blog(this.blog_title.getText(), this.blog_content.getText(), 2);
-            test1 = blogService.addBlog(blog);
-            if (test1 == 1) {
-                resBlog = blogService.getOneBlogByTitle(this.blog_title.getText());
-                resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
-                HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
-                this.img.setBlog_id(resBlog.getId());
-                test2 = blogService.addBlog2HasCat(hc);
-                test3 = blogService.addMedia(img);
-            }
+        String blogTitle = this.blog_title.getText();
+        String blogContent = this.blog_content.getText();
+        if (!blogTitle.isEmpty() && !blogContent.isEmpty()) {
+            try {
+                Blog blog = new Blog(this.blog_title.getText(), this.blog_content.getText(), this.session.getUserId());
+                test1 = blogService.addBlog(blog);
+                if (test1 == 1) {
+                    resBlog = blogService.getOneBlogByTitle(this.blog_title.getText());
+                    System.out.println(this.blog_category.getSelectionModel().getSelectedIndex());
+                    resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
+                    HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
+                    test2 = blogService.addBlog2HasCat(hc);
+                    if (testImg) {
+                        this.img.setBlog_id(resBlog.getId());
+                        test3 = blogService.addMedia(img);
+                    }
+                }
 
-            if (test1 == 1 && test2 == 1 && test3 == 1) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Blog Posted");
-                alert.setHeaderText(null);
-                alert.setContentText("Your blog has been posteded.");
-                alert.showAndWait();
-            } else {
+                if ((test1 == 1 && test2 == 1) || (test1 == 1 && test2 == 1 && test3 == 1)) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Blog Posted");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Your blog has been posteded.");
+                    alert.showAndWait();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Oops!!Can not post your blog.");
+                    alert.showAndWait();
+                }
+            } catch (Exception ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
-                alert.setContentText("Oops!!Can not post your blog.");
+                alert.setContentText("An Error occured");
                 alert.showAndWait();
+
             }
-        } catch (Exception ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("An Error occured");
+            alert.setContentText("Please fill the form");
             alert.showAndWait();
-
         }
     }
 
@@ -160,6 +181,7 @@ public class AddBlogController implements Initializable {
 
         File file = this.fileChooser.showOpenDialog(primaryStage);
         if (file != null) {
+            this.testImg = true;
             Path sourcePath = file.toPath();
             Path destinationPath = Paths.get("src/com/artmart/assets/BlogAssets/uploads/" + file.getName());
             setupMediaInfo(file, destinationPath.toString());
