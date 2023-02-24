@@ -43,6 +43,7 @@ public class OrderGUIMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+<<<<<<< Updated upstream
         userOptionsList = this.userDao.viewListOfUsers();
         //ProductOptionsList = this.productDao().getAll(;
         ObservableList<String> userOptions = FXCollections.observableArrayList(
@@ -51,6 +52,26 @@ public class OrderGUIMenuController implements Initializable {
         this.userComboBox.setItems(userOptions);
         this.userComboBox.getSelectionModel().selectFirst();
         this.productId.setText("1");
+=======
+        try {
+            userOptionsList = this.userDao.viewListOfUsers();
+            //ProductOptionsList = this.productDao().getAll(;
+            ObservableList<String> userOptions = FXCollections.observableArrayList(
+                userOptionsList.stream().map(user -> user.getName() + " (" + user.getRole()+ ")").collect(Collectors.toList())
+            );
+            productOptionsList = this.productDao.getAllProduct();
+            ObservableList<String> productComboBox = FXCollections.observableArrayList(
+                    productOptionsList.stream().map(Product::getName).collect(Collectors.toList())
+            );
+            this.userComboBox.setItems(userOptions);
+            this.userComboBox.getSelectionModel().selectFirst();
+            this.productComboBox.setItems(productComboBox);
+            this.productComboBox.getSelectionModel().selectFirst();
+            this.SelectUserAndProduct();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderGUIMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+>>>>>>> Stashed changes
     }
 
     @FXML
@@ -75,6 +96,7 @@ public class OrderGUIMenuController implements Initializable {
     }
 
     private void SelectUserAndProduct() {
+<<<<<<< Updated upstream
         try {
             int listId = userComboBox.getSelectionModel().getSelectedIndex();
             int selectedUserId = userOptionsList.get(listId).getUser_id();
@@ -83,6 +105,12 @@ public class OrderGUIMenuController implements Initializable {
         } catch (SQLException e) {
             System.out.println("No Product Found");
         }
+=======
+        int listId = userComboBox.getSelectionModel().getSelectedIndex();
+        int selectedUserId = userOptionsList.get(listId).getUser_id();
+        this.connectedUser = this.userDao.getUser(selectedUserId);
+        System.out.println(this.productToOrder.toString());
+>>>>>>> Stashed changes
     }
 
     @FXML

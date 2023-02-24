@@ -13,11 +13,12 @@ import java.util.Map;
  * @author 21697
  */
 public class Session {
+
     private static Session instance;
     private int userId;
     private String username;
     private String sessionId;
-  private static final Map<String, Session> activeSessions = new HashMap<>();
+    private static final Map<String, Session> activeSessions = new HashMap<>();
 
     public Session() {
     }
@@ -52,32 +53,35 @@ public class Session {
     public String getSessionId() {
         return sessionId;
     }
- public static void removeSession(String sessionId) {
+
+    public static void removeSession(String sessionId) {
         activeSessions.remove(sessionId);
     }
- public static void logIn(String sessionId,Session session) {
-activeSessions.put(sessionId, session);   
- }
- public  int getUserID(String sessionId)
- {
-   
-       Session session =activeSessions.get(sessionId);   
-if (session != null) {
-    int userId = session.getUserId();
-    System.out.println(userId);
-    return userId;
-}
-    return 0;
- }
+
+    public static void logIn(String sessionId, Session session) {
+        activeSessions.put(sessionId, session);
+    }
+
+    public int getUserID(String sessionId) {
+
+        Session session = activeSessions.get(sessionId);
+        if (session != null) {
+            int userId = session.getUserId();
+            System.out.println(userId);
+            return userId;
+        }
+        return 0;
+    }
+
     public boolean isLoggedIn() {
         return sessionId != null;
     }
-public  void logOut(String sessionId)
- {
-   
-       Session session =activeSessions.remove(sessionId);   
 
- }
+    public void logOut(String sessionId) {
+
+        Session session = activeSessions.remove(sessionId);
+
+    }
 
     public static Map<String, Session> getActiveSessions() {
         return activeSessions;
@@ -87,6 +91,5 @@ public  void logOut(String sessionId)
     public String toString() {
         return "Session{" + "userId=" + userId + ", username=" + username + ", sessionId=" + sessionId + '}';
     }
-
 
 }
