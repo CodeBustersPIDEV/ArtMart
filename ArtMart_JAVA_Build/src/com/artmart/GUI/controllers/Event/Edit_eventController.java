@@ -30,10 +30,12 @@ import javafx.stage.Stage;
  *
  * @author GhassenZ
  */
-public class Add_eventController implements Initializable {
+public class Edit_eventController implements Initializable {
     
-    private final EventService es = new EventService();
-    //private int eventID;
+    private Event event = new Event();
+    private final EventService es = new EventService();;
+    private int eventID;
+    
     private String name;
     private String location;
     private String type;
@@ -42,70 +44,82 @@ public class Add_eventController implements Initializable {
     private int capacity;
     private Date startDate;
     private Date endDate;
-    //private int userID;
     private int userID = 1;
-
     
     private String typeText; 
     private String entryFeeText;
     private String capacityText;
     private String startDateText;
     private String endDateText;
-
+    
     @FXML
-    private Button btnAddEvent;
+    private TextField txtEventLocation;
+    @FXML
+    private TextField txtEventName;
+    @FXML
+    private ComboBox comboBoxEventType = new ComboBox();;
+    @FXML
+    private TextField txtEventCapacity;
+    @FXML
+    private TextField txtEventEntryFee;
+    @FXML
+    private TextArea txtAreaEventDescription;
+    @FXML
+    private DatePicker dpEventEndDate;
+    @FXML
+    private DatePicker dpEventStartDate;
     @FXML
     private Button btnCancelEvent;
     @FXML
-    private TextField txtLocation;
-    @FXML
-    private TextField txtName;
-    @FXML
-    private ComboBox comboBoxType = new ComboBox();;
-    @FXML
-    private TextField txtCapacity;
-    @FXML
-    private TextField txtEntryFee;
-    @FXML
-    private TextArea txtAreaDescription;
-    @FXML
-    private DatePicker dpEndDate;
-    @FXML
-    private DatePicker dpStartDate;
+    private Button btnConfirm;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        // add event types in comboBox
-        this.comboBoxType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
-        this.txtAreaDescription.setWrapText(true);
+        // TODO
+        this.comboBoxEventType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
+        this.txtAreaEventDescription.setWrapText(true);
     }    
+    
+    public void setUpEventData(Event event) {
+        this.event = event;
+        this.txtEventName.setText(event.getName());
+        this.txtEventLocation.setText(event.getLocation());
+        this.dpEventStartDate.setValue(event.getStartDate().toLocalDate());
+        this.dpEventEndDate.setValue(event.getEndDate().toLocalDate());
+        this.txtAreaEventDescription.setText(event.getDescription());
+        this.comboBoxEventType.setValue(event.getType());
+        this.txtEventCapacity.setText(String.valueOf(event.getCapacity()));
+        this.txtEventEntryFee.setText(String.valueOf(event.getEntryFee()));
+        this.eventID = event.getEventID();
+        System.out.println("event id " + this.eventID);
+    }
+
 
     @FXML
-    private  void onAddEvent(ActionEvent event) {
-        
-        // get the values for creating a new event
-        this.name = this.txtName.getText();
-        this.location = this.txtLocation.getText();
-        this.description = this.txtAreaDescription.getText();
-        this.type = (String) this.comboBoxType.getValue();
-        this.entryFee = Float.parseFloat(this.txtEntryFee.getText());
-        this.capacity = Integer.parseInt(this.txtCapacity.getText());
-        this.startDate = Date.valueOf(this.dpStartDate.getValue());
-        this.endDate = Date.valueOf(this.dpEndDate.getValue());  
+    private void onBtnConfirm(ActionEvent event) {
+
+        // get the values for updating the event
+        this.name = this.txtEventName.getText();
+        this.location = this.txtEventLocation.getText();
+        this.description = this.txtAreaEventDescription.getText();
+        this.type = (String) this.comboBoxEventType.getValue();
+        this.entryFee = Float.parseFloat(this.txtEventEntryFee.getText());
+        this.capacity = Integer.parseInt(this.txtEventCapacity.getText());
+        this.startDate = Date.valueOf(this.dpEventStartDate.getValue());
+        this.endDate = Date.valueOf(this.dpEventEndDate.getValue());  
         
         // convert values for input check
-        this.typeText = (String) this.comboBoxType.getValue(); 
-        this.entryFeeText = this.txtEntryFee.getText();
-        this.capacityText = this.txtCapacity.getText();
+        this.typeText = (String) this.comboBoxEventType.getValue(); 
+        this.entryFeeText = this.txtEventEntryFee.getText();
+        this.capacityText = this.txtEventCapacity.getText();
         this.startDateText = this.startDate != null ? String.valueOf(this.startDate) : null;
-        this.endDateText = this.endDate != null ? String.valueOf(this.endDate) : null;        
+        this.endDateText = this.endDate != null ? String.valueOf(this.endDate) : null;    
         
         // input check
-        if(name.isEmpty() 
+        if(this.name.isEmpty() 
         || this.location.isEmpty() 
         || this.typeText == null || this.typeText.isEmpty()
         || this.description.isEmpty() 
@@ -119,7 +133,6 @@ public class Add_eventController implements Initializable {
             alert.setContentText("Failed to add event! \nComplete missing information.");
             alert.showAndWait();
         }else {
-            
             Event ev = new Event(
                 this.name, 
                 this.location, 
@@ -128,36 +141,35 @@ public class Add_eventController implements Initializable {
                 this.entryFee, 
                 this.capacity, 
                 this.startDate, 
-                this.endDate, 
-                this.userID
+                this.endDate
             );
 
-            int result = es.createEvent(ev);
-
-            if (result > 0) {
+            boolean result = this.es.updateEvent(this.eventID, ev);
+            System.out.println(result);
+            if (result) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Add Event");
+                alert.setTitle("Edit Event");
                 alert.setHeaderText(null);
-                alert.setContentText("A new event has been added successfully!");
+                alert.setContentText("A new event has been updated successfully!");
                 alert.showAndWait();
                 //userID++;
                 alert.close();
-                this.returnToEventHomepage(event);
+                this.onBtnCancelEvent(event);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Add Event");
+                alert.setTitle("Update Product");
                 alert.setHeaderText(null);
-                alert.setContentText("Failed to add event!");
+                alert.setContentText("Failed to update event!");
                 alert.showAndWait();
             }
         }
     }
-
+    
     @FXML
-    private void returnToEventHomepage(ActionEvent event) {
+    private void onBtnCancelEvent(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/event_home.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/list_event.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");
@@ -167,4 +179,5 @@ public class Add_eventController implements Initializable {
             System.out.print(e.getMessage());
         }        
     }
+    
 }

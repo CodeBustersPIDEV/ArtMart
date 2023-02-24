@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Add_eventController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="650.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Add_eventController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/event/add_event.css" />
     </stylesheets>
    <children>
-      <Label alignment="CENTER" layoutX="14.0" layoutY="28.0" prefHeight="65.0" prefWidth="138.0" text="Add Event">
+      <Label alignment="CENTER" layoutX="14.0" layoutY="28.0" prefHeight="65.0" prefWidth="138.0" text="Add Event" textFill="#3f68ff">
          <font>
             <Font name="Agency FB Bold" size="33.0" />
          </font>
@@ -25,9 +25,15 @@
       <ComboBox fx:id="comboBoxType" layoutX="69.0" layoutY="145.0" prefHeight="25.0" prefWidth="156.0" promptText="Type" />
       <TextField fx:id="txtCapacity" layoutX="70.0" layoutY="289.0" prefHeight="25.0" prefWidth="156.0" promptText="Capacity" />
       <TextField fx:id="txtEntryFee" layoutX="70.0" layoutY="327.0" prefHeight="25.0" prefWidth="156.0" promptText="Entry Fee" />
-      <TextArea fx:id="txtAreaDescription" layoutX="267.0" layoutY="113.0" prefHeight="205.0" prefWidth="268.0" promptText="Description" />
-      <Button fx:id="btnAddEvent" layoutX="416.0" layoutY="335.0" mnemonicParsing="false" onAction="#onAddEvent" prefHeight="34.0" prefWidth="79.0" text="Add" textAlignment="CENTER" />
-      <Button fx:id="btnCancelEvent" layoutX="307.0" layoutY="335.0" mnemonicParsing="false" onAction="#returnToEventHomepage" prefHeight="34.0" prefWidth="79.0" text="Cancel" textAlignment="CENTER" />
+      <TextArea fx:id="txtAreaDescription" layoutX="267.0" layoutY="113.0" prefHeight="242.0" prefWidth="341.0" promptText="Description" />
+      <Button fx:id="btnAddEvent" layoutX="464.0" layoutY="383.0" mnemonicParsing="false" onAction="#onAddEvent" prefHeight="40.0" prefWidth="85.0" text="Confirm" textAlignment="CENTER" textFill="#0fae22">
+         <font>
+            <Font name="Agency FB Bold" size="20.0" />
+         </font></Button>
+      <Button fx:id="btnCancelEvent" layoutX="335.0" layoutY="383.0" mnemonicParsing="false" onAction="#returnToEventHomepage" prefHeight="40.0" prefWidth="85.0" text="Cancel" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font name="Agency FB Bold" size="20.0" />
+         </font></Button>
       <DatePicker fx:id="dpEndDate" layoutX="70.0" layoutY="252.0" prefHeight="25.0" prefWidth="156.0" promptText="End  Date" />
       <DatePicker fx:id="dpStartDate" layoutX="70.0" layoutY="216.0" prefHeight="25.0" prefWidth="156.0" promptText="Start Date" />
    </children>
