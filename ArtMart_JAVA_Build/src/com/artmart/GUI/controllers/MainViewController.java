@@ -11,8 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import java.io.IOException;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 
 public class MainViewController implements Initializable {
+
+    @FXML
+    private Button productBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,7 +56,8 @@ public class MainViewController implements Initializable {
     @FXML
     private void goToProduct(ActionEvent event) {
         try {
-            Stage stage = new Stage();
+            Stage stage = (Stage) productBtn.getScene().getWindow();
+            stage.close();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
 
             Scene scene = new Scene(root);

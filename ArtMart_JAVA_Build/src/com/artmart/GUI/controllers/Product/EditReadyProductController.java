@@ -147,7 +147,7 @@ public class EditReadyProductController implements Initializable {
         String material = materialF.getText();
         Categories category = categoryF.getValue();
         String categoryName = category.getName(); // get the name of the selected category
-        float price = Float.parseFloat(priceF.getText());
+        int price = Integer.parseInt(priceF.getText());
 
         // Get the selected image file path
         String imagePath = imageField.getText();
@@ -156,8 +156,8 @@ public class EditReadyProductController implements Initializable {
         }
 
         // create a new product object with the updated values
-        Product u = new ReadyProduct(category.getCategories_ID(), name, description, dimensions, weight, material, imagePath, price);
-        // update the product using the ID of the ready product
+        ReadyProduct u = new ReadyProduct(category.getCategories_ID(), name, description, dimensions, weight, material, imagePath, price);
+        // update the product using the ID of the custom product
         boolean a = productDao.updateProduct(this.readyProductId, u);
         if (a) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -169,7 +169,7 @@ public class EditReadyProductController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Cannot update product !");
+            alert.setContentText("Oops! Can not update product");
             alert.showAndWait();
         }
     }
@@ -196,18 +196,22 @@ public class EditReadyProductController implements Initializable {
         }
     }
 
+    @FXML
     public void onBack(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/readyproductslist.fxml"));
+            Stage stage = (Stage) backBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/readyproductslist.fxml"));
+            Parent root = loader.load();
+
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setTitle("");
+
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
-
 }
