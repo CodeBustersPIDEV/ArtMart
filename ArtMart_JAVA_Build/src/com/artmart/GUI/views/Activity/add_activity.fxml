@@ -30,7 +30,7 @@
             <Font name="Agency FB Bold" size="20.0" />
          </font>
       </Button>
-      <DatePicker fx:id="dpStartDate" layoutX="103.0" layoutY="277.0" promptText="Start Date" />
-      <DatePicker fx:id="dpEndDate" layoutX="103.0" layoutY="336.0" promptText="End Date" />
+      <DatePicker fx:id="dpStartDate" layoutX="100.0" layoutY="262.0" prefHeight="40.0" prefWidth="180.0" promptText="Start Date" />
+      <DatePicker fx:id="dpEndDate" layoutX="100.0" layoutY="332.0" prefHeight="40.0" prefWidth="180.0" promptText="End Date" />
    </children>
 </AnchorPane>

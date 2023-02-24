@@ -70,8 +70,9 @@ public class AddActivityController implements Initializable {
         this.title = txtTitle.getText();
 
         // convert values for input check
-        this.startDateText = this.startDate != null ? String.valueOf(this.startDate) : null;
-        this.endDateText = this.endDate != null ? String.valueOf(this.endDate) : null;        
+        this.startDateText = this.dpStartDate.getValue() != null ? String.valueOf(this.dpStartDate.getValue()) : null;
+        this.endDateText = this.dpEndDate.getValue() != null ? String.valueOf(this.dpEndDate.getValue()) : null;
+  
         
             System.out.println(eventID);
             System.out.println(startDateText);

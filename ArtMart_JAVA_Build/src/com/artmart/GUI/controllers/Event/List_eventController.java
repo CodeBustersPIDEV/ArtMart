@@ -108,5 +108,11 @@ public class List_eventController implements Initializable {
             }
         });
     }
+
+    @FXML
+    private void onBtnCancel(ActionEvent event) throws SQLException {
+        this.txtSearch.setText("");
+        this.makeList();
+    }
     
 }
