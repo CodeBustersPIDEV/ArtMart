@@ -33,4 +33,9 @@ public class EventService implements IEventDao {
     public boolean deleteEvent(int eventID) {
         return dao.deleteEvent(eventID);
     }
+    
+    @Override
+    public List<Event> searchEventByName(String name){
+        return dao.searchEventByName(name);
+  }
 }
