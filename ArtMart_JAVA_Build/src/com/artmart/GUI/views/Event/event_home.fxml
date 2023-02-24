@@ -12,7 +12,7 @@
         <URL value="@/com/artmart/GUI/styles/event/event_home.css" />
     </stylesheets>
    <children>
-      <Button fx:id="btnAddEvent" layoutX="152.0" layoutY="216.0" mnemonicParsing="false" onAction="#onBtnAddEvent" text="Add New Event" textFill="#2c8e9c">
+      <Button fx:id="btnAddEvent" layoutX="135.0" layoutY="216.0" mnemonicParsing="false" onAction="#onBtnAddEvent" prefHeight="45.0" prefWidth="172.0" text="Add New Event" textFill="#2c8e9c">
          <font>
             <Font name="Agency FB Bold" size="24.0" />
          </font></Button>
@@ -25,17 +25,17 @@
             <Font name="Agency FB Bold" size="48.0" />
          </font>
       </Label>
-      <Button fx:id="btnGetAllEvents" layoutX="340.0" layoutY="216.0" mnemonicParsing="false" onAction="#onBtnGetAllEvents" text="View Event List" textFill="#2c8e9c">
+      <Button fx:id="btnGetAllEvents" layoutX="340.0" layoutY="216.0" mnemonicParsing="false" onAction="#onBtnGetAllEvents" prefHeight="45.0" prefWidth="172.0" text="View Event List" textFill="#2c8e9c">
          <font>
             <Font name="Agency FB Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btnAddActivity" layoutX="142.0" layoutY="300.0" mnemonicParsing="false" onAction="#onBtnAddActivity" text="Add New Activity" textFill="#2d489c">
+      <Button fx:id="btnAddActivity" layoutX="135.0" layoutY="300.0" mnemonicParsing="false" onAction="#onBtnAddActivity" prefHeight="45.0" prefWidth="172.0" text="Add New Activity" textFill="#2d489c">
          <font>
             <Font name="Agency FB Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btnGetAllActivities" layoutX="330.0" layoutY="300.0" mnemonicParsing="false" onAction="#onBtnGetAllActivities" text="View Activity List" textFill="#2d489c">
+      <Button fx:id="btnGetAllActivities" layoutX="340.0" layoutY="300.0" mnemonicParsing="false" onAction="#onBtnGetAllActivities" text="View Activity List" textFill="#2d489c">
          <font>
             <Font name="Agency FB Bold" size="24.0" />
          </font>
