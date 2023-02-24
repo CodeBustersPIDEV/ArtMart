@@ -73,12 +73,6 @@ public class Card_eventController implements Initializable {
 //        this.eventID = event.getUserID();
     }   
 
-    @FXML
-    private void onBtnDeleteEvent(ActionEvent event) throws SQLException {
-        this.es.deleteEvent(this.event.getEventID());
-        this.listEventController.makeList();
-    }
-
     @FXML//event_home
     private void onBtnViewEvent(ActionEvent event) throws IOException {
         try {
@@ -115,5 +109,9 @@ public class Card_eventController implements Initializable {
         }        
     }
     
-    
+    @FXML
+    private void onBtnDeleteEvent(ActionEvent event) throws SQLException {
+        this.es.deleteEvent(this.event.getEventID());
+        this.listEventController.makeList();
+    }
 }

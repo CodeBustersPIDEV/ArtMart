@@ -4,8 +4,6 @@
  */
 package com.artmart.GUI.controllers.Event;
 
-import com.artmart.GUI.controllers.CustomProduct.CustomProductCardController;
-import com.artmart.models.CustomProduct;
 import com.artmart.models.Event;
 import com.artmart.services.EventService;
 import java.io.IOException;

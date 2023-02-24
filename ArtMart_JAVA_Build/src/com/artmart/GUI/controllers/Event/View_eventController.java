@@ -17,7 +17,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -95,12 +94,12 @@ public class View_eventController implements Initializable {
 
 
     @FXML
-    private void onbtnDeleteEvent(ActionEvent event) {
+    private void onBtnDeleteEvent(ActionEvent event) {
+        this.es.deleteEvent(this.event.getEventID());
+        onBtnReturn(event);
     }
 
-    @FXML
-    private void onBtnEditEvent(ActionEvent event) {
-    }
+
 
     @FXML
     private void onBtnReturn(ActionEvent event) {

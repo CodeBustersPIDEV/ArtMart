@@ -13,7 +13,7 @@
         <URL value="@/com/artmart/GUI/styles/event/view_event.css" />
     </stylesheets>
    <children>
-      <Button fx:id="btnDeleteEvent" layoutX="494.0" layoutY="382.0" mnemonicParsing="false" onAction="#onbtnDeleteEvent" prefHeight="45.0" prefWidth="85.0" text="Delete" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnDeleteEvent" layoutX="494.0" layoutY="382.0" mnemonicParsing="false" onAction="#onBtnDeleteEvent" prefHeight="45.0" prefWidth="85.0" text="Delete" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="Agency FB Bold" size="24.0" />
          </font>
