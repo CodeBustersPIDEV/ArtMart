@@ -24,15 +24,16 @@ public class CategoriesDao implements ICategoriesDao {
     }
 
     @Override
-    public int updateCategories(int id, Categories categories) throws SQLException {
-        String query = "UPDATE Categories SET Categories_ID = ?, name = ? WHERE Categories_ID = ?";
-        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
-        statement.setInt(1, categories.getCategories_ID());
-        statement.setString(2, categories.getName());
+public boolean updateCategories(int id, Categories categories) throws SQLException {
+    String query = "UPDATE Categories SET name = ? WHERE Categories_ID = ?";
+    PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+    statement.setString(1, categories.getName());
+    statement.setInt(2, id);
 
-        statement.setInt(3, id);
-        return statement.executeUpdate();
-    }
+    statement.executeUpdate();
+    return true;
+}
+
 
     @Override
     public int deleteCategories(int id) throws SQLException {
@@ -71,5 +72,18 @@ public class CategoriesDao implements ICategoriesDao {
         }
         return categoriess;
     }
+
+public String getCategoryNameById(int categoryId) throws SQLException {
+    String query = "SELECT name FROM Categories WHERE Categories_ID = ?";
+    PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+    statement.setInt(1, categoryId);
+    ResultSet result = statement.executeQuery();
+    if (result.next()) {
+        return result.getString("name");
+    } else {
+        return null;
+    }
+}
+
 
 }

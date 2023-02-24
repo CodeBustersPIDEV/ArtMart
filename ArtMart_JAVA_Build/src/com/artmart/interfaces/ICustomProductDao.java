@@ -18,4 +18,6 @@ public interface ICustomProductDao {
 
     int deleteCustomProduct(int id) throws SQLException;
     public List<CustomProduct> searchCustomProductByName(String name) throws SQLException;
+
+
 }

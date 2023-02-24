@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.artmart.GUI.controllers.CustomProduct;
+import com.artmart.dao.CategoriesDao;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -39,7 +40,7 @@ public class CustomProductCardController implements Initializable {
     private Text WaightTxt;
     
     private CustomProduct p=new CustomProduct();
-    
+     private CategoriesDao s=new CategoriesDao();
     private CustomProductDao cPDao = new CustomProductDao();
     
     private CustomproductslistController controller=new CustomproductslistController();
@@ -63,11 +64,13 @@ public class CustomProductCardController implements Initializable {
         // TODO
     }    
     
-  public void setCustomProduct(CustomProduct param,CustomproductslistController controller){
+ public void setCustomProduct(CustomProduct param,CustomproductslistController controller) throws SQLException{
     this.p=param;
     this.controller = controller;
     this.pid.setText(Integer.toString(p.getProductId()));
-    this.CID.setText(Integer.toString(p.getCategoryId()));
+    // Retrieve the category name from the database using the CategoryDao
+    String categoryName = s.getCategoryNameById(p.getCategoryId());
+    this.CID.setText(categoryName);
     this.dim.setText(p.getDimensions());
     this.mat.setText(p.getMaterial());
 
@@ -79,6 +82,7 @@ public class CustomProductCardController implements Initializable {
     this.descTxt.setText(p.getDescription());
     this.WaightTxt.setText(""+p.getWeight());
 }
+
 
 
 

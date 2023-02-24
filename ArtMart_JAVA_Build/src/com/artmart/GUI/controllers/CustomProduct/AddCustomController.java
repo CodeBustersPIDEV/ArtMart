@@ -9,13 +9,18 @@ import com.artmart.models.Categories;
 import com.artmart.services.CustomProductService;
 import com.artmart.models.Product;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -23,7 +28,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -53,13 +61,20 @@ public class AddCustomController implements Initializable {
      private final CategoriesDao categoriesDao = new CategoriesDao();
     @FXML
     private Button imageButton;
+    @FXML
+    private ImageView img;
+    private Image image;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+          File file = new File("src/com/artmart/GUI/controllers/CustomProduct/artmart.PNG");
+       this.image = new Image(file.toURI().toString());
+       this.img.setImage(image);
         try {
+            
             // Get all categories from the database
             List<Categories> categories = categoriesDao.getAllCategories();
 
@@ -106,23 +121,36 @@ public class AddCustomController implements Initializable {
     }
 
      
-    @FXML
+  @FXML
 private void handleAddButtonAction(ActionEvent event) throws SQLException {
     String name = nameField.getText();
     String desc = descField.getText();
     String dim = dimField.getText();
-    float weight = Float.parseFloat(weightField.getText());
+    float weight = 0;
+    String weightText = weightField.getText();
     String material = materialField.getText();
-  String imagePath = imageField.getText();
-    
+    String imagePath = imageField.getText();
+
     // Get the selected category from the combo box
     Categories selectedCategory = (Categories) categoryComboBox2.getSelectionModel().getSelectedItem();
 
-    if (selectedCategory == null) {
+    // Check if all fields are filled
+    if (name.isEmpty() || desc.isEmpty() || dim.isEmpty() || weightText.isEmpty() || material.isEmpty() || imagePath.isEmpty() || selectedCategory == null) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Add Custom Product");
         alert.setHeaderText(null);
-        alert.setContentText("Please select a category!");
+        alert.setContentText("Please fill all fields!");
+        alert.showAndWait();
+        return;
+    }
+
+    try {
+        weight = Float.parseFloat(weightText);
+    } catch (NumberFormatException ex) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Add Custom Product");
+        alert.setHeaderText(null);
+        alert.setContentText("Invalid weight value!");
         alert.showAndWait();
         return;
     }
@@ -146,6 +174,7 @@ private void handleAddButtonAction(ActionEvent event) throws SQLException {
     }
 }
 
+
     @FXML
     private void handleSelectImageAction(ActionEvent event) {
          FileChooser fileChooser = new FileChooser();
@@ -157,5 +186,15 @@ private void handleAddButtonAction(ActionEvent event) throws SQLException {
         imageField.setText(selectedFile.getAbsolutePath());
     }
 }
+
+    @FXML
+    private void back(ActionEvent event) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
+    Parent root = loader.load();
+    Scene scene = new Scene(root);
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.setScene(scene);
+    stage.show();
+    }
     }
 

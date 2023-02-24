@@ -3,7 +3,12 @@ package com.artmart.models;
 public class CustomProduct extends Product {
 
     private int customProductId;
+private Product product;
 
+
+    public Product getProduct() {
+        return product;
+    }
     public CustomProduct() {
     }
 

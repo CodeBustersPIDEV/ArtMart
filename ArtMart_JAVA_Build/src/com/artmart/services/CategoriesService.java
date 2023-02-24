@@ -16,7 +16,7 @@ public class CategoriesService implements ICategoriesDao {
     }
 
     @Override
-    public int updateCategories(int id, Categories categories) throws SQLException {
+    public boolean updateCategories(int id, Categories categories) throws SQLException {
         return x.updateCategories(id, categories);
     }
 
@@ -34,4 +34,7 @@ public class CategoriesService implements ICategoriesDao {
     public List<Categories> getAllCategories() throws SQLException {
         return x.getAllCategories();
     }
+    public String getCategoryNameById(int categoryId) throws SQLException 
+    {
+    return x.getCategoryNameById(categoryId);}
 }
