@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="650.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Activity.AddActivityController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="650.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Activity.AddActivityController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/activity/add_activity.css" />
     </stylesheets>
@@ -30,7 +30,7 @@
             <Font name="Agency FB Bold" size="20.0" />
          </font>
       </Button>
-      <DatePicker fx:id="dpEndDate" layoutX="100.0" layoutY="335.0" prefHeight="40.0" prefWidth="180.0" promptText="End  Date" />
-      <DatePicker fx:id="dpStartDate" layoutX="100.0" layoutY="265.0" prefHeight="40.0" prefWidth="180.0" promptText="Start Date" />
+      <DatePicker fx:id="dpStartDate" layoutX="103.0" layoutY="277.0" promptText="Start Date" />
+      <DatePicker fx:id="dpEndDate" layoutX="103.0" layoutY="336.0" promptText="End Date" />
    </children>
 </AnchorPane>

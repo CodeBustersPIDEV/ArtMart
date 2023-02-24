@@ -66,31 +66,33 @@ public class AddActivityController implements Initializable {
     private void onBtnAddActivity(ActionEvent event) {
         
         // get the values for creating a new activity
-        host = txtHost.getText();
-        title = txtTitle.getText();
-        startDate = Date.valueOf(dpStartDate.getValue());
-        endDate = Date.valueOf(dpEndDate.getValue()); 
-        
+        this.host = txtHost.getText();
+        this.title = txtTitle.getText();
+
         // convert values for input check
-        startDateText = startDate != null ? String.valueOf(startDate) : null;
-        endDateText = endDate != null ? String.valueOf(endDate) : null;  
+        this.startDateText = this.startDate != null ? String.valueOf(this.startDate) : null;
+        this.endDateText = this.endDate != null ? String.valueOf(this.endDate) : null;        
         
+            System.out.println(eventID);
+            System.out.println(startDateText);
+            System.out.println(endDateText);
+            System.out.println(title);
+            System.out.println(host);
+            
         // input check
-        if(title.isEmpty() 
-        || host.isEmpty() 
-        || startDateText == null || startDateText.isEmpty()
-        || endDateText == null || endDateText.isEmpty()) {
+        if(this.title.isEmpty() 
+        || this.host.isEmpty() 
+        || this.startDateText == null || this.startDateText.isEmpty()
+        || this.endDateText == null || this.endDateText.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing information");
             alert.setHeaderText(null);
             alert.setContentText("Failed to add event! \nComplete missing information.");
             alert.showAndWait();
         }else {
-//            System.out.println(eventID);
-//            System.out.println(startDate);
-//            System.out.println(endDate);
-//            System.out.println(title);
-//            System.out.println(host);
+
+            this.startDate = Date.valueOf(this.dpStartDate.getValue());
+            this.endDate = Date.valueOf(this.dpEndDate.getValue());  
             
             Activity activity = new Activity(
                 this.eventID, 
