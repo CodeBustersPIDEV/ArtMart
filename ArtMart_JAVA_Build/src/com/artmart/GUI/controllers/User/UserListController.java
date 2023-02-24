@@ -8,6 +8,7 @@ package com.artmart.GUI.controllers.User;
 import com.artmart.GUI.controllers.CustomProduct.CustomProductCardController;
 import com.artmart.models.CustomProduct;
 import com.artmart.models.Media;
+import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.UserService;
 import java.io.File;
@@ -25,10 +26,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -41,9 +45,13 @@ public class UserListController implements Initializable {
     private VBox vbox;
      @FXML
     private TextField searchField;
+      @FXML
+    private Button backBtn;
     UserService user_ser = new UserService();
     User user = new User();
     private List<User> userlist;
+    Session session = new Session();
+    int UserID = session.getUserID("1");
     /**
      * Initializes the controller class.
      */
@@ -104,4 +112,21 @@ public void Search(String searchText)
             Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
+
+public void OnBack(ActionEvent event){
+   try{ Stage stage = (Stage) backBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+            Parent root = loader.load();
+            ProfileAdminController controller = loader.getController();
+                controller.setProfile(UserID);
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+}       catch (IOException ex) {
+            Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
+        }}
 }

@@ -10,6 +10,8 @@ import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 /**
@@ -37,6 +40,8 @@ public class UserCardController implements Initializable {
     private Label roleField;
     @FXML
     private ImageView profilePic;
+    @FXML
+    private Button deleteBtn;
     UserService user_ser = new UserService();
     User user = new User();
 boolean test1,test2,test3;
@@ -116,6 +121,7 @@ public void OnDeleteProfile()
             alert.setHeaderText(null);
             alert.setContentText("Account deleted");
             alert.showAndWait();
+            
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -123,5 +129,8 @@ public void OnDeleteProfile()
             alert.setContentText("Oops!!Can not delete account");
             alert.showAndWait();
         }
+       
 }
+        
 }
+

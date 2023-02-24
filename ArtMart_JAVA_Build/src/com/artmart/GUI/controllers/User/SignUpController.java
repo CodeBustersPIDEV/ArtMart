@@ -73,11 +73,12 @@ public class SignUpController implements Initializable {
     private int test1, test2;
     Session session = new Session();
     int UserID = session.getUserID("1");
-
+    LocalDate date = LocalDate.of(1970, 1, 1);
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> userO = FXCollections.observableArrayList("yes", "no");
         this.identityField.setItems(userO);
+        birthdayField.setValue(date);
     }
 
     @FXML
@@ -125,7 +126,13 @@ public class SignUpController implements Initializable {
                     }
                 }
             }
-
+            nameField.setText("");
+            emailField.setText("");
+            usernameField.setText("");
+            pwdField.setText("");
+            cpwdField.setText("");
+            Phone_nbrField.setText("");
+            birthdayField.setValue(date);
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -188,11 +195,13 @@ public class SignUpController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+
     }
 
     public void OnProfile(ActionEvent event) {
-        User user = user_ser.getUser(UserID);
 
+        User user = user_ser.getUser(UserID);
+        System.out.println(user);
         if (user.getRole().equals("artist")) {
             goToProfile(event, "ProfileArtist");
         } else if (user.getRole().equals("client")) {
@@ -200,8 +209,8 @@ public class SignUpController implements Initializable {
 
         } else if (user.getRole().equals("admin")) {
             goToProfile(event, "ProfileAdmin");
-
         }
+
     }
 
     public void OnBack(ActionEvent event) {
