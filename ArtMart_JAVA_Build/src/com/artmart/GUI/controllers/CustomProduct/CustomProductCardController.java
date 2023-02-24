@@ -90,12 +90,14 @@ public class CustomProductCardController implements Initializable {
     private void OnDelete(ActionEvent event) throws SQLException {
         this.cPDao.deleteCustomProduct(this.p.getCustomProductId());
         this.controller.makeList();
+            this.controller.calculateTotalWeight();
+           this.controller.calculateProduct();
     }
-    public void setProductId(int pid) {
-        this.pid.setText(Integer.toString(pid));
-    }
-
-    
+//    public void setProductId(int pid) {
+//        this.pid.setText(Integer.toString(pid));
+//    }
+//
+//    
    @FXML
 private void goupdate(ActionEvent event) throws SQLException {
     try {
