@@ -4,45 +4,27 @@ public class ReadyProduct extends Product {
 
     private int readyProductId;
     private int price;
-    private Product product;
 
-    public ReadyProduct(int readyProductId, int price, int productId, int categoryId, String name, String description, String dimensions, float weight, String material, String image) {
-        super(productId, categoryId, name, description, dimensions, weight, material, image);
-        this.readyProductId = readyProductId;
-        this.price = price;
-    }
-
-    public ReadyProduct(int price, int productId, int categoryId, String name, String description, String dimensions, float weight, String material, String image) {
-        super(productId, categoryId, name, description, dimensions, weight, material, image);
-        this.price = price;
-    }
-
-    public ReadyProduct(int readyProductId, int price, Product product) {
-        this.readyProductId = readyProductId;
-        this.price = price;
-        this.product = product;
-    }
-
-    public ReadyProduct(int readyProductId, int price, Product product, int productId) {
-        super(productId);
-        this.readyProductId = readyProductId;
-        this.price = price;
-        this.product = product;
+    public ReadyProduct() {
     }
 
     public ReadyProduct(int readyProductId) {
-        super();
         this.readyProductId = readyProductId;
     }
 
-    public ReadyProduct(int readyProductId, int productId) {
-        super(productId);
+    public ReadyProduct(Product p) {
+        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
+    }
+    
+    public ReadyProduct(int aInt, int productId, Product product) {
+    }
+
+    public ReadyProduct(int readyProductId, Product p) {
+        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
         this.readyProductId = readyProductId;
     }
 
-    public ReadyProduct(Product product, int productId) {
-        super(productId);
-        this.product = product;
+    public ReadyProduct(int categories_ID, String name, String description, String dimensions, float weight, String material, String imagePath, float price) {
     }
 
     public int getReadyProductId() {

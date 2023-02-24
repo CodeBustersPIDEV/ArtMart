@@ -6,8 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Product;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ReadyProductDao {
@@ -61,65 +66,120 @@ public class ReadyProductDao {
         return null;
     }
 
+    public int getReadyProductId(int id) throws SQLException {
+        String query = "SELECT product_ID FROM readyproduct WHERE ready_product_ID = ?";
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("product_ID");
+        } else {
+            return 0;
+        }
+
+    }
+
     public List<ReadyProduct> getAllReadyProducts() throws SQLException {
         List<ReadyProduct> readyProducts = new ArrayList<>();
-        String query = "SELECT * FROM readyproduct WHERE ready_product_ID = ?";
-        String productQuery = "SELECT * FROM product WHERE product_ID = ?";
+        String query = "SELECT * FROM readyproduct";
 
         PreparedStatement statement = sqlConnection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
-            int productId = resultSet.getInt("product_ID");
-
-            PreparedStatement productStatement = sqlConnection.prepareStatement(productQuery);
-            productStatement.setInt(1, productId);
-            ResultSet productResultSet = productStatement.executeQuery();
-
-            if (productResultSet.next()) {
-                Product product = new Product(
-                        productResultSet.getInt("product_ID"),
-                        productResultSet.getInt("category_ID"),
-                        productResultSet.getString("name"),
-                        productResultSet.getString("description"),
-                        productResultSet.getString("dimensions"),
-                        productResultSet.getInt("weight"),
-                        productResultSet.getString("material"),
-                        productResultSet.getString("image")
-                );
-                ReadyProduct readyProduct = new ReadyProduct(
-                        resultSet.getInt("ready_product_ID"),
-                        productId,
-                        product
-                );
-                readyProducts.add(readyProduct);
-            }
+            ReadyProduct readyProduct = new ReadyProduct(
+                    resultSet.getInt("ready_product_ID"),
+                    this.productDAO.getProductById(resultSet.getInt("product_ID"))
+            );
+            readyProducts.add(readyProduct);
         }
         return readyProducts;
     }
 
-    public int createReadyProduct(Product p) throws SQLException {
-        String query = "INSERT INTO readyproduct (product_ID) VALUES (?)";
-        productDAO.createProduct(p);
-        PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setInt(1, p.getProductId());
-        return statement.executeUpdate();
+    public int createReadyProduct(ReadyProduct p) throws SQLException {
+        try {
+            PreparedStatement statement = sqlConnection.prepareStatement(
+                    "INSERT INTO readyproduct (product_ID, price) "
+                    + "VALUES (?, ?)"
+            );
+            statement.setInt(1, productDAO.createProduct(p));
+            statement.setInt(2, p.getPrice());
+            statement.executeUpdate();
+            return 1;
+
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return 0;
     }
 
-    public int updateReadyProduct(int id, ReadyProduct readyProduct) throws SQLException {
-        productDAO.updateProduct(id, readyProduct);
-        String query = "UPDATE readyproduct SET product_ID = ? WHERE ready_product_ID = ?";
-        PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setInt(1, readyProduct.getProductId());
-        statement.setInt(2, id);
-        return statement.executeUpdate();
+    public boolean updateReadyProduct(int id, ReadyProduct readyProduct) throws SQLException {
+        try {
+            PreparedStatement statement = sqlConnection.prepareStatement(
+                    "UPDATE readyproduct SET  price= ? WHERE ready_product_ID = ?"
+            );
+
+            statement.setInt(1, readyProduct.getPrice());
+
+            statement.setInt(2, id);
+            statement.executeUpdate();
+            boolean readyPr = productDAO.updateProduct(id, readyProduct);
+            return readyPr;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return false;
     }
 
     public int deleteReadyProduct(int id) throws SQLException {
-        String query = "DELETE FROM readyproduct WHERE ready_product_ID = ?";
-        PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setInt(1, id);
-        return statement.executeUpdate();
+        try {
+            PreparedStatement statement = sqlConnection.prepareStatement(
+                    "DELETE FROM readyproduct WHERE ready_product_ID = ?"
+            );
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            this.productDAO.deleteProduct(id);
+            return 1;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return 0;
     }
 
+    public List<ReadyProduct> searchReadyProductByName(String name) throws SQLException {
+        List<ReadyProduct> readyProducts = new ArrayList<>();
+        String query = "SELECT * FROM readyproduct INNER JOIN product ON readyproduct.product_ID = product.product_ID WHERE product.name LIKE ?";
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setString(1, "%" + name + "%");
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            ReadyProduct readyProduct = new ReadyProduct(
+                    resultSet.getInt("ready_product_ID"),
+                    this.productDAO.getProductById(resultSet.getInt("product_ID"))
+            );
+            readyProducts.add(readyProduct);
+        }
+        return readyProducts;
+    }
+
+    public static List<String> getRandomProductImages(int count) throws SQLException {
+        ReadyProductDao readyProductDao = new ReadyProductDao();
+        List<ReadyProduct> products = readyProductDao.getAllReadyProducts();
+        List<String> images = new ArrayList<>();
+
+        Collections.shuffle(products);
+        for (int i = 0; i < count && i < products.size(); i++) {
+            ReadyProduct product = products.get(i);
+            String imagePath = product.getImage();
+            File file = new File(imagePath);
+            if (file.exists()) {
+                images.add(file.toURI().toString());
+            } else {
+                System.out.println("Image file not found: " + imagePath);
+            }
+        }
+
+        return images;
+    }
 }

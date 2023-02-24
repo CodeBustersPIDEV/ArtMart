@@ -12,7 +12,7 @@ public interface IReadyProductDao {
 
     int createReadyProduct(ReadyProduct readyProduct) throws SQLException;
 
-    int updateReadyProduct(int id, ReadyProduct readyProduct) throws SQLException;
+    boolean updateReadyProduct(int id, ReadyProduct readyProduct) throws SQLException;
 
     int deleteReadyProduct(int id) throws SQLException;
 }

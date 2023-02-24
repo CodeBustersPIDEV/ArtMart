@@ -19,6 +19,13 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
         return readyProductDao.getAllReadyProducts();
     }
 
+    public int getReadyProductId(int id) throws SQLException {
+        return readyProductDao.getReadyProductId(id);
+    }
+  public List<ReadyProduct> searchReadyProductByName(String name) throws SQLException {
+      return readyProductDao.searchReadyProductByName(name);
+  }
+
     @Override
     public ReadyProduct getReadyProductById(int id) throws SQLException {
         return readyProductDao.getReadyProductById(id);
@@ -30,7 +37,7 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
     }
 
     @Override
-    public int updateReadyProduct(int id, ReadyProduct readyProduct) throws SQLException {
+    public boolean updateReadyProduct(int id, ReadyProduct readyProduct) throws SQLException {
         return readyProductDao.updateReadyProduct(id, readyProduct);
     }
 
