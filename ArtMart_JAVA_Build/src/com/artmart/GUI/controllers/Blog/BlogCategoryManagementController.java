@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -113,6 +114,8 @@ public class BlogCategoryManagementController implements Initializable {
                     setGraphic(null);
                 } else {
                     HBox buttons = new HBox(editButton, deleteButton);
+                    buttons.setSpacing(20);
+                    buttons.setAlignment(Pos.CENTER);
                     setGraphic(buttons);
                 }
             }
