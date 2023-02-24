@@ -9,11 +9,18 @@ import com.artmart.dao.ProductDao;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Product;
 import com.artmart.models.User;
+import com.artmart.models.Wishlist;
+import com.artmart.services.OrderService;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,9 +31,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.*;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 public class OrderGUIMenuController implements Initializable {
 
     private final UserDao userDao = new UserDao();
@@ -34,23 +42,46 @@ public class OrderGUIMenuController implements Initializable {
     private User connectedUser = new User();
     private Product productToOrder = new Product();
     private List<User> userOptionsList;
-    //private List<Product> ProductOptionsList;
+    private List<Product> productOptionsList;
 
     @FXML
     private ComboBox<String> userComboBox;
     @FXML
-    private TextField productId;
+    private Button createOrder;
+    @FXML
+    private Button viewOrderList;
+    @FXML
+    private ComboBox<String> productComboBox;
+    @FXML
+    private Button saveToWishListBtn;
+
+    private OrderService orderSerice = new OrderService();
+    @FXML
+    private Button artistviewOrderList;
+    @FXML
+    private Button artistviewOrderList1;
+    @FXML
+    private Button adminViewOrderList;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        userOptionsList = this.userDao.viewListOfUsers();
-        //ProductOptionsList = this.productDao().getAll(;
-        ObservableList<String> userOptions = FXCollections.observableArrayList(
-                userOptionsList.stream().map(User::getName).collect(Collectors.toList())
-        );
-        this.userComboBox.setItems(userOptions);
-        this.userComboBox.getSelectionModel().selectFirst();
-        this.productId.setText("1");
+        try {
+            userOptionsList = this.userDao.viewListOfUsers();
+            //ProductOptionsList = this.productDao().getAll(;
+            ObservableList<String> userOptions = FXCollections.observableArrayList(
+                userOptionsList.stream().map(user -> user.getName() + " (" + user.getRole()+ ")").collect(Collectors.toList())
+            );
+            productOptionsList = this.productDao.getAllProduct();
+            ObservableList<String> productComboBox = FXCollections.observableArrayList(
+                    productOptionsList.stream().map(Product::getName).collect(Collectors.toList())
+            );
+            this.userComboBox.setItems(userOptions);
+            this.userComboBox.getSelectionModel().selectFirst();
+            this.productComboBox.setItems(productComboBox);
+            this.productComboBox.getSelectionModel().selectFirst();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderGUIMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -61,10 +92,8 @@ public class OrderGUIMenuController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/Order.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-
             OrderGUIController controller = loader.getController();
             controller.setUpData(connectedUser, productToOrder);
-
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
@@ -75,14 +104,9 @@ public class OrderGUIMenuController implements Initializable {
     }
 
     private void SelectUserAndProduct() {
-        try {
-            int listId = userComboBox.getSelectionModel().getSelectedIndex();
-            int selectedUserId = userOptionsList.get(listId).getUser_id();
-            this.connectedUser = this.userDao.getUser(selectedUserId);
-            this.productToOrder = this.productDao.getProductById(Integer.valueOf(this.productId.getText()));
-        } catch (SQLException e) {
-            System.out.println("No Product Found");
-        }
+        int listId = userComboBox.getSelectionModel().getSelectedIndex();
+        int selectedUserId = userOptionsList.get(listId).getUser_id();
+        this.connectedUser = this.userDao.getUser(selectedUserId);
     }
 
     @FXML
@@ -102,5 +126,28 @@ public class OrderGUIMenuController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    @FXML
+    private void OnSelectProduct(ActionEvent event) {
+        this.productToOrder = this.productOptionsList.get(this.productComboBox.getSelectionModel().getSelectedIndex());
+        System.out.println(productToOrder);
+    }
+
+    @FXML
+    private void OnSaveToWishList(ActionEvent event) {
+        this.SelectUserAndProduct();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate currentDate = LocalDate.now();
+        String formattedDate = currentDate.format(formatter);
+        this.orderSerice.createWishlist(new Wishlist(this.connectedUser.getUser_id(), this.productToOrder.getProductId(), Date.valueOf(formattedDate)));
+    }
+
+    @FXML
+    private void OnArtistViewList(ActionEvent event) {
+    }
+
+    @FXML
+    private void OnAdminViewList(ActionEvent event) {
     }
 }

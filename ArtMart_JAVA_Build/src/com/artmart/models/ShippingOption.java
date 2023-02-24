@@ -81,4 +81,18 @@ public class ShippingOption {
     public String toString() {
         return "ShippingOption{" + "id=" + id + ", name=" + name + ", carrier=" + carrier + ", shippingSpeed=" + shippingSpeed + ", shippingFee=" + shippingFee + ", availableRegions=" + availableRegions + '}';
     }
+
+    public int getMinDeliveryTimeInDays() {
+        // Get the minimum delivery time from the shipping speed string
+        String[] parts = this.shippingSpeed.split("-");
+        int minDeliveryTime = Integer.parseInt(parts[0].trim());
+        return minDeliveryTime;
+    }
+
+    public int getMaxDeliveryTimeInDays() {
+        // Get the maximum delivery time from the shipping speed string
+        String[] parts = this.shippingSpeed.split("-");
+        int maxDeliveryTime = Integer.parseInt(parts[1].trim().split(" ")[0]);
+        return maxDeliveryTime;
+    }
 }

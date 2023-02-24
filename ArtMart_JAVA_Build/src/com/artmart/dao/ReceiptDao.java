@@ -21,7 +21,7 @@ public class ReceiptDao implements IOrderReceiptDao {
 
     @Override
     public int createReceipt(Receipt receipt) {
-        String sql = "INSERT INTO receipt (order_id, product_id, quantity, price, tax, total_cost, date) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO receipt (orderid, productid, quantity, price, tax, totalcost, date) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, receipt.getOrderId());
             stmt.setInt(2, receipt.getProductId());
@@ -44,8 +44,8 @@ public class ReceiptDao implements IOrderReceiptDao {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new Receipt(rs.getInt("id"), rs.getInt("order_id"), rs.getInt("product_id"), rs.getInt("quantity"),
-                            rs.getDouble("price"), rs.getDouble("tax"), rs.getDouble("total_cost"), rs.getDate("date"));
+                    return new Receipt(rs.getInt("receipt_ID"), rs.getInt("orderid"), rs.getInt("productid"), rs.getInt("quantity"),
+                            rs.getDouble("price"), rs.getDouble("tax"), rs.getDouble("totalcost"), rs.getDate("date"));
                 } else {
                     return null;
                 }
@@ -62,8 +62,8 @@ public class ReceiptDao implements IOrderReceiptDao {
         String sql = "SELECT * FROM receipt";
         try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                receipts.add(new Receipt(rs.getInt("id"), rs.getInt("order_id"), rs.getInt("product_id"), rs.getInt("quantity"),
-                        rs.getDouble("price"), rs.getDouble("tax"), rs.getDouble("total_cost"), rs.getDate("date")));
+                receipts.add(new Receipt(rs.getInt("receipt_ID"), rs.getInt("orderid"), rs.getInt("productid"), rs.getInt("quantity"),
+                        rs.getDouble("price"), rs.getDouble("tax"), rs.getDouble("totalcost"), rs.getDate("date")));
             }
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -73,7 +73,7 @@ public class ReceiptDao implements IOrderReceiptDao {
 
     @Override
     public boolean updateReceipt(Receipt receipt) {
-        String sql = "UPDATE receipt SET order_id = ?, product_id = ?, quantity = ?, price = ?, tax = ?, total_cost = ?, date = ? WHERE id = ?";
+        String sql = "UPDATE receipt SET orderid = ?, productid = ?, quantity = ?, price = ?, tax = ?, totalcost = ?, date = ? WHERE receipt_ID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, receipt.getOrderId());
             stmt.setInt(2, receipt.getProductId());
@@ -93,7 +93,7 @@ public class ReceiptDao implements IOrderReceiptDao {
 
     @Override
     public boolean deleteReceipt(int id) {
-        String sql = "DELETE FROM receipt WHERE id = ?";
+        String sql = "DELETE FROM receipt WHERE receipt_ID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             int rowsDeleted = stmt.executeUpdate();

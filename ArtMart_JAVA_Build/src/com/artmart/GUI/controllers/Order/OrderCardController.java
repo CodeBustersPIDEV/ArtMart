@@ -22,7 +22,8 @@ public class OrderCardController implements Initializable {
 
     private final ProductService productDao = new ProductService();
     private final OrderService orderService = new OrderService();
-
+    private OrderListController orderListController;
+    
     @FXML
     private Text productNameValue;
     @FXML
@@ -43,8 +44,9 @@ public class OrderCardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void setupData(Order order) {
+    public void setupData(Order order,OrderListController orderListController) {
         this.order = order;
+        this.orderListController = orderListController;
         try {
             this.status = this.orderService.getOrderStatusByOrderId(order.getId()).getStatus();
             this.product = this.productDao.getProductById(this.order.getProductId());
@@ -64,7 +66,7 @@ public class OrderCardController implements Initializable {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         OrderDetailController detailController = loader.getController();
-        detailController.setupData(this.order, this.product,this.status);
+        detailController.setupData(this.order, this.product, this.status,this.orderListController);
         stage.setScene(scene);
         stage.show();
     }
