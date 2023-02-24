@@ -84,7 +84,7 @@ public class MainViewController implements Initializable {
     private void goToCustomProduct(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/UserCustom.fxml"));
 
             Scene scene = new Scene(root);
             stage.setResizable(false);

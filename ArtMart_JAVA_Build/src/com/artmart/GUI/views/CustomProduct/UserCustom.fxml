@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.CustomProduct.UserCustomController">
+    <stylesheets>
+        <URL value="@/com/artmart/GUI/styles/custom product.css" />
+    </stylesheets>   
+    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8d5c4" height="409.0" layoutX="-2.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" width="606.0" />
+      <Text fill="#3a98b9" layoutX="94.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Products">
+         <font>
+            <Font name="System Italic" size="57.0" />
+         </font></Text>
+      <Button layoutX="94.0" layoutY="208.0" mnemonicParsing="false" onAction="#add" text="Create a new Product" />
+<Button layoutX="348.0" layoutY="208.0" mnemonicParsing="false" onAction="#consult" prefHeight="31.0" prefWidth="162.0" text="Consult all Products" />
+      <ImageView fx:id="img" fitHeight="76.0" fitWidth="200.0" layoutX="-39.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../New_Project-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="486.0" layoutY="356.0" mnemonicParsing="false" onAction="#admin" text="Admin Panel" />
+
+   </children>
+</AnchorPane>

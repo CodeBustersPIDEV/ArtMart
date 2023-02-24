@@ -152,39 +152,6 @@ public class CustomProductDao {
     return customProducts;
 }
 
-public List<CustomProduct> getAllCustomProductsSortedByName() throws SQLException {
-    List<CustomProduct> customProducts = new ArrayList<>();
-    String query = "SELECT * FROM customproduct INNER JOIN product ON customproduct.product_ID = product.product_ID ORDER BY product.name";
-
-    PreparedStatement statement = sqlConnection.prepareStatement(query);
-    ResultSet resultSet = statement.executeQuery();
-
-    while(resultSet.next()) {
-        CustomProduct customProduct = new CustomProduct(
-                resultSet.getInt("custom_product_ID"),
-                this.productDAO.getProductById(resultSet.getInt("product_ID"))
-        );
-        customProducts.add(customProduct);
-    }
-    return customProducts;
-}
-
-public List<CustomProduct> getAllCustomProductsSortedByWeight() throws SQLException {
-    List<CustomProduct> customProducts = new ArrayList<>();
-    String query = "SELECT * FROM customproduct INNER JOIN product ON customproduct.product_ID = product.product_ID ORDER BY product.weight";
-
-    PreparedStatement statement = sqlConnection.prepareStatement(query);
-    ResultSet resultSet = statement.executeQuery();
-
-    while(resultSet.next()) {
-        CustomProduct customProduct = new CustomProduct(
-                resultSet.getInt("custom_product_ID"),
-                this.productDAO.getProductById(resultSet.getInt("product_ID"))
-        );
-        customProducts.add(customProduct);
-    }
-    return customProducts;
-}
 
 
 }

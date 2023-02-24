@@ -93,29 +93,47 @@ public class EditCpController implements Initializable {
         }
     }
 
-   @FXML
+  @FXML
 private void edit(ActionEvent event) throws SQLException, IOException {
+    // Get the user inputs
     String name = nameField.getText();
     String desc = descField.getText();
     String dim = dimField.getText();
-    float weight = Float.parseFloat(weightField.getText());
+    String weightText = weightField.getText();
     String material = materialField.getText();
     Categories category = categoryComboBox.getValue();
-    String categoryName = category.getName(); // get the name of the selected category
-    
-    // Get the selected image file path
     String imagePath = imageField.getText();
-    if (selectedImageFile != null) {
-        imagePath = selectedImageFile.getAbsolutePath();
-    }
-    if (name.isEmpty() || desc.isEmpty() || dim.isEmpty() || material.isEmpty()|| imagePath.isEmpty()) {
+    
+    // Validate the user inputs
+    if (name.isEmpty() || desc.isEmpty() || dim.isEmpty() || weightText.isEmpty() || material.isEmpty() || category == null || imagePath.isEmpty()) {
+        // Display an error message if any of the fields are empty
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
-        alert.setContentText("Please fill in all fields.");
+        alert.setContentText("Please fill in all the fields.");
         alert.showAndWait();
         return;
     }
+    
+    // Validate the weight input
+    float weight = 0.0f;
+    try {
+        weight = Float.parseFloat(weightText);
+    } catch (NumberFormatException e) {
+        // Display an error message if the weight is not a valid float
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Please enter a valid weight.");
+        alert.showAndWait();
+        return;
+    }
+    
+    // Get the selected image file path
+    if (selectedImageFile != null) {
+        imagePath = selectedImageFile.getAbsolutePath();
+    }
+   
     // create a new product object with the updated values
     Product u = new Product(category.getCategories_ID(), name, desc, dim, weight, material, imagePath);
     // update the product using the ID of the custom product
@@ -124,7 +142,7 @@ private void edit(ActionEvent event) throws SQLException, IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setHeaderText(null);
-        alert.setContentText("Product updated with category: " + categoryName); // display the name of the category in the message
+        alert.setContentText("Product updated with category: " + category.getName()); // display the name of the category in the message
         alert.showAndWait();
     } else {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -134,6 +152,7 @@ private void edit(ActionEvent event) throws SQLException, IOException {
         alert.showAndWait();
     }
 }
+
 
      private CustomProductDao customProductDao = new CustomProductDao();
     private CustomProduct product;

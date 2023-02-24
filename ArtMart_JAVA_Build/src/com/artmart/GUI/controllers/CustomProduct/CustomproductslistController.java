@@ -54,6 +54,8 @@ import javafx.scene.text.Text;
         private Button statisticb;
     @FXML
     private Text total;
+    @FXML
+    private Text totalp;
     
 
         @Override
@@ -62,6 +64,7 @@ import javafx.scene.text.Text;
                 //this.customProductService.createCustomProduct(new Product(1, "amir", "soltani", "Test",2, "Test", "Test"));
                 this.makeList();
                 calculateTotalWeight();
+                calculateProduct();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -72,6 +75,10 @@ import javafx.scene.text.Text;
             totalWeight += customProduct.getWeight();
         }
         total.setText(String.format("%.2f", totalWeight));
+    } 
+ private void calculateProduct() {
+     int totalProducts = customProductslist.size();
+    totalp.setText(String.format("%d", totalProducts));
     }
  
  

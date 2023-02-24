@@ -7,11 +7,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.CustomProduct.EditCpController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6cb5f8" height="404.0" layoutX="-7.0" stroke="BLACK" strokeType="INSIDE" width="626.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8d5c4" height="404.0" layoutX="-7.0" stroke="BLACK" strokeType="INSIDE" width="626.0" />
       <TextField fx:id="nameField" layoutX="189.0" layoutY="25.0" />
       <TextField fx:id="descField" layoutX="190.0" layoutY="61.0" prefHeight="49.0" prefWidth="187.0" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
@@ -23,13 +24,34 @@
       <Button fx:id="backBtn" layoutX="10.0" layoutY="9.0" mnemonicParsing="false" onAction="#goBack" text="back" />
       <ComboBox fx:id="categoryComboBox" layoutX="209.0" layoutY="253.0" prefWidth="150.0" />
       <Button fx:id="chooseImageButton" layoutX="228.0" layoutY="306.0" mnemonicParsing="false" onAction="#chooseImage" text="choose Image" />
-      <Text layoutX="105.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAME" />
-      <Text layoutX="80.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION" />
-      <Text layoutX="81.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIMENSIONS" />
-      <Text layoutX="105.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WEIGHT" />
-      <Text layoutX="98.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MATERIAL" />
-      <Text layoutX="112.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORY" />
-      <Text layoutX="126.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IMAGE" />
+      <Text fill="#3a98b9" layoutX="105.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAME">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Text>
+      <Text fill="#3a98b9" layoutX="80.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Text>
+      <Text fill="#3a98b9" layoutX="81.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIMENSIONS">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Text>
+      <Text fill="#3a98b9" layoutX="105.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WEIGHT">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Text>
+      <Text fill="#3a98b9" layoutX="98.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MATERIAL">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Text>
+      <Text fill="#3a98b9" layoutX="112.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORY">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Text>
+      <Text fill="#3a98b9" layoutX="126.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IMAGE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Text>
       <TextField fx:id="imageField" layoutX="376.0" layoutY="305.0" prefHeight="31.0" prefWidth="126.0" />
       <ImageView fx:id="img" fitHeight="224.0" fitWidth="316.0" layoutX="303.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
    </children>
