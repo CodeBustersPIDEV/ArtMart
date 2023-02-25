@@ -47,7 +47,7 @@
                <children>
                   <ScrollPane fx:id="commentSection" hbarPolicy="NEVER" prefHeight="220.0" prefWidth="484.0">
                      <content>
-                        <VBox fx:id="commentContainer" alignment="TOP_CENTER" prefHeight="315.0" prefWidth="482.0" />
+                        <VBox fx:id="commentContainer" alignment="TOP_CENTER" prefHeight="315.0" prefWidth="482.0" spacing="15.0" />
                      </content>
                   </ScrollPane>
                </children>

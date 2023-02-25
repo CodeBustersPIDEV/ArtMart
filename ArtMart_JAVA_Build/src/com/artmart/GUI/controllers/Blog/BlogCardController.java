@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -30,7 +31,7 @@ import javafx.stage.Stage;
 public class BlogCardController implements Initializable {
 
     @FXML
-    private Text blog_title;
+    private Label blog_title;
     @FXML
     private Button view_btn;
     @FXML
@@ -41,6 +42,9 @@ public class BlogCardController implements Initializable {
     private Label blog_id;
     @FXML
     private ImageView imagePreview;
+    private Image image;
+    @FXML
+    private Pane cardContainer;
 
     /**
      * Initializes the controller class.
@@ -50,7 +54,13 @@ public class BlogCardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        System.out.println(image);
+//        this.imagePreview.setFitWidth(this.image.getWidth());
+//        this.imagePreview.setFitHeight(this.image.getHeight());
+
+//        this.imagePreview.fitWidthProperty().bind(cardContainer.widthProperty());
+        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
+
     }
 
     public void setBlogTitle(String title) {
@@ -71,6 +81,10 @@ public class BlogCardController implements Initializable {
 
     public void setBlogImage(Image blog_image) {
         this.imagePreview.setImage(blog_image);
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     @FXML
