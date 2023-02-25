@@ -91,24 +91,20 @@ public class Add_eventController implements Initializable {
         this.name = this.txtName.getText();
         this.location = this.txtLocation.getText();
         this.description = this.txtAreaDescription.getText();
-        this.type = (String) this.comboBoxType.getValue();
-        this.entryFee = Float.parseFloat(this.txtEntryFee.getText());
-        this.capacity = Integer.parseInt(this.txtCapacity.getText());
-        this.startDate = Date.valueOf(this.dpStartDate.getValue());
-        this.endDate = Date.valueOf(this.dpEndDate.getValue());  
+
         
         // convert values for input check
         this.typeText = (String) this.comboBoxType.getValue(); 
         this.entryFeeText = this.txtEntryFee.getText();
         this.capacityText = this.txtCapacity.getText();
-        this.startDateText = this.startDate != null ? String.valueOf(this.startDate) : null;
-        this.endDateText = this.endDate != null ? String.valueOf(this.endDate) : null;        
+        this.startDateText = this.dpStartDate.getValue() != null ? String.valueOf(this.dpStartDate.getValue()) : null;
+        this.endDateText = this.dpEndDate.getValue() != null ? String.valueOf(this.dpEndDate.getValue()) : null;
         
         // input check
-        if(name.isEmpty() 
+        if(this.name.isEmpty() 
         || this.location.isEmpty() 
-        || this.typeText == null || this.typeText.isEmpty()
         || this.description.isEmpty() 
+        || this.typeText == null || this.typeText.isEmpty()
         || this.entryFeeText.isEmpty()
         || this.capacityText.isEmpty() 
         || this.startDateText == null || this.startDateText.isEmpty()
@@ -119,6 +115,24 @@ public class Add_eventController implements Initializable {
             alert.setContentText("Failed to add event! \nComplete missing information.");
             alert.showAndWait();
         }else {
+            
+            this.type = (String) this.comboBoxType.getValue();
+//            this.entryFee = Float.parseFloat(this.txtEntryFee.getText());
+//            this.capacity = Integer.parseInt(this.txtCapacity.getText());
+            this.startDate = Date.valueOf(this.dpStartDate.getValue());
+            this.endDate = Date.valueOf(this.dpEndDate.getValue()); 
+            try {
+                this.entryFee = Float.parseFloat(this.txtEntryFee.getText());
+                this.capacity = Integer.parseInt(this.txtCapacity.getText());
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid input");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid input for entry fee or capacity.");
+                alert.showAndWait();
+                return;
+            }
+
             
             Event ev = new Event(
                 this.name, 

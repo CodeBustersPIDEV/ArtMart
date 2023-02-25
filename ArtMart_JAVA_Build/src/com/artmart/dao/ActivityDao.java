@@ -38,6 +38,7 @@ public class ActivityDao implements IActivityDao {
             statement.setString(4, activity.getTitle());
             statement.setString(5, activity.getHost());
             result = statement.executeUpdate();
+            System.out.println(result);
         } catch (SQLException e) {
             System.err.println(e.getCause().getMessage());
         }

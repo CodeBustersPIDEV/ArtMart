@@ -112,5 +112,11 @@ public class ListActivityController implements Initializable {
             System.out.print(e.getMessage());
         }        
     }
+
+    @FXML
+    private void onBtnCancel(ActionEvent event) throws SQLException {
+        this.txtSearch.setText("");
+        this.makeList();
+    }
     
 }
