@@ -53,6 +53,8 @@ public class ReadyProductCardController implements Initializable {
 
     @FXML
     private Button delete;
+    @FXML
+    private Button edit;
 
     private ReadyProduct p = new ReadyProduct();
 
@@ -96,7 +98,8 @@ public class ReadyProductCardController implements Initializable {
     @FXML
     private void onEdit(ActionEvent event) throws SQLException {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) edit.getScene().getWindow();
+            stage.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/EditReadyProduct.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);

@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -42,6 +43,10 @@ public class ProductGUIController implements Initializable {
     private ImageView imagePreview2;
     @FXML
     private ImageView imagePreview3;
+    @FXML
+    private Button consultAllReadyProducts;
+    @FXML
+    private Button backBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,7 +79,8 @@ public class ProductGUIController implements Initializable {
     @FXML
     public void consultAllReadyProducts(ActionEvent event) {
         try {
-            Stage stage = new Stage();
+            Stage stage = (Stage) consultAllReadyProducts.getScene().getWindow();
+            stage.close();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/readyproductslist.fxml"));
 
             Scene scene = new Scene(root);
@@ -89,11 +95,15 @@ public class ProductGUIController implements Initializable {
 
     public void onBack(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
+            Stage stage = (Stage) backBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
+            Parent root = loader.load();
+
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setTitle("");
+
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
