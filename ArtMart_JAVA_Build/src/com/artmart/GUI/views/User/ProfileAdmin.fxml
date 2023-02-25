@@ -7,30 +7,53 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.ProfileAdminController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E9E9E9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.ProfileAdminController">
    <children>
       <ImageView fx:id="ProfilePic" fitHeight="150.0" fitWidth="113.0" layoutX="60.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../assets/user.jpeg" />
          </image>
       </ImageView>
-      <Label fx:id="usernameProfile" layoutX="180.0" layoutY="52.0" text="Label" />
-      <Label fx:id="nameProfile" layoutX="176.0" layoutY="224.0" prefHeight="17.0" prefWidth="65.0" text="Label" />
-      <Label layoutX="71.0" layoutY="261.0" text="Email:" />
-      <Label fx:id="emailProfile" layoutX="177.0" layoutY="261.0" text="Label" />
-      <Label layoutX="471.0" layoutY="52.0" text="Department" />
-      <Label fx:id="departmentProfile" layoutX="478.0" layoutY="80.0" text="Label">
+      <Label fx:id="usernameProfile" layoutX="180.0" layoutY="52.0" text="Label" textFill="#373065">
          <font>
-            <Font size="21.0" />
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <Label fx:id="nameProfile" layoutX="176.0" layoutY="224.0" prefHeight="17.0" prefWidth="65.0" text="Label" textFill="#373065" />
+      <Label fx:id="emailProfile" layoutX="177.0" layoutY="261.0" text="Label" textFill="#373065" />
+      <Label layoutX="458.0" layoutY="54.0" text="Department" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="departmentProfile" layoutX="478.0" layoutY="80.0" text="Label" textFill="#373065">
+         <font>
+            <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="69.0" layoutY="295.0" text="BirthDate:" />
-      <Label fx:id="birthdayProfile" layoutX="177.0" layoutY="295.0" text="Label" />
-      <Button fx:id="editProfileBtn" layoutX="520.0" layoutY="365.0" mnemonicParsing="false" onAction="#OnUpdateBtn" text="Edit Profile" />
-      <Button fx:id="backBtn" layoutX="16.0" layoutY="20.0" mnemonicParsing="false" onAction="#OnBack" text="&lt;Back" />
-      <Label layoutX="69.0" layoutY="328.0" text="Phone Number:" />
-      <Label fx:id="phoneProfile" layoutX="177.0" layoutY="328.0" text="Label" />
-      <Button fx:id="userListBtn" layoutX="405.0" layoutY="229.0" mnemonicParsing="false" onAction="#OnUserListBtn" text="View Users List " />
-      <Button fx:id="addAdBtn" layoutX="416.0" layoutY="266.0" mnemonicParsing="false" onAction="#OnAddBtn" text="Add Admin" />
+      <Label fx:id="birthdayProfile" layoutX="177.0" layoutY="295.0" text="Label" textFill="#373065" />
+      <Button fx:id="editProfileBtn" layoutX="520.0" layoutY="365.0" mnemonicParsing="false" onAction="#OnUpdateBtn" style="-fx-background-color: #BAB9CD;" text="Edit Profile" />
+      <Button fx:id="backBtn" layoutX="6.0" layoutY="11.0" mnemonicParsing="false" onAction="#OnBack" style="-fx-background-color: #BAB9CD;" text="&lt;Back" />
+      <Label fx:id="phoneProfile" layoutX="177.0" layoutY="328.0" text="Label" textFill="#373065" />
+      <Button fx:id="userListBtn" layoutX="405.0" layoutY="229.0" mnemonicParsing="false" onAction="#OnUserListBtn" style="-fx-background-color: #BAB9CD;" text="View Users List " />
+      <Button fx:id="addAdBtn" layoutX="416.0" layoutY="266.0" mnemonicParsing="false" onAction="#OnAddBtn" style="-fx-background-color: #BAB9CD;" text="Add Admin" />
+      <Label layoutX="69.0" layoutY="224.0" text="Name:" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="261.0" text="Email:" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="69.0" layoutY="295.0" text="BirthDate:" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="69.0" layoutY="328.0" text="Phone Number:" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

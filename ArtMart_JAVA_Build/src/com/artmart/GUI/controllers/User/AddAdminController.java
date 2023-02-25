@@ -11,6 +11,7 @@ import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,14 +77,26 @@ public class AddAdminController implements Initializable {
             String confirmPassword = cpwdField.getText();
             String department = departmentField.getText();
             String emailFormat = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+            String pwdPattern = "^(?=.*[A-Z])(?=.*[0-9]).{8,}$";
+            LocalDate currentDate = LocalDate.now();
             if (username.isEmpty() || password.isEmpty() || email.isEmpty() || name.isEmpty() || birthdayField.getValue().toString().isEmpty() || Phone_nbrField.getText().isEmpty() || department.isEmpty()) {
                 Warning("You have to fill all the fields");
             } else {
                 if (!password.equals(confirmPassword)) {
                     Warning("The passwords must be identical");
-                } else if (!email.matches(emailFormat)) {
+                }
+                if (!email.matches(emailFormat)) {
                     Warning("The email must be valid");
-                } else {
+                }
+                if (!password.matches(pwdPattern)) {
+                    Warning("Password must contain at least one uppercase letter, one digit, and be at least 8 characters long");
+                }
+                if (birthdayField.getValue().isAfter(currentDate)) {
+                    Warning("The birthday date must not exceed today's date");
+
+                }
+
+                if (password.equals(confirmPassword) && email.matches(emailFormat) && password.matches(pwdPattern) && !birthdayField.getValue().isAfter(currentDate)) {
                     User user = new User(phoneNumber, name, email, username, password, birthday);
                     Admin admin = new Admin(user);
                     admin.setDepartment(department);
@@ -124,16 +137,17 @@ public class AddAdminController implements Initializable {
 
     @FXML
     private void OnBack(ActionEvent event) {
-       try{ Stage stage = (Stage) backBtn.getScene().getWindow();
-        stage.close();
-        stage = new Stage();
+        try {
+            Stage stage = (Stage) backBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("User Managment");
             stage.setScene(scene);
             stage.show();
-    }   catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(ProfileClientController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

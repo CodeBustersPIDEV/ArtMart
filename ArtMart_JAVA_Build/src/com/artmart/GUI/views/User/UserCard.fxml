@@ -7,21 +7,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="112.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.UserCardController">
+<AnchorPane id="AnchorPane" prefHeight="112.0" prefWidth="600.0" style="-fx-background-color: #E9E9E9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.UserCardController">
    <children>
       <ImageView fx:id="profilePic" fitHeight="81.0" fitWidth="93.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../assets/user.jpeg" />
          </image>
       </ImageView>
-      <Label fx:id="usernameField" layoutX="116.0" layoutY="31.0" prefHeight="35.0" prefWidth="88.0" text="Label">
+      <Label fx:id="usernameField" layoutX="116.0" layoutY="31.0" prefHeight="35.0" prefWidth="88.0" text="Label" textFill="#373065">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="roleField" layoutX="116.0" layoutY="72.0" text="Label" />
-      <Button fx:id="profileBtn" layoutX="269.0" layoutY="44.0" mnemonicParsing="false" onAction="#OnClientProfile" text="View Profile" />
-      <Button fx:id="deleteBtn" layoutX="379.0" layoutY="44.0" mnemonicParsing="false" onAction="#OnDeleteProfile" text="Delete Account" />
-      <Button fx:id="BlockBtn" layoutX="500.0" layoutY="44.0" mnemonicParsing="false" text="Block Acount" />
+      <Label fx:id="roleField" layoutX="116.0" layoutY="72.0" text="Label" textFill="#373065" />
+      <Button fx:id="profileBtn" layoutX="404.0" layoutY="44.0" mnemonicParsing="false" onAction="#OnClientProfile" style="-fx-background-color: #BAB9CD;" text="View Profile" />
+      <Button fx:id="blockBtn" layoutX="500.0" layoutY="44.0" mnemonicParsing="false" onAction="#OnBlockProfile" style="-fx-background-color: #BAB9CD;" text="Block Acount" />
    </children>
 </AnchorPane>

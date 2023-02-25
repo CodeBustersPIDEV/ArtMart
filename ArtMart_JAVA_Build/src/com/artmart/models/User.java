@@ -7,6 +7,7 @@ public class User {
     private int user_id, phone_nbr;
     private String name, email, username, pwd, role, picture;
     private Date birthday, date_creation;
+    boolean blocked;
 
     public User() {
     }
@@ -35,6 +36,7 @@ public class User {
         this.picture = picture;
         this.birthday = birthday;
     }
+    
     
      public User(int phone_nbr, String name, String email, String username, String pwd, Date birthday, String picture) {
         this.phone_nbr = phone_nbr;
@@ -99,6 +101,14 @@ public class User {
 
     public String getPicture() {
         return picture;
+    }
+
+    public boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
     }
 
     public void setPicture(String picture) {

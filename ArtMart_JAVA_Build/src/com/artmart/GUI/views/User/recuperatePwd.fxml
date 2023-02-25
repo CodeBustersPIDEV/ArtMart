@@ -4,14 +4,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="173.0" prefWidth="427.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.User.RecuperatePwdController">
+<AnchorPane id="AnchorPane" prefHeight="173.0" prefWidth="427.0" style="-fx-background-color: #E9E9E9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.RecuperatePwdController">
    <children>
-      <TextField fx:id="emailField" layoutX="128.0" layoutY="74.0" />
-      <Label layoutX="135.0" layoutY="55.0" text="Please provide your email" />
+      <TextField fx:id="emailField" layoutX="128.0" layoutY="74.0" prefHeight="25.0" prefWidth="155.0" />
+      <Label layoutX="130.0" layoutY="57.0" text="Please provide your email" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
       <Label fx:id="message" layoutX="97.0" layoutY="142.0" prefHeight="17.0" prefWidth="226.0" textFill="#ff0707" />
-      <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnBack" text="&lt;Back" />
-      <Button fx:id="submitBtn" layoutX="178.0" layoutY="108.0" mnemonicParsing="false" onAction="#OnSubmit" text="Submit" />
+      <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnBack" style="-fx-background-color: #BAB9CD;" text="&lt;Back" />
+      <Button fx:id="submitBtn" layoutX="178.0" layoutY="108.0" mnemonicParsing="false" onAction="#OnSubmit" style="-fx-background-color: #BAB9CD;" text="Submit" />
    </children>
 </AnchorPane>

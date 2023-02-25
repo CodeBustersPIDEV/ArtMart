@@ -41,10 +41,11 @@ public class UserCardController implements Initializable {
     @FXML
     private ImageView profilePic;
     @FXML
-    private Button deleteBtn;
+    private Button blockBtn;
     UserService user_ser = new UserService();
     User user = new User();
-boolean test1,test2,test3;
+    boolean test1, test2, test3;
+
     /**
      * Initializes the controller class.
      */
@@ -67,6 +68,13 @@ boolean test1,test2,test3;
 
     public void setUser(User u) {
         this.user = u;
+        if (user.getBlocked()) {
+            blockBtn.setText("Unblock Account");
+
+        } else {
+            blockBtn.setText("Block Account");
+
+        }
     }
 
     public void OnClientProfile(ActionEvent event) {
@@ -77,6 +85,7 @@ boolean test1,test2,test3;
                 Parent root = loader.load();
                 ProfileClientController controller = loader.getController();
                 controller.setProfile(this.user.getUser_id());
+
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -105,32 +114,45 @@ boolean test1,test2,test3;
             System.out.print(e.getMessage());
         }
     }
-public void OnDeleteProfile()
-{
-            if (user.getRole().equals("artist")) {
-            test1 = user_ser.deleteAccountAr(user.getUser_id());
-        } else if (user.getRole().equals("client")) {
-            test2 = user_ser.deleteAccountC(user.getUser_id());
-        }else
-        {
-            test3=user_ser.deleteAccountA(user.getUser_id());
-        }
-        if (test1 || test2||test3) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText(null);
-            alert.setContentText("Account deleted");
-            alert.showAndWait();
-            
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Oops!!Can not delete account");
-            alert.showAndWait();
-        }
-       
-}
-        
-}
 
+    public void OnBlockProfile(ActionEvent event) {
+        if (user.getBlocked()) {
+            user.setBlocked(false);
+            test1 = user_ser.blockUser(user.getUser_id(), user.getBlocked());
+            if (test1) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null);
+                alert.setContentText("Account unblocked");
+                alert.showAndWait();
+                blockBtn.setText("Block Account");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Oops!!Can not unblock account");
+                alert.showAndWait();
+            }
+
+        } else {
+            user.setBlocked(true);
+            test1 = user_ser.blockUser(user.getUser_id(), user.getBlocked());
+            if (test1) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null);
+                alert.setContentText("Account blocked");
+                alert.showAndWait();
+                blockBtn.setText("Unblock Account");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Oops!!Can not block account");
+                alert.showAndWait();
+            }
+
+        }
+    }
+
+}

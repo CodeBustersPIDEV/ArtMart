@@ -6,6 +6,7 @@
 package com.artmart.GUI.controllers.User;
 
 import com.artmart.models.Session;
+import com.artmart.models.User;
 import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
@@ -37,7 +38,7 @@ public class LoginController implements Initializable {
     private Label loginMsg;
     @FXML
     private Button LoginBtn;
-     @FXML
+    @FXML
     private Button signUpBtn;
     @FXML
     private Button forgotPwdBtn;
@@ -54,9 +55,9 @@ public class LoginController implements Initializable {
     @FXML
     private void OnSignUp(ActionEvent event) {
         try {
-              Stage stage = (Stage) signUpBtn.getScene().getWindow();
-             stage.close();
-             stage = new Stage();
+            Stage stage = (Stage) signUpBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -74,35 +75,39 @@ public class LoginController implements Initializable {
         String password = pwdLoginField.getText();
 
         if (!username.isEmpty() && !password.isEmpty()) {
-            boolean a = user_ser.authenticate(username, password);
-          
-                            loginMsg.setText("User found");
 
-            if (a) {
-                Session session = Session.getInstance();
-                session.setUserId(user_ser.getUserIdByUsername(username));
-                session.setUsername(username);
-                session.setSessionId("1");
-                session.logIn(session.getSessionId(),session);
-                
-                 try {
-                     Stage stage = (Stage) LoginBtn.getScene().getWindow();
-             stage.close();
-             stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Mainview.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("User Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-                
+            int id = user_ser.getUserIdByUsername(username);
+            User u = user_ser.getUser(id);
+            if (u.getPwd().equals(password)) {
+                if (u.getBlocked() == true) {
+                    loginMsg.setText("This user is blocked");
+                } else {
+                    boolean a = user_ser.authenticate(username, password);
 
+                    if (a) {
+                        Session session = Session.getInstance();
+                        session.setUserId(id);
+                        session.setUsername(username);
+                        session.setSessionId("1");
+                        session.logIn(session.getSessionId(), session);
+
+                        try {
+                            Stage stage = (Stage) LoginBtn.getScene().getWindow();
+                            stage.close();
+                            stage = new Stage();
+                            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Mainview.fxml"));
+                            Scene scene = new Scene(root);
+                            stage.setResizable(false);
+                            stage.setTitle("User Managment");
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            System.out.print(e.getMessage());
+                        }
+                    }
+                }
             } else {
-                loginMsg.setText("User not found");
-
+                loginMsg.setText("Incorrect password");
             }
 
         } else if (!username.isEmpty() && password.isEmpty()) {
@@ -116,12 +121,13 @@ public class LoginController implements Initializable {
         }
 
     }
-     @FXML
+
+    @FXML
     private void OnForgotPwd(ActionEvent event) {
         try {
-                     Stage stage = (Stage) forgotPwdBtn.getScene().getWindow();
-             stage.close();
-             stage = new Stage();
+            Stage stage = (Stage) forgotPwdBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/recuperatePwd.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -132,5 +138,5 @@ public class LoginController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-    
+
 }

@@ -5,9 +5,6 @@
  */
 package com.artmart.GUI.controllers.User;
 
-import com.artmart.GUI.controllers.CustomProduct.CustomProductCardController;
-import com.artmart.models.CustomProduct;
-import com.artmart.models.Media;
 import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.UserService;
@@ -59,8 +56,8 @@ public class UserListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             userlist = this.user_ser.viewListOfUsers();
-
             this.makeList(userlist);
+            
              searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         Search(newValue);
     });
@@ -74,6 +71,7 @@ public class UserListController implements Initializable {
         this.vbox.getChildren().clear();  
         Users.forEach(u -> {
             try {
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/UserCard.fxml"));
                 Pane pane = loader.load();
                 UserCardController controller = loader.getController();
@@ -124,7 +122,8 @@ public void OnBack(ActionEvent event){
 
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setScene(scene);
+       
+     stage.setScene(scene);
             stage.show();
 }       catch (IOException ex) {
             Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);

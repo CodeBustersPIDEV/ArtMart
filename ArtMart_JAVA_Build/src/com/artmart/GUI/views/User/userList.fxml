@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.UserListController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="620.0" style="-fx-background-color: #E9E9E9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.UserListController">
    <children>
       <ScrollPane layoutY="37.0" prefHeight="363.0" prefWidth="620.0">
         <content>
@@ -16,6 +16,6 @@
         </content>
       </ScrollPane>
       <TextField fx:id="searchField" layoutX="437.0" layoutY="7.0" />
-      <Button fx:id="backBtn" layoutX="6.0" layoutY="7.0" mnemonicParsing="false" onAction="#OnBack" text="&lt;Back" />
+      <Button fx:id="backBtn" layoutX="6.0" layoutY="7.0" mnemonicParsing="false" onAction="#OnBack" style="-fx-background-color: #BAB9CD;" text="&lt;Back" />
    </children>
 </AnchorPane>
