@@ -20,10 +20,6 @@ import javafx.scene.control.Button;
 public class MainViewController implements Initializable {
 
     @FXML
-    private Button orderBtn;
-    @FXML
-    private Button userBtn;
-    @FXML
     private Button productBtn;
     @FXML
     private Button eventBtn;
@@ -35,7 +31,6 @@ public class MainViewController implements Initializable {
     private Session session = new Session();
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
@@ -77,7 +72,8 @@ public class MainViewController implements Initializable {
     @FXML
     private void goToProduct(ActionEvent event) {
         try {
-            Stage stage = new Stage();
+            Stage stage = (Stage) productBtn.getScene().getWindow();
+            stage.close();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
 
             Scene scene = new Scene(root);
@@ -111,7 +107,6 @@ public class MainViewController implements Initializable {
             Stage stage = new Stage();
             Parent root = FXMLLoader
                     .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
-
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("Custom Product Managment");
