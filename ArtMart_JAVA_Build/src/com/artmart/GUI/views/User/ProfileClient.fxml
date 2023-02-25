@@ -7,37 +7,64 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.ProfileClientController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E9E9E9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.ProfileClientController">
    <children>
       <ImageView fx:id="ProfilePic" fitHeight="150.0" fitWidth="113.0" layoutX="60.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="file:/C:/Users/21697/OneDrive/Documents/GitHub/ArtMart/ArtMart_JAVA_Build/assets/user.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="69.0" layoutY="224.0" text="Name:" />
-      <Label fx:id="usernameProfile" layoutX="188.0" layoutY="91.0" text="Label" />
-      <Label fx:id="nameProfile" layoutX="177.0" layoutY="224.0" prefHeight="17.0" prefWidth="31.0" text="Label" />
-      <Label layoutX="71.0" layoutY="261.0" text="Email:" />
+      <Label layoutX="69.0" layoutY="224.0" text="Name:" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="usernameProfile" layoutX="188.0" layoutY="91.0" text="Label" textFill="#373065">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font></Label>
+      <Label fx:id="nameProfile" layoutX="177.0" layoutY="224.0" prefHeight="17.0" prefWidth="89.0" text="Label" />
+      <Label layoutX="71.0" layoutY="261.0" text="Email:" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
       <Label fx:id="emailProfile" layoutX="178.0" layoutY="261.0" text="Label" />
-      <Label layoutX="69.0" layoutY="295.0" text="BirthDate:" />
+      <Label layoutX="69.0" layoutY="295.0" text="BirthDate:" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
       <Label fx:id="birthdayProfile" layoutX="178.0" layoutY="295.0" text="Label" />
-      <Button fx:id="editProfileBtn" layoutX="520.0" layoutY="365.0" mnemonicParsing="false" onAction="#OnEditProfile" text="Edit Profile" />
-      <Label layoutX="293.0" layoutY="51.0" prefHeight="17.0" prefWidth="110.0" text="Number of custom " />
-      <Label layoutX="470.0" layoutY="51.0" text="Number of Orders " />
-      <Label layoutX="302.0" layoutY="68.0" text="demands posted" />
-      <Label layoutX="501.0" layoutY="68.0" text="bought" />
-      <Label fx:id="nbrOrderProfile" layoutX="496.0" layoutY="108.0" text="Label">
+      <Button fx:id="editProfileBtn" layoutX="520.0" layoutY="365.0" mnemonicParsing="false" onAction="#OnEditProfile" style="-fx-background-color: #BAB9CD;" text="Edit Profile" />
+      <Label layoutX="293.0" layoutY="51.0" prefHeight="17.0" prefWidth="110.0" text="Number of custom " textFill="#373065">
          <font>
-            <Font size="21.0" />
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="470.0" layoutY="51.0" text="Number of Orders " textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="302.0" layoutY="68.0" text="demands posted" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="501.0" layoutY="68.0" text="bought" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="nbrOrderProfile" layoutX="496.0" layoutY="108.0" text="Label" textFill="#373065">
+         <font>
+            <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="nbrCusDemProfile" layoutX="324.0" layoutY="108.0" text="Label">
+      <Label fx:id="nbrCusDemProfile" layoutX="324.0" layoutY="108.0" text="Label" textFill="#373065">
          <font>
-            <Font size="21.0" />
+            <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="backBtn" layoutX="7.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnBack" text="&lt;Back" />
-      <Label layoutX="69.0" layoutY="330.0" text="Phone Number:" />
+      <Button fx:id="backBtn" layoutX="7.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnBack" style="-fx-background-color: #BAB9CD;" text="&lt;Back" />
+      <Label layoutX="69.0" layoutY="330.0" text="Phone Number:" textFill="#373065">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
       <Label fx:id="phoneProfile" layoutX="177.0" layoutY="330.0" text="Label" />
    </children>
 </AnchorPane>

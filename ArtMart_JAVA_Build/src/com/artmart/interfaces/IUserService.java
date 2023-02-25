@@ -12,6 +12,8 @@ public interface IUserService {
 
     boolean updateAccountU(int user_id, User user);
 
+    public boolean blockUser(int user_id, boolean state);
+
     int getUserIdByUsername(String username);
 
     int getUserIdByEmail(String email);

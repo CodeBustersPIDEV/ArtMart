@@ -6,22 +6,25 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="650.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.MainViewController">
+<AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="643.0" style="-fx-background-color: #E9E9E9;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.MainViewController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/main_view.css" />
     </stylesheets>
    <children>
-      <Text layoutX="193.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARTMART">
+      <Text fill="#e1704b" layoutX="225.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARTMART">
          <font>
-            <Font name="System Bold" size="53.0" />
+            <Font name="System Bold" size="40.0" />
          </font>
       </Text>
-      <Text layoutX="206.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Global Modal Interface (Only for Testing)" />
-      <Button fx:id="orderBtn" layoutX="159.0" layoutY="230.0" mnemonicParsing="false" onAction="#goToOrder" prefHeight="31.0" prefWidth="146.0" text="Order " />
-      <Button fx:id="userBtn" layoutX="159.0" layoutY="164.0" mnemonicParsing="false" onAction="#goToUser" prefHeight="31.0" prefWidth="146.0" text="User " />
-      <Button fx:id="productBtn" layoutX="159.0" layoutY="299.0" mnemonicParsing="false" onAction="#goToProduct" prefHeight="31.0" prefWidth="146.0" text="Product " />
-      <Button fx:id="eventBtn" layoutX="343.0" layoutY="164.0" mnemonicParsing="false" onAction="#goToEvent" prefHeight="31.0" prefWidth="146.0" text="Event " />
-      <Button fx:id="cProductBtn" layoutX="343.0" layoutY="230.0" mnemonicParsing="false" onAction="#goToCustomProduct" prefHeight="31.0" prefWidth="146.0" text="Custom Product " />
-      <Button fx:id="blogBtn" layoutX="343.0" layoutY="299.0" mnemonicParsing="false" onAction="#goToBlog" prefHeight="31.0" prefWidth="146.0" text="Blog " />
+      <Text fill="#373065" layoutX="205.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Global Modal Interface (Only for Testing)">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Text>
+      <Button fx:id="orderBtn" layoutX="159.0" layoutY="230.0" mnemonicParsing="false" onAction="#goToOrder" prefHeight="31.0" prefWidth="146.0" style="-fx-background-color: #BAB9CD;" text="Order " />
+      <Button fx:id="userBtn" layoutX="159.0" layoutY="164.0" mnemonicParsing="false" onAction="#goToUser" prefHeight="31.0" prefWidth="146.0" style="-fx-background-color: #BAB9CD;" text="User " />
+      <Button fx:id="productBtn" layoutX="159.0" layoutY="299.0" mnemonicParsing="false" onAction="#goToProduct" prefHeight="31.0" prefWidth="146.0" style="-fx-background-color: #BAB9CD;" text="Product " />
+      <Button fx:id="eventBtn" layoutX="343.0" layoutY="164.0" mnemonicParsing="false" onAction="#goToEvent" prefHeight="31.0" prefWidth="146.0" style="-fx-background-color: #BAB9CD;" text="Event " />
+      <Button fx:id="cProductBtn" layoutX="343.0" layoutY="230.0" mnemonicParsing="false" onAction="#goToCustomProduct" prefHeight="31.0" prefWidth="146.0" style="-fx-background-color: #BAB9CD;" text="Custom Product " />
+      <Button fx:id="blogBtn" layoutX="343.0" layoutY="299.0" mnemonicParsing="false" onAction="#goToBlog" prefHeight="31.0" prefWidth="146.0" style="-fx-background-color: #BAB9CD;" text="Blog " />
    </children>
 </AnchorPane>

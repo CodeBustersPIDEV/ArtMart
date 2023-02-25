@@ -79,7 +79,7 @@ public class UserDao implements IUserDao {
                 user.setPwd(resultSet.getString("password"));
                 user.setRole(resultSet.getString("role"));
                 user.setPicture(resultSet.getString("picture"));
-
+                user.setBlocked(resultSet.getBoolean("blocked"));
                 return user;
             }
         } catch (SQLException e) {
@@ -96,7 +96,7 @@ public class UserDao implements IUserDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
             while (resultSet.next()) {
                 User user = new User();
-                user.setUser_id(resultSet.getInt("user_id"));
+                user.setUser_id(resultSet.getInt("user_ID"));
                 user.setName(resultSet.getString("name"));
                 user.setEmail(resultSet.getString("email"));
                 user.setRole(resultSet.getString("role"));
@@ -105,6 +105,7 @@ public class UserDao implements IUserDao {
                 user.setRole(resultSet.getString("role"));
                 user.setUsername(resultSet.getString("username"));
                 user.setPwd(resultSet.getString("password"));
+                user.setBlocked(resultSet.getBoolean("blocked"));
                 users.add(user);
             }
             return users;
@@ -225,4 +226,22 @@ public class UserDao implements IUserDao {
         } 
         return 0;
 }
+     @Override
+
+    public boolean blockUser(int user_id, boolean state) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE user SET blocked = ? WHERE user_ID = ?"
+            );
+            statement.setBoolean(1, state);
+            statement.setInt(2, user_id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return false;
+    }
+    
+    
 }

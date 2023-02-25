@@ -106,4 +106,9 @@ public class UserService implements IUserService {
         return this.userDao.getUserIdByEmail(email);
     }
 
+    @Override
+    public boolean blockUser(int user_id,  boolean state) {
+        return this.userDao.blockUser(user_id, state);
+    }
+
 }

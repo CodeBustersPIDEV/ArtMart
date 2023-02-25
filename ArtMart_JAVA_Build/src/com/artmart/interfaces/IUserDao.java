@@ -9,6 +9,8 @@ public interface IUserDao {
 
     User getUser(int user_id);
 
+    public boolean blockUser(int user_id,  boolean state);
+
     int getUserIdByEmail(String email);
 
     boolean deleteAccountU(int userId);

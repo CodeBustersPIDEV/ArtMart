@@ -74,6 +74,7 @@ public class SignUpController implements Initializable {
     Session session = new Session();
     int UserID = session.getUserID("1");
     LocalDate date = LocalDate.of(1970, 1, 1);
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> userO = FXCollections.observableArrayList("yes", "no");
@@ -93,15 +94,28 @@ public class SignUpController implements Initializable {
             String password = pwdField.getText();
             String confirmPassword = cpwdField.getText();
             String emailFormat = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+            String pwdPattern = "^(?=.*[A-Z])(?=.*[0-9]).{8,}$";
+            LocalDate currentDate = LocalDate.now();
             if (username.isEmpty() || password.isEmpty() || email.isEmpty() || name.isEmpty() || birthdayField.getValue().toString().isEmpty() || Phone_nbrField.getText().isEmpty() || identityField.getValue().isEmpty()) {
                 Warning("You have to fill all the fields");
             } else {
                 if (!password.equals(confirmPassword)) {
                     Warning("The passwords must be identical");
-                } else if (!email.matches(emailFormat)) {
+                } 
+                if (!email.matches(emailFormat) ) {
                     Warning("The email must be valid");
-                } else {
-                    User user = new User(phoneNumber, name, email, username, password, birthday);
+                }
+                if (!password.matches(pwdPattern)) {
+                    Warning("Password must contain at least one uppercase letter, one digit, and be at least 8 characters long");
+                } 
+                if(birthdayField.getValue().isAfter(currentDate))
+                {
+                    Warning("The birthday date must not exceed today's date");
+              
+                }
+                
+                if(password.equals(confirmPassword) && email.matches(emailFormat)&& password.matches(pwdPattern) && !birthdayField.getValue().isAfter(currentDate) )
+                { User user = new User(phoneNumber, name, email, username, password, birthday);
 
                     if (identityField.getValue().equals("yes")) {
                         Artist artist = new Artist(user);
