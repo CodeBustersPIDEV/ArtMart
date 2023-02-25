@@ -1,5 +1,8 @@
 package com.artmart.GUI.controllers;
 
+import com.artmart.dao.UserDao;
+import com.artmart.models.Session;
+import com.artmart.models.User;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -10,18 +13,33 @@ import javafx.stage.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import java.io.IOException;
+import java.util.HashMap;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 public class MainViewController implements Initializable {
-    @FXML
-    private Button userBtn;
 
     @FXML
+    private Button orderBtn;
+    @FXML
+    private Button userBtn;
+    @FXML
     private Button productBtn;
+    @FXML
+    private Button eventBtn;
+    @FXML
+    private Button cProductBtn;
+    @FXML
+    private Button blogBtn;
+    HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
+    private User connectedUser = new User();
+    private final UserDao userService = new UserDao();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
+        this.connectedUser = this.userService.getUser(this.session.getUserId());
     }
 
     @FXML
@@ -59,8 +77,7 @@ public class MainViewController implements Initializable {
     @FXML
     private void goToProduct(ActionEvent event) {
         try {
-            Stage stage = (Stage) productBtn.getScene().getWindow();
-            stage.close();
+            Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
 
             Scene scene = new Scene(root);
@@ -92,7 +109,8 @@ public class MainViewController implements Initializable {
     private void goToCustomProduct(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/UserCustom.fxml"));
+            Parent root = FXMLLoader
+                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
 
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -106,16 +124,30 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void goToBlog(ActionEvent event) {
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("Blog Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
+        if (this.connectedUser.getRole().equals("Admin")) {
+            try {
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Blog Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
+        } else {
+            try {
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Blog Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
         }
     }
 

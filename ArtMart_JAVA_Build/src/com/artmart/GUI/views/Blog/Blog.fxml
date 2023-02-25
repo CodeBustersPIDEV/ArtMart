@@ -14,9 +14,9 @@
    <children>
       <ScrollPane layoutY="49.0" prefHeight="685.0" prefWidth="1333.0">
          <content>
-            <VBox fx:id="container" alignment="CENTER" spacing="10.0">
+            <VBox fx:id="container" alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" spacing="20.0">
                <padding>
-                  <Insets top="10.0" />
+                  <Insets left="25.0" />
                </padding></VBox>
          </content>
       </ScrollPane>

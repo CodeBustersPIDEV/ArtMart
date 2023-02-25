@@ -32,7 +32,6 @@ public class BlogGUIController implements Initializable {
     private VBox container;
     @FXML
     private Button backToBlogMenu;
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -40,7 +39,7 @@ public class BlogGUIController implements Initializable {
         UserDao userService = new UserDao();
         List<Blog> blogList = new ArrayList<>();
         blogList = blogService.getAllBlogs();
-        for (Blog blog : blogList) {
+        blogList.forEach(blog -> {
             String username = userService.getUser(blog.getAuthor()).getUsername();
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCard.fxml"));
@@ -51,10 +50,12 @@ public class BlogGUIController implements Initializable {
                 if (img == null) {
                     File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
                     Image image = new Image(file.toURI().toString());
+                    controller.setImage(image);
                     controller.setBlogImage(image);
                 } else {
                     File file = new File(img.getFile_path());
                     Image image = new Image(file.toURI().toString());
+                    controller.setImage(image);
                     controller.setBlogImage(image);
                 }
                 controller.setBlogTitle(blog.getTitle());
@@ -65,7 +66,7 @@ public class BlogGUIController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        });
     }
 
     @FXML

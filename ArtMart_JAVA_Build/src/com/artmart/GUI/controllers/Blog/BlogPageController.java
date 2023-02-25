@@ -9,11 +9,13 @@ import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.models.Comment;
 import com.artmart.models.Media;
+import com.artmart.models.Session;
 import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -72,6 +74,8 @@ public class BlogPageController implements Initializable {
     private int id;
     private Image image;
     private Media img = new Media();
+        HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
 
     /**
      * Initializes the controller class.
@@ -141,6 +145,7 @@ public class BlogPageController implements Initializable {
 //            this.commentContainer.getChildren().clear();
 //            setupComments(this.id);
 //        }
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
 
     }
 
@@ -160,7 +165,7 @@ public class BlogPageController implements Initializable {
 
     @FXML
     private void postComment(ActionEvent event) {
-        Comment comment = new Comment(this.comment_content.getText(), 1, this.id);
+        Comment comment = new Comment(this.comment_content.getText(), this.session.getUserId(), this.id);
         int test = this.blogService.addComment(comment);
         if (test == 1) {
             this.comment_content.setText("");
