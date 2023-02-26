@@ -55,7 +55,7 @@ public class MainViewController implements Initializable {
     @FXML
     private void goToUser(ActionEvent event) {
         try {
-            Stage stage = (Stage) userBtn.getScene().getWindow();
+            Stage stage = (Stage) productBtn.getScene().getWindow();
             stage.close();
             stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));

@@ -79,6 +79,7 @@ public class OrderGUIMenuController implements Initializable {
             this.userComboBox.getSelectionModel().selectFirst();
             this.productComboBox.setItems(productComboBox);
             this.productComboBox.getSelectionModel().selectFirst();
+            this.productToOrder = this.productOptionsList.get(this.productComboBox.getSelectionModel().getSelectedIndex());
         } catch (SQLException ex) {
             Logger.getLogger(OrderGUIMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -131,7 +132,6 @@ public class OrderGUIMenuController implements Initializable {
     @FXML
     private void OnSelectProduct(ActionEvent event) {
         this.productToOrder = this.productOptionsList.get(this.productComboBox.getSelectionModel().getSelectedIndex());
-        System.out.println(productToOrder);
     }
 
     @FXML
