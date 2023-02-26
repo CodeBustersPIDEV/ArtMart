@@ -18,8 +18,7 @@
           <TableColumn fx:id="user_Col" prefWidth="77.0" text="User" />
             <TableColumn fx:id="product_Col" prefWidth="87.0" text="Product" />
             <TableColumn fx:id="orderDate_Col" prefWidth="108.0" text="OrderDate" />
-            <TableColumn fx:id="shippingAdd_Col" prefWidth="161.0" text="ShippingAddress" />
-            <TableColumn fx:id="operationColumn" prefWidth="75.0" text="Options" />
+            <TableColumn fx:id="shippingAdd_Col" prefWidth="237.0" text="ShippingAddress" />
         </columns>
       </TableView>
       <Button disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Performance" />

@@ -21,7 +21,7 @@ public class PaymentOptionDao implements IPaymentOptionDao {
 
     @Override
     public int createPaymentOption(PaymentOption paymentOption) {
-        String sql = "INSERT INTO payment_option (name, availablecountries) VALUES (?, ?)";
+        String sql = "INSERT INTO paymentoption (name, availablecountries) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, paymentOption.getName());
             stmt.setString(2, paymentOption.getAvailableCountries());
@@ -39,7 +39,7 @@ public class PaymentOptionDao implements IPaymentOptionDao {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new PaymentOption(rs.getInt("paymentOption_ID"), rs.getString("name"), rs.getString("availablecountries"));
+                    return new PaymentOption(rs.getInt("paymentOption_ID"), rs.getString("name"), rs.getString("AvailableCountries"));
                 } else {
                     return null;
                 }
