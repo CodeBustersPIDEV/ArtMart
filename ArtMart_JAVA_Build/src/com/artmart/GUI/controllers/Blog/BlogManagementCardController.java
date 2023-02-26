@@ -80,7 +80,7 @@ public class BlogManagementCardController implements Initializable {
     @FXML
     private void deleteBlog(ActionEvent event) {
 //        this.controller = this.loader.getController();
-        int b_id = Integer.parseInt(this.blog_id.getText());  
+        int b_id = Integer.parseInt(this.blog_id.getText());
         boolean test1 = this.blogService.deleteHasCat(b_id);
         boolean test2 = this.blogService.deleteHasTag(b_id);
         Media m = this.blogService.getOneMediaByBlogID(b_id);

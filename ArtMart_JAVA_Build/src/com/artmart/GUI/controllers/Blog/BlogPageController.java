@@ -74,7 +74,7 @@ public class BlogPageController implements Initializable {
     private int id;
     private Image image;
     private Media img = new Media();
-        HashMap user = (HashMap) Session.getActiveSessions();
+    HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
 
     /**

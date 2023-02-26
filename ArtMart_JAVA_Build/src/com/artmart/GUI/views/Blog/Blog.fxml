@@ -21,5 +21,7 @@
          </content>
       </ScrollPane>
       <Button fx:id="backToBlogMenu" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackToBlogMenu" text="Back" />
+      <Button fx:id="goToAddBlog" layoutX="1175.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Post New Blog" />
+      <Button fx:id="goToMyBlogs" layoutX="634.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToMyBlogs" text="My Blogs" />
    </children>
 </AnchorPane>

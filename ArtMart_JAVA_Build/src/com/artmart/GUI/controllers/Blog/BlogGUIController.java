@@ -32,6 +32,10 @@ public class BlogGUIController implements Initializable {
     private VBox container;
     @FXML
     private Button backToBlogMenu;
+    @FXML
+    private Button goToAddBlog;
+    @FXML
+    private Button goToMyBlogs;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,9 +75,39 @@ public class BlogGUIController implements Initializable {
 
     @FXML
     private void goBackToBlogMenu(ActionEvent event) {
+//        try {
+//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
+//            Scene scene = new Scene(root);
+//            stage.setResizable(false);
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (IOException e) {
+//            System.out.print(e.getMessage());
+//        }
+        Stage stage = (Stage) backToBlogMenu.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void goToAddBlog(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/addBlog.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goToMyBlogs(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setScene(scene);
