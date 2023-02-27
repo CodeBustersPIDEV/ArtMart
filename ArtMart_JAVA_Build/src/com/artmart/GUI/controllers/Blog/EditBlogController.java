@@ -12,8 +12,13 @@ import com.artmart.models.HasCategory;
 import com.artmart.models.Media;
 import com.artmart.services.BlogService;
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -79,9 +84,11 @@ public class EditBlogController implements Initializable {
     private final UserDao userService = new UserDao();
     private Blog viewBlog = new Blog();
     private int id;
+    private int test;
     private boolean test1;
     private boolean test2;
     private boolean test3;
+    private boolean testImg = false;
     private Blog resBlog = new Blog();
     private BlogCategories resBlogCategories = new BlogCategories();
     private Image image;
@@ -89,6 +96,8 @@ public class EditBlogController implements Initializable {
     private Media imgEdited = new Media();
     private final Desktop desktop = Desktop.getDesktop();
     private final FileChooser fileChooser = new FileChooser();
+    private final String phpUrl = "http://localhost/PIDEV/upload.php";
+    String boundary = "---------------------------12345";
 
     /**
      * Initializes the controller class.
@@ -99,6 +108,7 @@ public class EditBlogController implements Initializable {
         this.blogID.setText(b_ID);
         this.id = Integer.parseInt(this.blogID.getText());
         this.viewBlog = blogService.getOneBlog(id);
+        HasCategory hs = blogService.getCatbyBlog(id);
         this.img = this.blogService.getOneMediaByBlogID(id);
         if (!(img == null)) {
             File file = new File(img.getFile_path());
@@ -110,7 +120,7 @@ public class EditBlogController implements Initializable {
 
         this.blog_title.setText(this.viewBlog.getTitle());
         this.blog_content.setText(this.viewBlog.getContent());
-        this.blog_category.getSelectionModel().selectFirst();
+        this.blog_category.getSelectionModel().select(hs.getCategory_id()-1);
         this.blogImage.setImage(this.image);
 
     }
@@ -134,16 +144,25 @@ public class EditBlogController implements Initializable {
                 resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
                 HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
                 this.test2 = blogService.updateHasCat(this.id, hc);
-                File file = new File(this.img.getFile_path());
-                if (file.delete()) {
-                    System.out.println("File deleted successfully.");
+//                File file = new File(this.img.getFile_path());
+                if (img == null) {
+                    if (testImg) {
+                        this.imgEdited.setBlog_id(resBlog.getId());
+                        this.test = blogService.addMedia(imgEdited);
+                    }
                 } else {
-                    System.out.println("Failed to delete the file.");
+                    if (testImg) {
+                        this.test3 = blogService.updateMedia(img.getId(), imgEdited);
+//                        if (file.delete()&&test3) {
+//                            System.out.println("File deleted successfully.");
+//                        } else {
+//                            System.out.println("Failed to delete the file.");
+//                        }
+                    }
                 }
-                this.test3 = blogService.updateMedia(img.getId(), imgEdited);
             }
 
-            if (test1 && test2 && test3) {
+            if ((test1 && test2 && test3) || (test1 && test2) || (test1 && test2 && test == 1)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Blog Updated");
                 alert.setHeaderText(null);
@@ -181,7 +200,44 @@ public class EditBlogController implements Initializable {
     }
 
     @FXML
-    private void editImageBlog(ActionEvent event) {
+    private void editImageBlog(ActionEvent event) throws IOException {
+//        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        this.fileChooser.setTitle("Select an image");
+//        this.fileChooser.getExtensionFilters().addAll(
+//                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+//        );
+//
+//        File file = this.fileChooser.showOpenDialog(primaryStage);
+//        if (file != null) {
+//            this.testImg = true;
+//            Path sourcePath = file.toPath();
+//            Path destinationPath = Paths.get("src/com/artmart/assets/BlogAssets/uploads/" + file.getName());
+//            setupMediaInfo(file, destinationPath.toString());
+//            try {
+//                Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("Image Upload");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Image uploaded successfully.");
+//                Optional<ButtonType> result = alert.showAndWait();
+//                if (result.get() == ButtonType.OK) {
+//                    try {
+//                        this.image = new Image(file.toURI().toString());
+//                        this.blogImage.setImage(image);
+//                    } catch (Exception e) {
+//                        e.getMessage();
+//                    }
+//                }
+//                System.out.println("Image updated successfully.");
+//            } catch (IOException ex) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Error");
+//                alert.setHeaderText(null);
+//                alert.setContentText("An Error occured");
+//                alert.showAndWait();
+//            }
+//        }
+
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         this.fileChooser.setTitle("Select an image");
         this.fileChooser.getExtensionFilters().addAll(
@@ -190,11 +246,38 @@ public class EditBlogController implements Initializable {
 
         File file = this.fileChooser.showOpenDialog(primaryStage);
         if (file != null) {
-            Path sourcePath = file.toPath();
-            Path destinationPath = Paths.get("src/com/artmart/assets/BlogAssets/uploads/" + file.getName());
+            this.testImg = true;
+//            Path sourcePath = file.toPath();
+            byte[] imageData = Files.readAllBytes(file.toPath());
+
+            URL url = new URL(phpUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+            OutputStream outputStream = connection.getOutputStream();
+            outputStream.write(("--" + boundary + "\r\n").getBytes());
+            outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n").getBytes());
+            outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+            outputStream.write(imageData);
+            outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+            outputStream.flush();
+            outputStream.close();
+
+            // Read the response from the PHP script
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+            Path destinationPath = Paths.get("C:/xampp/htdocs/PIDEV/BlogUploads/" + file.getName());
+
             setupMediaInfo(file, destinationPath.toString());
+
             try {
-                Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Image Upload");
                 alert.setHeaderText(null);
@@ -208,8 +291,7 @@ public class EditBlogController implements Initializable {
                         e.getMessage();
                     }
                 }
-                System.out.println("Image updated successfully.");
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);

@@ -59,6 +59,29 @@ public class HasCategoryDao implements IHasCategory {
     }
 
     @Override
+    public HasCategory getCatbyBlog(int blog_id) {
+        HasCategory catFound = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                     "SELECT * FROM has_blog_category WHERE blog_id = ?"
+            );
+            statement.setInt(1, blog_id);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                catFound = new HasCategory(
+                        result.getInt("id"),
+                        result.getInt("blog_id"),
+                        result.getInt("category_id")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return catFound;
+    }
+
+    @Override
     public boolean updateHasCat(int blog_id, HasCategory editedHC) {
         try {
             String sql = "UPDATE has_blog_category SET category_id = ? WHERE blog_id = ?";
