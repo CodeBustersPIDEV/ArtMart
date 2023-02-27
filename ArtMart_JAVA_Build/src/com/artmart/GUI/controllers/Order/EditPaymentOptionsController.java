@@ -1,7 +1,6 @@
 package com.artmart.GUI.controllers.Order;
 
 import com.artmart.models.PaymentOption;
-import com.artmart.models.ShippingOption;
 import com.artmart.services.OrderService;
 import java.net.URL;
 import java.util.List;

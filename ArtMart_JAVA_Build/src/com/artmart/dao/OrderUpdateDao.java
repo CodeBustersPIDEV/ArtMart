@@ -21,16 +21,14 @@ public class OrderUpdateDao implements IOrderUpdateDao {
 
     @Override
     public int createOrderUpdate(OrderUpdate orderUpdate) {
-        String sql = "INSERT INTO order_update (order_id, update_message, date) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO orderupdate (orderid, updatemessage, date) VALUES (?, ?, ?)";
         try {
+            java.util.Date utilDate = new java.util.Date();
+            java.sql.Date todayDate = new java.sql.Date(utilDate.getTime());
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, orderUpdate.getOrderId());
             stmt.setString(2, orderUpdate.getUpdateMessage());
-            stmt.setDate(3, new java.sql.Date(orderUpdate.getDate().getTime()));
-            int rowsInserted = stmt.executeUpdate();
-            if (rowsInserted == 0) {
-                throw new SQLException("Creating order update failed, no rows affected.");
-            }
+            stmt.setDate(3, todayDate);
             return stmt.executeUpdate();
         } catch (SQLException e) {
             System.err.print(e.getMessage());

@@ -6,48 +6,39 @@
 package com.artmart.GUI.controllers.Order;
 
 import com.artmart.models.Order;
+import com.artmart.models.PaymentOption;
 import com.artmart.models.Product;
-import com.artmart.models.Receipt;
 import com.artmart.models.ShippingOption;
 import com.artmart.services.OrderService;
 import com.artmart.services.ProductService;
 import com.artmart.utils.OrderCurrentStatus;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 
-/**
- * FXML Controller class
- *
- * @author mahou
- */
 public class AdminOrderDetailController implements Initializable {
 
     @FXML
     private Label orderId;
-    @FXML
-    private TextArea ShpiingAddress;
-    @FXML
-    private Label orderStatus;
-    @FXML
-    private Label orderDate;
     @FXML
     private Label productName;
     @FXML
@@ -59,111 +50,84 @@ public class AdminOrderDetailController implements Initializable {
     @FXML
     private Label productMat;
     @FXML
-    private Label paymentMethod;
-    @FXML
-    private Label orderQuantity;
-    @FXML
-    private Label orderCost;
-    @FXML
-    private Button closeButton;
-    @FXML
     private TextArea descriptionField;
     @FXML
-    private Label shippingMethod;
+    private Label estimatedTime;
+    @FXML
+    private TextArea shpiingAddressField;
+    @FXML
+    private DatePicker orderDatePicker;
+    @FXML
+    private TextField quantityField;
+    @FXML
+    private TextField totalCostField;
+    @FXML
+    private ComboBox<String> statusBox;
+    @FXML
+    private ComboBox<String> shippingOptionBox;
+    @FXML
+    private ComboBox<String> paymentOptionBox;
 
     private Order order = new Order();
-    private String status="";
-    private OrderService orderService= new OrderService();
-    private ProductService productService = new ProductService();
+
+    private final OrderService orderService = new OrderService();
+
+    private final ProductService productService = new ProductService();
+
     private OrderManagmentController orderListController;
+
     private Product product = new Product();
+
     private ShippingOption shippingOption = new ShippingOption();
-    @FXML
-    private Label estimatedTime;
+
+    private List<ShippingOption> shippingOptionsList = new ArrayList<>();
+    private List<PaymentOption> paymentOptionsList = new ArrayList<>();
+    private List<OrderCurrentStatus> orderOptionsList = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.ShpiingAddress.setDisable(true);
-        this.ShpiingAddress.setEditable(false);
-        this.orderService = new OrderService();
-    }
+        this.paymentOptionsList = this.orderService.getPaymentOptions();
+        this.shippingOptionsList = this.orderService.getShippingOptions();
+        this.orderOptionsList = Arrays.asList(OrderCurrentStatus.values());
 
-    private void cancelOrder() {
-        this.orderService.updateOrderStatus(order.getId(), OrderCurrentStatus.CANCELED);
-        this.orderListController.refreshList();
+        ObservableList<String> paymentOptions = FXCollections.observableArrayList(
+                paymentOptionsList.stream().map(PaymentOption::getName).collect(Collectors.toList())
+        );
+        ObservableList<String> shippingOptions = FXCollections.observableArrayList(
+                shippingOptionsList.stream().map(ShippingOption::getName).collect(Collectors.toList())
+        );
+        ObservableList<String> orderStatusOptions = FXCollections.observableArrayList(
+                orderOptionsList.stream().map(OrderCurrentStatus::getStatus).collect(Collectors.toList())
+        );
+        this.paymentOptionBox.setItems(paymentOptions);
+        this.shippingOptionBox.setItems(shippingOptions);
+        this.statusBox.setItems(orderStatusOptions);
+        this.paymentOptionBox.getSelectionModel().selectFirst();
+        this.shippingOptionBox.getSelectionModel().selectFirst();
+        this.statusBox.getSelectionModel().selectFirst();
     }
 
     public void setupData(Order order) throws SQLException {
-        this.shippingOption = this.orderService.getShippingOption(order.getShippingOption());
         this.order = order;
+        this.shippingOption = this.orderService.getShippingOption(order.getShippingOption());
         this.product = this.productService.getProductById(this.order.getProductId());
-        this.status = this.orderService.getOrderStatusByOrderId(this.order.getId()).getStatus();
         this.setupUI();
     }
 
-    @FXML
-    private void OnCancelOrder(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Cancel " + this.product.getName() + " Order");
-        alert.setHeaderText("Are you sure you want to cancel " + this.product.getName() + " order?");
-        alert.setContentText("This action cannot be undone.");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            cancelOrder();
-        }
-    }
-
     private void setupUI() {
-        this.shippingMethod.setText(this.shippingOption.getName());
-        this.orderStatus.setText(this.status);
         this.orderId.setText("" + this.order.getId());
-        this.ShpiingAddress.setText(this.order.getShippingAddress());
-        this.orderDate.setText(this.order.getOrderDate().toString());
         this.productName.setText(this.product.getName());
         this.productCategory.setText("" + this.product.getCategoryId());
         this.descriptionField.setText(this.product.getDescription());
         this.productDimension.setText(this.product.getDimensions());
         this.productWeight.setText(this.product.getWeight() + "");
         this.productMat.setText(this.product.getMaterial());
-        this.paymentMethod.setText(this.orderService.getPaymentOption(this.order.getPaymentMethod()).getName());
-        this.orderQuantity.setText(this.order.getQuantity() + "");
-        this.orderCost.setText("" + this.order.getTotalCost());
         this.estimatedTime.setText(getFormattedEstimatedDeliveryDate());
-
-    }
-
-    @FXML
-    private void handleGenerateReceiptButton(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Receipt");
-        fileChooser.setInitialFileName("receipt_" + this.order.getId() + ".txt");
-        File file = fileChooser.showSaveDialog((Stage) closeButton.getScene().getWindow());
-
-        if (file != null) {
-            // Write the receipt to the selected file
-            try (PrintWriter writer = new PrintWriter(file)) {
-                String template = "=======================\n"
-                        + "      ORDER RECEIPT\n"
-                        + "=======================\n"
-                        + "Order ID: " + this.order.getId() + "\n"
-                        + "Customer Address: " + this.order.getShippingAddress() + "\n"
-                        + "Product Name : " + this.product.getName() + "\n"
-                        + "Product Category : " + this.product.getCategoryId() + "\n"
-                        + "Product Description : : " + this.product.getDescription() + "\n"
-                        + "Product Dimensions  : : " + this.product.getDimensions() + "\n"
-                        + "Product Weight      : : " + this.product.getWeight() + "\n"
-                        + "Product Material    : : " + this.product.getMaterial() + "\n"
-                        + "Quantity: " + this.order.getQuantity() + "\n"
-                        + "Total Amount: $" + this.order.getTotalCost() + "\n"
-                        + "=======================\n";
-                writer.write(template);
-                this.orderService.createReceipt(new Receipt(this.order.getId(), this.product.getProductId(), this.order.getQuantity(), this.order.getTotalCost(), 10, this.order.getTotalCost(), this.order.getOrderDate()));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-
+        this.shpiingAddressField.setText(this.order.getShippingAddress());
+        this.orderDatePicker.getEditor().setText(this.order.getOrderDate().toString());
+        this.quantityField.setText(this.order.getQuantity() + "");
+        this.totalCostField.setText(this.order.getTotalCost() + "");
+        this.totalCostField.setText(this.order.getTotalCost() + "");
     }
 
     public Date getEstimatedDeliveryDate() {
@@ -172,7 +136,6 @@ public class AdminOrderDetailController implements Initializable {
         calendar.setTime(this.order.getOrderDate());
         calendar.add(Calendar.DAY_OF_MONTH, maxDeliveryTime);
         Date estimatedDeliveryDate = calendar.getTime();
-
         return estimatedDeliveryDate;
     }
 
@@ -180,5 +143,34 @@ public class AdminOrderDetailController implements Initializable {
         Date estimatedDeliveryDate = this.getEstimatedDeliveryDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         return dateFormat.format(estimatedDeliveryDate);
+    }
+
+    @FXML
+    private void OnUpdateButtonButton(ActionEvent event) {
+        int selectedPaymentIndex = paymentOptionBox.getSelectionModel().getSelectedIndex();
+        int selectedShippingIndex = shippingOptionBox.getSelectionModel().getSelectedIndex();
+        int selectedPaymentId = paymentOptionsList.get(selectedPaymentIndex).getId();
+        int selectedShippingId = shippingOptionsList.get(selectedShippingIndex).getId();
+        if(this.orderDatePicker.getValue()!=null){
+        LocalDate localDate = this.orderDatePicker.getValue();
+        java.sql.Date date = java.sql.Date.valueOf(localDate);
+        this.order.setOrderDate(date);
+        }
+        this.order.setPaymentMethod(selectedPaymentId);
+        this.order.setShippingOption(selectedShippingId);
+        this.order.setQuantity(Integer.valueOf(this.quantityField.getText()));
+        this.order.setTotalCost(Double.valueOf(this.totalCostField.getText()));
+        this.order.setShippingAddress(this.shpiingAddressField.getText());
+        this.orderService.updateOrderStatus(this.order.getId(), OrderCurrentStatus.getOrderStatus(statusBox.getSelectionModel().getSelectedItem()));
+        this.orderService.updateOrder(this.order);
+    }
+
+    @FXML
+    private void OnDeleteButton(ActionEvent event) {
+        this.orderService.deleteOrder(this.order.getId());
+    }
+
+    @FXML
+    private void OnRefundButton(ActionEvent event) {
     }
 }
