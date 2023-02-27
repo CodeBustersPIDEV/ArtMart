@@ -20,7 +20,7 @@
       <Button fx:id="saveToWishListBtn" layoutX="51.0" layoutY="270.0" mnemonicParsing="false" onAction="#OnSaveToWishList" prefHeight="25.0" prefWidth="142.0" text="Save To Wishlist" />
       <Button fx:id="artistviewOrderList" disable="true" layoutX="229.0" layoutY="178.0" mnemonicParsing="false" onAction="#OnArtistViewList" prefHeight="25.0" prefWidth="142.0" text="View Order List" />
       <Button fx:id="artistviewOrderList1" disable="true" layoutX="229.0" layoutY="222.0" mnemonicParsing="false" onAction="#OnArtistViewList" prefHeight="25.0" prefWidth="142.0" text="Update Product" />
-      <Button fx:id="adminViewOrderList" disable="true" layoutX="406.0" layoutY="178.0" mnemonicParsing="false" onAction="#OnAdminViewList" prefHeight="25.0" prefWidth="142.0" text="Orders List" />
+      <Button fx:id="adminViewOrderList" layoutX="406.0" layoutY="178.0" mnemonicParsing="false" onAction="#OnAdminViewList" prefHeight="25.0" prefWidth="142.0" text="Orders Manage" />
       <Button disable="true" layoutX="406.0" layoutY="222.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Users List" />
    </children>
 </AnchorPane>

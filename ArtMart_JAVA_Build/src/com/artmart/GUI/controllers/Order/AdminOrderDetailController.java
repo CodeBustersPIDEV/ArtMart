@@ -6,6 +6,7 @@
 package com.artmart.GUI.controllers.Order;
 
 import com.artmart.models.Order;
+import com.artmart.models.OrderRefund;
 import com.artmart.models.PaymentOption;
 import com.artmart.models.Product;
 import com.artmart.models.ShippingOption;
@@ -21,6 +22,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
@@ -28,12 +30,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 
 public class AdminOrderDetailController implements Initializable {
 
@@ -77,12 +81,16 @@ public class AdminOrderDetailController implements Initializable {
     private OrderManagmentController orderListController;
 
     private Product product = new Product();
-
+    private String status = "";
     private ShippingOption shippingOption = new ShippingOption();
 
     private List<ShippingOption> shippingOptionsList = new ArrayList<>();
     private List<PaymentOption> paymentOptionsList = new ArrayList<>();
     private List<OrderCurrentStatus> orderOptionsList = new ArrayList<>();
+    @FXML
+    private Button closeButton;
+    @FXML
+    private Button RefundButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,17 +112,22 @@ public class AdminOrderDetailController implements Initializable {
         this.statusBox.setItems(orderStatusOptions);
         this.paymentOptionBox.getSelectionModel().selectFirst();
         this.shippingOptionBox.getSelectionModel().selectFirst();
-        this.statusBox.getSelectionModel().selectFirst();
     }
 
-    public void setupData(Order order) throws SQLException {
+    public void setupData(Order order, OrderManagmentController manager) throws SQLException {
         this.order = order;
+        this.status = this.orderService.getOrderStatusByOrderId(this.order.getId()).getStatus();
+        this.orderListController = manager;
         this.shippingOption = this.orderService.getShippingOption(order.getShippingOption());
         this.product = this.productService.getProductById(this.order.getProductId());
         this.setupUI();
+        this.statusBox.getSelectionModel().select(status);
     }
 
     private void setupUI() {
+        if (OrderCurrentStatus.valueOf(status).equals(OrderCurrentStatus.REFUNDED)) {
+            this.RefundButton.setDisable(true);
+        }
         this.orderId.setText("" + this.order.getId());
         this.productName.setText(this.product.getName());
         this.productCategory.setText("" + this.product.getCategoryId());
@@ -151,10 +164,10 @@ public class AdminOrderDetailController implements Initializable {
         int selectedShippingIndex = shippingOptionBox.getSelectionModel().getSelectedIndex();
         int selectedPaymentId = paymentOptionsList.get(selectedPaymentIndex).getId();
         int selectedShippingId = shippingOptionsList.get(selectedShippingIndex).getId();
-        if(this.orderDatePicker.getValue()!=null){
-        LocalDate localDate = this.orderDatePicker.getValue();
-        java.sql.Date date = java.sql.Date.valueOf(localDate);
-        this.order.setOrderDate(date);
+        if (this.orderDatePicker.getValue() != null) {
+            LocalDate localDate = this.orderDatePicker.getValue();
+            java.sql.Date date = java.sql.Date.valueOf(localDate);
+            this.order.setOrderDate(date);
         }
         this.order.setPaymentMethod(selectedPaymentId);
         this.order.setShippingOption(selectedShippingId);
@@ -163,14 +176,35 @@ public class AdminOrderDetailController implements Initializable {
         this.order.setShippingAddress(this.shpiingAddressField.getText());
         this.orderService.updateOrderStatus(this.order.getId(), OrderCurrentStatus.getOrderStatus(statusBox.getSelectionModel().getSelectedItem()));
         this.orderService.updateOrder(this.order);
+        this.orderListController.refreshList();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Order deleted successfully");
+        alert.setHeaderText("Order deleted successfully");
     }
 
     @FXML
     private void OnDeleteButton(ActionEvent event) {
         this.orderService.deleteOrder(this.order.getId());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Order Updated successfully");
+        alert.setHeaderText("Order Updated successfully");
+        this.orderListController.refreshList();
     }
 
     @FXML
     private void OnRefundButton(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Refund Manager");
+        dialog.setHeaderText("Enter The Reason of Refund Please");
+        dialog.setContentText("Reason:");
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            this.orderService.updateOrderStatus(this.order.getId(), OrderCurrentStatus.REFUNDED);
+            java.util.Date utilDate = new java.util.Date();
+            java.sql.Date todayDate = new java.sql.Date(utilDate.getTime());
+            this.orderService.createOrderRefund(new OrderRefund(this.order.getId(), this.order.getTotalCost(), result.get(), todayDate));
+        }
+        this.orderListController.refreshList();
     }
 }

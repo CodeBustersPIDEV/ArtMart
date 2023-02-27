@@ -99,7 +99,7 @@ public class OrderManagmentController implements Initializable {
                         Parent root = loader.load();
                         Scene scene = new Scene(root);
                         AdminOrderDetailController detailController = loader.getController();
-                        detailController.setupData(order);
+                        detailController.setupData(order,this);
                         stage.setScene(scene);
                         stage.show();
                     } catch (IOException | SQLException ex) {
@@ -127,7 +127,6 @@ public class OrderManagmentController implements Initializable {
         // Write the statistics to the CSV file
         if (file != null) {
             try (FileWriter writer = new FileWriter(file)) {
-                writer.write("Statistic 1, Statistic 2, Statistic 3\n");
                 for (Order order : orders) {
                      writer.write("Order Data: " + order.toString()+ "\n");
                 }

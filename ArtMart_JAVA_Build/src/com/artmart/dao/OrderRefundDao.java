@@ -23,10 +23,11 @@ public class OrderRefundDao implements IOrderRefundDao {
     @Override
     public int createOrderRefund(OrderRefund orderRefund) {
         int result = 0;
-        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orderrefund (order_id, amount, reason) VALUES (?, ?, ?)")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orderrefund (orderid, RefundAmount, Reason,Date) VALUES (?, ?, ?,?)")) {
             preparedStatement.setInt(1, orderRefund.getOrderId());
             preparedStatement.setDouble(2, orderRefund.getRefundAmount());
             preparedStatement.setString(3, orderRefund.getReason());
+            preparedStatement.setDate(4, orderRefund.getDate());
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -37,7 +38,7 @@ public class OrderRefundDao implements IOrderRefundDao {
     @Override
     public OrderRefund getOrderRefund(int id) {
         OrderRefund orderRefund = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM orderrefund WHERE id = ?")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM orderrefund WHERE orderRefund_ID = ?")) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -61,8 +62,8 @@ public class OrderRefundDao implements IOrderRefundDao {
             while (resultSet.next()) {
                 OrderRefund orderRefund = new OrderRefund();
                 orderRefund.setId(resultSet.getInt("id"));
-                orderRefund.setOrderId(resultSet.getInt("order_id"));
-                orderRefund.setRefundAmount(resultSet.getDouble("refundamount"));
+                orderRefund.setOrderId(resultSet.getInt("orderid"));
+                orderRefund.setRefundAmount(resultSet.getDouble("RefundAmount"));
                 orderRefund.setReason(resultSet.getString("reason"));
                 orderRefunds.add(orderRefund);
             }
@@ -75,7 +76,7 @@ public class OrderRefundDao implements IOrderRefundDao {
     @Override
     public boolean updateOrderRefund(OrderRefund orderRefund) {
         try {
-            String sql = "UPDATE orderrefund SET order_id = ?, refundamount = ?, date = ? WHERE id = ?";
+            String sql = "UPDATE orderrefund SET orderid = ?, RefundAmount = ?, date = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, orderRefund.getOrderId());
             statement.setDouble(2, orderRefund.getRefundAmount());
