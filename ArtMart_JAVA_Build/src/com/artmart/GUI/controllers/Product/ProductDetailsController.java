@@ -17,7 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author rymae
  */
-public class ReadyProductCardController implements Initializable {
+public class ProductDetailsController implements Initializable {
 
     @FXML
     private Label pid;
@@ -41,6 +40,14 @@ public class ReadyProductCardController implements Initializable {
     @FXML
     private Label category;
     @FXML
+    private Label dimensions;
+    @FXML
+    private Label material;
+    @FXML
+    private Label description;
+    @FXML
+    private Label weight;
+    @FXML
     private Label price;
     @FXML
     private ImageView imagePreview;
@@ -48,9 +55,9 @@ public class ReadyProductCardController implements Initializable {
     @FXML
     private Button delete;
     @FXML
-    private Button details;
-    @FXML
     private Button edit;
+    @FXML
+    private Button backBtn;
 
     private ReadyProduct p = new ReadyProduct();
 
@@ -71,6 +78,8 @@ public class ReadyProductCardController implements Initializable {
         Categories cat = c.getCategoriesById(p.getCategoryId());
         String catName = cat.getName();
         this.category.setText(catName);
+        this.dimensions.setText(p.getDimensions());
+        this.material.setText(p.getMaterial());
         this.price.setText(Integer.toString(p.getPrice()));
 
         // Load the image from the file path stored in ReadyProduct object's image field
@@ -78,50 +87,26 @@ public class ReadyProductCardController implements Initializable {
         this.imagePreview.setImage(image);
 
         this.name.setText(p.getName());
+        this.description.setText(p.getDescription());
+        this.weight.setText("" + p.getWeight());
     }
 
-    @FXML
-    private void onDelete(ActionEvent event) throws SQLException {
-        this.rPDao.deleteReadyProduct(this.p.getReadyProductId());
-        this.controller.displayList();
-    }
-
-    public void setProductId(int pid) {
-        this.pid.setText(Integer.toString(pid));
-    }
-
-    @FXML
-    private void onEdit(ActionEvent event) throws SQLException {
+    public void onBack(ActionEvent event) {
         try {
-            Stage stage = (Stage) edit.getScene().getWindow();
+            Stage stage = (Stage) backBtn.getScene().getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/EditReadyProduct.fxml"));
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
-            EditReadyProductController controller = loader.getController();
-            controller.setUpData(this.pid.getText());
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
-    public void onDetails(ActionEvent event) {
-        try {
-            Stage stage = (Stage) details.getScene().getWindow();
-            stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ProductDetails.fxml"));
 
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setTitle("Ready Product details");
+
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
+
 }

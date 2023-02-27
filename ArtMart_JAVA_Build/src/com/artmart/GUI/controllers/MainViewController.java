@@ -26,6 +26,8 @@ public class MainViewController implements Initializable {
     @FXML
     private Button cProductBtn;
     @FXML
+    private Button userBtn;
+    @FXML
     private Button blogBtn;
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
