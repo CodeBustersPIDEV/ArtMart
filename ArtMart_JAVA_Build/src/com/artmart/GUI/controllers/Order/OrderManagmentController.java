@@ -2,6 +2,8 @@ package com.artmart.GUI.controllers.Order;
 
 import com.artmart.models.Order;
 import com.artmart.services.OrderService;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -18,11 +20,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class OrderManagmentController implements Initializable {
@@ -97,9 +102,7 @@ public class OrderManagmentController implements Initializable {
                         detailController.setupData(order);
                         stage.setScene(scene);
                         stage.show();
-                    } catch (IOException ex) {
-                        Logger.getLogger(OrderManagmentController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
+                    } catch (IOException | SQLException ex) {
                         Logger.getLogger(OrderManagmentController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -107,6 +110,38 @@ public class OrderManagmentController implements Initializable {
             return row;
         });
 
+    }
+
+    @FXML
+    private void OnStatisticsClick(ActionEvent event) {
+        List<Order> orders = this.orderService.getOrders();
+        int totalOrders = orders.size();
+        double totalRevenue = orders.stream().mapToDouble(Order::getTotalCost).sum();
+        double averageRevenuePerOrder = totalRevenue / totalOrders;
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Statistics");
+        fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(null);
+
+        // Write the statistics to the CSV file
+        if (file != null) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write("Statistic 1, Statistic 2, Statistic 3\n");
+                for (Order order : orders) {
+                     writer.write("Order Data: " + order.toString()+ "\n");
+                }
+                writer.write("Total Orders: " + totalOrders + "\n");
+                writer.write("Total Revenue: $" + String.format("%.2f", totalRevenue) + "\n");
+                writer.write("Average Revenue Per Order: $" + String.format("%.2f", averageRevenuePerOrder) + "\n");
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Report File Generated");
+        alert.setHeaderText("Statistics file saved to " + file.getAbsolutePath());
     }
 
 }
