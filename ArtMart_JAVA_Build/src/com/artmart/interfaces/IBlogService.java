@@ -21,6 +21,8 @@ public interface IBlogService {
 
     public List<Blog> getAllBlogsByUser(int user_id);
 
+    public List<Blog> searchBlogsByTitle(String blog_title);
+
     public boolean updateBlog(int blog_id, Blog editedBlog);
 
     public boolean deleteBlog(int blog_id);

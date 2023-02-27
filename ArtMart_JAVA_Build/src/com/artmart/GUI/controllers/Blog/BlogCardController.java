@@ -54,12 +54,12 @@ public class BlogCardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(image);
+//        System.out.println(image);
 //        this.imagePreview.setFitWidth(this.image.getWidth());
 //        this.imagePreview.setFitHeight(this.image.getHeight());
 
 //        this.imagePreview.fitWidthProperty().bind(cardContainer.widthProperty());
-        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
+        this.cardContainer.setMinHeight(this.imagePreview.getFitHeight());
 
     }
 

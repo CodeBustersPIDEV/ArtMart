@@ -14,6 +14,8 @@ public interface IBlogServiceDao {
     public List<Blog> getAllBlogs();
     
     public List<Blog> getAllBlogsByUser(int user_id);
+    
+    public List<Blog> searchBlogsByTitle(String blog_title);
 
     public boolean updateBlog(int blog_id, Blog editedBlog);
 
