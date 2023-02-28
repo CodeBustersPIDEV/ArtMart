@@ -3,6 +3,7 @@ package com.artmart.dao;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IUserDao;
 import com.artmart.models.User;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -43,7 +44,7 @@ public class UserDao implements IUserDao {
             statement.setDate(3, (Date) user.getBirthday());
             statement.setInt(4, user.getPhone_nbr());
             statement.setString(5, user.getUsername());
-            statement.setString(6, user.getPwd());
+            statement.setString(6, hashPassword(user.getPwd()));
             statement.setTimestamp(7, timestamp);
             statement.setString(8, user.getRole());
 
@@ -142,7 +143,7 @@ public class UserDao implements IUserDao {
             statement.setDate(3, (Date) user.getBirthday());
             statement.setInt(4, user.getPhone_nbr());
             statement.setString(5, user.getUsername());
-            statement.setString(6, user.getPwd());
+            statement.setString(6, hashPassword(user.getPwd()));
             statement.setString(7, user.getPicture());
             statement.setInt(8, user_id);
             statement.executeUpdate();
@@ -165,7 +166,7 @@ public class UserDao implements IUserDao {
             if (user_result.next()) {
                 String storedPassword = user_result.getString("password");
 
-                if (storedPassword.equals(password)) {
+                if (storedPassword.equals(hashPassword(password))) {
                     return true;
                 }
             }
@@ -243,5 +244,26 @@ public class UserDao implements IUserDao {
         return false;
     }
     
-    
+    public static String hashPassword(String password) {
+    String hashedPassword = null;
+    try {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashInBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashInBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        hashedPassword = sb.toString();
+
+    } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+    }
+    return hashedPassword;
+}
+
+
+
+
+
 }
