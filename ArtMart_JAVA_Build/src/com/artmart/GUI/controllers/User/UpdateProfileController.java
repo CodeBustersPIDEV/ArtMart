@@ -11,9 +11,20 @@ import com.artmart.models.Client;
 import com.artmart.models.User;
 import com.artmart.services.UserService;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Files;
 import java.sql.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,15 +38,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 
 /**
  * FXML Controller class
@@ -65,7 +75,7 @@ public class UpdateProfileController implements Initializable {
 
     @FXML
     private Button updateBtn;
-    private String imageUrl="";
+    private String imageUrl = "";
     UserService user_ser = new UserService();
     User user = new User();
     Artist artist = new Artist();
@@ -121,15 +131,15 @@ public class UpdateProfileController implements Initializable {
         String username = usernameField.getText();
         String password = pwdField.getText();
         String bio = bioField.getText();
-        String picture ;
-        if(imageUrl.equals("")){
-            picture=user.getPicture();
+        String picture;
+        if (imageUrl.equals("")) {
+            picture = user.getPicture();
+            System.out.println(picture);
             //out.println(picture);
-        }else
-        {
-           picture = imageUrl;
+        } else {
+            picture = imageUrl;
         }
-        User u = new User(phoneNumber, name, email, username, password, birthday, picture);
+       User  u= new User(phoneNumber, name, email, username, password, birthday, picture);
 
         if (user.getRole().equals("artist")) {
             artist = new Artist(u);
@@ -196,25 +206,67 @@ public class UpdateProfileController implements Initializable {
     }
 
     @FXML
-    public void OnUpload(ActionEvent event) {
+    public void OnUpload(ActionEvent event) throws MalformedURLException, ProtocolException, UnsupportedEncodingException, UnsupportedEncodingException {
+        
+        String serverUrl = "http://localhost/upload_script.php";
 
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose an image file");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select an image file to upload");
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
             try {
-                imageUrl = selectedFile.toURI().toURL().toExternalForm();
-
-                BufferedImage bufferedImage = ImageIO.read(selectedFile);
-                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                ProfilePic.setImage(image);
-                //  user.setPicture(ProfilePic);
-            } catch (IOException e) {
-                e.printStackTrace();
+                File file = fileChooser.getSelectedFile();
+                
+                HttpURLConnection connection = (HttpURLConnection) new URL(serverUrl).openConnection();
+                connection.setDoOutput(true);
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + "*****");
+                
+                String boundary = "*****";
+                
+                String fileName = file.getName();
+                String mimeType = "image/jpeg";
+                String fieldName = "image";
+                
+                StringBuilder data = new StringBuilder();
+                data.append("--").append(boundary).append("\r\n");
+                data.append("Content-Disposition: form-data; name=\"").append(fieldName).append("\"; filename=\"").append(fileName).append("\"\r\n");
+                data.append("Content-Type: ").append(mimeType).append("\r\n\r\n");
+                
+                byte[] headerBytes = data.toString().getBytes("UTF-8");
+                byte[] footerBytes = ("\r\n--" + boundary + "--\r\n").getBytes("UTF-8");
+                
+                connection.setRequestProperty("Content-Length", String.valueOf(headerBytes.length + file.length() + footerBytes.length));
+                
+                connection.connect();
+                
+                connection.getOutputStream().write(headerBytes);
+                
+                FileInputStream fileInputStream = new FileInputStream(file);
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+                while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                    connection.getOutputStream().write(buffer, 0, bytesRead);
+                }
+                
+                connection.getOutputStream().write(footerBytes);
+                
+                connection.getOutputStream().flush();
+                connection.getOutputStream().close();
+                imageUrl="http://localhost/images/"+fileName;
+                int responseCode = connection.getResponseCode();
+                //user.setPicture("http://localhost/images/"+fileName);
+                Image Image = new Image(imageUrl);
+            ProfilePic.setImage(Image);
+                user_ser.updateAccountU(userID, user);
+                System.out.println("Response code: " + responseCode);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(UpdateProfileController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
 
 }

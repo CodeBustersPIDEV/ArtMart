@@ -5,7 +5,7 @@
  */
 package com.artmart.GUI.controllers.User;
 
-import static com.artmart.GUI.controllers.User.GenerateQRCode.generateQRcode;
+import static com.artmart.utils.GenerateQRCode.generateQRcode;
 import com.artmart.models.Artist;
 import com.artmart.services.UserService;
 import com.google.zxing.EncodeHintType;
@@ -41,8 +41,6 @@ public class ProfileArtistController implements Initializable {
     private ImageView ProfilePic;
     @FXML
     private ImageView QrCode;
-    @FXML
-    private Button UploadPicBtn;
     @FXML
     private Label usernameProfile;
     @FXML
