@@ -5,6 +5,7 @@
  */
 package com.artmart.GUI.controllers.User;
 
+import static com.artmart.dao.UserDao.hashPassword;
 import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.UserService;
@@ -77,7 +78,7 @@ public class LoginController implements Initializable {
 
             int id = user_ser.getUserIdByUsername(username);
             User u = user_ser.getUser(id);
-            if (u.getPwd().equals(password)) {
+            if (u.getPwd().equals(hashPassword(password))) {
                 if (u.getBlocked() == true) {
                     loginMsg.setText("This user is blocked");
                 } else {

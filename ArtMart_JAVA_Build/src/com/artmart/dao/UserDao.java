@@ -58,6 +58,7 @@ public class UserDao implements IUserDao {
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             return 0;
+
         }
     }
 
@@ -162,13 +163,15 @@ public class UserDao implements IUserDao {
             );
             statement.setString(1, username);
             ResultSet user_result = statement.executeQuery();
-
-            if (user_result.next()) {
+            password=hashPassword(password);
+            System.out.println(password);
+            if (user_result.next()){
                 String storedPassword = user_result.getString("password");
-
-                if (storedPassword.equals(hashPassword(password))) {
-                    return true;
-                }
+                 System.out.println(storedPassword);
+                    if (storedPassword.equals(password)) {
+                        return true;
+                    }
+               
             }
         } catch (SQLException e) {
             System.err.println("Error authenticating user: " + e.getMessage());
@@ -179,13 +182,12 @@ public class UserDao implements IUserDao {
 
     @Override
     public int getUserIdByUsername(String username) {
-       
-            PreparedStatement statement;
+
+        PreparedStatement statement;
         try {
             statement = connection.prepareStatement(
                     "SELECT * FROM user WHERE username = ?"
             );
-        
 
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
@@ -196,22 +198,20 @@ public class UserDao implements IUserDao {
                 return user.getUser_id();
 
             }
-     }  catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Error " + e.getMessage());
-        } 
+        }
         return 0;
-}
+    }
 
-
- @Override
+    @Override
     public int getUserIdByEmail(String email) {
-       
-            PreparedStatement statement;
+
+        PreparedStatement statement;
         try {
             statement = connection.prepareStatement(
                     "SELECT * FROM user WHERE email = ?"
             );
-        
 
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
@@ -222,12 +222,13 @@ public class UserDao implements IUserDao {
                 return user.getUser_id();
 
             }
-     }  catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Error  " + e.getMessage());
-        } 
+        }
         return 0;
-}
-     @Override
+    }
+
+    @Override
 
     public boolean blockUser(int user_id, boolean state) {
         try {
@@ -243,27 +244,22 @@ public class UserDao implements IUserDao {
         }
         return false;
     }
-    
-    public static String hashPassword(String password) {
-    String hashedPassword = null;
-    try {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hashInBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
 
+    public static String hashPassword(String password) {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        
+        md.update(password.getBytes());
+        byte[] hashedPasswordBytes = md.digest();
         StringBuilder sb = new StringBuilder();
-        for (byte b : hashInBytes) {
+        for (byte b : hashedPasswordBytes) {
             sb.append(String.format("%02x", b));
         }
-        hashedPassword = sb.toString();
-
-    } catch (NoSuchAlgorithmException e) {
-        e.printStackTrace();
+        return sb.toString();
+    } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
-    return hashedPassword;
-}
-
-
-
-
-
 }
