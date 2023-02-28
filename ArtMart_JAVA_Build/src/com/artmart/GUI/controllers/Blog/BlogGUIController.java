@@ -43,10 +43,10 @@ public class BlogGUIController implements Initializable {
     private TextField searchText;
     @FXML
     private Button searchBtn;
-    private final BlogService blogService = new BlogService();
-    private List<Blog> matchingBlogs;
     @FXML
     private Button cancelSearchBtn;
+    private final BlogService blogService = new BlogService();
+    private List<Blog> matchingBlogs;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -81,11 +81,17 @@ public class BlogGUIController implements Initializable {
                     Image image = new Image(file.toURI().toString());
                     controller.setImage(image);
                     controller.setBlogImage(image);
+//                    System.out.println("image"+image.getHeight());
+//                    controller.setCardCont1(image.getHeight());
+//                    controller.setCardCont2(image.getHeight());
                 } else {
                     File file = new File(img.getFile_path());
                     Image image = new Image(file.toURI().toString());
                     controller.setImage(image);
                     controller.setBlogImage(image);
+//                    System.out.println("image"+image.getHeight());
+//                    controller.setCardCont1(image.getHeight());
+//                    controller.setCardCont2(image.getHeight());
                 }
                 controller.setBlogTitle(blog.getTitle());
                 container.getChildren().add(pane);

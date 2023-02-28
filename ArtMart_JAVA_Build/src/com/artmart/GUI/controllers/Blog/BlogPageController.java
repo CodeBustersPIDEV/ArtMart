@@ -34,6 +34,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -52,8 +53,6 @@ public class BlogPageController implements Initializable {
     @FXML
     private Label publishDate;
     @FXML
-    private TextArea blog_content;
-    @FXML
     private Button backBtn;
     @FXML
     private ImageView blogImage;
@@ -67,6 +66,8 @@ public class BlogPageController implements Initializable {
     private VBox commentContainer;
     @FXML
     private SplitPane comments;
+    @FXML
+    private Text blogContent;
 
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
@@ -129,7 +130,7 @@ public class BlogPageController implements Initializable {
         this.blog_title.setText(this.viewBlog.getTitle());
         this.username.setText(userService.getUser(this.viewBlog.getAuthor()).getUsername());
         this.publishDate.setText(this.viewBlog.getPublishDate().toString());
-        this.blog_content.setText(this.viewBlog.getContent());
+        this.blogContent.setText(this.viewBlog.getContent());
         this.blogImage.setImage(this.image);
         this.setupComments(id);
     }
