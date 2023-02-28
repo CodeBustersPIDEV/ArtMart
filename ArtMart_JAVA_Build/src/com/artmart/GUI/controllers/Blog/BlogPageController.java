@@ -7,7 +7,9 @@ package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
+import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
+import com.artmart.models.HasCategory;
 import com.artmart.models.Media;
 import com.artmart.models.Session;
 import com.artmart.services.BlogService;
@@ -68,6 +70,8 @@ public class BlogPageController implements Initializable {
     private SplitPane comments;
     @FXML
     private Text blogContent;
+    @FXML
+    private Label categoryLabel;
 
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
@@ -75,6 +79,7 @@ public class BlogPageController implements Initializable {
     private int id;
     private Image image;
     private Media img = new Media();
+    private BlogCategories resBlogCategories = new BlogCategories();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
 
@@ -117,6 +122,9 @@ public class BlogPageController implements Initializable {
     public void setUpData(String b_ID) {
         this.blog_id.setText(b_ID);
         this.id = Integer.parseInt(this.blog_id.getText());
+        HasCategory hs = blogService.getCatbyBlog(id);
+        this.resBlogCategories = blogService.getOneBlogCategory(hs.getCategory_id());
+        this.categoryLabel.setText(this.resBlogCategories.getName());
         this.viewBlog = blogService.getOneBlog(id);
         this.img = this.blogService.getOneMediaByBlogID(id);
         if (!(img == null)) {
