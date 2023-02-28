@@ -17,8 +17,8 @@ public class CustomProductService implements ICustomProductDao {
     }
 
     @Override
-    public int createCustomProduct(Product baseproduct) throws SQLException {
-        return customProductDao.createCustomProduct(baseproduct);
+    public int createCustomProduct(Product baseProduct, int clientID) throws SQLException {
+        return customProductDao.createCustomProduct(baseProduct, clientID);
     }
 
     @Override
@@ -41,6 +41,16 @@ public class CustomProductService implements ICustomProductDao {
   public List<CustomProduct> searchCustomProductByName(String name) throws SQLException {
       return customProductDao.searchCustomProductByName(name);
   }
+
+    @Override
+    public List<CustomProduct> getCustomProductsByClientId(int clientId) throws SQLException {
+  return customProductDao.getCustomProductsByClientId(clientId);
+    }
+ 
+
+   
+
+  
 
    
 

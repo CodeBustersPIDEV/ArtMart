@@ -8,10 +8,10 @@ import java.util.List;
 public interface ICustomProductService {
 
     List<CustomProduct> getAllCustomProducts();
+ public List<CustomProduct> getCustomProductsByClientId(int clientId) throws SQLException;
+    CustomProduct getCustomProductById(int id );
 
-    CustomProduct getCustomProductById(int id);
-
-    int createCustomProduct(CustomProduct customProduct);
+    int createCustomProduct(CustomProduct customProduct,int clientID);
 
     int updateCustomProduct(CustomProduct customProduct);
 

@@ -1,15 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.artmart.GUI.controllers.CustomProduct;
 
 import com.artmart.models.CustomProduct;
-import com.artmart.models.Product;
-import com.artmart.models.Session;
 import com.artmart.services.CustomProductService;
 import com.artmart.services.ProductService;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -33,19 +37,12 @@ import javafx.stage.Stage;
  *
  * @author solta
  */
-public class CustomproductslistController implements Initializable {
-
-    private final ProductService productService = new ProductService();
-    private final CustomProductService customProductService = new CustomProductService();
+public class ArtistCustomController implements Initializable {
 
     @FXML
     private VBox vBox;
-
-    private List<CustomProduct> customProductslist;
-
     @FXML
     private Button searchb;
-
     @FXML
     private TextField search;
     @FXML
@@ -55,49 +52,49 @@ public class CustomproductslistController implements Initializable {
     @FXML
     private Button statisticb;
     @FXML
-    private Text total;
-    @FXML
     private Text totalp;
-        HashMap user = (HashMap) Session.getActiveSessions();
-    private Session session = new Session();
-   
+        private final ProductService productService = new ProductService();
+    private final CustomProductService customProductService = new CustomProductService();
+        private List<CustomProduct> customProductslist;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+ 
         try {
-            // this.customProductService.createCustomProduct(new Product(1, "amir",
-            // "soltani", "Test",2, "Test", "Test"));
+       
             this.makeList();
-            calculateTotalWeight();
+        } catch (SQLException ex) {
+            Logger.getLogger(ArtistCustomController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+           
+        try {
             calculateProduct();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ArtistCustomController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        } 
+        
 
-    void calculateTotalWeight() throws SQLException {
-        float totalWeight = 0;
-        for (CustomProduct customProduct : customProductslist) {
-            totalWeight += customProduct.getWeight();
-        }
-        total.setText(String.format("%.2f", totalWeight));
-    }
-
-    void calculateProduct() throws SQLException {
+    
+void calculateProduct() throws SQLException {
         int totalProducts = customProductslist.size();
         totalp.setText(String.format("%d", totalProducts));
     }
 
     public void makeList() throws SQLException {
         this.vBox.getChildren().clear();
-           Session session = Session.getInstance();
-int clientId = session.getCurrentUserId(session.getSessionId());
-        this.customProductslist = this.customProductService.getCustomProductsByClientId(clientId);
+        this.customProductslist = this.customProductService.getAllCustomProducts();
         this.customProductslist.forEach(CProduct -> {
             try {
                 FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
+                        getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCard.fxml"));
                 Parent root = loader.load();
-                CustomProductCardController controller = loader.getController();
+                ArtistCardController controller = loader.getController();
                 controller.setCustomProduct(CProduct, this);
                 root.setId("" + CProduct.getCustomProductId());
                 this.vBox.getChildren().add(root);
@@ -108,34 +105,6 @@ int clientId = session.getCurrentUserId(session.getSessionId());
             }
         });
     }
-    
-//    public void makeList() throws SQLException {
-//    
-//
-//    Session session = Session.getInstance();
-//    int clientId = session.getCurrentUserId(session.getSessionId());
-//    this.vBox.getChildren().clear();
-//    System.out.println("Client ID: " + clientId);
-//    
-//    List<CustomProduct> customProducts = this.customProductService.getCustomProductsByClientId(clientId);
-//    System.out.println("Number of custom products: " + customProducts.size());
-//
-//    for (CustomProduct customProduct : customProducts) {
-//        try {
-//              FXMLLoader loader = new FXMLLoader(
-//                    getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
-//            Parent root = loader.load();
-//            CustomProductCardController controller = loader.getController();
-//            controller.setCustomProduct(customProduct, this);
-//            root.setId("" + customProduct.getCustomProductId());
-//            this.vBox.getChildren().add(root);
-//        } catch (IOException e) {
-//            System.out.print(e.getCause());
-//        }
-//    }
-//}
- 
-
 
     @FXML
     private void onsearch(ActionEvent event) throws SQLException {
@@ -145,9 +114,9 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         matchingProducts.forEach(CProduct -> {
             try {
                 FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
+                        getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCard.fxml"));
                 Parent root = loader.load();
-                CustomProductCardController controller = loader.getController();
+                ArtistCardController controller = loader.getController();
                 controller.setCustomProduct(CProduct, this);
                 root.setId("" + CProduct.getCustomProductId());
                 this.vBox.getChildren().add(root);
@@ -169,9 +138,9 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         this.customProductslist.forEach(CProduct -> {
             try {
                 FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
+                        getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCard.fxml"));
                 Parent root = loader.load();
-                CustomProductCardController controller = loader.getController();
+                ArtistCardController controller = loader.getController();
                 controller.setCustomProduct(CProduct, this);
                 root.setId("" + CProduct.getCustomProductId());
                 this.vBox.getChildren().add(root);
@@ -193,39 +162,20 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         this.customProductslist.forEach(CProduct -> {
             try {
                 FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
+                        getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCard.fxml"));
                 Parent root = loader.load();
-                CustomProductCardController controller = loader.getController();
+                ArtistCardController controller = loader.getController();
                 controller.setCustomProduct(CProduct, this);
                 root.setId("" + CProduct.getCustomProductId());
                 this.vBox.getChildren().add(root);
             } catch (IOException e) {
                 System.out.print(e.getCause());
             } catch (SQLException ex) {
-                Logger.getLogger(CustomproductslistController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ArtistCustomController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
-
-    @FXML
-    private void statistic(ActionEvent event) {
-
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader
-                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/WeightStatisticsUI.fxml"));
-
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("Custom Product Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
-    @FXML
+        @FXML
     private void onexit(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
@@ -234,5 +184,9 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void statistic(ActionEvent event) {
     }
 }

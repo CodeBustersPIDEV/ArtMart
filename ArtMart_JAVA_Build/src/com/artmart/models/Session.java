@@ -91,5 +91,16 @@ public class Session {
     public String toString() {
         return "Session{" + "userId=" + userId + ", username=" + username + ", sessionId=" + sessionId + '}';
     }
+      public static Session getSession(String sessionId) {
+        return activeSessions.get(sessionId);
+    }
+    public static int getCurrentUserId(String sessionId) {
+        Session session = getSession(sessionId);
+        if (session != null) {
+            return session.getUserId();
+        }
+        return 0;
+    }
+    
 
 }

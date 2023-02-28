@@ -50,6 +50,7 @@ public class CustomProductDao {
                         productResultSet.getInt("weight"),
                         productResultSet.getString("material"),
                         productResultSet.getString("image")
+                      
                 );
                 CustomProduct customProduct = new CustomProduct(
                         resultSet.getInt("custom_product_ID"),
@@ -82,8 +83,26 @@ public class CustomProductDao {
     
     
     
-    
-    
+
+        public List<CustomProduct> getCustomProductsByClientId(int clientId) throws SQLException {
+        List<CustomProduct> customProducts = new ArrayList<>();
+        String query = "SELECT * FROM customproduct WHERE client_ID = ?";
+
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, clientId);
+        ResultSet resultSet = statement.executeQuery();
+
+        while(resultSet.next()) {
+            CustomProduct customProduct = new CustomProduct(
+                resultSet.getInt("custom_product_ID"),
+                resultSet.getInt("client_ID"),
+                this.productDAO.getProductById(resultSet.getInt("product_ID"))
+            );
+            customProducts.add(customProduct);
+        }
+        return customProducts;
+    }
+
     public List<CustomProduct> getAllCustomProducts() throws SQLException {
         List<CustomProduct> customProducts = new ArrayList<>();
         String query = "SELECT * FROM customproduct";
@@ -94,6 +113,8 @@ public class CustomProductDao {
         while(resultSet.next()) {
                 CustomProduct customProduct = new CustomProduct(
                         resultSet.getInt("custom_product_ID"),
+                            resultSet.getInt("client_ID"),
+                   
                         this.productDAO.getProductById(resultSet.getInt("product_ID"))
                 );
                 customProducts.add(customProduct);
@@ -101,27 +122,29 @@ public class CustomProductDao {
         return customProducts;
     }
 
-    public int createCustomProduct(Product baseProduct) {
-        try {
-            String query = "INSERT INTO customproduct (product_ID) VALUES (?)";
+public int createCustomProduct(Product baseProduct, int clientID) {
+    try {
+        String query = "INSERT INTO customproduct (product_ID, client_ID) VALUES (?, ?)";
 
-            PreparedStatement statement = sqlConnection.prepareStatement(query);
-            statement.setInt(1, productDAO.createProduct(baseProduct));
-            return statement.executeUpdate();
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, productDAO.createProduct(baseProduct));
+        statement.setInt(2, clientID);
+        return statement.executeUpdate();
 
-        } catch (SQLException e) {
-            System.err.print(e.getMessage());
-            return 0;
-        }
-
+    } catch (SQLException e) {
+        System.err.print(e.getMessage());
+        return 0;
     }
+}
+
 
     public int updateCustomProduct(int id, CustomProduct customProduct) throws SQLException {
         productDAO.updateProduct(id, customProduct);
         String query = "UPDATE customproduct SET product_ID = ? WHERE custom_product_ID = ?";
         PreparedStatement statement = sqlConnection.prepareStatement(query);
         statement.setInt(1, customProduct.getProductId());
-        statement.setInt(2, id);
+           statement.setInt(2, customProduct.getClientID());
+        statement.setInt(3, id);
 
         return statement.executeUpdate();
     }
