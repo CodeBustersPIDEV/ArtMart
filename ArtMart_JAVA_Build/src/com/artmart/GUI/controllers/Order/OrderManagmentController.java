@@ -99,7 +99,7 @@ public class OrderManagmentController implements Initializable {
                         Parent root = loader.load();
                         Scene scene = new Scene(root);
                         AdminOrderDetailController detailController = loader.getController();
-                        detailController.setupData(order,this);
+                        detailController.setupData(order, this);
                         stage.setScene(scene);
                         stage.show();
                     } catch (IOException | SQLException ex) {
@@ -128,7 +128,7 @@ public class OrderManagmentController implements Initializable {
         if (file != null) {
             try (FileWriter writer = new FileWriter(file)) {
                 for (Order order : orders) {
-                     writer.write("Order Data: " + order.toString()+ "\n");
+                    writer.write("Order Data: " + order.toString() + "\n");
                 }
                 writer.write("Total Orders: " + totalOrders + "\n");
                 writer.write("Total Revenue: $" + String.format("%.2f", totalRevenue) + "\n");
@@ -141,6 +141,7 @@ public class OrderManagmentController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Report File Generated");
         alert.setHeaderText("Statistics file saved to " + file.getAbsolutePath());
+        alert.showAndWait();
     }
 
 }

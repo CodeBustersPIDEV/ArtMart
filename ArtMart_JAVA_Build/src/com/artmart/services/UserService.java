@@ -137,7 +137,7 @@ public class UserService implements IUserService {
                 + "<h1>Verify your email address</h1>"
                 + "<p>Dear " + recipientEmail + ",</p>"
                 + "<p>Thank you for registering with our service. To verify your email address, please click the button below:</p>"
-                + "<p><a href='http://localhost/artmart/verify.jsp?&token=" + verificationCode + "&email=" + recipientEmail + "' class='button'>Verify Email Address</a></p>"
+                + "<p><a href='http://localhost/artmart/Verify.jsp?&token=" + verificationCode + "&email=" + recipientEmail + "' class='button'>Verify Email Address</a></p>"
                 + "</body>"
                 + "</html>";
         return emailContent;
