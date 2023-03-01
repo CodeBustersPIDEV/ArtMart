@@ -1,48 +1,48 @@
-<head>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+  </head>
     <style>
-        @import url(https://fonts.googleapis.com/css?family=Raleway:400,700,600);
-.container{
-  padding: 20px;
-}
-body{
-  background-color: #f6f4f4;
-  font-family: 'Raleway', sans-serif;
-}
-.teal{
-  background-color: #ffc952 !important;
-  color: #444444 !important;
-}
-a{
-  color: #47b8e0 !important;
-}
-.message{
-  text-align: left;
-}
-.price1{
-	font-size: 40px;
-	font-weight: 200;
-	display: block;
-	text-align: center;
-}
-.ui.message p {margin: 5px;}
-        </style>
-</head>
-<div class="container">
-    <div class="ui middle aligned center aligned grid">
-      <div class="ui eight wide column">
-        <form class="ui large form">
-            <div class="ui icon negative message">
-              <i class="warning icon"></i>
-              <div class="content">
-                <div class="header">
-                  Oops! Something went wrong.
-                </div>
-                <p>While trying to reserve money from your account</p>
-              </div>
-           </div>
-            <span class="ui large teal submit fluid button">Try again</span>
-        
-        </form>
+      body {
+        text-align: center;
+        padding: 40px 0;
+        background: #EBF0F5;
+      }
+        h1 {
+          color: #d32727;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-weight: 900;
+          font-size: 40px;
+          margin-bottom: 10px;
+        }
+        p {
+          color: #404F5E;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-size:20px;
+          margin: 0;
+        }
+      i {
+        color: #ff0000;
+        font-size: 100px;
+        line-height: 200px;
+        margin-left:-15px;
+      }
+      .card {
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        margin: 0 auto;
+      }
+    </style>
+    <body>
+      <div class="card">
+      <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+        <i class="checkmark">X</i>
       </div>
+      <p>Error while trying to reserve payment from your account</p>
+    <br><strong>Try again please</strong>
     </div>
-  </div>
+    </body>
+</html>
