@@ -5,6 +5,7 @@
  */
 package com.artmart.GUI.controllers.User;
 
+import static com.artmart.dao.UserDao.hashPassword;
 import com.artmart.models.User;
 import com.artmart.services.UserService;
 import java.io.IOException;
@@ -75,7 +76,7 @@ public class ResetPwdController implements Initializable {
         } else {
 
             System.out.println(password);
-            User u = new User(phoneNumber, name, email, username, password, birthday, Picture);
+            User u = new User(phoneNumber, name, email, username, hashPassword(password), birthday, Picture);
             a = user_ser.updateAccountU(UserID, u);
 
             if (a) {

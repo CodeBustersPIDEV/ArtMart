@@ -5,7 +5,7 @@ import java.sql.Date;
 public class User {
 
     private int user_id, phone_nbr;
-    private String name, email, username, pwd, role, picture;
+    private String name, email, username, pwd, role, picture,token;
     private Date birthday, date_creation;
     boolean blocked;
 
@@ -65,6 +65,18 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public int getUser_id() {
