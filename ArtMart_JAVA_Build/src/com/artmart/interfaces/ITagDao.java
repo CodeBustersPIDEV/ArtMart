@@ -9,6 +9,8 @@ public interface ITagDao {
 
     public Tag getOneTag(int tag_id);
 
+    public Tag getOneTagByName(String tag_name);
+
     public List<Tag> getAllTags();
 
     public boolean updateTag(int tag_id, Tag editedTag);

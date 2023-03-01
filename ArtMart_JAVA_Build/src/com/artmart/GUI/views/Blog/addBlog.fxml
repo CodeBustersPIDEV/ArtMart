@@ -25,5 +25,6 @@
       <Button fx:id="add_imageBlog" layoutX="158.0" layoutY="467.0" onAction="#openFileExplorer" prefHeight="34.0" prefWidth="163.0" text="Upload Blog Image" />
       <Button fx:id="add_blog" layoutX="720.0" layoutY="634.0" onAction="#add" prefHeight="34.0" prefWidth="104.0" text="Add" />
       <Button fx:id="cancel_btn" layoutX="31.0" layoutY="14.0" onAction="#goBackToMenu" text="Cancel" />
+      <ComboBox fx:id="tagsInput" editable="true" layoutX="787.0" layoutY="203.0" onAction="#inc_tag" prefHeight="31.0" prefWidth="238.0" promptText="Blog Tags" />
    </children>
 </AnchorPane>

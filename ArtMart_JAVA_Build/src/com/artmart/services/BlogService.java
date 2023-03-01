@@ -141,6 +141,11 @@ public class BlogService implements IBlogService {
     }
 
     @Override
+    public Tag getOneTagByName(String tag_name) {
+        return this.tag.getOneTagByName(tag_name);
+    }
+
+    @Override
     public List<Tag> getAllTags() {
         return this.tag.getAllTags();
     }
