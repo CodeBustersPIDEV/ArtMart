@@ -1,6 +1,7 @@
 package com.artmart.GUI.controllers.Order;
 
 import com.artmart.dao.ProductDao;
+import com.artmart.models.Order;
 import com.artmart.models.PaymentOption;
 import com.artmart.models.Product;
 import com.artmart.models.User;
@@ -8,7 +9,11 @@ import com.artmart.models.Wishlist;
 import com.artmart.services.OrderService;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -76,6 +82,8 @@ public class OrderGUIController implements Initializable {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderCheckout.fxml"));
             Parent root = loader.load();
+            OrderCheckOutController controller = loader.getController();
+            controller.link(this);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -94,6 +102,9 @@ public class OrderGUIController implements Initializable {
 
     private void refreshlist() {
         this.usersWishList = this.orderSerivce.getWishlistsByUserId(this.user.getUser_id());
+        if (this.usersWishList.isEmpty()) {
+            placeOrderBtn.setDisable(true);
+        }else {
         this.usersWishList.forEach((wishlist) -> {
             try {
                 this.productList.add(this.productDao.getProductById(wishlist.getProductId()));
@@ -120,12 +131,28 @@ public class OrderGUIController implements Initializable {
                     alert.setContentText("This action cannot be undone.");
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK) {
-                        this.orderSerivce.deleteWishlist(row.getItem().getProductId(), this.user.getUser_id());
+                        this.DeletWishlist(row.getItem());
                     }
                 }
             });
             return row;
         });
+        }
     }
 
+    private void DeletWishlist(Product p) {
+        this.orderSerivce.deleteWishlist(p.getProductId(), this.user.getUser_id());
+    }
+
+    public void successfulPayment(int shippingOption, String shippingAddress, int paymentMethod) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate now = LocalDate.now();
+        this.productList.forEach((product) -> {
+            this.DeletWishlist(product);
+        });
+        this.productList.forEach((product) -> {
+            Order newOrder = new Order(this.user.getUser_id(), product.getProductId(), 1, shippingOption, shippingAddress, paymentMethod, Date.valueOf(dtf.format(now)), 100);
+            this.orderSerivce.createOrder(newOrder);
+        });
+    }
 }

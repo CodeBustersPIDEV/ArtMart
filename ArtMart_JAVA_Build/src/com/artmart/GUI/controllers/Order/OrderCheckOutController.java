@@ -21,7 +21,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.stage.Stage;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 
 import javafx.scene.control.TextArea;
@@ -39,6 +44,7 @@ public class OrderCheckOutController implements Initializable {
     private List<PaymentOption> paymentList;
     private final OrderService orderService = new OrderService();
     private List<ShippingOption> shippmentList;
+    private OrderGUIController orderGUIController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,9 +64,6 @@ public class OrderCheckOutController implements Initializable {
 
     @FXML
     private void OnPayAction(ActionEvent event) throws IOException {
-        System.out.println(this.paymentList.get(this.paymentOptionsList.getSelectionModel().getSelectedIndex()));
-        System.out.println(this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()));
-        System.out.println(this.shippingAddress.getText());
         try {
             URL url = new URL("https://developers.flouci.com/api/generate_payment");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -73,8 +76,8 @@ public class OrderCheckOutController implements Initializable {
                     + "    \"app_secret\": \"9947737a-ee91-4119-b773-fc3a190d13af\",\n"
                     + "    \"accept_card\": \"true\",\n"
                     + "    \"amount\": \"5000\",\n"
-                    + "    \"success_link\": \"https://example.website.com/success\",\n"
-                    + "    \"fail_link\": \"https://example.website.com/fail\",\n"
+                    + "    \"success_link\": \"http://localhost/artmart/success.html\",\n"
+                    + "    \"fail_link\": \"http://localhost/artmart/fail.html\",\n"
                     + "    \"session_timeout_secs\": 1200,\n"
                     + "    \"developer_tracking_id\": \"<your_internal_tracking_id>\"\n"
                     + "}";
@@ -93,16 +96,35 @@ public class OrderCheckOutController implements Initializable {
                 link = result.getString("link");
                 paymentId = result.getString("payment_id");
                 Desktop.getDesktop().browse(new URI(link));
-                System.out.println("Payment ID: " + paymentId);
             }
-            System.out.println(link);
-            System.out.println(paymentId);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/PaymentVerification.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            PaymentVerificationController controller = loader.getController();
+            controller.setup(this, paymentId);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+
             conn.disconnect();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getCause());
         } catch (URISyntaxException ex) {
             Logger.getLogger(OrderCheckOutController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void successfulPayment() {
+        this.orderGUIController.successfulPayment(
+                this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getId(),
+                this.shippingAddress.getText(),
+                this.paymentList.get(this.paymentOptionsList.getSelectionModel().getSelectedIndex()).getId()
+                );
+    }
+
+    public void link(OrderGUIController controller) {
+        this.orderGUIController = controller;
     }
 
 }
