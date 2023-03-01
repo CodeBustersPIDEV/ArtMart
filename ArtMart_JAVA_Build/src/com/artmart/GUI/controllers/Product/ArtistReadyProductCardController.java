@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  *
  * @author rymae
  */
-public class ReadyProductCardController implements Initializable {
+public class ArtistReadyProductCardController implements Initializable {
 
     @FXML
     private Label pid;
@@ -46,12 +46,14 @@ public class ReadyProductCardController implements Initializable {
     private ImageView imagePreview;
     @FXML
     private Button details;
+    @FXML
+    private Button edit;
 
     private ReadyProduct p = new ReadyProduct();
 
     private ReadyProductDao rPDao = new ReadyProductDao();
 
-    private ReadyproductsListController controller = new ReadyproductsListController();
+    private ArtistReadyProductsListController controller = new ArtistReadyProductsListController();
 
     private ProductDetailsController controller2 = new ProductDetailsController();
 
@@ -60,7 +62,7 @@ public class ReadyProductCardController implements Initializable {
         // TODO
     }
 
-    public void setReadyProduct(ReadyProduct param, ReadyproductsListController controller) throws SQLException {
+    public void setReadyProduct(ReadyProduct param, ArtistReadyProductsListController controller) throws SQLException {
         this.p = param;
         this.controller = controller;
         this.pid.setText(Integer.toString(p.getProductId()));
@@ -77,8 +79,33 @@ public class ReadyProductCardController implements Initializable {
         this.name.setText(p.getName());
     }
 
+    @FXML
+    private void onDelete(ActionEvent event) throws SQLException {
+        this.rPDao.deleteReadyProduct(this.p.getReadyProductId());
+        this.controller.displayList();
+    }
+
     public void setProductId(int pid) {
         this.pid.setText(Integer.toString(pid));
+    }
+
+    @FXML
+    private void onEdit(ActionEvent event) throws SQLException {
+        try {
+            Stage stage = (Stage) edit.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/EditReadyProduct.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            EditReadyProductController controller = loader.getController();
+            controller.setUpData(this.pid.getText());
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
     }
 
     public void onDetails(ActionEvent event) {

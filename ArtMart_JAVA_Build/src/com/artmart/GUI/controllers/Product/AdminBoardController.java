@@ -31,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author rymae
  */
-public class ReadyproductsListController implements Initializable {
+public class AdminBoardController implements Initializable {
 
     private final ReadyProductService readyProductService = new ReadyProductService();
 
@@ -43,6 +43,8 @@ public class ReadyproductsListController implements Initializable {
     private Button searchBtn;
     @FXML
     private Button backBtn;
+    @FXML
+    private Button addProduct;
     private List<ReadyProduct> readyProductslist;
 
     @Override
@@ -62,18 +64,34 @@ public class ReadyproductsListController implements Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductCard.fxml"));
                     Parent root = loader.load();
-                    ReadyProductCardController controller = loader.getController();
+                    AdminCardController controller = loader.getController();
                     controller.setReadyProduct(rp, this);
                     root.setId("" + rp.getReadyProductId());
                     this.vBox.getChildren().add(root);
                 } catch (IOException e) {
                     System.out.print(e.getCause());
                 } catch (SQLException ex) {
-                    Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void onAdd(ActionEvent event) {
+        try {
+            Stage stage = (Stage) addProduct.getScene().getWindow();
+            stage.close();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AddReadyProduct.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Add Ready Product");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
         }
     }
 
@@ -104,16 +122,15 @@ public class ReadyproductsListController implements Initializable {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductCard.fxml"));
                 Parent root = loader.load();
-                ReadyProductCardController controller = loader.getController();
+                AdminCardController controller = loader.getController();
                 controller.setReadyProduct(rP, this);
                 root.setId("" + rP.getReadyProductId());
                 this.vBox.getChildren().add(root);
             } catch (IOException e) {
                 System.out.print(e.getCause());
             } catch (SQLException ex) {
-                Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
-
 }
