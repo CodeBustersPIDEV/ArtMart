@@ -108,10 +108,8 @@ public class SignUpController implements Initializable {
                     Warning("The birthday date must not exceed today's date");
 
                 }
-                if (email.matches(emailFormat)) {
-                    user_ser.StoreToken(UUID.randomUUID().toString(), email);
-                } else {
-                    if (password.equals(confirmPassword) && password.matches(pwdPattern) && !birthdayField.getValue().isAfter(currentDate)) {
+                
+                    if (password.equals(confirmPassword) &&email.matches(emailFormat)&& password.matches(pwdPattern) && !birthdayField.getValue().isAfter(currentDate)) {
                         User user = new User(phoneNumber, name, email, username, password, birthday);
 
                         if (identityField.getValue().equals("yes")) {
@@ -144,7 +142,14 @@ public class SignUpController implements Initializable {
                 cpwdField.setText("");
                 Phone_nbrField.setText("");
                 birthdayField.setValue(date);
-            }  }catch (Exception ex) {
+                String token=UUID.randomUUID().toString();
+               
+                user_ser.StoreToken(token, email);
+                                System.out.println("test begin");
+                user_ser.sendEmail(email,"Account Verification",user_ser.generateVerificationEmail(email,token));
+                System.out.println("test reached");
+                
+                        }catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
