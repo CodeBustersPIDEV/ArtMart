@@ -44,6 +44,8 @@ public class ProductGUIController implements Initializable {
     @FXML
     private ImageView imagePreview3;
     @FXML
+    private ImageView imagePreview4;
+    @FXML
     private Button consultAllReadyProducts;
     @FXML
     private Button backBtn;
@@ -52,7 +54,7 @@ public class ProductGUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         List<String> imageUrls = null;
         try {
-            imageUrls = cc.getRandomProductImages(3);
+            imageUrls = cc.getRandomProductImages(4);
         } catch (SQLException ex) {
             Logger.getLogger(ProductGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,6 +66,9 @@ public class ProductGUIController implements Initializable {
         }
         if (imageUrls.size() >= 3) {
             setProductImage(imagePreview3, imageUrls.get(2));
+        }
+        if (imageUrls.size() >= 4) {
+            setProductImage(imagePreview4, imageUrls.get(2));
         }
     }
 
