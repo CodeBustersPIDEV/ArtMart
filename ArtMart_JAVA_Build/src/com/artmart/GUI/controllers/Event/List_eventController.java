@@ -5,10 +5,12 @@
 package com.artmart.GUI.controllers.Event;
 
 import com.artmart.models.Event;
+import com.artmart.models.Session;
 import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -32,6 +34,9 @@ import javafx.stage.Stage;
 public class List_eventController implements Initializable {
 
     private final EventService es = new EventService();
+    private final HashMap user = (HashMap) Session.getActiveSessions();
+    private final Session session = Session.getInstance();
+    private final int userID = session.getCurrentUserId(session.getSessionId());
     private List<Event> eventList;
     @FXML
     private VBox vBox;
@@ -53,7 +58,7 @@ public class List_eventController implements Initializable {
     }     
 
     public void makeList() throws SQLException {
-        this.eventList = this.es.getAllEvents();
+        this.eventList = this.es.getAllEventsByID(userID);
         this.vBox.getChildren().clear();
         this.eventList.forEach(event -> {
             try {
