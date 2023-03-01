@@ -34,6 +34,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -82,6 +83,8 @@ public class BlogPageController implements Initializable {
     private BlogCategories resBlogCategories = new BlogCategories();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
+    @FXML
+    private HBox tagContainer;
 
     /**
      * Initializes the controller class.
