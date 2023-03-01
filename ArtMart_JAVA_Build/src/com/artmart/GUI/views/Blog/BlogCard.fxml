@@ -10,14 +10,14 @@
 
 <Pane fx:id="cardContainer" prefHeight="314.0" prefWidth="1091.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogCardController">
    <children>
-      <Rectangle id="cont" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="314.0" stroke="BLACK" strokeType="INSIDE" styleClass="cont" width="1092.0" />
+      <Rectangle id="cont" fx:id="cont2" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="314.0" stroke="BLACK" strokeType="INSIDE" styleClass="cont" width="1092.0" />
       <Text layoutX="384.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Posted By " wrappingWidth="85.46875" />
       <Text layoutX="393.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="On " />
       <Button id="view" fx:id="view_btn" layoutX="965.0" layoutY="248.0" mnemonicParsing="false" onAction="#viewBlog" prefHeight="31.0" prefWidth="104.0" text="View" />
       <Label fx:id="username" layoutX="455.0" layoutY="130.0" text="Username" />
       <Label fx:id="publishDate" layoutX="417.0" layoutY="162.0" text="DD/MM/YYYY" />
       <Label fx:id="blog_id" layoutX="948.0" layoutY="14.0" text="Label" visible="false" />
-      <ImageView fx:id="imagePreview" fitHeight="307.0" fitWidth="354.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imagePreview" fitHeight="295.0" fitWidth="359.0" layoutX="3.0" layoutY="10.0" pickOnBounds="true" smooth="false" />
       <Label fx:id="blog_title" alignment="TOP_LEFT" layoutX="362.0" layoutY="14.0" prefHeight="113.0" prefWidth="697.0" text="Blog Title" wrapText="true">
          <font>
             <Font size="49.0" />

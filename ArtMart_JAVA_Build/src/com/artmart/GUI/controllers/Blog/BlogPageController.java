@@ -7,7 +7,9 @@ package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
+import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
+import com.artmart.models.HasCategory;
 import com.artmart.models.Media;
 import com.artmart.models.Session;
 import com.artmart.services.BlogService;
@@ -32,8 +34,10 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -52,8 +56,6 @@ public class BlogPageController implements Initializable {
     @FXML
     private Label publishDate;
     @FXML
-    private TextArea blog_content;
-    @FXML
     private Button backBtn;
     @FXML
     private ImageView blogImage;
@@ -67,6 +69,10 @@ public class BlogPageController implements Initializable {
     private VBox commentContainer;
     @FXML
     private SplitPane comments;
+    @FXML
+    private Text blogContent;
+    @FXML
+    private Label categoryLabel;
 
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
@@ -74,8 +80,11 @@ public class BlogPageController implements Initializable {
     private int id;
     private Image image;
     private Media img = new Media();
-        HashMap user = (HashMap) Session.getActiveSessions();
+    private BlogCategories resBlogCategories = new BlogCategories();
+    HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
+    @FXML
+    private HBox tagContainer;
 
     /**
      * Initializes the controller class.
@@ -116,6 +125,9 @@ public class BlogPageController implements Initializable {
     public void setUpData(String b_ID) {
         this.blog_id.setText(b_ID);
         this.id = Integer.parseInt(this.blog_id.getText());
+        HasCategory hs = blogService.getCatbyBlog(id);
+        this.resBlogCategories = blogService.getOneBlogCategory(hs.getCategory_id());
+        this.categoryLabel.setText(this.resBlogCategories.getName());
         this.viewBlog = blogService.getOneBlog(id);
         this.img = this.blogService.getOneMediaByBlogID(id);
         if (!(img == null)) {
@@ -129,7 +141,7 @@ public class BlogPageController implements Initializable {
         this.blog_title.setText(this.viewBlog.getTitle());
         this.username.setText(userService.getUser(this.viewBlog.getAuthor()).getUsername());
         this.publishDate.setText(this.viewBlog.getPublishDate().toString());
-        this.blog_content.setText(this.viewBlog.getContent());
+        this.blogContent.setText(this.viewBlog.getContent());
         this.blogImage.setImage(this.image);
         this.setupComments(id);
     }

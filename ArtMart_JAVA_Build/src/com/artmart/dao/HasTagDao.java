@@ -57,6 +57,29 @@ public class HasTagDao implements IHasTag {
         }
         return blog_hasTag;
     }
+    
+    @Override
+    public HasTag getTagbyBlog(int blog_id) {
+        HasTag tagFound = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                     "SELECT * FROM blog_tags WHERE blog_id = ?"
+            );
+            statement.setInt(1, blog_id);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                tagFound = new HasTag(
+                        result.getInt("id"),
+                        result.getInt("blog_id"),
+                        result.getInt("tag_id")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return tagFound;
+    }
 
     @Override
     public boolean updateHasTag(int blog_id, HasTag editedHT) {

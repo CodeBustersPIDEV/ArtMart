@@ -9,6 +9,7 @@ import java.sql.Statement;
 import com.artmart.models.Order;
 import com.artmart.interfaces.*;
 import com.artmart.models.OrderStatus;
+import com.artmart.models.OrderUpdate;
 import com.artmart.utils.OrderCurrentStatus;
 import java.util.List;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class OrderDao implements IOrderServiceDao {
 
     private Connection connection;
     private final OrderStatusDao orderStatusDao = new OrderStatusDao();
+    private final OrderUpdateDao orderUpdateDao = new OrderUpdateDao();
 
     public OrderDao() {
         try {
@@ -153,6 +155,7 @@ public class OrderDao implements IOrderServiceDao {
             statement.setDate(7, order.getOrderDate());
             statement.setDouble(8, order.getTotalCost());
             statement.setInt(9, order.getId());
+            this.orderUpdateDao.createOrderUpdate(new OrderUpdate(order.getId(), order.toString(), order.getOrderDate()));
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.print(e.getMessage());

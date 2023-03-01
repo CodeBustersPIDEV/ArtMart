@@ -2,12 +2,14 @@ package com.artmart.GUI.controllers.CustomProduct;
 
 import com.artmart.models.CustomProduct;
 import com.artmart.models.Product;
+import com.artmart.models.Session;
 import com.artmart.services.CustomProductService;
 import com.artmart.services.ProductService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -56,7 +58,9 @@ public class CustomproductslistController implements Initializable {
     private Text total;
     @FXML
     private Text totalp;
-
+        HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -85,7 +89,9 @@ public class CustomproductslistController implements Initializable {
 
     public void makeList() throws SQLException {
         this.vBox.getChildren().clear();
-        this.customProductslist = this.customProductService.getAllCustomProducts();
+           Session session = Session.getInstance();
+int clientId = session.getCurrentUserId(session.getSessionId());
+        this.customProductslist = this.customProductService.getCustomProductsByClientId(clientId);
         this.customProductslist.forEach(CProduct -> {
             try {
                 FXMLLoader loader = new FXMLLoader(
@@ -102,6 +108,34 @@ public class CustomproductslistController implements Initializable {
             }
         });
     }
+    
+//    public void makeList() throws SQLException {
+//    
+//
+//    Session session = Session.getInstance();
+//    int clientId = session.getCurrentUserId(session.getSessionId());
+//    this.vBox.getChildren().clear();
+//    System.out.println("Client ID: " + clientId);
+//    
+//    List<CustomProduct> customProducts = this.customProductService.getCustomProductsByClientId(clientId);
+//    System.out.println("Number of custom products: " + customProducts.size());
+//
+//    for (CustomProduct customProduct : customProducts) {
+//        try {
+//              FXMLLoader loader = new FXMLLoader(
+//                    getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
+//            Parent root = loader.load();
+//            CustomProductCardController controller = loader.getController();
+//            controller.setCustomProduct(customProduct, this);
+//            root.setId("" + customProduct.getCustomProductId());
+//            this.vBox.getChildren().add(root);
+//        } catch (IOException e) {
+//            System.out.print(e.getCause());
+//        }
+//    }
+//}
+ 
+
 
     @FXML
     private void onsearch(ActionEvent event) throws SQLException {

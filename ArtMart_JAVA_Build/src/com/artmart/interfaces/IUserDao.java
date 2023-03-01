@@ -9,7 +9,7 @@ public interface IUserDao {
 
     User getUser(int user_id);
 
-    public boolean blockUser(int user_id,  boolean state);
+    public boolean blockUser(int user_id, boolean state);
 
     int getUserIdByEmail(String email);
 
@@ -22,5 +22,9 @@ public interface IUserDao {
     int getUserIdByUsername(String username);
 
     public boolean authenticate(String username, String password);
+
+    public void StoreToken(String token, String email);
+
+    public String verifyToken(String email, String token);
 
 }

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProductDao implements IProductDao {
 
@@ -77,7 +79,7 @@ public class ProductDao implements IProductDao {
 
     @Override
     public boolean updateProduct(int id, Product product) throws SQLException {
-        
+
         String query = "UPDATE product SET category_ID = ?, name = ?, description = ?, dimensions = ?, weight = ?, material = ?, image = ? WHERE product_ID = ?";
         PreparedStatement statement = this.sqlConnection.prepareStatement(query);
         statement.setInt(1, product.getCategoryId());
@@ -88,11 +90,11 @@ public class ProductDao implements IProductDao {
         statement.setString(6, product.getMaterial());
         statement.setString(7, product.getImage());
         statement.setInt(8, id);
- statement.executeUpdate();
-       return true;
-        
-      
+        statement.executeUpdate();
+        return true;
+
     }
+
     @Override
     public void deleteProduct(int id) throws SQLException {
         String query = "DELETE FROM product WHERE product_ID = ?";
@@ -100,7 +102,7 @@ public class ProductDao implements IProductDao {
         statement.setInt(1, id);
         statement.executeUpdate();
     }
-    
+
     public List<Product> getAllProduct() throws SQLException {
         List<Product> products = new ArrayList<>();
         String query = "SELECT product_ID, category_ID, name, description, dimensions, weight, material, image FROM product";
@@ -110,18 +112,15 @@ public class ProductDao implements IProductDao {
             int product_ID = result.getInt("product_ID");
             int category_ID = result.getInt("category_ID");
             String name = result.getString("name");
-              String description = result.getString("description");
-                String dimensions = result.getString("dimensions");
-                float weight =result.getFloat("weight");
-                           String material = result.getString("material");
-              String image = result.getString("image");
-                
+            String description = result.getString("description");
+            String dimensions = result.getString("dimensions");
+            float weight = result.getFloat("weight");
+            String material = result.getString("material");
+            String image = result.getString("image");
+
             Product product = new Product(product_ID, category_ID, name, description, dimensions, weight, material, image);
             products.add(product);
         }
         return products;
     }
-    
-
-
 }

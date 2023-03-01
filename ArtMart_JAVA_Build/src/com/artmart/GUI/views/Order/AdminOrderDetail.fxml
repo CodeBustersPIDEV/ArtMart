@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="430.0" prefWidth="621.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.AdminOrderDetailController">
+    <stylesheets>
+        <URL value="@/com/artmart/GUI/styles/adminorderdetail.css" />
+    </stylesheets>
+    <children>
+        <Label layoutX="18.0" layoutY="23.0" styleClass="title" text="Order Details :" />
+        <Label fx:id="orderId" layoutX="100.0" layoutY="23.0" text="Ref" />
+        <Label layoutX="14.0" layoutY="77.0" text="Product Name :" />
+        <Label layoutX="318.0" layoutY="262.0" text="Quantity:" />
+        <Label layoutX="297.0" layoutY="77.0" text="Shipping Option:" />
+        <Label layoutX="295.0" layoutY="122.0" text="Payment Method:" />
+        <Label layoutX="294.0" layoutY="169.0" text="Shipping Address:" />
+        <Label layoutX="295.0" layoutY="40.0" text="Order Date:" />
+        <Label layoutX="315.0" layoutY="304.0" text="Total Cost:" />
+        <Label layoutX="129.0" layoutY="57.0" />
+        <Label layoutX="129.0" layoutY="85.0" />
+        <Label layoutX="129.0" layoutY="113.0" />
+        <Label layoutX="129.0" layoutY="141.0" />
+        <Label layoutX="129.0" layoutY="169.0" />
+        <Label layoutX="129.0" layoutY="197.0" />
+        <Label layoutX="129.0" layoutY="225.0" />
+        <Label layoutX="129.0" layoutY="253.0" />
+        <Label layoutX="129.0" layoutY="281.0" />
+        <Button id="generateReceiptButton" layoutX="401.0" layoutY="382.0" onAction="#OnUpdateButtonButton" text="Update" />
+
+        <Button fx:id="closeButton" layoutX="490.0" layoutY="382.0" minWidth="60.0" onAction="#OnDeleteButton" text="Delete" />
+        <Label layoutX="323.0" layoutY="340.0" text="Status :" />
+        <Label layoutX="14.0" layoutY="105.0" text="Category :" />
+        <Label layoutX="14.0" layoutY="133.0" text="Description :" />
+        <Label layoutX="15.0" layoutY="245.0" text="Dimensions :" />
+        <Label layoutX="15.0" layoutY="273.0" text="Weight :" />
+        <Label layoutX="15.0" layoutY="301.0" text="Material :" />
+        <TextArea fx:id="shpiingAddressField" layoutX="400.0" layoutY="168.0" prefHeight="76.0" prefWidth="150.0" wrapText="true" />
+        <Label fx:id="productName" layoutX="100.0" layoutY="77.0" text="Ref" />
+        <Label fx:id="productCategory" layoutX="74.0" layoutY="105.0" text="Ref" />
+        <Label fx:id="productDimension" layoutX="93.0" layoutY="245.0" text="Ref" />
+        <Label fx:id="productWeight" layoutX="64.0" layoutY="276.0" text="Ref" />
+        <Label fx:id="productMat" layoutX="73.0" layoutY="301.0" text="Ref" />
+        <ImageView fitHeight="102.0" fitWidth="174.0" layoutX="29.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true" />
+        <TextArea fx:id="descriptionField" editable="false" layoutX="16.0" layoutY="159.0" prefHeight="76.0" prefWidth="163.0" wrapText="true" />
+        <Label layoutX="17.0" layoutY="340.0" text="Estimated Time :" />
+        <Label fx:id="estimatedTime" layoutX="119.0" layoutY="340.0" text="Min" />
+      <DatePicker fx:id="orderDatePicker" layoutX="400.0" layoutY="37.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="quantityField" layoutX="401.0" layoutY="258.0" />
+      <TextField fx:id="totalCostField" layoutX="401.0" layoutY="300.0" />
+      <ComboBox fx:id="statusBox" layoutX="400.0" layoutY="336.0" prefHeight="25.0" prefWidth="149.0" />
+      <ComboBox fx:id="shippingOptionBox" layoutX="400.0" layoutY="73.0" prefHeight="25.0" prefWidth="149.0" />
+      <ComboBox fx:id="paymentOptionBox" layoutX="400.0" layoutY="118.0" prefHeight="25.0" prefWidth="149.0" />
+      <Button id="generateReceiptButton" fx:id="RefundButton" layoutX="14.0" layoutY="382.0" onAction="#OnRefundButton" text="Refund" />
+    </children>
+</AnchorPane>

@@ -14,11 +14,11 @@ import java.io.IOException;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,12 +28,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -101,53 +97,54 @@ public class SignUpController implements Initializable {
             } else {
                 if (!password.equals(confirmPassword)) {
                     Warning("The passwords must be identical");
-                } 
-                if (!email.matches(emailFormat) ) {
+                }
+                if (!email.matches(emailFormat)) {
                     Warning("The email must be valid");
                 }
                 if (!password.matches(pwdPattern)) {
                     Warning("Password must contain at least one uppercase letter, one digit, and be at least 8 characters long");
-                } 
-                if(birthdayField.getValue().isAfter(currentDate))
-                {
+                }
+                if (birthdayField.getValue().isAfter(currentDate)) {
                     Warning("The birthday date must not exceed today's date");
-              
-                }
-                
-                if(password.equals(confirmPassword) && email.matches(emailFormat)&& password.matches(pwdPattern) && !birthdayField.getValue().isAfter(currentDate) )
-                { User user = new User(phoneNumber, name, email, username, password, birthday);
 
-                    if (identityField.getValue().equals("yes")) {
-                        Artist artist = new Artist(user);
-                        test1 = user_ser.createAccountAr(artist);
-                    } else if (identityField.getValue().equals("no")) {
-                        Client client = new Client(user);
-                        test2 = user_ser.createAccountC(client);
-                    }
-                    if (test1 == 1 || test2 == 1) {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Success");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Account created");
-                        alert.showAndWait();
+                }
+                if (email.matches(emailFormat)) {
+                    user_ser.StoreToken(UUID.randomUUID().toString(), email);
+                } else {
+                    if (password.equals(confirmPassword) && password.matches(pwdPattern) && !birthdayField.getValue().isAfter(currentDate)) {
+                        User user = new User(phoneNumber, name, email, username, password, birthday);
 
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Oops!!Can not create account");
-                        alert.showAndWait();
+                        if (identityField.getValue().equals("yes")) {
+                            Artist artist = new Artist(user);
+                            test1 = user_ser.createAccountAr(artist);
+                        } else if (identityField.getValue().equals("no")) {
+                            Client client = new Client(user);
+                            test2 = user_ser.createAccountC(client);
+                        }
+                        if (test1 == 1 || test2 == 1) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Success");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Account created");
+                            alert.showAndWait();
+
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Oops!!Can not create account");
+                            alert.showAndWait();
+                        }
                     }
                 }
-            }
-            nameField.setText("");
-            emailField.setText("");
-            usernameField.setText("");
-            pwdField.setText("");
-            cpwdField.setText("");
-            Phone_nbrField.setText("");
-            birthdayField.setValue(date);
-        } catch (Exception ex) {
+                nameField.setText("");
+                emailField.setText("");
+                usernameField.setText("");
+                pwdField.setText("");
+                cpwdField.setText("");
+                Phone_nbrField.setText("");
+                birthdayField.setValue(date);
+            }  }catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -155,6 +152,7 @@ public class SignUpController implements Initializable {
             alert.showAndWait();
 
         }
+        
     }
 
     public void Warning(String text) {

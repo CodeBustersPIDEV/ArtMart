@@ -55,6 +55,11 @@ public class BlogService implements IBlogService {
     }
 
     @Override
+    public List<Blog> searchBlogsByTitle(String blog_title) {
+        return this.blogDao.searchBlogsByTitle(blog_title);
+    }
+
+    @Override
     public boolean updateBlog(int blog_id, Blog editedBlog) {
         return this.blogDao.updateBlog(blog_id, editedBlog);
 
@@ -179,8 +184,8 @@ public class BlogService implements IBlogService {
     public boolean deleteMedia(int media_id) {
         return this.media.deleteMedia(media_id);
     }
-    
-        @Override
+
+    @Override
     public boolean deleteMediaByBlogID(int blog_id) {
         return this.media.deleteMedia(blog_id);
     }
@@ -193,6 +198,11 @@ public class BlogService implements IBlogService {
     @Override
     public List<HasCategory> getAllCatbyBlog(int blog_id) {
         return this.hasCategory.getAllCatbyBlog(blog_id);
+    }
+
+    @Override
+    public HasCategory getCatbyBlog(int blog_id) {
+        return this.hasCategory.getCatbyBlog(blog_id);
     }
 
     @Override
@@ -213,6 +223,11 @@ public class BlogService implements IBlogService {
     @Override
     public List<HasTag> getAllTagsbyBlog(int blog_id) {
         return this.hasTag.getAllTagsbyBlog(blog_id);
+    }
+
+    @Override
+    public HasTag getTagbyBlog(int blog_id) {
+        return this.hasTag.getTagbyBlog(blog_id);
     }
 
     @Override

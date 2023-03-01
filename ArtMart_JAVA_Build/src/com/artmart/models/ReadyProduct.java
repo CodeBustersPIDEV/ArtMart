@@ -15,8 +15,13 @@ public class ReadyProduct extends Product {
     public ReadyProduct(Product p) {
         super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
     }
-    
+
     public ReadyProduct(int aInt, int productId, Product product) {
+    }
+    
+    public ReadyProduct(Product p, int price) {
+        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
+        this.price = price;
     }
 
     public ReadyProduct(int readyProductId, Product p) {
@@ -24,12 +29,10 @@ public class ReadyProduct extends Product {
         this.readyProductId = readyProductId;
     }
 
-    public ReadyProduct( int categoryId, String name, String description, String dimensions, float weight, String material, String image, int price) {
+    public ReadyProduct(int categoryId, String name, String description, String dimensions, float weight, String material, String image, int price) {
         super(categoryId, name, description, dimensions, weight, material, image);
         this.price = price;
     }
-
-   
 
     public int getReadyProductId() {
         return readyProductId;

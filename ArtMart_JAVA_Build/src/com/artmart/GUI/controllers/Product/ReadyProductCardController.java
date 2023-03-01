@@ -5,7 +5,9 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.ReadyProductDao;
+import com.artmart.models.Categories;
 import com.artmart.models.ReadyProduct;
 import java.io.IOException;
 import java.net.URL;
@@ -37,15 +39,7 @@ public class ReadyProductCardController implements Initializable {
     @FXML
     private Text name;
     @FXML
-    private Label material;
-    @FXML
-    private Label weight;
-    @FXML
-    private Label dimensions;
-    @FXML
     private Label category;
-    @FXML
-    private Label description;
     @FXML
     private Label price;
     @FXML
@@ -53,6 +47,8 @@ public class ReadyProductCardController implements Initializable {
 
     @FXML
     private Button delete;
+    @FXML
+    private Button details;
     @FXML
     private Button edit;
 
@@ -67,22 +63,21 @@ public class ReadyProductCardController implements Initializable {
         // TODO
     }
 
-    public void setReadyProduct(ReadyProduct param, ReadyproductsListController controller) {
+    public void setReadyProduct(ReadyProduct param, ReadyproductsListController controller) throws SQLException {
         this.p = param;
         this.controller = controller;
         this.pid.setText(Integer.toString(p.getProductId()));
-        this.category.setText(Integer.toString(p.getCategoryId()));
-        this.dimensions.setText(p.getDimensions());
-        this.material.setText(p.getMaterial());
-        this.price.setText(Float.toString(p.getPrice()));
+        CategoriesDao c = new CategoriesDao();
+        Categories cat = c.getCategoriesById(p.getCategoryId());
+        String catName = cat.getName();
+        this.category.setText(catName);
+        this.price.setText(Integer.toString(p.getPrice()));
 
         // Load the image from the file path stored in ReadyProduct object's image field
         Image image = new Image("file:" + p.getImage());
         this.imagePreview.setImage(image);
 
         this.name.setText(p.getName());
-        this.description.setText(p.getDescription());
-        this.weight.setText("" + p.getWeight());
     }
 
     @FXML
@@ -109,6 +104,22 @@ public class ReadyProductCardController implements Initializable {
             stage.setScene(scene);
             stage.show();
 
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    public void onDetails(ActionEvent event) {
+        try {
+            Stage stage = (Stage) details.getScene().getWindow();
+            stage.close();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ProductDetails.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Ready Product details");
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }

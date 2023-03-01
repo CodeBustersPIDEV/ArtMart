@@ -125,7 +125,7 @@ public class AddReadyProductController implements Initializable {
         float weight = Float.parseFloat(weightF.getText());
         String material = materialF.getText();
         String imagePath = imageField.getText();
-        float price = Float.parseFloat(priceF.getText());
+        int price = Integer.parseInt(priceF.getText());
 
         // Get the selected category from the combo box
         Categories selectedCategory = (Categories) categoryF.getSelectionModel().getSelectedItem();
@@ -141,7 +141,8 @@ public class AddReadyProductController implements Initializable {
 
         Product basePr = new Product(selectedCategory.getCategories_ID(), name, description, dimensions, weight, material, imagePath);
 
-        ReadyProduct readyPr = new ReadyProduct(basePr);
+        ReadyProduct readyPr = new ReadyProduct(basePr, price);
+        System.out.println(readyPr);
         int result = readyProductService.createReadyProduct(readyPr);
         if (result > 0) {
             Alert alert = new Alert(AlertType.INFORMATION);

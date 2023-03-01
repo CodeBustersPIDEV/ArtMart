@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="747.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.EditShippingOptionsController">
+    <stylesheets>
+        <URL value="@/com/artmart/GUI/styles/editshippingoptions.css" />
+    </stylesheets>
+   <children>
+      <TableView fx:id="shippmentTableView" layoutX="21.0" layoutY="67.0" prefHeight="304.0" prefWidth="419.0">
+        <columns>
+          <TableColumn fx:id="shippingId_Col" editable="false" prefWidth="29.0" text="ID" />
+          <TableColumn fx:id="name_Col" editable="false" prefWidth="160.0" text="Name" />
+            <TableColumn fx:id="carrier_Col" editable="false" prefWidth="68.0" text="Carrier" />
+            <TableColumn fx:id="shippingSpd_Col" editable="false" prefWidth="144.0" text="Speed" />
+        </columns>
+      </TableView>
+      <Button fx:id="SaveBtn" layoutX="545.0" layoutY="346.0" mnemonicParsing="false" onAction="#OnSaveBtn" prefHeight="25.0" prefWidth="67.0" text="Save" />
+      <Button fx:id="cancelBtn" layoutX="631.0" layoutY="346.0" mnemonicParsing="false" onAction="#OnCancelButton" prefHeight="25.0" prefWidth="67.0" text="Cancel" />
+      <Text layoutX="453.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :" wrappingWidth="49.693359375" />
+      <Text layoutX="453.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carrier :" wrappingWidth="49.693359375" />
+      <Text layoutX="453.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shipping Speed :" wrappingWidth="91.693359375" />
+      <Text layoutX="453.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shipping Fee :" wrappingWidth="91.693359375" />
+      <Text layoutX="453.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available Regions :" wrappingWidth="104.693359375" />
+      <TextArea fx:id="regionUpdateField" layoutX="558.0" layoutY="227.0" prefHeight="99.0" prefWidth="127.0" wrapText="true" />
+      <TextField fx:id="feeUpdateField" layoutX="556.0" layoutY="190.0" />
+      <TextField fx:id="speedUpdateField" layoutX="556.0" layoutY="159.0" />
+      <TextField fx:id="carrierUpdateField" layoutX="556.0" layoutY="126.0" />
+      <TextField fx:id="nameUpdateField" layoutX="556.0" layoutY="93.0" />
+      <Text layoutX="327.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shipping Options" />
+      <Button fx:id="deleteBtn" layoutX="638.0" layoutY="55.0" mnemonicParsing="false" onAction="#OnDelete" prefHeight="25.0" prefWidth="67.0" text="Delete" />
+      <Button fx:id="addBtn" layoutX="21.0" layoutY="29.0" mnemonicParsing="false" onAction="#OnAddBtn" prefHeight="25.0" prefWidth="67.0" text="Add" />
+   </children>
+</AnchorPane>

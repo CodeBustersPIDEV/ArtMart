@@ -12,6 +12,7 @@ import com.artmart.models.SalesReport;
 import com.artmart.models.ShippingOption;
 import com.artmart.models.Wishlist;
 import com.artmart.utils.OrderCurrentStatus;
+import java.sql.Date;
 import java.util.List;
 
 public class OrderService implements IOrderService {
@@ -147,8 +148,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<Wishlist> getWishlists() {
-        return this.wishlistDao.getWishlists();
+    public List<Wishlist> getWishlistsByUserId(int id) {
+        return this.wishlistDao.getWishlistsByUserId(id);
     }
 
     @Override
@@ -157,8 +158,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public boolean deleteWishlist(int id) {
-        return this.wishlistDao.deleteWishlist(id);
+    public boolean deleteWishlist(int productId,int UserId) {
+        return this.wishlistDao.deleteWishlist(productId,UserId);
     }
 
     @Override

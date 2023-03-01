@@ -5,18 +5,21 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ProductGUIController">
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ProductGUIController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/productgui.css" />
     </stylesheets>
         <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="406.0" stroke="BLACK" strokeType="INSIDE" width="600.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="768.0" stroke="BLACK" strokeType="INSIDE" width="1366.0">
          <fill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -33,19 +36,48 @@
          <effect>
             <DropShadow color="#00000087" />
          </effect></Button>
-      <Text layoutX="118.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested in viewing the available products ?" textAlignment="CENTER">
+      <Text layoutX="499.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested in viewing the available products ?" textAlignment="CENTER">
          <font>
             <Font name="Rockwell Nova Bold" size="15.0" />
          </font></Text>
-      <Text layoutX="207.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here is our best selection" textAlignment="CENTER">
+      <Text layoutX="588.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here is our best selection" textAlignment="CENTER">
          <font>
             <Font name="Rockwell Nova Bold" size="14.0" />
          </font>
       </Text>
-      <ImageView fx:id="imagePreview1" fitHeight="103.0" fitWidth="116.0" layoutX="107.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="imagePreview2" fitHeight="103.0" fitWidth="116.0" layoutX="242.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="imagePreview3" fitHeight="103.0" fitWidth="116.0" layoutX="377.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="consultAllReadyProducts" alignment="CENTER" layoutX="231.0" layoutY="320.0" mnemonicParsing="false" onAction="#consultAllReadyProducts" prefHeight="29.0" prefWidth="138.0" text="List all products" textAlignment="CENTER">
+      <GridPane alignment="CENTER" layoutX="373.0" layoutY="186.0" prefHeight="396.0" prefWidth="620.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="imagePreview1" fitHeight="175.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
+               <effect>
+                  <DropShadow color="#00000087" />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="imagePreview2" fitHeight="175.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <effect>
+                  <DropShadow color="#00000087" />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="imagePreview3" fitHeight="175.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <effect>
+                  <DropShadow color="#00000087" />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="imagePreview4" fitHeight="175.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <effect>
+                  <DropShadow color="#00000087" />
+               </effect>
+            </ImageView>
+         </children>
+      </GridPane>
+      <Button fx:id="consultAllReadyProducts" alignment="CENTER" layoutX="614.0" layoutY="697.0" mnemonicParsing="false" onAction="#consultAllReadyProducts" prefHeight="29.0" prefWidth="138.0" text="List all products" textAlignment="CENTER">
          <font>
             <Font name="Rockwell Nova Bold" size="12.0" />
          </font>

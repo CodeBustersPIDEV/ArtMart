@@ -9,56 +9,35 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ReadyProductCardController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ReadyProductCardController">
    <children>
       <Label fx:id="pid" layoutX="540.0" layoutY="20.0" text="Id">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="193.0" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="193.0" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" width="949.0" />
       <Text fx:id="name" layoutX="234.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
          <font>
-            <Font name="Rockwell Nova Bold" size="18.0" />
+            <Font name="Rockwell Nova Bold" size="20.0" />
          </font>
       </Text>
       <ImageView fx:id="imagePreview" fitHeight="162.0" fitWidth="192.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="234.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Material:" textAlignment="CENTER">
+      <Text layoutX="236.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" textAlignment="CENTER">
          <font>
-            <Font name="Rockwell Nova Bold" size="12.0" />
+            <Font name="Rockwell Nova Bold" size="15.0" />
          </font>
       </Text>
-      <Text layoutX="234.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight:" textAlignment="CENTER">
+      <Label fx:id="category" layoutX="326.0" layoutY="71.0" text="Category">
          <font>
-            <Font name="Rockwell Nova Bold" size="12.0" />
-         </font>
-      </Text>
-      <Text layoutX="235.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensions:" textAlignment="CENTER">
+            <Font name="Rockwell Nova" size="15.0" />
+         </font></Label>
+      <Label fx:id="price" layoutX="236.0" layoutY="119.0" text="Price">
          <font>
-            <Font name="Rockwell Nova Bold" size="12.0" />
-         </font>
-      </Text>
-      <Text layoutX="235.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" textAlignment="CENTER">
-         <font>
-            <Font name="Rockwell Nova Bold" size="12.0" />
-         </font>
-      </Text>
-      <Text layoutX="236.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" textAlignment="CENTER">
-         <font>
-            <Font name="Rockwell Nova Bold" size="12.0" />
-         </font>
-      </Text>
-      <Label fx:id="material" layoutX="301.0" layoutY="56.0" text="Material" />
-      <Label fx:id="weight" layoutX="291.0" layoutY="74.0" text="Weight" />
-      <Label fx:id="dimensions" layoutX="322.0" layoutY="93.0" text="Dimensions" />
-      <Label fx:id="category" layoutX="307.0" layoutY="111.0" text="Category" />
-      <Label fx:id="description" layoutX="320.0" layoutY="128.0" text="Description" />
-      <Label fx:id="price" layoutX="236.0" layoutY="154.0" text="Price">
-         <font>
-            <Font size="14.0" />
+            <Font name="Rockwell Nova" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="delete" alignment="CENTER" layoutX="523.0" layoutY="42.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="29.0" prefWidth="63.0" text="Delete" textAlignment="CENTER">
+      <Button fx:id="delete" alignment="CENTER" layoutX="865.0" layoutY="140.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="29.0" prefWidth="63.0" text="Delete" textAlignment="CENTER">
          <font>
             <Font name="Rockwell Nova Bold" size="10.0" />
          </font>
@@ -66,7 +45,15 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Button fx:id="edit" alignment="CENTER" layoutX="523.0" layoutY="9.0" mnemonicParsing="false" onAction="#onEdit" prefHeight="29.0" prefWidth="63.0" text="Edit" textAlignment="CENTER">
+      <Button fx:id="edit" alignment="CENTER" layoutX="779.0" layoutY="140.0" mnemonicParsing="false" onAction="#onEdit" prefHeight="29.0" prefWidth="63.0" text="Edit" textAlignment="CENTER">
+         <font>
+            <Font name="Rockwell Nova Bold" size="10.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
+      <Button fx:id="details" alignment="CENTER" layoutX="693.0" layoutY="140.0" mnemonicParsing="false" onAction="#onDetails" prefHeight="29.0" prefWidth="63.0" text="Details" textAlignment="CENTER">
          <font>
             <Font name="Rockwell Nova Bold" size="10.0" />
          </font>

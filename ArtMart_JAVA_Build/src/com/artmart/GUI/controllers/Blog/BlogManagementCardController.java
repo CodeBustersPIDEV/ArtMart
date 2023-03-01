@@ -25,6 +25,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -50,6 +52,10 @@ public class BlogManagementCardController implements Initializable {
     private final BlogService blogService = new BlogService();
 //private BlogManagementPageController controller=new BlogManagementPageController();
 //private AddBlogController controller2=new AddBlogController();
+    @FXML
+    private Pane cardContainer;
+    @FXML
+    private Rectangle cont2;
 
 //private Blog b = new Blog();
 //private FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
@@ -58,7 +64,8 @@ public class BlogManagementCardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+//        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
+        this.cont2.setHeight(this.imagePreview.getFitHeight());
     }
 
     public void setBlogTitle(String title) {
@@ -80,7 +87,7 @@ public class BlogManagementCardController implements Initializable {
     @FXML
     private void deleteBlog(ActionEvent event) {
 //        this.controller = this.loader.getController();
-        int b_id = Integer.parseInt(this.blog_id.getText());  
+        int b_id = Integer.parseInt(this.blog_id.getText());
         boolean test1 = this.blogService.deleteHasCat(b_id);
         boolean test2 = this.blogService.deleteHasTag(b_id);
         Media m = this.blogService.getOneMediaByBlogID(b_id);

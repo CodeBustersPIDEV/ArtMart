@@ -26,7 +26,6 @@
             <Image url="@../../../../../../../../New_Project-removebg-preview.png" />
          </image>
       </ImageView>
-      <Button layoutX="486.0" layoutY="356.0" mnemonicParsing="false" onAction="#admin" text="Admin Panel" />
 
    </children>
 </AnchorPane>
