@@ -240,4 +240,24 @@ public class UserDao implements IUserDao {
     }
     
     
+    public String getClientNameById(int clientId) throws SQLException {
+    String clientName = null;
+   
+    PreparedStatement statement = null;
+    ResultSet resultSet = null;
+        statement = connection.prepareStatement("SELECT name FROM user WHERE user_ID = ?");
+        statement.setInt(1, clientId);
+        resultSet = statement.executeQuery();
+        
+        if (resultSet.next()) {
+            clientName = resultSet.getString("name");
+        }    return clientName;
+    }
+    
+
+
+
+
+    
+    
 }

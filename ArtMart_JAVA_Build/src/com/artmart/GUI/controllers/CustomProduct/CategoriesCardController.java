@@ -27,7 +27,6 @@ import javafx.stage.Stage;
  */
 public class CategoriesCardController implements Initializable {
 
-    @FXML
     private Text id;
     @FXML
     private Text name;
@@ -44,7 +43,7 @@ public class CategoriesCardController implements Initializable {
      public void setCategories(Categories param,CategorieslistController controller){
     this.p=param;
     this.controller = controller;
-    this.id.setText(Integer.toString(p.getCategories_ID()));
+  
     this.name.setText(p.getName());
 }
        @FXML

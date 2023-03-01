@@ -5,13 +5,17 @@
  */
 package com.artmart.GUI.controllers.CustomProduct;
 import com.artmart.dao.CategoriesDao;
+import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
 import com.artmart.services.CustomProductService;
 import com.artmart.models.Product;
+import com.artmart.models.Session;
+import com.artmart.models.User;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -59,6 +63,9 @@ public class AddCustomController implements Initializable {
     @FXML
     private ComboBox<Categories> categoryComboBox2;
      private final CategoriesDao categoriesDao = new CategoriesDao();
+    HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
+
     @FXML
     private Button imageButton;
     @FXML
@@ -121,8 +128,14 @@ public class AddCustomController implements Initializable {
     }
 
      
-  @FXML
+ @FXML
 private void handleAddButtonAction(ActionEvent event) throws SQLException {
+Session session = Session.getInstance();
+int clientId = session.getCurrentUserId(session.getSessionId());
+
+
+
+
     String name = nameField.getText();
     String desc = descField.getText();
     String dim = dimField.getText();
@@ -158,7 +171,8 @@ private void handleAddButtonAction(ActionEvent event) throws SQLException {
     Product baseProduct = new Product(selectedCategory.getCategories_ID(), name, desc, dim, weight, material, imagePath);
 
     CustomProductService customProductService = new CustomProductService();
-    int result = customProductService.createCustomProduct(baseProduct);
+   
+    int result = customProductService.createCustomProduct(baseProduct,clientId);
     if (result > 0) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Add Custom Product");
@@ -173,6 +187,7 @@ private void handleAddButtonAction(ActionEvent event) throws SQLException {
         alert.showAndWait();
     }
 }
+
 
 
     @FXML

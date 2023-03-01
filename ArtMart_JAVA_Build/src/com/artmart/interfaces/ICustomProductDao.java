@@ -12,8 +12,8 @@ public interface ICustomProductDao {
 
     CustomProduct getCustomProductById(int id) throws SQLException;
 
-    int createCustomProduct(Product customProduct) throws SQLException;
-
+    int createCustomProduct(Product customProduct,int clientID) throws SQLException;
+ public List<CustomProduct> getCustomProductsByClientId(int clientId) throws SQLException;
     int updateCustomProduct(int id, CustomProduct customProduct) throws SQLException;
 
     int deleteCustomProduct(int id) throws SQLException;
