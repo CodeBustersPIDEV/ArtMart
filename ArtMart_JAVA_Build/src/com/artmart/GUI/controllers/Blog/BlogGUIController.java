@@ -152,7 +152,6 @@ public class BlogGUIController implements Initializable {
     private void search(ActionEvent event) {
         String keyword = this.searchText.getText();
         this.matchingBlogs = this.blogService.searchBlogsByTitle(keyword);
-        System.out.println(this.matchingBlogs);
         this.container.getChildren().clear();
         UserDao userService = new UserDao();
         matchingBlogs.forEach(blog -> {

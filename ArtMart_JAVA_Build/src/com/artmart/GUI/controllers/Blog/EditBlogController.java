@@ -9,7 +9,9 @@ import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.HasCategory;
+import com.artmart.models.HasTag;
 import com.artmart.models.Media;
+import com.artmart.models.Tag;
 import com.artmart.services.BlogService;
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -31,6 +33,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,10 +46,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -78,8 +83,12 @@ public class EditBlogController implements Initializable {
     private ImageView blogImage;
     @FXML
     private Button edit_imageBlog;
+    @FXML
+    private ComboBox<String> tagsInput;
 
     private List<BlogCategories> blogCategoriesList;
+    private List<Tag> blogTagsList;
+    private ObservableList<String> blogTList ;
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
     private Blog viewBlog = new Blog();
@@ -109,6 +118,7 @@ public class EditBlogController implements Initializable {
         this.id = Integer.parseInt(this.blogID.getText());
         this.viewBlog = blogService.getOneBlog(id);
         HasCategory hs = blogService.getCatbyBlog(id);
+        HasTag ht = blogService.getTagbyBlog(id);
         this.img = this.blogService.getOneMediaByBlogID(id);
         if (!(img == null)) {
             File file = new File(img.getFile_path());
@@ -121,6 +131,7 @@ public class EditBlogController implements Initializable {
         this.blog_title.setText(this.viewBlog.getTitle());
         this.blog_content.setText(this.viewBlog.getContent());
         this.blog_category.getSelectionModel().select(hs.getCategory_id()-1);
+        this.tagsInput.getSelectionModel().select(ht.getTag_id()-1);
         this.blogImage.setImage(this.image);
 
     }
@@ -132,6 +143,12 @@ public class EditBlogController implements Initializable {
                 blogCategoriesList.stream().map(BlogCategories::getName).collect(Collectors.toList())
         );
         this.blog_category.setItems(blogCatList);
+        
+                blogTagsList = blogService.getAllTags();
+        this.blogTList = FXCollections.observableArrayList(
+                blogTagsList.stream().map(Tag::getName).collect(Collectors.toList())
+        );
+        this.tagsInput.setItems(this.blogTList);
     }
 
     @FXML
@@ -315,6 +332,10 @@ public class EditBlogController implements Initializable {
             System.out.println("Failed to get the image type.");
             ex.getMessage();
         }
+    }
+
+    private void search(InputMethodEvent event) {
+     
     }
 
 }

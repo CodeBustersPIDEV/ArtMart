@@ -22,20 +22,21 @@
             <Font name="Agency FB" size="18.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="blog_category" layoutX="474.0" layoutY="200.0" prefHeight="31.0" prefWidth="200.0" promptText="Blog Category">
+      <ComboBox fx:id="blog_category" layoutX="474.0" layoutY="194.0" prefHeight="31.0" prefWidth="200.0" promptText="Blog Category">
          <effect>
             <Glow />
          </effect>
       </ComboBox>
-      <TextArea fx:id="blog_content" layoutX="394.0" layoutY="252.0" prefHeight="238.0" prefWidth="359.0" promptText="Blog Content" scrollLeft="2.0" scrollTop="2.0" wrapText="true">
+      <TextArea fx:id="blog_content" layoutX="395.0" layoutY="320.0" prefHeight="238.0" prefWidth="359.0" promptText="Blog Content" scrollLeft="2.0" scrollTop="2.0" wrapText="true">
          <font>
             <Font name="Agency FB" size="18.0" />
          </font>
       </TextArea>
       <Button fx:id="edit_imageBlog" layoutX="102.0" layoutY="510.0" mnemonicParsing="false" onAction="#editImageBlog" prefHeight="34.0" prefWidth="163.0" text="Upload Blog Image" />
-      <Button fx:id="edit_blog" layoutX="512.0" layoutY="510.0" mnemonicParsing="false" onAction="#edit" prefHeight="34.0" prefWidth="104.0" text="Edit" />
+      <Button fx:id="edit_blog" layoutX="511.0" layoutY="575.0" mnemonicParsing="false" onAction="#edit" prefHeight="34.0" prefWidth="104.0" text="Edit" />
       <Button fx:id="cancel_btn" layoutX="35.0" layoutY="25.0" mnemonicParsing="false" onAction="#goBackToMenu" text="Cancel" />
       <ImageView fx:id="blogImage" fitHeight="271.0" fitWidth="339.0" layoutX="16.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="blogID" layoutX="718.0" layoutY="30.0" visible="false" />
+      <ComboBox fx:id="tagsInput" editable="true" layoutX="474.0" layoutY="260.0" prefHeight="31.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

@@ -53,9 +53,9 @@ public class BlogService implements IBlogService {
     public List<Blog> getAllBlogsByUser(int user_id) {
         return this.blogDao.getAllBlogsByUser(user_id);
     }
-    
-        @Override
-        public List<Blog> searchBlogsByTitle(String blog_title) {
+
+    @Override
+    public List<Blog> searchBlogsByTitle(String blog_title) {
         return this.blogDao.searchBlogsByTitle(blog_title);
     }
 
@@ -223,6 +223,11 @@ public class BlogService implements IBlogService {
     @Override
     public List<HasTag> getAllTagsbyBlog(int blog_id) {
         return this.hasTag.getAllTagsbyBlog(blog_id);
+    }
+
+    @Override
+    public HasTag getTagbyBlog(int blog_id) {
+        return this.hasTag.getTagbyBlog(blog_id);
     }
 
     @Override

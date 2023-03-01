@@ -66,8 +66,8 @@ public class BlogCardController implements Initializable {
 //        this.imagePreview.setFitHeight(this.image.getHeight());
 
 //        this.imagePreview.fitWidthProperty().bind(cardContainer.widthProperty());
-        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
-        this.cont2.setHeight(this.imagePreview.getFitHeight());
+//        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
+//        this.cont2.setHeight(this.imagePreview.getFitHeight());
     }
 
     public void setBlogTitle(String title) {
