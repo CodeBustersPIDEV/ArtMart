@@ -23,6 +23,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -119,5 +121,23 @@ public class List_eventController implements Initializable {
         this.txtSearch.setText("");
         this.makeList();
     }
-    
+
+    @FXML
+    private void onTxtSearch(KeyEvent ev) {
+        String keyword = this.txtSearch.getText();
+        List<Event> matchingEvents = this.es.searchEventByName(keyword);
+        this.vBox.getChildren().clear();
+        matchingEvents.forEach(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/card_event.fxml"));
+                Parent root = loader.load();
+                Card_eventController controller = loader.getController();
+                controller.setUpEventData(event,this);
+                root.setId("" + event.getEventID());
+                this.vBox.getChildren().add(root);
+            } catch (IOException e) {
+                System.out.print(e.getCause());
+            }
+        });
+    }
 }

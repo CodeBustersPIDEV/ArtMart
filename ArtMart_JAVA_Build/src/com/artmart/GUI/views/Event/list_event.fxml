@@ -33,7 +33,7 @@
             <Font name="Agency FB Bold" size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="txtSearch" layoutX="175.0" layoutY="104.0" prefHeight="28.0" prefWidth="173.0">
+      <TextField fx:id="txtSearch" layoutX="175.0" layoutY="104.0" onKeyPressed="#onTxtSearch" prefHeight="28.0" prefWidth="173.0">
          <font>
             <Font name="Agency FB Bold" size="15.0" />
          </font>
