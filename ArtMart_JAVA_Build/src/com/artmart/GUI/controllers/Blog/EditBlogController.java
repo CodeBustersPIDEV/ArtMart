@@ -44,8 +44,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -54,6 +56,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
@@ -104,6 +107,7 @@ public class EditBlogController implements Initializable {
     private Media img = new Media();
     private Media imgEdited = new Media();
     private final Desktop desktop = Desktop.getDesktop();
+    private String tags="";
     private final FileChooser fileChooser = new FileChooser();
     private final String phpUrl = "http://localhost/PIDEV/upload.php";
     String boundary = "---------------------------12345";
@@ -135,7 +139,7 @@ public class EditBlogController implements Initializable {
         this.blogImage.setImage(this.image);
 
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         blogCategoriesList = blogService.getAllBlogCategories();
@@ -334,8 +338,11 @@ public class EditBlogController implements Initializable {
         }
     }
 
-    private void search(InputMethodEvent event) {
-     
+    @FXML
+    private void inc_tag(ActionEvent event) {
+         this.tags+="#"+ this.tagsInput.getSelectionModel().getSelectedItem();
+        System.out.println(tags);
     }
+
 
 }

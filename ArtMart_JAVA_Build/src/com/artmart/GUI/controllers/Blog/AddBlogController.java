@@ -111,6 +111,10 @@ public class AddBlogController implements Initializable {
         File file = new File("src/com/artmart/assets/BlogAssets/alt.png");
         this.image = new Image(file.toURI().toString());
         this.blogImage_preview.setImage(image);
+        this.blogImage_preview.setFitHeight(143);
+        this.blogImage_preview.setFitWidth(163);
+        this.blogImage_preview.setLayoutX(158);
+        this.blogImage_preview.setLayoutY(303);
         this.session = (Session) user.get(user.keySet().toArray()[0]);
     }
 
@@ -230,10 +234,10 @@ public class AddBlogController implements Initializable {
                         this.blogImage_preview.setImage(image);
                         this.blogImage_preview.setLayoutX(14);
                         this.blogImage_preview.setLayoutY(155);
-                        this.blogImage_preview.setFitHeight(252);
-                        this.blogImage_preview.setFitWidth(339);
-                        this.add_imageBlog.setLayoutX(102);
-                        this.add_imageBlog.setLayoutY(471);
+                        this.blogImage_preview.setFitHeight(423);
+                        this.blogImage_preview.setFitWidth(450);
+                        this.add_imageBlog.setLayoutX(148);
+                        this.add_imageBlog.setLayoutY(634);
                     } catch (Exception e) {
                         e.getMessage();
                     }

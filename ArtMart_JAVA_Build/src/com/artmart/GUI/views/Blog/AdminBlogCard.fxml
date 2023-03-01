@@ -17,7 +17,7 @@
       <Label fx:id="username" layoutX="455.0" layoutY="130.0" text="Username" />
       <Label fx:id="publishDate" layoutX="417.0" layoutY="162.0" text="DD/MM/YYYY" />
       <Label fx:id="blog_id" layoutX="948.0" layoutY="14.0" text="Label" visible="false" />
-      <ImageView fx:id="imagePreview" fitHeight="307.0" fitWidth="354.0" layoutX="8.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imagePreview" fitHeight="307.0" fitWidth="354.0" layoutX="8.0" layoutY="4.0" pickOnBounds="true" />
       <Label fx:id="blog_title" alignment="TOP_LEFT" layoutX="362.0" layoutY="14.0" prefHeight="113.0" prefWidth="697.0" text="Blog Title" wrapText="true">
          <font>
             <Font size="49.0" />

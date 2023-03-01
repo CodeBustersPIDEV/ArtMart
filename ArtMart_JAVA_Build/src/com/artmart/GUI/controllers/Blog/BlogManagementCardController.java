@@ -65,7 +65,7 @@ public class BlogManagementCardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
-        this.cont2.setHeight(this.imagePreview.getFitHeight());
+//        this.cont2.setHeight(this.imagePreview.getFitHeight());
     }
 
     public void setBlogTitle(String title) {

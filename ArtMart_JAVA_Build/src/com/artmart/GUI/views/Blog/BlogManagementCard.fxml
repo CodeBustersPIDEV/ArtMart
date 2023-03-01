@@ -21,6 +21,6 @@
          </font>
       </Label>
       <Button id="view" fx:id="link_edit_btn" layoutX="786.0" layoutY="248.0" mnemonicParsing="false" onAction="#goToEditBlog" prefHeight="31.0" prefWidth="104.0" text="Edit" />
-      <ImageView fx:id="imagePreview" fitHeight="314.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imagePreview" fitHeight="314.0" fitWidth="351.0" pickOnBounds="true" />
    </children>
 </Pane>
