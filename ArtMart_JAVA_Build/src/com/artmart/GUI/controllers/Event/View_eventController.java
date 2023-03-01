@@ -67,7 +67,7 @@ public class View_eventController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        this.tfEventDescription.setStyle("-fx-border-color: #1752b8; -fx-border-width: 1px;");
+        this.tfEventDescription.setStyle("-fx-border-color: #5d53a8; -fx-border-width: 1px;");
         this.tfEventDescription.setPrefWidth(270);
 
     }    
@@ -80,7 +80,7 @@ public class View_eventController implements Initializable {
         this.txtEventStartDate.setText(event.getStartDate().toString());
         this.txtEventEndDate.setText(event.getEndDate().toString());
         this.description = new Text(event.getDescription());
-        this.description.setFill(Color.web("#1752b8"));
+        this.description.setFill(Color.web("#5d53a8"));
         this.description.setStyle("-fx-font-family: 'Agency FB'; -fx-font-weight: bold; -fx-font-size: 16px;");
         this.tfEventDescription.getChildren().add(description);
         this.txtEventType.setText(event.getType());

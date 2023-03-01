@@ -19,9 +19,9 @@
             <VBox fx:id="vBox" prefHeight="570.0" prefWidth="635.0" />
          </content>
       </ScrollPane>
-      <Text fill="#3f68ff" layoutX="229.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity List">
+      <Text fill="#5d53a8" layoutX="229.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity List">
          <font>
-            <Font name="Agency FB Bold" size="48.0" />
+            <Font name="Brush Script MT Italic" size="48.0" />
          </font>
       </Text>
       <Button layoutX="13.0" layoutY="13.0" mnemonicParsing="false" onAction="#onBtnReturn" text="&lt; Back">

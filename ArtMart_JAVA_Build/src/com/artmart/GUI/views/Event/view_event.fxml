@@ -13,94 +13,89 @@
         <URL value="@/com/artmart/GUI/styles/event/view_event.css" />
     </stylesheets>
    <children>
-      <Button fx:id="btnDeleteEvent" layoutX="494.0" layoutY="382.0" mnemonicParsing="false" onAction="#onBtnDeleteEvent" prefHeight="45.0" prefWidth="85.0" text="Delete" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnDeleteEvent" layoutX="495.0" layoutY="388.0" mnemonicParsing="false" onAction="#onBtnDeleteEvent" prefHeight="34.0" prefWidth="65.0" text="Delete" textAlignment="CENTER" textFill="RED">
          <font>
-            <Font name="Agency FB Bold" size="24.0" />
+            <Font name="Agency FB Bold" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="btnEditEvent" layoutX="379.0" layoutY="382.0" mnemonicParsing="false" onAction="#onBtnEditEvent" prefHeight="45.0" prefWidth="85.0" text="Edit" textAlignment="CENTER" textFill="#09a83e">
+      <Button fx:id="btnEditEvent" layoutX="388.0" layoutY="388.0" mnemonicParsing="false" onAction="#onBtnEditEvent" prefHeight="34.0" prefWidth="65.0" text="Edit" textAlignment="CENTER" textFill="#09a83e">
          <font>
-            <Font name="Agency FB Bold" size="24.0" />
+            <Font name="Agency FB Bold" size="15.0" />
          </font>
       </Button>
-      <Text fill="#1752b8" layoutX="38.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+      <Text fill="#5d53a8" layoutX="38.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
          <font>
-            <Font name="Agency FB Bold" size="30.0" />
+            <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text fill="#1752b8" layoutX="40.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+      <Text fill="#5d53a8" layoutX="40.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
          <font>
-            <Font name="Agency FB Bold" size="30.0" />
+            <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text fill="#1752b8" layoutX="39.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
+      <Text fill="#5d53a8" layoutX="39.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
          <font>
-            <Font name="Agency FB Bold" size="30.0" />
+            <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text fill="#1752b8" layoutX="40.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
+      <Text fill="#5d53a8" layoutX="40.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
          <font>
-            <Font name="Agency FB Bold" size="30.0" />
+            <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text fill="#1752b8" layoutX="40.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity">
+      <Text fill="#5d53a8" layoutX="40.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity">
          <font>
-            <Font name="Agency FB Bold" size="30.0" />
+            <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+      <Text fill="#5d53a8" layoutX="40.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entry fee">
          <font>
-            <Font name="Agency FB Bold" size="25.0" />
+            <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text fill="#1752b8" layoutX="40.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entry fee">
-         <font>
-            <Font name="Agency FB Bold" size="30.0" />
-         </font>
-      </Text>
-      <Button fx:id="btnReturn" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" onAction="#onBtnReturn" text="&lt; Return">
+      <Button fx:id="btnReturn" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" onAction="#onBtnReturn" text="&lt; Return" textFill="#5d53a8">
          <font>
             <Font name="Agency FB Bold" size="14.0" />
          </font>
       </Button>
-      <Text fx:id="txtEventName" fill="#1752b8" layoutX="18.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
+      <Text fx:id="txtEventName" fill="#5d53a8" layoutX="18.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
          <font>
-            <Font name="Agency FB Bold" size="64.0" />
+            <Font name="Brush Script MT Italic" size="64.0" />
          </font>
       </Text>
-      <Text fill="#1752b8" layoutX="402.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+      <Text fill="#5d53a8" layoutX="402.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
          <font>
-            <Font name="Agency FB Bold" size="30.0" />
+            <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text fx:id="txtEventType" fill="#1752b8" layoutX="209.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+      <Text fx:id="txtEventType" fill="#5d53a8" layoutX="209.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
          <font>
-            <Font name="Agency FB Bold" size="20.0" />
+            <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="txtEventLocation" fill="#1752b8" layoutX="211.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+      <Text fx:id="txtEventLocation" fill="#5d53a8" layoutX="211.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
          <font>
-            <Font name="Agency FB Bold" size="20.0" />
+            <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="txtEventStartDate" fill="#1752b8" layoutX="211.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
+      <Text fx:id="txtEventStartDate" fill="#5d53a8" layoutX="211.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
          <font>
-            <Font name="Agency FB Bold" size="20.0" />
+            <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="txtEventEndDate" fill="#1752b8" layoutX="211.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
+      <Text fx:id="txtEventEndDate" fill="#5d53a8" layoutX="211.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
          <font>
-            <Font name="Agency FB Bold" size="20.0" />
+            <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="txtEventCapacity" fill="#1752b8" layoutX="211.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity">
+      <Text fx:id="txtEventCapacity" fill="#5d53a8" layoutX="211.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity">
          <font>
-            <Font name="Agency FB Bold" size="20.0" />
+            <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="txtEventEntryFee" fill="#1752b8" layoutX="211.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entry fee">
+      <Text fx:id="txtEventEntryFee" fill="#5d53a8" layoutX="211.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entry fee">
          <font>
-            <Font name="Agency FB Bold" size="20.0" />
+            <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
       <TextFlow fx:id="tfEventDescription" layoutX="350.0" layoutY="172.0" prefHeight="199.0" prefWidth="245.0">

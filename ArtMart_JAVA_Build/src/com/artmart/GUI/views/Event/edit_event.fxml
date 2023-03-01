@@ -15,9 +15,9 @@
         <URL value="@/com/artmart/GUI/styles/event/edit_event.css" />
     </stylesheets>
    <children>
-      <Label alignment="CENTER" layoutX="24.0" layoutY="38.0" prefHeight="65.0" prefWidth="138.0" text="Edit Event" textFill="#3f68ff">
+      <Label alignment="CENTER" layoutX="24.0" layoutY="38.0" prefHeight="65.0" prefWidth="178.0" text="Edit Event" textFill="#5d53a8">
          <font>
-            <Font name="Agency FB Bold" size="33.0" />
+            <Font name="Brush Script MT Italic" size="40.0" />
          </font>
       </Label>
       <TextField fx:id="txtEventLocation" layoutX="80.0" layoutY="190.0" prefHeight="25.0" prefWidth="156.0" promptText="Location" />
@@ -26,14 +26,14 @@
       <TextField fx:id="txtEventCapacity" layoutX="80.0" layoutY="299.0" prefHeight="25.0" prefWidth="156.0" promptText="Capacity" />
       <TextField fx:id="txtEventEntryFee" layoutX="80.0" layoutY="337.0" prefHeight="25.0" prefWidth="156.0" promptText="Entry Fee" />
       <TextArea fx:id="txtAreaEventDescription" layoutX="277.0" layoutY="123.0" prefHeight="242.0" prefWidth="336.0" promptText="Description" />
-      <Button fx:id="btnConfirm" layoutX="467.0" layoutY="390.0" mnemonicParsing="false" onAction="#onBtnConfirm" prefHeight="38.0" prefWidth="85.0" text="Confirm" textAlignment="CENTER" textFill="#0d9e31">
+      <Button fx:id="btnConfirm" layoutX="467.0" layoutY="390.0" mnemonicParsing="false" onAction="#onBtnConfirm" prefHeight="34.0" prefWidth="65.0" text="Confirm" textAlignment="CENTER" textFill="#0d9e31">
          <font>
-            <Font name="Agency FB Bold" size="20.0" />
+            <Font name="Agency FB Bold" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelEvent" layoutX="348.0" layoutY="390.0" mnemonicParsing="false" onAction="#onBtnCancelEvent" prefHeight="38.0" prefWidth="85.0" text="Cancel" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnCancelEvent" layoutX="348.0" layoutY="390.0" mnemonicParsing="false" onAction="#onBtnCancelEvent" prefHeight="34.0" prefWidth="65.0" text="Cancel" textAlignment="CENTER" textFill="RED">
          <font>
-            <Font name="Agency FB Bold" size="20.0" />
+            <Font name="Agency FB Bold" size="15.0" />
          </font>
       </Button>
       <DatePicker fx:id="dpEventEndDate" layoutX="80.0" layoutY="262.0" prefHeight="25.0" prefWidth="156.0" promptText="End  Date" />

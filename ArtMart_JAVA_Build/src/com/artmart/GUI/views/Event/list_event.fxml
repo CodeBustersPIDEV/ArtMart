@@ -18,12 +18,12 @@
          <content>
             <VBox fx:id="vBox" prefHeight="550.0" prefWidth="650.0" />
          </content></ScrollPane>
-      <Text fill="#3f68ff" layoutX="246.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event List">
+      <Text fill="#ff5946" layoutX="246.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event List">
          <font>
-            <Font name="Agency FB Bold" size="48.0" />
+            <Font name="Brush Script MT Italic" size="48.0" />
          </font>
       </Text>
-      <Button layoutX="3.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnToEventHomepage" text="&lt; Back">
+      <Button layoutX="3.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnToEventHomepage" text="&lt; Back" textFill="#5d53a8">
          <font>
             <Font name="Agency FB Bold" size="15.0" />
          </font>

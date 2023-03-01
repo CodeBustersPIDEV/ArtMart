@@ -16,13 +16,13 @@
          <font>
             <Font name="Agency FB Bold" size="24.0" />
          </font></Button>
-      <Button id="btnReturn" layoutX="4.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnToMain" text="&lt; Back">
+      <Button id="btnReturn" layoutX="4.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnToMain" text="&lt; Back" textFill="#5d53a8">
          <font>
             <Font name="Agency FB Bold" size="14.0" />
          </font></Button>
-      <Label layoutX="185.0" layoutY="56.0" text="Event Home Page" textFill="#3f68ff">
+      <Label layoutX="162.0" layoutY="53.0" text="Event Home Page" textFill="#5d53a8">
          <font>
-            <Font name="Agency FB Bold" size="48.0" />
+            <Font name="Brush Script MT Italic" size="55.0" />
          </font>
       </Label>
       <Button fx:id="btnGetAllEvents" layoutX="340.0" layoutY="216.0" mnemonicParsing="false" onAction="#onBtnGetAllEvents" prefHeight="45.0" prefWidth="172.0" text="View Event List" textFill="#2c8e9c">
