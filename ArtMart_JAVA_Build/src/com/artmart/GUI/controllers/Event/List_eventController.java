@@ -81,7 +81,6 @@ public class List_eventController implements Initializable {
         this.scrollPaneEventList.setContent(this.vBox);
     }
 
-
     @FXML
     private void returnToEventHomepage(ActionEvent event) {
         try {
@@ -100,7 +99,7 @@ public class List_eventController implements Initializable {
     @FXML
     private void onBtnSearch(ActionEvent ev) {
         String keyword = this.txtSearch.getText();
-        List<Event> matchingEvents = this.es.searchEventByName(keyword);
+        List<Event> matchingEvents = this.es.searchEventByName(keyword, userID);
         this.vBox.getChildren().clear();
         matchingEvents.forEach(event -> {
             try {
@@ -114,30 +113,32 @@ public class List_eventController implements Initializable {
                 System.out.print(e.getCause());
             }
         });
+    }
+
+    @FXML
+    private void onTxtSearch(KeyEvent ev) {
+        if (ev.getCode() == KeyCode.ENTER) {
+            String keyword = this.txtSearch.getText();
+            List<Event> matchingEvents = this.es.searchEventByName(keyword, userID);
+            this.vBox.getChildren().clear();
+            matchingEvents.forEach(event -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/card_event.fxml"));
+                    Parent root = loader.load();
+                    Card_eventController controller = loader.getController();
+                    controller.setUpEventData(event, this);
+                    root.setId("" + event.getEventID());
+                    this.vBox.getChildren().add(root);
+                } catch (IOException e) {
+                    System.out.print(e.getCause());
+                }
+            });
+        }
     }
 
     @FXML
     private void onBtnCancel(ActionEvent event) throws SQLException {
         this.txtSearch.setText("");
         this.makeList();
-    }
-
-    @FXML
-    private void onTxtSearch(KeyEvent ev) {
-        String keyword = this.txtSearch.getText();
-        List<Event> matchingEvents = this.es.searchEventByName(keyword);
-        this.vBox.getChildren().clear();
-        matchingEvents.forEach(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/card_event.fxml"));
-                Parent root = loader.load();
-                Card_eventController controller = loader.getController();
-                controller.setUpEventData(event,this);
-                root.setId("" + event.getEventID());
-                this.vBox.getChildren().add(root);
-            } catch (IOException e) {
-                System.out.print(e.getCause());
-            }
-        });
     }
 }
