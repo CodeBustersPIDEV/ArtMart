@@ -21,6 +21,8 @@ public class MainViewController implements Initializable {
 
     @FXML
     private Button productBtn;
+        @FXML
+    private Button userBtn;
     @FXML
     private Button eventBtn;
     @FXML

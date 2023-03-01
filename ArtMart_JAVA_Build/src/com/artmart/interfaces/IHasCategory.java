@@ -8,6 +8,8 @@ public interface IHasCategory {
     public int addBlog2HasCat(HasCategory hc);
 
     public List<HasCategory> getAllCatbyBlog(int blog_id);
+    
+    public HasCategory getCatbyBlog(int blog_id);
 
     public boolean updateHasCat(int blog_id, HasCategory editedHC);
 

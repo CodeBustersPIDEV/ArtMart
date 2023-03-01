@@ -34,37 +34,42 @@ import javafx.stage.Stage;
  *
  * @author marwen
  */
-public class BlogManagementCardController implements Initializable {
+public class AdminBlogCardController implements Initializable {
 
     @FXML
-    private Button delete_btn;
+    private Pane cardContainer;
+    @FXML
+    private Rectangle cont2;
+    @FXML
+    private Button del_btn;
+    @FXML
+    private Label username;
     @FXML
     private Label publishDate;
     @FXML
     private Label blog_id;
     @FXML
-    private Button link_edit_btn;
+    private ImageView imagePreview;
     @FXML
     private Label blog_title;
-    @FXML
-    private ImageView imagePreview;
-
+    private Image image;
     private final BlogService blogService = new BlogService();
-//private BlogManagementPageController controller=new BlogManagementPageController();
-//private AddBlogController controller2=new AddBlogController();
-    @FXML
-    private Pane cardContainer;
-    @FXML
-    private Rectangle cont2;
+    boolean test4;
 
-//private Blog b = new Blog();
-//private FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
+        //        if (this.imagePreview.getImage() != null) {
+//            h = this.imagePreview.getImage().getHeight();
+//        }
+//        System.out.println(image);
+//        this.imagePreview.setFitWidth(this.image.getWidth());
+//        this.imagePreview.setFitHeight(this.image.getHeight());
+
+//        this.imagePreview.fitWidthProperty().bind(cardContainer.widthProperty());
+        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
         this.cont2.setHeight(this.imagePreview.getFitHeight());
     }
 
@@ -72,8 +77,22 @@ public class BlogManagementCardController implements Initializable {
         this.blog_title.setText(title);
     }
 
+    public void setCardCont1(double h) {
+        this.cardContainer.setMaxHeight(h);
+        System.out.println("cardContainer" + this.cardContainer.getHeight());
+    }
+
+    public void setCardCont2(double h) {
+        this.cont2.setHeight(h);
+        System.out.println("cont2" + this.cont2.getHeight());
+    }
+
     public void setPublishDate(String date) {
         this.publishDate.setText(date);
+    }
+
+    public void setUsername(String user_name) {
+        this.username.setText(user_name);
     }
 
     public void setBlogID(String blog_id) {
@@ -84,22 +103,28 @@ public class BlogManagementCardController implements Initializable {
         this.imagePreview.setImage(blog_image);
     }
 
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     @FXML
-    private void deleteBlog(ActionEvent event) {
-//        this.controller = this.loader.getController();
+    private void delete(ActionEvent event) {
+        //        this.controller = this.loader.getController();
         int b_id = Integer.parseInt(this.blog_id.getText());
         boolean test1 = this.blogService.deleteHasCat(b_id);
         boolean test2 = this.blogService.deleteHasTag(b_id);
         Media m = this.blogService.getOneMediaByBlogID(b_id);
         boolean test3 = this.blogService.deleteAllComments(b_id);
-        File file = new File(m.getFile_path());
-        if (file.delete()) {
-            System.out.println("File deleted successfully.");
-        } else {
-            System.out.println("Failed to delete the file.");
+        if (m != null) {
+            File file = new File(m.getFile_path());
+            if (file.delete()) {
+                System.out.println("File deleted successfully.");
+            } else {
+                System.out.println("Failed to delete the file.");
+            }
+            this.test4 = this.blogService.deleteMedia(b_id);
         }
-        boolean test4 = this.blogService.deleteMedia(b_id);
-        if (test1 && test2 && test3 && test4) {
+        if ((test1 && test2 && test3 && this.test4) || (test1 && test2 && test3)) {
             boolean test = this.blogService.deleteBlog(b_id);
 //       this.controller.refreshList();
 
@@ -112,7 +137,7 @@ public class BlogManagementCardController implements Initializable {
                 if (result.get() == ButtonType.OK) {
                     try {
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/AdminBlogPage.fxml"));
                         Parent root = loader.load();
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
@@ -121,32 +146,13 @@ public class BlogManagementCardController implements Initializable {
                         e.getMessage();
                     }
                 }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Oops!!Can not delete your blog.");
-                alert.showAndWait();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Oops!!Can not delete your blog.");
+            alert.showAndWait();
         }
     }
-
-    @FXML
-    private void goToEditBlog(ActionEvent event) {
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/EditBlog.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            EditBlogController controller = loader.getController();
-            controller.setUpData(this.blog_id.getText());
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
 }

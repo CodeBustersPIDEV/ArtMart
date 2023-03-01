@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -42,9 +43,12 @@ public class BlogCardController implements Initializable {
     private Label blog_id;
     @FXML
     private ImageView imagePreview;
-    private Image image;
     @FXML
     private Pane cardContainer;
+    @FXML
+    private Rectangle cont2;
+    private Image image;
+    double h;
 
     /**
      * Initializes the controller class.
@@ -54,17 +58,30 @@ public class BlogCardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(image);
+//        if (this.imagePreview.getImage() != null) {
+//            h = this.imagePreview.getImage().getHeight();
+//        }
+//        System.out.println(image);
 //        this.imagePreview.setFitWidth(this.image.getWidth());
 //        this.imagePreview.setFitHeight(this.image.getHeight());
 
 //        this.imagePreview.fitWidthProperty().bind(cardContainer.widthProperty());
         this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
-
+        this.cont2.setHeight(this.imagePreview.getFitHeight());
     }
 
     public void setBlogTitle(String title) {
         this.blog_title.setText(title);
+    }
+
+    public void setCardCont1(double h) {
+        this.cardContainer.setMaxHeight(h);
+        System.out.println("cardContainer" + this.cardContainer.getHeight());
+    }
+
+    public void setCardCont2(double h) {
+        this.cont2.setHeight(h);
+        System.out.println("cont2" + this.cont2.getHeight());
     }
 
     public void setPublishDate(String date) {

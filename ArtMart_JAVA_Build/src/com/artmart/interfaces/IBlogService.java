@@ -14,12 +14,14 @@ public interface IBlogService {
     public int addBlog(Blog b);
 
     public Blog getOneBlog(int blog_id);
-    
+
     public Blog getOneBlogByTitle(String blog_title);
 
     public List<Blog> getAllBlogs();
-    
+
     public List<Blog> getAllBlogsByUser(int user_id);
+
+    public List<Blog> searchBlogsByTitle(String blog_title);
 
     public boolean updateBlog(int blog_id, Blog editedBlog);
 
@@ -34,13 +36,13 @@ public interface IBlogService {
     public boolean updateComment(int comment_id, Comment editedComment);
 
     public boolean deleteComment(int comment_id);
-    
+
     public boolean deleteAllComments(int blog_id);
 
     public int addBlogCategories(BlogCategories bc);
 
     public BlogCategories getOneBlogCategory(int blogsCategory_id);
-    
+
     public BlogCategories getOneBlogCategory(String blogsCategory_name);
 
     public List<BlogCategories> getAllBlogCategories();
@@ -62,7 +64,7 @@ public interface IBlogService {
     public int addMedia(Media m);
 
     public Media getOneMedia(int media_id);
-    
+
     public Media getOneMediaByBlogID(int blog_id);
 
     public List<Media> getAllMedias();
@@ -70,18 +72,20 @@ public interface IBlogService {
     public boolean updateMedia(int media_id, Media editedMedia);
 
     public boolean deleteMedia(int media_id);
-    
+
     public boolean deleteMediaByBlogID(int blog_id);
 
     public int addBlog2HasCat(HasCategory hc);
 
     public List<HasCategory> getAllCatbyBlog(int blog_id);
 
+    public HasCategory getCatbyBlog(int blog_id);
+
     public boolean updateHasCat(int blog_id, HasCategory editedHC);
 
     public boolean deleteHasCat(int blog_id);
-    
-     public int addBlog2HasTag(HasTag ht);
+
+    public int addBlog2HasTag(HasTag ht);
 
     public List<HasTag> getAllTagsbyBlog(int blog_id);
 

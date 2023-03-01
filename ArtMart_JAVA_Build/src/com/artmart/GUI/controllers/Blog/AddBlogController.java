@@ -13,6 +13,7 @@ import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.BlogService;
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -34,6 +35,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -87,6 +92,8 @@ public class AddBlogController implements Initializable {
     private User connectedUser = new User();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
+    private final String phpUrl = "http://localhost/PIDEV/upload.php";
+    String boundary = "---------------------------12345";
 
     /**
      * Initializes the controller class.
@@ -117,7 +124,6 @@ public class AddBlogController implements Initializable {
                 test1 = blogService.addBlog(blog);
                 if (test1 == 1) {
                     resBlog = blogService.getOneBlogByTitle(this.blog_title.getText());
-                    System.out.println(this.blog_category.getSelectionModel().getSelectedIndex());
                     resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
                     HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
                     test2 = blogService.addBlog2HasCat(hc);
@@ -172,7 +178,7 @@ public class AddBlogController implements Initializable {
     }
 
     @FXML
-    private void openFileExplorer(ActionEvent event) {
+    private void openFileExplorer(ActionEvent event) throws IOException {
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         this.fileChooser.setTitle("Select an image");
         this.fileChooser.getExtensionFilters().addAll(
@@ -182,11 +188,37 @@ public class AddBlogController implements Initializable {
         File file = this.fileChooser.showOpenDialog(primaryStage);
         if (file != null) {
             this.testImg = true;
-            Path sourcePath = file.toPath();
-            Path destinationPath = Paths.get("src/com/artmart/assets/BlogAssets/uploads/" + file.getName());
+//            Path sourcePath = file.toPath();
+            byte[] imageData = Files.readAllBytes(file.toPath());
+
+            URL url = new URL(phpUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+            OutputStream outputStream = connection.getOutputStream();
+            outputStream.write(("--" + boundary + "\r\n").getBytes());
+            outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n").getBytes());
+            outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+            outputStream.write(imageData);
+            outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+            outputStream.flush();
+            outputStream.close();
+
+            // Read the response from the PHP script
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+            Path destinationPath = Paths.get("C:/xampp/htdocs/PIDEV/BlogUploads/" + file.getName());
+
             setupMediaInfo(file, destinationPath.toString());
+
             try {
-                Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Image Upload");
                 alert.setHeaderText(null);
@@ -206,8 +238,7 @@ public class AddBlogController implements Initializable {
                         e.getMessage();
                     }
                 }
-                System.out.println("Image saved successfully.");
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
