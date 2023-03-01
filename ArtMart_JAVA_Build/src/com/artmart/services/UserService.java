@@ -137,7 +137,7 @@ public class UserService implements IUserService {
                 + "<h1>Verify your email address</h1>"
                 + "<p>Dear " + recipientEmail + ",</p>"
                 + "<p>Thank you for registering with our service. To verify your email address, please click the button below:</p>"
-                + "<p><a href='http://localhost/verify?email=" + recipientEmail + "&code=" + verificationCode + "' class='button'>Verify Email Address</a></p>"
+                + "<p><a href='http://localhost/artmart/Verify.jsp?&token=" + verificationCode + "&email=" + recipientEmail + "' class='button'>Verify Email Address</a></p>"
                 + "</body>"
                 + "</html>";
         return emailContent;
@@ -156,20 +156,26 @@ public class UserService implements IUserService {
         Authenticator auth = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("samarhamdi.samarhamdi@gmail.com", "sousou05072001");
+                return new PasswordAuthentication("samar.hamdi@esprit.tn", "pika05072001");
             }
         };
         Session session = Session.getInstance(properties, auth);
 
         // Create a new email message
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("your-email@gmail.com"));
+        message.setFrom(new InternetAddress("samar.hamdi@esprit.tn"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
         message.setSubject(emailSubject);
         message.setContent(emailBody, "text/html");
 
         // Send the email message
-        Transport.send(message);
+        try {
+            Transport.send(message);
+            System.out.println("Email sent successfully");
+        } catch (MessagingException e) {
+            System.out.println("Failed to send email");
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -178,8 +184,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String verifyToken(String email, String token) {
-        return this.userDao.verifyToken(email, token);
+    public boolean verifyToken(String email, String token) {
+       return this.userDao.verifyToken(email, token);
     }
 
 }
