@@ -1,4 +1,4 @@
-package com.artmart.GUI.controllers.User;
+package com.artmart.utils;
 
 import java.io.File;  
 import java.io.IOException;  

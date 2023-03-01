@@ -3,6 +3,9 @@ package com.artmart.dao;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IUserDao;
 import com.artmart.models.User;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -39,7 +42,7 @@ public class UserDao implements IUserDao {
             statement.setDate(3, (Date) user.getBirthday());
             statement.setInt(4, user.getPhone_nbr());
             statement.setString(5, user.getUsername());
-            statement.setString(6, user.getPwd());
+            statement.setString(6, hashPassword(user.getPwd()));
             statement.setTimestamp(7, timestamp);
             statement.setString(8, user.getRole());
 
@@ -53,6 +56,7 @@ public class UserDao implements IUserDao {
         } catch (SQLException e) {
             System.err.print(e.getMessage());
             return 0;
+
         }
     }
 
@@ -138,7 +142,7 @@ public class UserDao implements IUserDao {
             statement.setDate(3, (Date) user.getBirthday());
             statement.setInt(4, user.getPhone_nbr());
             statement.setString(5, user.getUsername());
-            statement.setString(6, user.getPwd());
+            statement.setString(6, hashPassword(user.getPwd()));
             statement.setString(7, user.getPicture());
             statement.setInt(8, user_id);
             statement.executeUpdate();
@@ -157,13 +161,15 @@ public class UserDao implements IUserDao {
             );
             statement.setString(1, username);
             ResultSet user_result = statement.executeQuery();
-
-            if (user_result.next()) {
+            password=hashPassword(password);
+            System.out.println(password);
+            if (user_result.next()){
                 String storedPassword = user_result.getString("password");
-
-                if (storedPassword.equals(password)) {
-                    return true;
-                }
+                 System.out.println(storedPassword);
+                    if (storedPassword.equals(password)) {
+                        return true;
+                    }
+               
             }
         } catch (SQLException e) {
             System.err.println("Error authenticating user: " + e.getMessage());
@@ -174,13 +180,12 @@ public class UserDao implements IUserDao {
 
     @Override
     public int getUserIdByUsername(String username) {
-       
-            PreparedStatement statement;
+
+        PreparedStatement statement;
         try {
             statement = connection.prepareStatement(
                     "SELECT * FROM user WHERE username = ?"
             );
-        
 
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
@@ -191,22 +196,20 @@ public class UserDao implements IUserDao {
                 return user.getUser_id();
 
             }
-     }  catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Error " + e.getMessage());
-        } 
+        }
         return 0;
-}
+    }
 
-
- @Override
+    @Override
     public int getUserIdByEmail(String email) {
-       
-            PreparedStatement statement;
+
+        PreparedStatement statement;
         try {
             statement = connection.prepareStatement(
                     "SELECT * FROM user WHERE email = ?"
             );
-        
 
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
@@ -217,12 +220,13 @@ public class UserDao implements IUserDao {
                 return user.getUser_id();
 
             }
-     }  catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Error  " + e.getMessage());
-        } 
+        }
         return 0;
-}
-     @Override
+    }
+
+    @Override
 
     public boolean blockUser(int user_id, boolean state) {
         try {
@@ -239,7 +243,6 @@ public class UserDao implements IUserDao {
         return false;
     }
     
-    
     public String getClientNameById(int clientId) throws SQLException {
     String clientName = null;
    
@@ -253,11 +256,23 @@ public class UserDao implements IUserDao {
             clientName = resultSet.getString("name");
         }    return clientName;
     }
-    
+}
 
-
-
-
-    
-    
+    public static String hashPassword(String password) {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        
+        md.update(password.getBytes());
+        byte[] hashedPasswordBytes = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashedPasswordBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
