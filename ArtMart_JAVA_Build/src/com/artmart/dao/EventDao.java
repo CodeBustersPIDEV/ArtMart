@@ -103,6 +103,34 @@ public class EventDao implements IEventDao {
     }
 
     @Override
+    public List<Event> getAllEventsByID(int id) {
+        List<Event> events = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Event WHERE userID = ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Event event = new Event();
+                event.setEventID(resultSet.getInt("eventID"));
+                event.setUserID(resultSet.getInt("userID"));
+                event.setName(resultSet.getString("name"));
+                event.setLocation(resultSet.getString("location"));
+                event.setType(resultSet.getString("type"));
+                event.setDescription(resultSet.getString("description"));
+                event.setEntryFee(resultSet.getDouble("entryFee"));
+                event.setCapacity(resultSet.getInt("capacity"));
+                event.setStartDate(resultSet.getDate("startDate"));
+                event.setEndDate(resultSet.getDate("endDate"));
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return events;
+    }
+
+    @Override
     public boolean updateEvent(int eventID, Event event) {
         try {
             PreparedStatement statement = connection.prepareStatement(
