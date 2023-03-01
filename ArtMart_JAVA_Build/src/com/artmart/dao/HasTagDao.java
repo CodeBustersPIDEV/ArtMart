@@ -41,10 +41,9 @@ public class HasTagDao implements IHasTag {
     public List<HasTag> getAllTagsbyBlog(int blog_id) {
         List<HasTag> blog_hasTag = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM blog_tags WHERE blog_id = ?";
-            PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM blog_tags WHERE blog_id = ?");
             st.setInt(1, blog_id);
-            ResultSet rs = st.executeQuery(sql);
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 blog_hasTag.add(new HasTag(
                         rs.getInt("id"),
@@ -57,13 +56,13 @@ public class HasTagDao implements IHasTag {
         }
         return blog_hasTag;
     }
-    
+
     @Override
     public HasTag getTagbyBlog(int blog_id) {
         HasTag tagFound = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                     "SELECT * FROM blog_tags WHERE blog_id = ?"
+                    "SELECT * FROM blog_tags WHERE blog_id = ?"
             );
             statement.setInt(1, blog_id);
 

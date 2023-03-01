@@ -10,8 +10,10 @@ import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.Comment;
 import com.artmart.models.HasCategory;
+import com.artmart.models.HasTag;
 import com.artmart.models.Media;
 import com.artmart.models.Session;
+import com.artmart.models.Tag;
 import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
@@ -81,6 +83,8 @@ public class BlogPageController implements Initializable {
     private Image image;
     private Media img = new Media();
     private BlogCategories resBlogCategories = new BlogCategories();
+    private List<Tag> tags = new ArrayList<>();
+    private List<HasTag> listHasTag;
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     @FXML
@@ -127,6 +131,7 @@ public class BlogPageController implements Initializable {
         this.id = Integer.parseInt(this.blog_id.getText());
         HasCategory hs = blogService.getCatbyBlog(id);
         this.resBlogCategories = blogService.getOneBlogCategory(hs.getCategory_id());
+        this.listHasTag = this.blogService.getAllTagsbyBlog(this.id);
         this.categoryLabel.setText(this.resBlogCategories.getName());
         this.viewBlog = blogService.getOneBlog(id);
         this.img = this.blogService.getOneMediaByBlogID(id);
@@ -144,6 +149,15 @@ public class BlogPageController implements Initializable {
         this.blogContent.setText(this.viewBlog.getContent());
         this.blogImage.setImage(this.image);
         this.setupComments(id);
+        this.listHasTag.forEach(hTag -> {
+            Tag t = this.blogService.getOneTag(hTag.getTag_id());
+            this.tags.add(t);
+        });
+        this.tags.forEach(tag -> {
+            Label lTag = new Label();
+            lTag.setText(tag.getName());
+            this.tagContainer.getChildren().add(lTag);
+        });
     }
 
     @Override

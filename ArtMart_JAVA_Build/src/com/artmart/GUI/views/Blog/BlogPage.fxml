@@ -18,7 +18,7 @@
 <AnchorPane id="AnchorPane" prefHeight="826.0" prefWidth="1157.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogPageController">
    <children>
       <Label fx:id="blog_id" layoutX="528.0" layoutY="21.0" visible="false" />
-      <Label fx:id="blog_title" alignment="TOP_LEFT" layoutX="516.0" layoutY="57.0" prefHeight="107.0" prefWidth="569.0" text="Blog Title" wrapText="true">
+      <Label fx:id="blog_title" alignment="TOP_LEFT" layoutX="528.0" layoutY="57.0" prefHeight="107.0" prefWidth="601.0" text="Blog Title" wrapText="true">
          <font>
             <Font size="32.0" />
          </font>
@@ -64,6 +64,6 @@
          </padding>
       </ScrollPane>
       <Label fx:id="categoryLabel" layoutX="728.0" layoutY="164.0" text="Category" />
-      <HBox fx:id="tagContainer" layoutX="539.0" layoutY="226.0" prefHeight="31.0" prefWidth="601.0" />
+      <HBox fx:id="tagContainer" layoutX="539.0" layoutY="226.0" prefHeight="41.0" prefWidth="601.0" spacing="20.0" />
    </children>
 </AnchorPane>
