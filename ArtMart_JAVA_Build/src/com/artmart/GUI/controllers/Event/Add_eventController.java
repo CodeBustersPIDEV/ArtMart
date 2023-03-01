@@ -108,7 +108,8 @@ public class Add_eventController implements Initializable {
         || this.entryFeeText.isEmpty()
         || this.capacityText.isEmpty() 
         || this.startDateText == null || this.startDateText.isEmpty()
-        || this.endDateText == null || this.endDateText.isEmpty()) {
+        || this.endDateText == null || this.endDateText.isEmpty()) 
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing information");
             alert.setHeaderText(null);
@@ -117,8 +118,6 @@ public class Add_eventController implements Initializable {
         }else {
             
             this.type = (String) this.comboBoxType.getValue();
-//            this.entryFee = Float.parseFloat(this.txtEntryFee.getText());
-//            this.capacity = Integer.parseInt(this.txtCapacity.getText());
             this.startDate = Date.valueOf(this.dpStartDate.getValue());
             this.endDate = Date.valueOf(this.dpEndDate.getValue()); 
             try {
@@ -132,8 +131,6 @@ public class Add_eventController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-
-            
             Event ev = new Event(
                 this.name, 
                 this.location, 
