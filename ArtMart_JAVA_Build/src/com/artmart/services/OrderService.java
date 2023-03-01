@@ -148,8 +148,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<Wishlist> getWishlists() {
-        return this.wishlistDao.getWishlists();
+    public List<Wishlist> getWishlistsByUserId(int id) {
+        return this.wishlistDao.getWishlistsByUserId(id);
     }
 
     @Override
@@ -158,8 +158,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public boolean deleteWishlist(int id) {
-        return this.wishlistDao.deleteWishlist(id);
+    public boolean deleteWishlist(int productId,int UserId) {
+        return this.wishlistDao.deleteWishlist(productId,UserId);
     }
 
     @Override

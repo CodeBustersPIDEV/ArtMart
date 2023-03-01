@@ -5,6 +5,7 @@
  */
 package com.artmart.GUI.controllers.User;
 
+import static com.artmart.dao.UserDao.hashPassword;
 import com.artmart.models.Admin;
 import com.artmart.models.Artist;
 import com.artmart.models.Client;
@@ -141,15 +142,19 @@ public class UpdateProfileController implements Initializable {
         Date birthday = java.sql.Date.valueOf(birthdayField.getValue());
         int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
         String username = usernameField.getText();
-        if (pwdField.getText().equals("")) {
+        if (pwdField.getText().isEmpty()) {
             password = user.getPwd();
+            System.out.println(password);
         } else {
-            password = pwdField.getText();
+            String pwdPattern = "^(?=.*[A-Z])(?=.*[0-9]).{8,}$";
+            password = hashPassword(pwdField.getText());
+            if (!password.matches(pwdPattern)) {
+                Warning("Password must contain at least one uppercase letter, one digit, and be at least 8 characters long");
+            }
         }
         String bio = bioField.getText();
         String picture;
         String emailFormat = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-        String pwdPattern = "^(?=.*[A-Z])(?=.*[0-9]).{8,}$";
         LocalDate currentDate = LocalDate.now();
         if (imageUrl.equals("")) {
             picture = user.getPicture();
@@ -161,16 +166,14 @@ public class UpdateProfileController implements Initializable {
         if (!email.matches(emailFormat)) {
             Warning("The email must be valid");
         }
-        if (!password.matches(pwdPattern)) {
-            Warning("Password must contain at least one uppercase letter, one digit, and be at least 8 characters long");
-        }
+
         if (birthdayField.getValue().isAfter(currentDate)) {
             Warning("The birthday date must not exceed today's date");
 
         }
-        if (email.matches(emailFormat) && password.matches(pwdPattern) && !birthdayField.getValue().isAfter(currentDate)) {
+        if (email.matches(emailFormat) && !birthdayField.getValue().isAfter(currentDate)) {
             User u = new User(phoneNumber, name, email, username, password, birthday, picture);
-
+            System.out.println(password);
             if (user.getRole().equals("artist")) {
                 artist = new Artist(u);
                 artist.setBio(bio);

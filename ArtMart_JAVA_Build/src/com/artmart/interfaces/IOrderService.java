@@ -54,11 +54,11 @@ public interface IOrderService {
 
     Wishlist getWishlist(int id);
 
-    List<Wishlist> getWishlists();
+    List<Wishlist> getWishlistsByUserId(int id);
 
     boolean updateWishlist(Wishlist wishlist);
 
-    boolean deleteWishlist(int id);
+    boolean deleteWishlist(int productId,int UserId);
 
     int createOrderRefund(OrderRefund orderRefund);
 

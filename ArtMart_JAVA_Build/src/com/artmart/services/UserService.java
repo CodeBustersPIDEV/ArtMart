@@ -7,6 +7,16 @@ import com.artmart.models.Client;
 import com.artmart.models.User;
 import java.util.List;
 import com.artmart.dao.*;
+//import com.artmart.models.Session;
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class UserService implements IUserService {
 
@@ -107,8 +117,75 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean blockUser(int user_id,  boolean state) {
+    public boolean blockUser(int user_id, boolean state) {
         return this.userDao.blockUser(user_id, state);
+    }
+
+    public String generateVerificationEmail(String recipientEmail, String verificationCode) {
+        String emailContent = "<!DOCTYPE html>"
+                + "<html>"
+                + "<head>"
+                + "<meta charset='UTF-8'>"
+                + "<title>Verify your email address</title>"
+                + "<style>"
+                + "body { font-family: Arial, sans-serif; }"
+                + "h1 { color: #333; }"
+                + ".button { background-color: #4CAF50; border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 5px; }"
+                + "</style>"
+                + "</head>"
+                + "<body>"
+                + "<h1>Verify your email address</h1>"
+                + "<p>Dear " + recipientEmail + ",</p>"
+                + "<p>Thank you for registering with our service. To verify your email address, please click the button below:</p>"
+                + "<p><a href='http://localhost/artmart/Verify.jsp?&token=" + verificationCode + "&email=" + recipientEmail + "' class='button'>Verify Email Address</a></p>"
+                + "</body>"
+                + "</html>";
+        return emailContent;
+    }
+
+    public static void sendEmail(String recipientEmail, String emailSubject, String emailBody) throws MessagingException {
+        // Configure the email properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        // Create a new session with an authenticator
+        Authenticator auth = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("samar.hamdi@esprit.tn", "pika05072001");
+            }
+        };
+        Session session = Session.getInstance(properties, auth);
+
+        // Create a new email message
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress("samar.hamdi@esprit.tn"));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+        message.setSubject(emailSubject);
+        message.setContent(emailBody, "text/html");
+
+        // Send the email message
+        try {
+            Transport.send(message);
+            System.out.println("Email sent successfully");
+        } catch (MessagingException e) {
+            System.out.println("Failed to send email");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void StoreToken(String token, String email) {
+        this.userDao.StoreToken(token, email);
+    }
+
+    @Override
+    public boolean verifyToken(String email, String token) {
+       return this.userDao.verifyToken(email, token);
     }
 
 }

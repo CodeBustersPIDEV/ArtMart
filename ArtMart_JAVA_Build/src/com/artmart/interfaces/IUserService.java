@@ -46,4 +46,8 @@ public interface IUserService {
 
     public boolean authenticate(String username, String password);
 
+    public void StoreToken(String token, String email);
+
+    public boolean verifyToken(String email, String token);
+
 }

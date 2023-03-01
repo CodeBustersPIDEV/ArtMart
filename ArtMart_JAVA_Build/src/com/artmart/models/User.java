@@ -5,9 +5,9 @@ import java.sql.Date;
 public class User {
 
     private int user_id, phone_nbr;
-    private String name, email, username, pwd, role, picture;
+    private String name, email, username, pwd, role, picture,token;
     private Date birthday, date_creation;
-    boolean blocked;
+    boolean blocked,enabled;
 
     public User() {
     }
@@ -67,6 +67,18 @@ public class User {
         this.role = role;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public int getUser_id() {
         return user_id;
     }
@@ -103,6 +115,10 @@ public class User {
         return picture;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     public boolean getBlocked() {
         return blocked;
     }
@@ -125,6 +141,10 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setEmail(String email) {
