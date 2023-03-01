@@ -44,9 +44,6 @@ public class ReadyProductCardController implements Initializable {
     private Label price;
     @FXML
     private ImageView imagePreview;
-
-    @FXML
-    private Button delete;
     @FXML
     private Button details;
     @FXML
@@ -57,6 +54,8 @@ public class ReadyProductCardController implements Initializable {
     private ReadyProductDao rPDao = new ReadyProductDao();
 
     private ReadyproductsListController controller = new ReadyproductsListController();
+
+    private ProductDetailsController controller2 = new ProductDetailsController();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -113,9 +112,12 @@ public class ReadyProductCardController implements Initializable {
         try {
             Stage stage = (Stage) details.getScene().getWindow();
             stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ProductDetails.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ProductDetails.fxml"));
+            Parent root = loader.load();
 
             Scene scene = new Scene(root);
+            ProductDetailsController controller2 = loader.getController();
+            controller2.setUpData(this.pid.getText());
             stage.setResizable(false);
             stage.setTitle("Ready Product details");
             stage.setScene(scene);
