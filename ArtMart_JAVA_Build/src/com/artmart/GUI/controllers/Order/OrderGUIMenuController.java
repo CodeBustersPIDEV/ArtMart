@@ -94,11 +94,10 @@ public class OrderGUIMenuController implements Initializable {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             OrderGUIController controller = loader.getController();
-            controller.setUpData(connectedUser, productToOrder);
+            controller.setData(connectedUser);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
