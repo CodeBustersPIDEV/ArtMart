@@ -81,6 +81,7 @@ public class UserDao implements IUserDao {
                 user.setRole(resultSet.getString("role"));
                 user.setPicture(resultSet.getString("picture"));
                 user.setBlocked(resultSet.getBoolean("blocked"));
+
                 return user;
             }
         } catch (SQLException e) {
@@ -143,7 +144,7 @@ public class UserDao implements IUserDao {
             statement.setDate(3, (Date) user.getBirthday());
             statement.setInt(4, user.getPhone_nbr());
             statement.setString(5, user.getUsername());
-            statement.setString(6, hashPassword(user.getPwd()));
+            statement.setString(6, user.getPwd());
             statement.setString(7, user.getPicture());
             statement.setInt(8, user_id);
             statement.executeUpdate();
@@ -275,5 +276,46 @@ public class UserDao implements IUserDao {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    
+    
+    @Override
+    public void StoreToken(String token, String email) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(
+                    "UPDATE user SET token = ? WHERE email = ?"
+            );
+            statement.setString(1, token);
+            statement.setString(2, email);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(VerificationTokenDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    @Override
+    public String verifyToken(String email, String token) {
+
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(
+                    "SELECT token FROM user WHERE email = ?"
+            );
+
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+                User user = new User();
+                user.setToken(resultSet.getString("token"));
+
+
+         return user.getToken();
+        } catch (SQLException ex) {
+            Logger.getLogger(VerificationTokenDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
     }
 }
