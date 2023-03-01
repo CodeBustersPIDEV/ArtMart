@@ -3,7 +3,6 @@ package com.artmart.dao;
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IUserDao;
 import com.artmart.models.User;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -15,6 +14,8 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDao implements IUserDao {
 
@@ -161,15 +162,15 @@ public class UserDao implements IUserDao {
             );
             statement.setString(1, username);
             ResultSet user_result = statement.executeQuery();
-            password=hashPassword(password);
+            password = hashPassword(password);
             System.out.println(password);
-            if (user_result.next()){
+            if (user_result.next()) {
                 String storedPassword = user_result.getString("password");
-                 System.out.println(storedPassword);
-                    if (storedPassword.equals(password)) {
-                        return true;
-                    }
-               
+                System.out.println(storedPassword);
+                if (storedPassword.equals(password)) {
+                    return true;
+                }
+
             }
         } catch (SQLException e) {
             System.err.println("Error authenticating user: " + e.getMessage());
@@ -242,35 +243,35 @@ public class UserDao implements IUserDao {
         }
         return false;
     }
-    
+
     public String getClientNameById(int clientId) throws SQLException {
-    String clientName = null;
-   
-    PreparedStatement statement = null;
-    ResultSet resultSet = null;
+        String clientName = null;
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
         statement = connection.prepareStatement("SELECT name FROM user WHERE user_ID = ?");
         statement.setInt(1, clientId);
         resultSet = statement.executeQuery();
-        
+
         if (resultSet.next()) {
             clientName = resultSet.getString("name");
-        }    return clientName;
+        }
+        return clientName;
     }
-}
 
     public static String hashPassword(String password) {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA-256");
-        
-        md.update(password.getBytes());
-        byte[] hashedPasswordBytes = md.digest();
-        StringBuilder sb = new StringBuilder();
-        for (byte b : hashedPasswordBytes) {
-            sb.append(String.format("%02x", b));
-        }
-        return sb.toString();
-    } catch (NoSuchAlgorithmException ex) {
+
+            md.update(password.getBytes());
+            byte[] hashedPasswordBytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedPasswordBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
