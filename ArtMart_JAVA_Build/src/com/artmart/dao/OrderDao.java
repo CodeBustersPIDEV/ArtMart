@@ -47,13 +47,13 @@ public class OrderDao implements IOrderServiceDao {
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                System.err.print("created");
                 result = generatedKeys.getInt(1);
                 this.orderStatusDao.createOrderStatus(new OrderStatus(result, OrderCurrentStatus.PENDING, order.getOrderDate()));
             } else {
-                System.err.print("not created");
                 result = 0;
             }
+            generatedKeys.close();
+            statement.close();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -68,7 +68,6 @@ public class OrderDao implements IOrderServiceDao {
                     "SELECT * FROM Order WHERE order_ID = ?"
             );
             statement.setInt(1, id);
-
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 order = new Order();
@@ -82,6 +81,8 @@ public class OrderDao implements IOrderServiceDao {
                 order.setOrderDate(result.getDate("OrderDate"));
                 order.setTotalCost(result.getDouble("TotalCost"));
             }
+            result.close();
+            statement.close();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -107,6 +108,8 @@ public class OrderDao implements IOrderServiceDao {
                 order.setTotalCost(resultSet.getDouble("TotalCost"));
                 orders.add(order);
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -135,6 +138,8 @@ public class OrderDao implements IOrderServiceDao {
                 order.setTotalCost(resultSet.getDouble("TotalCost"));
                 orders.add(order);
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -156,7 +161,9 @@ public class OrderDao implements IOrderServiceDao {
             statement.setDouble(8, order.getTotalCost());
             statement.setInt(9, order.getId());
             this.orderUpdateDao.createOrderUpdate(new OrderUpdate(order.getId(), order.toString(), order.getOrderDate()));
-            return statement.executeUpdate() > 0;
+            boolean result = statement.executeUpdate() > 0;
+            statement.close();
+            return result;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -169,7 +176,9 @@ public class OrderDao implements IOrderServiceDao {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM `Order` WHERE order_ID = ?");
             statement.setInt(1, id);
             this.orderStatusDao.deleteOrderStatus(id);
-            return statement.executeUpdate() > 0;
+            boolean result = statement.executeUpdate() > 0;
+            statement.close(); // close the PreparedStatement
+            return result;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }

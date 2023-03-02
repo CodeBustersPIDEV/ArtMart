@@ -29,6 +29,7 @@ public class OrderRefundDao implements IOrderRefundDao {
             preparedStatement.setString(3, orderRefund.getReason());
             preparedStatement.setDate(4, orderRefund.getDate());
             result = preparedStatement.executeUpdate();
+            preparedStatement.close();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -48,6 +49,8 @@ public class OrderRefundDao implements IOrderRefundDao {
                 orderRefund.setRefundAmount(resultSet.getDouble("refundamount"));
                 orderRefund.setReason(resultSet.getString("reason"));
             }
+            preparedStatement.close();
+            resultSet.close();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -67,6 +70,8 @@ public class OrderRefundDao implements IOrderRefundDao {
                 orderRefund.setReason(resultSet.getString("reason"));
                 orderRefunds.add(orderRefund);
             }
+            preparedStatement.close();
+            resultSet.close();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -83,6 +88,7 @@ public class OrderRefundDao implements IOrderRefundDao {
             statement.setDate(3, new java.sql.Date(orderRefund.getDate().getTime()));
             statement.setInt(4, orderRefund.getId());
             int rowsUpdated = statement.executeUpdate();
+            statement.close();
             return rowsUpdated == 1;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -97,6 +103,7 @@ public class OrderRefundDao implements IOrderRefundDao {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
+            statement.close();
             return rowsDeleted == 1;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
