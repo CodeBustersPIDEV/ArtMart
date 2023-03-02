@@ -42,6 +42,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * FXML Controller class
@@ -91,6 +96,8 @@ public class BlogPageController implements Initializable {
     private User connectedUser = new User();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
+    @FXML
+    private Button translate_blog;
 
     /**
      * Initializes the controller class.
@@ -211,6 +218,29 @@ public class BlogPageController implements Initializable {
         if (controller.getIsEdited() || controller.getIsDeleted()) {
             setupComments(bc_id);
         }
+    }
+
+    @FXML
+    private void translate(ActionEvent event) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody body = new FormBody.Builder()
+                .add("q", "Hello, world!")
+                .add("target", "es")
+                .add("source", "en")
+                .build();
+
+        Request request = new Request.Builder()
+                .url("https://google-translate1.p.rapidapi.com/language/translate/v2")
+                .post(body)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("Accept-Encoding", "application/gzip")
+                .addHeader("X-RapidAPI-Key", "34e1d1f9a3msh91cd1774841a4e2p18aec5jsn46858db31efa")
+                .addHeader("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        System.out.println(response.body().string());
     }
 
 }
