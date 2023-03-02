@@ -43,9 +43,4 @@ public class EventService implements IEventDao {
     public List<Event> searchEventByName(String name, int id){
         return dao.searchEventByName(name, id);
     }
-    
-    @Override
-    public Event getEventByName(String name){
-        return dao.getEventByName(name);
-    }
 }
