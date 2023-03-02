@@ -31,6 +31,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.*;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -43,7 +44,8 @@ public class OrderGUIMenuController implements Initializable {
     private Product productToOrder = new Product();
     private List<User> userOptionsList;
     private List<Product> productOptionsList;
-
+    private final OrderService orderSerice = new OrderService();
+    
     @FXML
     private ComboBox<String> userComboBox;
     @FXML
@@ -52,10 +54,6 @@ public class OrderGUIMenuController implements Initializable {
     private Button viewOrderList;
     @FXML
     private ComboBox<String> productComboBox;
-    @FXML
-    private Button saveToWishListBtn;
-
-    private OrderService orderSerice = new OrderService();
     @FXML
     private Button artistviewOrderList;
     @FXML
@@ -139,6 +137,10 @@ public class OrderGUIMenuController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate currentDate = LocalDate.now();
         String formattedDate = currentDate.format(formatter);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Added To Wishlist");
+        alert.setHeaderText("Product Saved for your wishlist");
+        alert.showAndWait();
         this.orderSerice.createWishlist(new Wishlist(this.connectedUser.getUser_id(), this.productToOrder.getProductId(), Date.valueOf(formattedDate)));
     }
 

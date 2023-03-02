@@ -124,7 +124,6 @@ public class OrderManagmentController implements Initializable {
         fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV Files", "*.csv"));
         File file = fileChooser.showSaveDialog(null);
 
-        // Write the statistics to the CSV file
         if (file != null) {
             try (FileWriter writer = new FileWriter(file)) {
                 for (Order order : orders) {

@@ -5,6 +5,7 @@
  */
 package com.artmart.GUI.controllers.Order;
 
+import com.artmart.dao.CategoriesDao;
 import com.artmart.models.Order;
 import com.artmart.models.OrderRefund;
 import com.artmart.models.PaymentOption;
@@ -24,6 +25,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -77,6 +80,7 @@ public class AdminOrderDetailController implements Initializable {
     private final OrderService orderService = new OrderService();
 
     private final ProductService productService = new ProductService();
+    private final CategoriesDao catDao = new CategoriesDao();
 
     private OrderManagmentController orderListController;
 
@@ -125,22 +129,26 @@ public class AdminOrderDetailController implements Initializable {
     }
 
     private void setupUI() {
-        if (OrderCurrentStatus.valueOf(status).equals(OrderCurrentStatus.REFUNDED)) {
-            this.RefundButton.setDisable(true);
+        try {
+            if (OrderCurrentStatus.valueOf(status).equals(OrderCurrentStatus.REFUNDED)) {
+                this.RefundButton.setDisable(true);
+            }
+            this.orderId.setText("" + this.order.getId());
+            this.productName.setText(this.product.getName());
+            this.productCategory.setText(this.catDao.getCategoryNameById(this.product.getCategoryId()));
+            this.descriptionField.setText(this.product.getDescription());
+            this.productDimension.setText(this.product.getDimensions());
+            this.productWeight.setText(this.product.getWeight() + "");
+            this.productMat.setText(this.product.getMaterial());
+            this.estimatedTime.setText(getFormattedEstimatedDeliveryDate());
+            this.shpiingAddressField.setText(this.order.getShippingAddress());
+            this.orderDatePicker.getEditor().setText(this.order.getOrderDate().toString());
+            this.quantityField.setText(this.order.getQuantity() + "");
+            this.totalCostField.setText(this.order.getTotalCost() + "");
+            this.totalCostField.setText(this.order.getTotalCost() + "");
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminOrderDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.orderId.setText("" + this.order.getId());
-        this.productName.setText(this.product.getName());
-        this.productCategory.setText("" + this.product.getCategoryId());
-        this.descriptionField.setText(this.product.getDescription());
-        this.productDimension.setText(this.product.getDimensions());
-        this.productWeight.setText(this.product.getWeight() + "");
-        this.productMat.setText(this.product.getMaterial());
-        this.estimatedTime.setText(getFormattedEstimatedDeliveryDate());
-        this.shpiingAddressField.setText(this.order.getShippingAddress());
-        this.orderDatePicker.getEditor().setText(this.order.getOrderDate().toString());
-        this.quantityField.setText(this.order.getQuantity() + "");
-        this.totalCostField.setText(this.order.getTotalCost() + "");
-        this.totalCostField.setText(this.order.getTotalCost() + "");
     }
 
     public Date getEstimatedDeliveryDate() {
