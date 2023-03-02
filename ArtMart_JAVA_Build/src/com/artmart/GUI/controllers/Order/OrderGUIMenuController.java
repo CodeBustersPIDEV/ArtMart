@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Order;
 
 import com.artmart.dao.ProductDao;
@@ -55,17 +50,14 @@ public class OrderGUIMenuController implements Initializable {
     @FXML
     private ComboBox<String> productComboBox;
     @FXML
-    private Button artistviewOrderList;
-    @FXML
-    private Button artistviewOrderList1;
-    @FXML
     private Button adminViewOrderList;
+    @FXML
+    private Button saveToWishListBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             userOptionsList = this.userDao.viewListOfUsers();
-            //ProductOptionsList = this.productDao().getAll(;
             ObservableList<String> userOptions = FXCollections.observableArrayList(
                     userOptionsList.stream().map(user -> user.getName() + " (" + user.getRole() + ")").collect(Collectors.toList())
             );
@@ -144,9 +136,6 @@ public class OrderGUIMenuController implements Initializable {
         this.orderSerice.createWishlist(new Wishlist(this.connectedUser.getUser_id(), this.productToOrder.getProductId(), Date.valueOf(formattedDate)));
     }
 
-    @FXML
-    private void OnArtistViewList(ActionEvent event) {
-    }
 
     @FXML
     private void OnAdminViewList(ActionEvent event) {
