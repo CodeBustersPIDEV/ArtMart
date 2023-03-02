@@ -89,6 +89,8 @@ public class LoginController implements Initializable {
                         session.setUserId(id);
                         session.setUsername(username);
                         session.setSessionId("1");
+                        String phoneNumber = user_ser.getPhoneNumberById(u.getUser_id());
+                        session.setPhoneNumber(phoneNumber); 
                         session.logIn(session.getSessionId(), session);
 
                         try {

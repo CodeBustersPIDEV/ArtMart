@@ -18,6 +18,7 @@ public class Session {
     private int userId;
     private String username;
     private String sessionId;
+    private String phoneNumber;
     private static final Map<String, Session> activeSessions = new HashMap<>();
 
     public Session() {
@@ -28,6 +29,20 @@ public class Session {
             instance = new Session();
         }
         return instance;
+    }
+     public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    public void setPhoneNumber(String sessionId, String phoneNumber) {
+    Session session = activeSessions.get(sessionId);
+    if (session != null) {
+        session.setPhoneNumber(phoneNumber);
+    }
+}
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public void setUserId(int userId) {

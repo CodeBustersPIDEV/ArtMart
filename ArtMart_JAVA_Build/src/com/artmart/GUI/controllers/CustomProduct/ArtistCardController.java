@@ -9,6 +9,7 @@ import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.CustomProductDao;
 import com.artmart.dao.UserDao;
 import com.artmart.models.CustomProduct;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -47,7 +48,8 @@ public class ArtistCardController implements Initializable {
     private CustomProduct p=new CustomProduct();
      private CategoriesDao s=new CategoriesDao();
     private CustomProductDao cPDao = new CustomProductDao();
-    
+    public static final String ACCOUNT_SID = "AC85fdc289caf6aa747109220798d39394";
+  public static final String AUTH_TOKEN = "798a6da8a44c9ab785ba50336b882e31";
     private ArtistCustomController controller=new ArtistCustomController();
     @FXML
     private Text owner;
@@ -83,9 +85,32 @@ public class ArtistCardController implements Initializable {
     this.WaightTxt.setText(""+p.getWeight());
 }
 
-    @FXML
-    private void goapply(ActionEvent event) {
-    }
+   private void goapply(ActionEvent event) throws SQLException, IOException {
+//    // Get the client ID from the custom product
+//    int clientID = p.getClientID();
+//
+//    // Get the artist ID from the session
+//    int artistID = Session.getCurrentUserId(Session.getInstance().getSessionId());
+//    System.out.println(artistID);
+//    // Create a new Chat object with the client ID and artist ID
+//    Chat chat = new Chat(clientID,p.getCustomProductId(), artistID);
+//    System.out.println(clientID);
+//    System.out.println();
+//
+//    // Save the Chat object to the database using the ChatDao
+//    ChatDao chatDao = new ChatDao();
+//    int chatID = chatDao.createChat(chat);
+    
+    // Redirect the user to the chat room with the chat ID
+//    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/ChatRoom.fxml"));
+//    Parent chatRoomParent = loader.load();
+//    ChatRoomController chatRoomController = loader.getController();
+//    chatRoomController.setChatID(chatID);
+//    Scene chatRoomScene = new Scene(chatRoomParent);
+//    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//    window.setScene(chatRoomScene);
+//    window.show();
+}
 
     
 }

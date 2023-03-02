@@ -17,4 +17,5 @@ public interface ICustomProductService {
 
     int deleteCustomProduct(int id);
 public List<CustomProduct> searchCustomProductByName(String name) ;
+public List<CustomProduct> searchCustomProductByName1(String name) ;
 }

@@ -1,0 +1,98 @@
+package com.artmart.GUI.controllers.CustomProduct;
+
+import com.artmart.dao.CategoriesDao;
+import com.artmart.dao.ProductDao;
+import com.artmart.models.Product;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfTemplate;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Graphics2D;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.SwingNode;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
+/**
+ * FXML Controller class
+ *
+ * @author solta
+ */
+public class ProductStatisticsController implements Initializable {
+
+    @FXML
+    private StackPane chartContainer;
+    private ProductDao productDao = new ProductDao();
+    private CategoriesDao categoriesDao = new CategoriesDao();
+
+    private ChartPanel weightChartPanel;
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+            List<Product> products = productDao.getAllProduct();
+
+            // Compute statistics for weight and material
+            Map<String, Float> weightStats = products.stream()
+                    .collect(Collectors.groupingBy(Product::getMaterial, Collectors.summingDouble(Product::getWeight)))
+                    .entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().floatValue()));
+
+            // Create dataset for weight chart
+            DefaultCategoryDataset weightDataset = new DefaultCategoryDataset();
+            weightStats.forEach((material, weight) -> weightDataset.setValue(weight, "Weight", material));
+
+            // Create chart for weight statistics
+            JFreeChart weightChart = ChartFactory.createBarChart("Product Weight Statistics", "Material", "Weight", weightDataset);
+            weightChartPanel = new ChartPanel(weightChart);
+
+            // Create chart panel and add to container
+            SwingNode swingNode = new SwingNode();
+            swingNode.setContent(weightChartPanel);
+            chartContainer.getChildren().add(swingNode);
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void print(ActionEvent event) throws FileNotFoundException, DocumentException {
+        Document document = new Document(PageSize.A4);
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("chart.pdf"));
+        document.open();
+        document.newPage();
+
+        Graphics2D g2 = (Graphics2D) weightChartPanel.getGraphics();
+        PdfContentByte cb = writer.getDirectContent();
+        PdfTemplate tp = cb.createTemplate(weightChartPanel.getWidth(), weightChartPanel.getHeight());
+        Graphics2D g2d = tp.createGraphics(weightChartPanel.getWidth(), weightChartPanel.getHeight());
+        weightChartPanel.print(g2d);
+        g2d.dispose();
+        cb.addTemplate(tp, 0, 0);
+
+        document.close();
+        writer.close();
+    }
+}

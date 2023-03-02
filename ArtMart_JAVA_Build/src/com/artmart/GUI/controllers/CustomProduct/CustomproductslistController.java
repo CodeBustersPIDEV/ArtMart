@@ -140,7 +140,7 @@ int clientId = session.getCurrentUserId(session.getSessionId());
     @FXML
     private void onsearch(ActionEvent event) throws SQLException {
         String keyword = search.getText();
-        List<CustomProduct> matchingProducts = customProductService.searchCustomProductByName(keyword);
+          List<CustomProduct> matchingProducts = customProductService.searchCustomProductByName1(keyword);
         this.vBox.getChildren().clear();
         matchingProducts.forEach(CProduct -> {
             try {
@@ -213,7 +213,7 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         try {
             Stage stage = new Stage();
             Parent root = FXMLLoader
-                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/WeightStatisticsUI.fxml"));
+                   .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ProductStatistics.fxml"));
 
             Scene scene = new Scene(root);
             stage.setResizable(false);

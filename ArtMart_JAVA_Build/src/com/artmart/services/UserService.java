@@ -188,4 +188,8 @@ public class UserService implements IUserService {
        return this.userDao.verifyToken(email, token);
     }
 
+       @Override
+public String getPhoneNumberById(int userId)
+{ return this.userDao.getPhoneNumberById(userId);
+}
 }

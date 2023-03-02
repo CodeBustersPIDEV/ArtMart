@@ -26,5 +26,6 @@ public interface IUserDao {
     public void StoreToken(String token, String email);
 
     public boolean verifyToken(String email, String token);
+     public String getPhoneNumberById(int userId);
 
 }
