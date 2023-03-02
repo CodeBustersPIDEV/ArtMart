@@ -19,6 +19,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javax.mail.MessagingException;
 
 /**
  * FXML Controller class
@@ -65,7 +68,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     private ComboBox<String> identityField;
-
+    int VerifE;
     UserService user_ser = new UserService();
     private int test1, test2;
     Session session = new Session();
@@ -82,60 +85,61 @@ public class SignUpController implements Initializable {
     @FXML
     public void OnSignUp(ActionEvent event) {
         // Get form field values
-        try {
-            String name = nameField.getText();
-            String email = emailField.getText();
-            Date birthday = java.sql.Date.valueOf(birthdayField.getValue());
-            int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
-            String username = usernameField.getText();
-            String password = pwdField.getText();
-            String confirmPassword = cpwdField.getText();
-            String emailFormat = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-            String pwdPattern = "^(?=.*[A-Z])(?=.*[0-9]).{8,}$";
-            LocalDate currentDate = LocalDate.now();
-            if (username.isEmpty() || password.isEmpty() || email.isEmpty() || name.isEmpty() || birthdayField.getValue().toString().isEmpty() || Phone_nbrField.getText().isEmpty() || identityField.getValue().isEmpty()) {
-                Warning("You have to fill all the fields");
-            } else {
-                if (!password.equals(confirmPassword)) {
-                    Warning("The passwords must be identical");
-                }
-                if (!email.matches(emailFormat)) {
-                    Warning("The email must be valid");
-                }
-                if (!password.matches(pwdPattern)) {
-                    Warning("Password must contain at least one uppercase letter, one digit, and be at least 8 characters long");
-                }
-                if (birthdayField.getValue().isAfter(currentDate)) {
-                    Warning("The birthday date must not exceed today's date");
 
-                }
-                
-                    if (password.equals(confirmPassword) &&email.matches(emailFormat)&& password.matches(pwdPattern) && !birthdayField.getValue().isAfter(currentDate)) {
-                        User user = new User(phoneNumber, name, email, username, password, birthday);
+        String name = nameField.getText();
+        String email = emailField.getText();
+        Date birthday = java.sql.Date.valueOf(birthdayField.getValue());
+        int phoneNumber = Integer.valueOf(Phone_nbrField.getText());
+        String username = usernameField.getText();
+        String password = pwdField.getText();
+        String confirmPassword = cpwdField.getText();
+        String emailFormat = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        String pwdPattern = "^(?=.*[A-Z])(?=.*[0-9]).{8,}$";
+        LocalDate currentDate = LocalDate.now();
+        VerifE = user_ser.getUserIdByEmail(email);
+        if (username.isEmpty() || password.isEmpty() || email.isEmpty() || name.isEmpty() || birthdayField.getValue().toString().isEmpty() || Phone_nbrField.getText().isEmpty() || identityField.getValue().isEmpty()) {
+            Warning("You have to fill all the fields");
+        } else {
+            if (!password.equals(confirmPassword)) {
+                Warning("The passwords must be identical");
+            }
+            if (!email.matches(emailFormat)) {
+                Warning("The email must be valid");
+            }
+            if (!password.matches(pwdPattern)) {
+                Warning("Password must contain at least one uppercase letter, one digit, and be at least 8 characters long");
+            }
+            if (birthdayField.getValue().isAfter(currentDate)) {
+                Warning("The birthday date must not exceed today's date");
 
-                        if (identityField.getValue().equals("yes")) {
-                            Artist artist = new Artist(user);
-                            test1 = user_ser.createAccountAr(artist);
-                        } else if (identityField.getValue().equals("no")) {
-                            Client client = new Client(user);
-                            test2 = user_ser.createAccountC(client);
-                        }
-                        if (test1 == 1 || test2 == 1) {
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("Success");
-                            alert.setHeaderText(null);
-                            alert.setContentText("Account created But you need to verify your account before you start");
-                            alert.showAndWait();
+            }
+            if (VerifE == 0) {
+                if (password.equals(confirmPassword) && email.matches(emailFormat) && password.matches(pwdPattern) && !birthdayField.getValue().isAfter(currentDate)) {
+                    User user = new User(phoneNumber, name, email, username, password, birthday);
 
-                        } else {
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Error");
-                            alert.setHeaderText(null);
-                            alert.setContentText("Oops!!Can not create account");
-                            alert.showAndWait();
-                        }
+                    if (identityField.getValue().equals("yes")) {
+                        Artist artist = new Artist(user);
+                        test1 = user_ser.createAccountAr(artist);
+                    } else if (identityField.getValue().equals("no")) {
+                        Client client = new Client(user);
+                        test2 = user_ser.createAccountC(client);
+                    }
+                    if (test1 == 1 || test2 == 1) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Success");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Account created but you need to verify your account before you start");
+                        alert.showAndWait();
+
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Oops!!Can not create account");
+                        alert.showAndWait();
                     }
                 }
+
                 nameField.setText("");
                 emailField.setText("");
                 usernameField.setText("");
@@ -143,36 +147,42 @@ public class SignUpController implements Initializable {
                 cpwdField.setText("");
                 Phone_nbrField.setText("");
                 birthdayField.setValue(date);
-                String token=UUID.randomUUID().toString();
-               
+                String token = UUID.randomUUID().toString();
+
                 user_ser.StoreToken(token, email);
                 System.out.println("test begin");
-                user_ser.sendEmail(email,"Account Verification",user_ser.generateVerificationEmail(username,token));
+                try {
+                    user_ser.sendEmail(email, "Account Verification", user_ser.generateVerificationEmail(username, token));
+                } catch (MessagingException ex) {
+                    Logger.getLogger(SignUpController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 System.out.println("test end");
                 try {
-            Stage stage = (Stage) sign_up_btn.getScene().getWindow();
-            stage.close();
-            stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/Verification.fxml"));
-                Pane pane = loader.load();
-                VerificationController controller = loader.getController();
-                controller.setEmail(email);
-                 Scene scene = new Scene(pane);
-            stage.setTitle("User Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-                        }catch (Exception ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("An Error occured");
-            alert.showAndWait();
+                    Stage stage = (Stage) sign_up_btn.getScene().getWindow();
+                    stage.close();
+                    stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/Verification.fxml"));
+                    Pane pane = loader.load();
+                    VerificationController controller = loader.getController();
+                    controller.setEmail(email);
+                    Scene scene = new Scene(pane);
+                    stage.setTitle("User Managment");
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
+                } catch (Exception ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("An Error occured");
+                    alert.showAndWait();
+                }
 
+             } else {
+                Warning("This email already exists");
+            }
         }
-        
     }
 
     public void Warning(String text) {
