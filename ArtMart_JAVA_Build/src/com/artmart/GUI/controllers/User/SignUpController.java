@@ -30,6 +30,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -123,7 +124,7 @@ public class SignUpController implements Initializable {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("Success");
                             alert.setHeaderText(null);
-                            alert.setContentText("Account created");
+                            alert.setContentText("Account created But you need to verify your account before you start");
                             alert.showAndWait();
 
                         } else {
@@ -145,10 +146,24 @@ public class SignUpController implements Initializable {
                 String token=UUID.randomUUID().toString();
                
                 user_ser.StoreToken(token, email);
-                                System.out.println("test begin");
-                user_ser.sendEmail(email,"Account Verification",user_ser.generateVerificationEmail(email,token));
-                System.out.println("test reached");
-                
+                System.out.println("test begin");
+                user_ser.sendEmail(email,"Account Verification",user_ser.generateVerificationEmail(username,token));
+                System.out.println("test end");
+                try {
+            Stage stage = (Stage) sign_up_btn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/Verification.fxml"));
+                Pane pane = loader.load();
+                VerificationController controller = loader.getController();
+                controller.setEmail(email);
+                 Scene scene = new Scene(pane);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
                         }catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");

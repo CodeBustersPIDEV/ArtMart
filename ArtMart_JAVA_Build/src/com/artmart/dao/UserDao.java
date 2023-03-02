@@ -81,6 +81,7 @@ public class UserDao implements IUserDao {
                 user.setRole(resultSet.getString("role"));
                 user.setPicture(resultSet.getString("picture"));
                 user.setBlocked(resultSet.getBoolean("blocked"));
+                user.setEnabled(resultSet.getBoolean("enabled"));
 
                 return user;
             }
@@ -244,6 +245,8 @@ public class UserDao implements IUserDao {
         }
         return false;
     }
+    
+    @Override
  public boolean enableUser(String email) {
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -307,30 +310,29 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public boolean verifyToken(String email, String token) {
+    public String verifyToken(String email) {
 
         PreparedStatement statement;
         try {
             statement = connection.prepareStatement(
-                    "SELECT * FROM user WHERE email = ?"
+                    "SELECT token FROM user WHERE email = ?"
             );
 
-            statement.setString(1, email);
+            statement.setString(1,email);
             ResultSet resultSet = statement.executeQuery();
-            User user = new User();
+            if (resultSet.next()) {
+                User user = new User();
+            
             user.setToken(resultSet.getString("token"));
             String retrivedToken = user.getToken();
-            if (retrivedToken.equals(token)) {
-                user.setEnabled(true);
-                enableUser(email);
-                return true;
-            } else {
-                 return false;
-            }
+            return retrivedToken;
+        }
+        
         } catch (SQLException ex) {
             Logger.getLogger(VerificationTokenDao.class.getName()).log(Level.SEVERE, null, ex);
-                 return false;
+                 return null;
         }
 
+                     return null;
     }
 }
