@@ -152,5 +152,11 @@ public class OrderGUIController implements Initializable {
             Order newOrder = new Order(this.user.getUser_id(), product.getProductId(), 1, shippingOption, shippingAddress, paymentMethod, Date.valueOf(dtf.format(now)), 100);
             this.orderSerivce.createOrder(newOrder);
         });
+        this.closeUI();
+    }
+
+    private void closeUI() {
+        Stage thisPage = (Stage) placeOrderBtn.getScene().getWindow();
+        thisPage.close();
     }
 }

@@ -61,8 +61,8 @@ public class PaymentVerificationController implements Initializable {
                         Alert alertSuccess = new Alert(Alert.AlertType.CONFIRMATION);
                         alertSuccess.setHeaderText("Payment successful, You can close this now !");
                         alertSuccess.showAndWait();
-                        this.checkoutController.successfulPayment();
                         this.closeUI();
+                        this.checkoutController.successfulPayment();
                         break;
                     default:
                         Alert alertFailed = new Alert(Alert.AlertType.ERROR);

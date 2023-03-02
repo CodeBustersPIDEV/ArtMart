@@ -117,20 +117,14 @@ public class OrderCheckOutController implements Initializable {
 
     public void successfulPayment() {
         this.orderGUIController.successfulPayment(
-                this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getId(),
-                this.shippingAddress.getText(),
-                this.paymentList.get(this.paymentOptionsList.getSelectionModel().getSelectedIndex()).getId()
+            this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getId(),
+            this.shippingAddress.getText(),
+            this.paymentList.get(this.paymentOptionsList.getSelectionModel().getSelectedIndex()).getId()
         );
-        this.closeUI();
     }
 
     public void link(OrderGUIController controller) {
         this.orderGUIController = controller;
-    }
-
-    private void closeUI() {
-        Stage thisPage = (Stage) shippingAddress.getScene().getWindow();
-        thisPage.close();
     }
 
 }
