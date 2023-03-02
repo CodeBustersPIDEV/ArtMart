@@ -15,6 +15,8 @@ public interface IActivityDao {
 
     boolean deleteActivity(int activityID);
     
-    List<Activity> searchActivityByTitle(String title);
+    List<Activity> searchActivityByTitle(String title, int userID);
+    
+    List<Activity> getAllActivitiesByID(int userID);
 
 }
