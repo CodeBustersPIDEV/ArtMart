@@ -150,13 +150,28 @@ public class AddReadyProductController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Ready product has been added successfully!");
             alert.showAndWait();
+
+            // Close the current window
+            Stage stage = (Stage) add.getScene().getWindow();
+            stage.close();
+
+            // Load and display the ArtistReadyProductsList interface
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
         } else {
+            // Display an error message
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Add Ready Product");
             alert.setHeaderText(null);
             alert.setContentText("Failed to add ready product!");
             alert.showAndWait();
         }
+
     }
 
     @FXML
@@ -177,7 +192,7 @@ public class AddReadyProductController implements Initializable {
             Stage stage = (Stage) backBtn.getScene().getWindow();
             stage.close();
             stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/readyproductslist.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

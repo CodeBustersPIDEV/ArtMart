@@ -68,7 +68,7 @@ public class ProductGUIController implements Initializable {
             setProductImage(imagePreview3, imageUrls.get(2));
         }
         if (imageUrls.size() >= 4) {
-            setProductImage(imagePreview4, imageUrls.get(2));
+            setProductImage(imagePreview4, imageUrls.get(3));
         }
     }
 

@@ -6,7 +6,7 @@ public class ProductReview {
 
     private int reviewId;
     private int readyProductId;
-    private String username;
+    private int userId;
     private String title;
     private String text;
     private int rating;
@@ -15,19 +15,19 @@ public class ProductReview {
     public ProductReview() {
     }
 
-    public ProductReview(int readyProductId, String username, String title, String text, int rating, Date date) {
+    public ProductReview(int readyProductId, int userId, String title, String text, int rating, Date date) {
         this.readyProductId = readyProductId;
-        this.username = username;
+        this.userId = userId;
         this.title = title;
         this.text = text;
         this.rating = rating;
         this.date = date;
     }
 
-    public ProductReview(int reviewId, int readyProductId, String username, String title, String text, int rating, Date date) {
+    public ProductReview(int reviewId, int readyProductId, int userId, String title, String text, int rating, Date date) {
         this.reviewId = reviewId;
         this.readyProductId = readyProductId;
-        this.username = username;
+        this.userId = userId;
         this.title = title;
         this.text = text;
         this.rating = rating;
@@ -50,12 +50,12 @@ public class ProductReview {
         this.readyProductId = readyProductId;
     }
 
-    public String getUsername() {
-        return username;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -92,7 +92,7 @@ public class ProductReview {
 
     @Override
     public String toString() {
-        return "ProductReview{" + "reviewId=" + reviewId + ", readyProductId=" + readyProductId + ", username=" + username + ", title=" + title + ", text=" + text + ", rating=" + rating + ", date=" + date + '}';
+        return "ProductReview{" + "reviewId=" + reviewId + ", readyProductId=" + readyProductId + ", username=" + userId + ", title=" + title + ", text=" + text + ", rating=" + rating + ", date=" + date + '}';
     }
 
 }

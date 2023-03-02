@@ -17,7 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -40,6 +39,14 @@ public class ArtistReadyProductCardController implements Initializable {
     private Text name;
     @FXML
     private Label category;
+    @FXML
+    private Label dimensions;
+    @FXML
+    private Label material;
+    @FXML
+    private Label description;
+    @FXML
+    private Label weight;
     @FXML
     private Label price;
     @FXML
@@ -71,6 +78,10 @@ public class ArtistReadyProductCardController implements Initializable {
         String catName = cat.getName();
         this.category.setText(catName);
         this.price.setText(Integer.toString(p.getPrice()));
+        this.weight.setText(Float.toString(p.getWeight()));
+        this.dimensions.setText(p.getDimensions());
+        this.description.setText(p.getDescription());
+        this.material.setText(p.getMaterial());
 
         // Load the image from the file path stored in ReadyProduct object's image field
         Image image = new Image("file:" + p.getImage());
@@ -103,25 +114,6 @@ public class ArtistReadyProductCardController implements Initializable {
             stage.setScene(scene);
             stage.show();
 
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
-    public void onDetails(ActionEvent event) {
-        try {
-            Stage stage = (Stage) details.getScene().getWindow();
-            stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ProductDetails.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            ProductDetailsController controller2 = loader.getController();
-            controller2.setUpData(this.pid.getText());
-            stage.setResizable(false);
-            stage.setTitle("Ready Product details");
-            stage.setScene(scene);
-            stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }

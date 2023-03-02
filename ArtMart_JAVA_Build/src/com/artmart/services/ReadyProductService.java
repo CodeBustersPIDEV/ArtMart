@@ -22,9 +22,10 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
     public int getReadyProductId(int id) throws SQLException {
         return readyProductDao.getReadyProductId(id);
     }
-  public List<ReadyProduct> searchReadyProductByName(String name) throws SQLException {
-      return readyProductDao.searchReadyProductByName(name);
-  }
+
+    public List<ReadyProduct> searchReadyProductByName(String name) throws SQLException {
+        return readyProductDao.searchReadyProductByName(name);
+    }
 
     @Override
     public ReadyProduct getReadyProductById(int id) throws SQLException {
@@ -51,6 +52,11 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
     public ProductReview getProductReviewById(int id) throws SQLException {
         return productReviewDao.getProductReviewById(id);
     }
+    
+    @Override
+    public int getProductReviewId(int id) throws SQLException {
+        return productReviewDao.getProductReviewId(id);
+    }
 
     @Override
     public List<ProductReview> getAllProductReviews() throws SQLException {
@@ -70,5 +76,14 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
     @Override
     public int deleteProductReview(int id) throws SQLException {
         return productReviewDao.deleteProductReview(id);
+    }
+
+    @Override
+    public float getRatingByProductId(int id) throws SQLException {
+        return productReviewDao.getRatingByProductId(id);
+    }
+
+    public List<ReadyProduct> getAllReadyProductsByCategoryName(String categoryName) throws SQLException {
+        return readyProductDao.getAllReadyProductsByCategoryName(categoryName);
     }
 }

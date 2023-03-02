@@ -11,14 +11,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ArtistReadyProductCardController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ArtistReadyProductCardController">
    <children>
       <Label fx:id="pid" layoutX="540.0" layoutY="20.0" text="Id">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="185.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="949.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="400.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="949.0">
          <stroke>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -27,27 +27,32 @@
                </stops>
             </LinearGradient>
          </stroke></Rectangle>
-      <Text fx:id="name" fill="#21153d" layoutX="234.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
+      <Text fx:id="name" fill="#21153d" layoutX="296.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
          <font>
             <Font name="Dubai Bold" size="25.0" />
          </font>
       </Text>
-      <ImageView fx:id="imagePreview" fitHeight="162.0" fitWidth="192.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" />
-      <Text fill="#21153d" layoutX="235.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" textAlignment="CENTER">
+      <ImageView fx:id="imagePreview" fitHeight="255.0" fitWidth="255.0" layoutX="24.0" layoutY="73.0" pickOnBounds="true" />
+      <Text fill="#21153d" layoutX="297.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" textAlignment="CENTER">
          <font>
             <Font name="Dubai Bold" size="20.0" />
          </font>
       </Text>
-      <Label fx:id="category" layoutX="327.0" layoutY="74.0" text="Category" textFill="#21153d">
+      <Label fx:id="category" layoutX="389.0" layoutY="79.0" text="Category" textFill="#21153d">
          <font>
             <Font name="Dubai Light" size="20.0" />
          </font></Label>
-      <Label fx:id="price" layoutX="236.0" layoutY="129.0" text="Price" textFill="#f53179">
+      <Label fx:id="price" layoutX="798.0" layoutY="286.0" text="Price" textFill="#f53179">
          <font>
-            <Font name="Dubai Regular" size="20.0" />
+            <Font name="Dubai Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="delete" alignment="CENTER" layoutX="678.0" layoutY="130.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="29.0" prefWidth="63.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
+      <Text fill="#f72f78" layoutX="846.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TND" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="delete" alignment="CENTER" layoutX="767.0" layoutY="334.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="29.0" prefWidth="63.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>
@@ -55,7 +60,7 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Button fx:id="edit" alignment="CENTER" layoutX="764.0" layoutY="130.0" mnemonicParsing="false" onAction="#onEdit" prefHeight="29.0" prefWidth="63.0" text="Edit" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="edit" alignment="CENTER" layoutX="853.0" layoutY="334.0" mnemonicParsing="false" onAction="#onEdit" prefHeight="29.0" prefWidth="63.0" text="Edit" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>
@@ -63,13 +68,45 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Button fx:id="details" alignment="CENTER" layoutX="850.0" layoutY="130.0" mnemonicParsing="false" onAction="#onDetails" prefHeight="38.0" prefWidth="71.0" text="Details" textAlignment="CENTER" textFill="#21153d">
+      <Text fill="#21153d" layoutX="298.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensions:" textAlignment="CENTER">
          <font>
-            <Font name="Dubai Bold" size="15.0" />
+            <Font name="Dubai Bold" size="20.0" />
          </font>
-         <effect>
-            <DropShadow color="#00000087" />
-         </effect>
-      </Button>
+      </Text>
+      <Label fx:id="dimensions" layoutX="412.0" layoutY="113.0" text="Dimensions" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Text fill="#21153d" layoutX="298.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="weight" layoutX="375.0" layoutY="143.0" text="Weight" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Text fill="#21153d" layoutX="297.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Material:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="material" layoutX="386.0" layoutY="173.0" text="Material" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Text fill="#21153d" layoutX="298.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="description" alignment="TOP_LEFT" layoutX="298.0" layoutY="236.0" prefHeight="136.0" prefWidth="355.0" text="Description" textFill="#21153d" wrapText="true">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

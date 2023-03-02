@@ -77,8 +77,7 @@ public class MainViewController implements Initializable {
     private void goToProduct(ActionEvent event) {
         if (this.connectedUser.getRole().equals("artist")) {
             try {
-                Stage stage = (Stage) productBtn.getScene().getWindow();
-                stage.close();
+                Stage stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
 
                 Scene scene = new Scene(root);
@@ -92,8 +91,7 @@ public class MainViewController implements Initializable {
         }
         if (this.connectedUser.getRole().equals("admin")) {
             try {
-                Stage stage = (Stage) productBtn.getScene().getWindow();
-                stage.close();
+                Stage stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AdminBoard.fxml"));
 
                 Scene scene = new Scene(root);
@@ -107,8 +105,7 @@ public class MainViewController implements Initializable {
         }
         if (this.connectedUser.getRole().equals("client")) {
             try {
-                Stage stage = (Stage) productBtn.getScene().getWindow();
-                stage.close();
+                Stage stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
 
                 Scene scene = new Scene(root);

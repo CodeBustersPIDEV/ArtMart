@@ -182,4 +182,25 @@ public class ReadyProductDao {
 
         return images;
     }
+
+    public List<ReadyProduct> getAllReadyProductsByCategoryName(String categoryName) throws SQLException {
+        List<ReadyProduct> readyProducts = new ArrayList<>();
+        String query = "SELECT readyproduct.ready_product_ID, readyproduct.product_ID FROM readyproduct "
+                + "INNER JOIN product ON readyproduct.product_ID = product.product_ID "
+                + "INNER JOIN categories ON product.category_ID = categories.categories_ID "
+                + "WHERE categories.name = ?";
+
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setString(1, categoryName);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            ReadyProduct readyProduct = new ReadyProduct(
+                    resultSet.getInt("ready_product_ID"),
+                    this.productDAO.getProductById(resultSet.getInt("product_ID"))
+            );
+            readyProducts.add(readyProduct);
+        }
+        return readyProducts;
+    }
 }
