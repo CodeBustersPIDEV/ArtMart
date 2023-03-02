@@ -5,10 +5,13 @@
 package com.artmart.GUI.controllers.Activity;
 
 import com.artmart.models.Activity;
+import com.artmart.models.Event;
 import com.artmart.services.ActivityService;
+import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -31,14 +35,14 @@ import javafx.stage.Stage;
 public class AddActivityController implements Initializable {
     
     private final ActivityService as = new ActivityService();
-    
-    private int eventID = 1;
-    
+    private final EventService es = new EventService();
+        
     private String host;
     private String title;
     private Date endDate;
     private Date startDate;
     
+    private String eventText;
     private String startDateText;
     private String endDateText;
 
@@ -54,12 +58,17 @@ public class AddActivityController implements Initializable {
     private Button btnAddActivity;
     @FXML
     private Button btnCancelActivity;
+    @FXML
+    private ComboBox comboBoxEvent = new ComboBox();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        List<Event> eventList = es.getAllEvents();
+        //for(Event event : eventList) {
+            this.comboBoxEvent.getItems().addAll(eventList);
     }    
 
     @FXML
@@ -70,16 +79,16 @@ public class AddActivityController implements Initializable {
         this.title = txtTitle.getText();
 
         // convert values for input check
+        this.eventText = String.valueOf(this.comboBoxEvent.getValue()); 
         this.startDateText = this.dpStartDate.getValue() != null ? String.valueOf(this.dpStartDate.getValue()) : null;
         this.endDateText = this.dpEndDate.getValue() != null ? String.valueOf(this.dpEndDate.getValue()) : null;
-  
-        
-            System.out.println(eventID);
-            System.out.println(startDateText);
-            System.out.println(endDateText);
-            System.out.println(title);
-            System.out.println(host);
-            
+          
+//        System.out.println(eventID);
+//        System.out.println(startDateText);
+//        System.out.println(endDateText);
+//        System.out.println(title);
+//        System.out.println(host);
+
         // input check
         if(this.title.isEmpty() 
         || this.host.isEmpty() 
@@ -96,7 +105,7 @@ public class AddActivityController implements Initializable {
             this.endDate = Date.valueOf(this.dpEndDate.getValue());  
             
             Activity activity = new Activity(
-                this.eventID, 
+                this.es.getEventByName(eventText).getEventID(), 
                 this.startDate, 
                 this.endDate, 
                 this.title, 
@@ -111,7 +120,6 @@ public class AddActivityController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("A new activity has been added successfully!");
                 alert.showAndWait();
-                //userID++;
                 alert.close();
                 onBtnCancelActivity(event);
             } else {

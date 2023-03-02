@@ -5,10 +5,12 @@
 package com.artmart.GUI.controllers.Event;
 
 import com.artmart.models.Event;
+import com.artmart.models.Session;
 import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,6 +35,9 @@ import javafx.stage.Stage;
 public class Add_eventController implements Initializable {
     
     private final EventService es = new EventService();
+    private final HashMap user = (HashMap) Session.getActiveSessions();
+    private final Session session = Session.getInstance();
+    private final int userID = session.getCurrentUserId(session.getSessionId());
     //private int eventID;
     private String name;
     private String location;
@@ -43,7 +48,7 @@ public class Add_eventController implements Initializable {
     private Date startDate;
     private Date endDate;
     //private int userID;
-    private int userID = 1;
+    //private int userID = 1;
 
     
     private String typeText; 
@@ -61,7 +66,7 @@ public class Add_eventController implements Initializable {
     @FXML
     private TextField txtName;
     @FXML
-    private ComboBox comboBoxType = new ComboBox();;
+    private ComboBox comboBoxType = new ComboBox();
     @FXML
     private TextField txtCapacity;
     @FXML
@@ -91,7 +96,6 @@ public class Add_eventController implements Initializable {
         this.name = this.txtName.getText();
         this.location = this.txtLocation.getText();
         this.description = this.txtAreaDescription.getText();
-
         
         // convert values for input check
         this.typeText = (String) this.comboBoxType.getValue(); 
