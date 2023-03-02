@@ -7,6 +7,13 @@ package com.artmart.GUI.controllers.User;
 
 import com.artmart.models.User;
 import com.artmart.services.UserService;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+import com.vonage.client.VonageClient;
+import com.vonage.client.sms.MessageStatus;
+import com.vonage.client.sms.SmsSubmissionResponse;
+import com.vonage.client.sms.messages.TextMessage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,6 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
+import java.util.Random;
 
 /**
  * FXML Controller class
@@ -47,6 +55,8 @@ public class VerificationController implements Initializable {
     UserService user_ser = new UserService();
     String vEmail;
     User user = new User();
+     public static final String ACCOUNT_SID = "AC9ad52df77c9b65dea27224d348cc4d35";
+    public static final String AUTH_TOKEN ="10868b44a74157a9c56f27ffa39c0240";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -145,5 +155,25 @@ public class VerificationController implements Initializable {
                 } catch (IOException e) {
                     System.out.print(e.getMessage());
                 }
+    }
+    
+    public void OnSms(ActionEvent event) {
+          int UserId=user_ser.getUserIdByEmail(vEmail);
+          user=user_ser.getUser(UserId);
+          String VPN="216"+String.valueOf(user.getPhone_nbr());
+          Random rand = new Random();
+          int SMSToken= rand.nextInt(9000);
+          user_ser.StoreToken(Integer.toString(SMSToken), vEmail);
+         VonageClient client = VonageClient.builder().apiKey("b11bf04c").apiSecret("LG2NeG9hgTOp6KzH").build();
+         TextMessage message = new TextMessage("Vonage APIs",
+        VPN,
+        "Here is the token to activate your account"+SMSToken+"         ");
+         SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+
+if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
+    System.out.println("Message sent successfully.");
+} else {
+    System.out.println("Message failed with error: " + response.getMessages().get(0).getErrorText());
+}
     }
 }
