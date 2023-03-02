@@ -37,6 +37,10 @@ public class BlogMenuController implements Initializable {
     private Button link_add_category;
     @FXML
     private Button link_Cat_manage;
+    @FXML
+    private Button link_add_tag;
+    @FXML
+    private Button link_Tag_manage;
 
     /**
      * Initializes the controller class.
@@ -125,6 +129,14 @@ public class BlogMenuController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    @FXML
+    private void goToAddTag(ActionEvent event) {
+    }
+
+    @FXML
+    private void goToTagManagement(ActionEvent event) {
     }
 
 }

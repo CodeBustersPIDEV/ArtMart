@@ -19,7 +19,7 @@
       <Label fx:id="comment_content" alignment="TOP_LEFT" layoutX="18.0" layoutY="73.0" prefHeight="120.0" prefWidth="268.0" text="Label" wrapText="true" />
       <Pane fx:id="btnPane" layoutX="254.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="32.0">
          <children>
-            <MenuButton fx:id="operations" mnemonicParsing="false" visible="false" />
+            <MenuButton fx:id="operations" mnemonicParsing="false" onAction="#refresh" visible="false" />
             <ImageView fx:id="iconBtn" fitHeight="21.0" fitWidth="26.0" layoutX="3.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>

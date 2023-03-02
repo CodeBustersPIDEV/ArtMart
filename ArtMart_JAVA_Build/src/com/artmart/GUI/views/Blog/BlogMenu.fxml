@@ -27,5 +27,12 @@
       </Label>
       <Button fx:id="link_add_category" layoutX="180.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToAddCategory" text="Add Category" />
       <Button fx:id="link_Cat_manage" layoutX="301.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToCatManagement" text="Category Management" />
+      <Label layoutX="95.0" layoutY="242.0" text="Tags:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="link_add_tag" layoutX="198.0" layoutY="244.0" mnemonicParsing="false" onAction="#goToAddTag" text="Add Tag" />
+      <Button fx:id="link_Tag_manage" layoutX="321.0" layoutY="244.0" mnemonicParsing="false" onAction="#goToTagManagement" text="Tag Management" />
    </children>
 </AnchorPane>

@@ -14,6 +14,7 @@ import com.artmart.models.HasTag;
 import com.artmart.models.Media;
 import com.artmart.models.Session;
 import com.artmart.models.Tag;
+import com.artmart.models.User;
 import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
@@ -75,6 +76,8 @@ public class BlogPageController implements Initializable {
     private Text blogContent;
     @FXML
     private Label categoryLabel;
+    @FXML
+    private HBox tagContainer;
 
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
@@ -85,15 +88,15 @@ public class BlogPageController implements Initializable {
     private BlogCategories resBlogCategories = new BlogCategories();
     private List<Tag> tags = new ArrayList<>();
     private List<HasTag> listHasTag;
+    private User connectedUser = new User();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
-    @FXML
-    private HBox tagContainer;
 
     /**
      * Initializes the controller class.
      *
      * @param b_ID
+     * @return
      */
     public VBox getContainer() {
         return this.commentContainer;
@@ -107,18 +110,19 @@ public class BlogPageController implements Initializable {
         List<Comment> commentList = new ArrayList<>();
         commentList = this.blogService.getAllComments(bc_id);
         if (commentList != null) {
-            for (Comment blog : commentList) {
-                String username = userService.getUser(blog.getAuthor()).getUsername();
+            for (Comment comment : commentList) {
+                String username = userService.getUser(comment.getAuthor()).getUsername();
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/CommentCard.fxml"));
                     Pane pane = loader.load();
-                    pane.setId("comment_card" + blog.getId());
+                    pane.setId("comment_card" + comment.getId());
                     CommentCardController controller = loader.getController();
                     this.commentContainer.getChildren().add(pane);
-                    controller.setCommentContent(blog.getContent());
+                    controller.setCommentContent(comment.getContent());
                     controller.setUsername(username);
-                    controller.setCommentID(Integer.toString(blog.getId()));
-                    controller.setPostDate(blog.getPublishDate().toString());
+                    controller.setBlogID(bc_id);
+                    controller.setCommentID(Integer.toString(comment.getId()));
+                    controller.setPostDate(comment.getPublishDate().toString());
                 } catch (IOException e) {
                     e.getMessage();
                 }
@@ -172,6 +176,7 @@ public class BlogPageController implements Initializable {
 //            setupComments(this.id);
 //        }
         this.session = (Session) user.get(user.keySet().toArray()[0]);
+        this.connectedUser = this.userService.getUser(this.session.getUserId());
 
     }
 
@@ -197,6 +202,14 @@ public class BlogPageController implements Initializable {
             this.comment_content.setText("");
             this.commentContainer.getChildren().clear();
             setupComments(this.id);
+        }
+    }
+
+    public void refresh(int bc_id) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/CommentCard.fxml"));
+        CommentCardController controller = loader.getController();
+        if (controller.getIsEdited() || controller.getIsDeleted()) {
+            setupComments(bc_id);
         }
     }
 

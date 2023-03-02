@@ -7,12 +7,16 @@ package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.dao.UserDao;
 import com.artmart.models.Comment;
+import com.artmart.models.Session;
+import com.artmart.models.User;
 import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -53,13 +57,17 @@ public class CommentCardController implements Initializable {
     private Pane btnPane;
     @FXML
     private MenuButton operations;
+    int blog_id;
 
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
     private Comment viewComment = new Comment();
-
+    private User connectedUser = new User();
+    HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
     private int id;
     private boolean isEdited = false;
+    private boolean isDeleted = false;
 
     MenuItem menuItem1;
     MenuItem menuItem2;
@@ -75,6 +83,10 @@ public class CommentCardController implements Initializable {
         this.date.setText(date);
     }
 
+    public void setBlogID(int id) {
+        blog_id = id;
+    }
+
     public void setUsername(String user_name) {
         this.username.setText(user_name);
     }
@@ -87,8 +99,14 @@ public class CommentCardController implements Initializable {
         return this.isEdited;
     }
 
+    public boolean getIsDeleted() {
+        return this.isDeleted;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.connectedUser = this.userService.getUser(this.session.getUserId());
+//        if (this.connectedUser.getRole().equals("Admin") || this.connectedUser.getUsername().equals(this.username.getText())) {
         File file = new File("src/com/artmart/assets/BlogAssets/menu.png");
         Image image = new Image(file.toURI().toString());
         this.iconBtn.setImage(image);
@@ -107,17 +125,25 @@ public class CommentCardController implements Initializable {
             alert.setHeaderText(null);
             alert.setWidth(125);
             alert.setGraphic(editComment_content);
-            editComment_content.setText(viewComment.getContent());
+            editComment_content.setText(this.viewComment.getContent());
             Comment editedComment = new Comment();
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 editedComment.setContent(editComment_content.getText());
-                this.blogService.updateComment(id, editedComment);
-                refreshCommentSection();
+                this.isEdited = this.blogService.updateComment(id, editedComment);
             }
 
         });
         menuItem2 = new MenuItem("Delete");
+        menuItem2.setOnAction(e -> {
+            this.isEdited = true;
+            menuItem2.setId(commentID.getText());
+            int id = Integer.parseInt(menuItem2.getId());
+            this.isDeleted = blogService.deleteComment(id);
+            if (this.isDeleted) {
+                System.out.println(this.isDeleted);
+            }
+        });
 
 //        this.operations.getItems().addAll(menuItem1.getText(), menuItem2.getText());
         this.operations.getItems().addAll(menuItem1, menuItem2);
@@ -125,16 +151,26 @@ public class CommentCardController implements Initializable {
         this.iconBtn.setOnMouseClicked(e -> {
             this.operations.show();
         });
-
+//        }
     }
 
-    private void refreshCommentSection() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogPage.fxml"));
-        BlogPageController controller = loader.getController();
+    public void openCommentCardWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogPage.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("Error opening Comment Card window: " + ex.getMessage());
+        }
+    }
 
-        controller.getContainer().getChildren().clear();
-
-        controller.setupComments(Integer.parseInt(controller.getBlogID()));
+    @FXML
+    private void refresh(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        openCommentCardWindow();
     }
 
 }
