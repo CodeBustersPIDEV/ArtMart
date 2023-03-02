@@ -172,8 +172,7 @@ public class EventDao implements IEventDao {
     public List<Event> searchEventByName(String name, int id) {
         List<Event> events = new ArrayList<>();
         try{
-            String query = "SELECT * FROM Event WHERE name LIKE ? and userID LIKE ?";
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Event WHERE name LIKE ? and userID LIKE ?");
             statement.setString(1, "%" + name + "%");
             statement.setInt(2, id);
             ResultSet resultSet = statement.executeQuery();
@@ -186,5 +185,34 @@ public class EventDao implements IEventDao {
             System.err.print(e.getMessage());
         }
         return events;
+    }
+    
+    @Override
+    public Event getEventByName(String name) {
+        Event event = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM Event WHERE name LIKE ?"
+            );
+            statement.setString(1, name);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                event = new Event();
+                event.setEventID(resultSet.getInt("eventID"));
+                event.setUserID(resultSet.getInt("userID"));
+                event.setName(resultSet.getString("name"));
+                event.setLocation(resultSet.getString("location"));
+                event.setType(resultSet.getString("type"));
+                event.setDescription(resultSet.getString("description"));
+                event.setEntryFee(resultSet.getDouble("entryFee"));
+                event.setCapacity(resultSet.getInt("capacity"));
+                event.setStartDate(resultSet.getDate("startDate"));
+                event.setEndDate(resultSet.getDate("endDate"));
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return event;
     }
 }
