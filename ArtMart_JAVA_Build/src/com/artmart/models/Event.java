@@ -135,9 +135,14 @@ public class Event {
     public void setUserID(int userID) {
         this.userID = userID;
     }
-
+    
     @Override
     public String toString() {
-        return name;
-    }
+        return "Event{" + "eventID=" + eventID + ", name=" + name + ", location=" + location + ", type=" + type + ", description=" + description + ", entryFee=" + entryFee + ", capacity=" + capacity + ", startDate=" + startDate + ", endDate=" + endDate + ", userID=" + userID + "}\n";
+    }    
+
+//    @Override
+//    public String toString() {
+//        return name;
+//    }
 }

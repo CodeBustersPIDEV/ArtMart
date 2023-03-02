@@ -169,12 +169,12 @@ public class EventDao implements IEventDao {
     }
     
     @Override
-    public List<Event> searchEventByName(String name, int id) {
+    public List<Event> searchEventByName(String name, int userID) {
         List<Event> events = new ArrayList<>();
         try{
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Event WHERE name LIKE ? and userID LIKE ?");
             statement.setString(1, "%" + name + "%");
-            statement.setInt(2, id);
+            statement.setInt(2, userID);
             ResultSet resultSet = statement.executeQuery();
 
             while(resultSet.next()) {

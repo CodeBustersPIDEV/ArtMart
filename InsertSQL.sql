@@ -47,8 +47,8 @@ VALUES (1, 5000.0, 200.0, '2023-02-16');
 INSERT INTO event (userID, name, location, type, description, entryFee, capacity, startDate, endDate) 
 VALUES (1, 'Spring Festival', 'Central Park', 'Festival', 'Join us for a day of music, food, and fun!', 10.0, 1000, '2023-05-20 10:00:00', '2023-05-20 22:00:00');
 
-INSERT INTO activity (eventID, startDate, endDate, title, host) 
-VALUES (1, '2023-03-10 10:00:00', '2023-03-10 11:00:00', 'Yoga Class', 'John Doe');
+INSERT INTO activity (eventID, date, title, host) 
+VALUES (1, '2023-03-10 10:00:00', 'Yoga Class', 'John Doe');
 
 INSERT INTO eventReport (eventID, attendance) 
 VALUES (1, 50);

@@ -17,7 +17,7 @@ public interface IEventDao {
 
     boolean deleteEvent(int eventID);
     
-    List<Event> searchEventByName(String name, int id);
+    List<Event> searchEventByName(String name, int userID);
     
     Event getEventByName(String name);
 

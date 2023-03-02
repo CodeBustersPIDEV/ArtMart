@@ -7,6 +7,7 @@ package com.artmart.GUI.controllers.Activity;
 
 import com.artmart.models.Activity;
 import com.artmart.services.ActivityService;
+import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,27 +30,26 @@ import javafx.stage.Stage;
  */
 public class CardActivityController implements Initializable {
     
+    private final EventService es = new EventService();
     private Activity activity = new Activity();
     private ActivityService as = new ActivityService();
     private ListActivityController listActivityController = new ListActivityController();
 
     @FXML
-    private Button btnViewActivity;
-    @FXML
     private Text txtActivityTitle;
     @FXML
     private Text txtActivityHost;
     @FXML
-    private Text txtActivityStartDate;
+    private Text txtActivityDate;
     @FXML
-    private Text txtActivityEndDate;
+    private Text txtEvent;
     @FXML
     private Button btnDeleteActivity;
     @FXML
-    private Text txtEventLocation1;
-    @FXML
     private Button btnEditActivity;
-
+    @FXML
+    private Button btnViewActivity;
+    
     /**
      * Initializes the controller class.
      */
@@ -63,8 +63,8 @@ public class CardActivityController implements Initializable {
         this.listActivityController = controller;
         this.txtActivityTitle.setText(activity.getTitle());
         this.txtActivityHost.setText(activity.getHost());
-        this.txtActivityStartDate.setText(activity.getStartDate().toString());
-        this.txtActivityEndDate.setText(activity.getEndDate().toString());
+        this.txtActivityDate.setText(activity.getDate().toString());
+        this.txtEvent.setText(es.getEvent(activity.getEventID()).getName());
     }   
     
 //    @FXML
