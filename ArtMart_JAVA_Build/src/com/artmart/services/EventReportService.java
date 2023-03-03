@@ -41,5 +41,10 @@ public class EventReportService implements IEventReportDao{
     public boolean deleteEventReport(int eventReportID) {
         return dao.deleteEventReport(eventReportID);
     }
+
+    @Override
+    public List<EventReport> getAllReportsByID(int userID) {
+        return dao.getAllReportsByID(userID);
+    }
     
 }

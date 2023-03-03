@@ -2,6 +2,7 @@ package com.artmart.dao;
 
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IEventReportDao;
+import com.artmart.models.Activity;
 import com.artmart.models.EventReport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,8 +29,7 @@ public class EventReportDao implements IEventReportDao {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO activity (eventID, attendance) "
-                    + "VALUES (?, ?)"
+                    "INSERT INTO eventreport (eventID, attendance) VALUES (?, ?)"
             );
             statement.setInt(1, eventReport.getEventID());
             statement.setInt(2, eventReport.getAttendance());
@@ -45,8 +45,7 @@ public class EventReportDao implements IEventReportDao {
         EventReport eventReport = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM EventReport "
-                    + "WHERE reportID = ?"
+                    "SELECT * FROM EventReport WHERE reportID = ?"
             );
             statement.setInt(1, eventReportID);
 
@@ -118,4 +117,24 @@ public class EventReportDao implements IEventReportDao {
         return false;
     }
 
+    @Override
+    public List<EventReport> getAllReportsByID(int userID) {
+        List<EventReport> reports = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM eventreport a JOIN event e ON a.eventID = e.eventID WHERE e.userID = ?");
+            statement.setInt(1, userID);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                EventReport report = new EventReport();
+                report.setEventReportID(resultSet.getInt("reportID"));
+                report.setEventID(resultSet.getInt("eventID"));
+                report.setAttendance(resultSet.getInt("attendance"));
+                reports.add(report);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getCause().getMessage());
+        }
+        return reports;
+    }
 }

@@ -32,6 +32,10 @@ public class Event_homeController implements Initializable {
     private Button btnAddActivity;
     @FXML
     private Button btnGetAllActivities;
+    @FXML
+    private Button btnAddReport;
+    @FXML
+    private Button btnGetReports;
 
     /**
      * Initializes the controller class.
@@ -115,5 +119,35 @@ public class Event_homeController implements Initializable {
             System.out.print(e.getMessage());
         }
     } 
+
+    @FXML
+    private void onBtnAddReport(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/EventReport/add_report.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }        
+    }
+
+    @FXML
+    private void onBtnGetReports(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/EventReport/list_report.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }                
+    }
 
 }
