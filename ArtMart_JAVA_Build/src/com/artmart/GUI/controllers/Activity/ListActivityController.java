@@ -26,6 +26,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -127,6 +129,28 @@ public class ListActivityController implements Initializable {
     private void onBtnCancel(ActionEvent event) throws SQLException {
         this.txtSearch.setText("");
         this.makeList();
+    }
+
+    @FXML
+    private void onTxtSearch(KeyEvent ev) {
+        if (ev.getCode() == KeyCode.ENTER) {
+            String keyword = this.txtSearch.getText();
+            List<Activity> matchingActivities = this.as.searchActivityByTitle(keyword, userID);
+            this.vBox.getChildren().clear();
+            matchingActivities.forEach(activity -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Activity/card_activity.fxml"));
+                    Parent root = loader.load();
+                    CardActivityController controller = loader.getController();
+                    controller.setUpActivityData(activity, this);
+                    root.setId("" + activity.getActivityID());
+                    this.vBox.getChildren().add(root);
+                } catch (IOException e) {
+                    System.out.print(e.getCause());
+                }
+            });            
+        }
+ 
     }
     
 }

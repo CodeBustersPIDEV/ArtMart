@@ -34,7 +34,7 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="txtSearch" layoutX="10.0" layoutY="114.0" prefHeight="28.0" prefWidth="195.0" promptText="Type name of desired event here." />
+      <TextField fx:id="txtSearch" layoutX="10.0" layoutY="114.0" onKeyPressed="#onTxtSearch" prefHeight="28.0" prefWidth="195.0" promptText="Type name of desired event here." />
       <Button layoutX="285.0" layoutY="114.0" mnemonicParsing="false" onAction="#onBtnCancel" text="Cancel" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="12.0" />
