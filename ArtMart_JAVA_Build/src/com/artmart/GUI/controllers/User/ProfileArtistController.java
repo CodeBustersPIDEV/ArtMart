@@ -126,7 +126,7 @@ public class ProfileArtistController implements Initializable {
         //data that we want to store in the QR code  
         String str = String.valueOf(artist.getArtist_id());
 //path where we want to get QR Code  
-        String path = "C:\\Users\\21697\\OneDrive\\Documents\\GitHub\\ArtMart\\QRDemo\\Quote" + artist.getArtist_id() + ".png";
+        String path = "C:\\Users\\21697\\OneDrive\\Documents\\GitHub\\ArtMart\\QRCode\\Quote" + artist.getArtist_id() + ".png";
         String charset = "UTF-8";
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
 //generates QR code with Low level(L) error correction capability  
@@ -135,7 +135,7 @@ public class ProfileArtistController implements Initializable {
         generateQRcode(str, path, charset, hashMap, 200, 200);
         System.out.println("QR Code created successfully.");
         try {
-            Image newImage = new Image("file:/C:/Users/21697/OneDrive/Documents/GitHub/ArtMart/QRDemo/Quote" + artist.getArtist_id() + ".png");
+            Image newImage = new Image("file:/C:/Users/21697/OneDrive/Documents/GitHub/ArtMart/QRCode/Quote" + artist.getArtist_id() + ".png");
             //   System.out.println(artist.getPicture());
             QrCode.setImage(newImage);
         } catch (Exception e) {

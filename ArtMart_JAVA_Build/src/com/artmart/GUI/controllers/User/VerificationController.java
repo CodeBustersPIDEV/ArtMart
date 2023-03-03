@@ -167,7 +167,7 @@ public class VerificationController implements Initializable {
          VonageClient client = VonageClient.builder().apiKey("b11bf04c").apiSecret("LG2NeG9hgTOp6KzH").build();
          TextMessage message = new TextMessage("Vonage APIs",
         VPN,
-        "Here is the token to activate your account"+SMSToken+"         ");
+        "Here is the token to activate your account"+SMSToken);
          SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
 
 if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
