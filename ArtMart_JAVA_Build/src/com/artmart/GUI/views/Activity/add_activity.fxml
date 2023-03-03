@@ -19,20 +19,19 @@
             <Font name="Brush Script MT Italic" size="40.0" />
          </font>
       </Label>
-      <TextField fx:id="txtHost" layoutX="378.0" layoutY="128.0" prefHeight="40.0" prefWidth="180.0" promptText="Host" />
-      <TextField fx:id="txtTitle" layoutX="100.0" layoutY="128.0" prefHeight="40.0" prefWidth="180.0" promptText="Title" />
-      <Button fx:id="btnAddActivity" layoutX="390.0" layoutY="325.0" mnemonicParsing="false" onAction="#onBtnAddActivity" prefHeight="27.0" prefWidth="64.0" text="Confirm" textAlignment="CENTER" textFill="#0fae22">
+      <TextField fx:id="txtHost" layoutX="135.0" layoutY="180.0" prefHeight="40.0" prefWidth="180.0" promptText="Host" />
+      <TextField fx:id="txtTitle" layoutX="135.0" layoutY="130.0" prefHeight="40.0" prefWidth="180.0" promptText="Title" />
+      <Button fx:id="btnAddActivity" layoutX="488.0" layoutY="287.0" mnemonicParsing="false" onAction="#onBtnAddActivity" prefHeight="27.0" prefWidth="64.0" text="Confirm" textAlignment="CENTER" textFill="#0fae22">
          <font>
-            <Font name="Agency FB Bold" size="14.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelActivity" layoutX="487.0" layoutY="325.0" mnemonicParsing="false" onAction="#onBtnCancelActivity" prefHeight="27.0" prefWidth="64.0" text="Cancel" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnCancelActivity" layoutX="382.0" layoutY="287.0" mnemonicParsing="false" onAction="#onBtnCancelActivity" prefHeight="27.0" prefWidth="64.0" text="Cancel" textAlignment="CENTER" textFill="RED">
          <font>
-            <Font name="Agency FB Bold" size="14.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <DatePicker fx:id="dpStartDate" layoutX="100.0" layoutY="225.0" prefHeight="40.0" prefWidth="180.0" promptText="Start Date" />
-      <DatePicker fx:id="dpEndDate" layoutX="378.0" layoutY="225.0" prefHeight="40.0" prefWidth="180.0" promptText="End Date" />
-      <ComboBox fx:id="comboBoxEvent" layoutX="100.0" layoutY="318.0" prefHeight="40.0" prefWidth="180.0" promptText="Event" />
+      <DatePicker fx:id="dpDate" layoutX="135.0" layoutY="230.0" prefHeight="40.0" prefWidth="180.0" promptText="Date" />
+      <ComboBox fx:id="comboBoxEvent" layoutX="135.0" layoutY="280.0" prefHeight="40.0" prefWidth="180.0" promptText="Event" />
    </children>
 </AnchorPane>

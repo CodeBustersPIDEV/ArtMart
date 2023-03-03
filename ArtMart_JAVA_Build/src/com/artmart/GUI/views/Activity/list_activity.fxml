@@ -19,29 +19,25 @@
             <VBox fx:id="vBox" prefHeight="570.0" prefWidth="635.0" />
          </content>
       </ScrollPane>
-      <Text fill="#5d53a8" layoutX="229.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity List">
+      <Text fill="#ff5946" layoutX="229.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity List">
          <font>
             <Font name="Brush Script MT Italic" size="48.0" />
          </font>
       </Text>
-      <Button layoutX="13.0" layoutY="13.0" mnemonicParsing="false" onAction="#onBtnReturn" text="&lt; Back">
+      <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnReturn" text="&lt; Back" textFill="#5d53a8">
          <font>
-            <Font name="Agency FB Bold" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnSearch" layoutX="380.0" layoutY="114.0" mnemonicParsing="false" onAction="#onBtnSearch" text="Search" textFill="#10a12f">
+      <Button fx:id="btnSearch" layoutX="221.0" layoutY="114.0" mnemonicParsing="false" onAction="#onBtnSearch" text="Search" textFill="#10a12f">
          <font>
-            <Font name="Agency FB Bold" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="txtSearch" layoutX="226.0" layoutY="114.0">
+      <TextField fx:id="txtSearch" layoutX="10.0" layoutY="114.0" prefHeight="28.0" prefWidth="195.0" promptText="Type name of desired event here." />
+      <Button layoutX="285.0" layoutY="114.0" mnemonicParsing="false" onAction="#onBtnCancel" text="Cancel" textFill="RED">
          <font>
-            <Font name="Agency FB Bold" size="15.0" />
-         </font>
-      </TextField>
-      <Button layoutX="456.0" layoutY="115.0" mnemonicParsing="false" onAction="#onBtnCancel" text="Cancel" textFill="RED">
-         <font>
-            <Font name="Agency FB Bold" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
    </children>

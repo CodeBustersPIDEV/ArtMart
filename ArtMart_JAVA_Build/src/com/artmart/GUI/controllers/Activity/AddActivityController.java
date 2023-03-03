@@ -6,11 +6,14 @@ package com.artmart.GUI.controllers.Activity;
 
 import com.artmart.models.Activity;
 import com.artmart.models.Event;
+import com.artmart.models.Session;
 import com.artmart.services.ActivityService;
 import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.DateTimeException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -36,39 +39,42 @@ public class AddActivityController implements Initializable {
     
     private final ActivityService as = new ActivityService();
     private final EventService es = new EventService();
+    private final HashMap user = (HashMap) Session.getActiveSessions();
+    private final Session session = Session.getInstance();
+    private final int userID = session.getCurrentUserId(session.getSessionId());
         
     private String host;
     private String title;
-    private Date endDate;
-    private Date startDate;
+    private String eventName;
+    private Date date;
     
     private String eventText;
-    private String startDateText;
-    private String endDateText;
+    private String dateText;
 
     @FXML
     private TextField txtHost;
     @FXML
     private TextField txtTitle;
     @FXML
-    private DatePicker dpEndDate;
+    private DatePicker dpDate;
     @FXML
-    private DatePicker dpStartDate;
+    private ComboBox comboBoxEvent = new ComboBox();
     @FXML
     private Button btnAddActivity;
     @FXML
     private Button btnCancelActivity;
-    @FXML
-    private ComboBox comboBoxEvent = new ComboBox();
+
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        List<Event> eventList = es.getAllEvents();
-        //for(Event event : eventList) {
-            this.comboBoxEvent.getItems().addAll(eventList);
+        List<Event> eventList = es.getAllEventsByID(userID);
+        for(Event event : eventList) {
+            this.comboBoxEvent.getItems().add(event.getName());
+        }
     }    
 
     @FXML
@@ -79,9 +85,8 @@ public class AddActivityController implements Initializable {
         this.title = txtTitle.getText();
 
         // convert values for input check
-        this.eventText = String.valueOf(this.comboBoxEvent.getValue()); 
-        this.startDateText = this.dpStartDate.getValue() != null ? String.valueOf(this.dpStartDate.getValue()) : null;
-        this.endDateText = this.dpEndDate.getValue() != null ? String.valueOf(this.dpEndDate.getValue()) : null;
+        this.eventText = (String) this.comboBoxEvent.getValue(); 
+        this.dateText = this.dpDate.getValue() != null ? String.valueOf(this.dpDate.getValue()) : null;
           
 //        System.out.println(eventID);
 //        System.out.println(startDateText);
@@ -92,8 +97,9 @@ public class AddActivityController implements Initializable {
         // input check
         if(this.title.isEmpty() 
         || this.host.isEmpty() 
-        || this.startDateText == null || this.startDateText.isEmpty()
-        || this.endDateText == null || this.endDateText.isEmpty()) {
+        || this.eventText == null || this.eventText.isEmpty()
+        || this.dateText == null || this.dateText.isEmpty()) 
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing information");
             alert.setHeaderText(null);
@@ -101,13 +107,21 @@ public class AddActivityController implements Initializable {
             alert.showAndWait();
         }else {
 
-            this.startDate = Date.valueOf(this.dpStartDate.getValue());
-            this.endDate = Date.valueOf(this.dpEndDate.getValue());  
+            this.eventName = (String) this.comboBoxEvent.getValue();
+            try {
+                this.date = Date.valueOf(this.dpDate.getValue());
+            } catch (DateTimeException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid format");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid format for start date or end date!");
+                alert.showAndWait();
+                return;                
+            }
             
             Activity activity = new Activity(
-                this.es.getEventByName(eventText).getEventID(), 
-                this.startDate, 
-                this.endDate, 
+                this.es.getEventByName(eventName).getEventID(), 
+                this.date, 
                 this.title, 
                 this.host
             );

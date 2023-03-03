@@ -7,11 +7,13 @@ package com.artmart.GUI.controllers.Activity;
 import com.artmart.GUI.controllers.Event.Card_eventController;
 import com.artmart.models.Activity;
 import com.artmart.models.Event;
+import com.artmart.models.Session;
 import com.artmart.services.ActivityService;
 import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -34,8 +36,15 @@ import javafx.stage.Stage;
  */
 public class ListActivityController implements Initializable {
     
+    private final EventService es = new EventService();
     private final ActivityService as = new ActivityService();
+    private final HashMap user = (HashMap) Session.getActiveSessions();
+    private final Session session = Session.getInstance();
+    private final int userID = session.getCurrentUserId(session.getSessionId());
+    
     private List<Activity> activityList;
+    private List<Event> eventList;
+    
     @FXML
     private VBox vBox;
     @FXML
@@ -57,7 +66,8 @@ public class ListActivityController implements Initializable {
     }    
 
         public void makeList() throws SQLException {
-        this.activityList = this.as.getAllActivities();
+        this.activityList = this.as.getAllActivitiesByID(userID);
+
         this.vBox.getChildren().clear();
         this.activityList.forEach(activity -> {
             try {
@@ -82,7 +92,7 @@ public class ListActivityController implements Initializable {
     @FXML
     private void onBtnSearch(ActionEvent event) {
         String keyword = this.txtSearch.getText();
-        List<Activity> matchingActivities = this.as.searchActivityByTitle(keyword);
+        List<Activity> matchingActivities = this.as.searchActivityByTitle(keyword, userID);
         this.vBox.getChildren().clear();
         matchingActivities.forEach(activity -> {
             try {
