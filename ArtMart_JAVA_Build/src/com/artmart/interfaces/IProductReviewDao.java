@@ -7,7 +7,8 @@ import java.util.List;
 public interface IProductReviewDao {
 
     List<ProductReview> getAllProductReviews() throws SQLException;
-
+    List<ProductReview> getAllProductReviewsByProdId(int id) throws SQLException;
+    
     ProductReview getProductReviewById(int id) throws SQLException;
 
     int createProductReview(ProductReview productReview) throws SQLException;

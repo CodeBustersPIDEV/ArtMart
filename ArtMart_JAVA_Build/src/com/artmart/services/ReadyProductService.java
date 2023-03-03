@@ -61,6 +61,10 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
     @Override
     public List<ProductReview> getAllProductReviews() throws SQLException {
         return productReviewDao.getAllProductReviews();
+    }    
+    @Override
+    public List<ProductReview> getAllProductReviewsByProdId(int id) throws SQLException {
+        return productReviewDao.getAllProductReviewsByProdId(id);
     }
 
     @Override

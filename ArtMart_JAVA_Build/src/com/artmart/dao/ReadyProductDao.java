@@ -89,7 +89,8 @@ public class ReadyProductDao {
         while (resultSet.next()) {
             ReadyProduct readyProduct = new ReadyProduct(
                     resultSet.getInt("ready_product_ID"),
-                    this.productDAO.getProductById(resultSet.getInt("product_ID"))
+                    this.productDAO.getProductById(resultSet.getInt("product_ID")),
+                    resultSet.getInt("price")
             );
             readyProducts.add(readyProduct);
         }

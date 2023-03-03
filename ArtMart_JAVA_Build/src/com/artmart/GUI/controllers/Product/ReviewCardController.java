@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,6 +43,8 @@ import javafx.stage.Stage;
 public class ReviewCardController implements Initializable {
 
     @FXML
+    private Label pid;
+    @FXML
     private Label rid;
     @FXML
     private Text title;
@@ -57,6 +60,7 @@ public class ReviewCardController implements Initializable {
     private ProductReview p = new ProductReview();
 
     private ReadyProductDao rPDao = new ReadyProductDao();
+    private final ReadyProductService readyProductService = new ReadyProductService();
 
     private ReviewsListController controller = new ReviewsListController();
 
@@ -68,32 +72,11 @@ public class ReviewCardController implements Initializable {
         // TODO
     }
 
-    public void setProductReview(String reviewId) {
+    public List<ProductReview> setProductReview(int prodId) {
         try {
-            this.rid.setText(reviewId);
-            this.id = Integer.parseInt(this.rid.getText());
-            ReadyProductService readyProductService = new ReadyProductService();
-
-            int productId = readyProductService.getProductReviewId(id);
-            if (productId == 0) {
-                throw new SQLException("Failed to get product ID from database");
-            }
-            ProductService productService = new ProductService();
-            Product product = productService.getProductById(productId);
-
-            this.title.setText(this.viewReview.getTitle());
-            this.text.setText(this.viewReview.getText());
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            String dateString = dateFormat.format(this.viewReview.getDate());
-            this.date.setText(dateString);
-
-            UserDao user = new UserDao();
-            User u = user.getUser(this.viewReview.getUserId());
-            String userN = u.getName();
-            this.username.setText(userN);
-
-            this.rating.setText(Float.toString(this.viewReview.getRating()));
+            this.pid.setText(prodId + "");
+            List<ProductReview> listReviews = this.readyProductService.getAllProductReviewsByProdId(prodId);
+            return listReviews;
 
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -102,5 +85,6 @@ public class ReviewCardController implements Initializable {
             alert.setContentText("Failed to get data from database");
             alert.showAndWait();
         }
+        return null;
     }
 }

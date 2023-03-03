@@ -12,13 +12,19 @@ public class ReadyProduct extends Product {
         this.readyProductId = readyProductId;
     }
 
+    public ReadyProduct(int readyProductId, Product p, int price) {
+        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
+        this.readyProductId = readyProductId;
+        this.price = price;
+    }
+
     public ReadyProduct(Product p) {
         super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
     }
 
     public ReadyProduct(int aInt, int productId, Product product) {
     }
-    
+
     public ReadyProduct(Product p, int price) {
         super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
         this.price = price;

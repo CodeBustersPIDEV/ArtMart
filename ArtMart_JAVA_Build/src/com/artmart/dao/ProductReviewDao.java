@@ -61,7 +61,31 @@ public class ProductReviewDao {
         }
 
     }
-
+   public List<ProductReview> getAllProductReviewsByProdId(int id) {
+        List<ProductReview> reviews = new ArrayList<>();
+        try {
+            String query="SELECT * FROM productreview where ready_product_ID = ?";
+            PreparedStatement statement = sqlConnection.prepareStatement(query);
+            statement.setInt(1,id);
+            System.out.println(statement);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                ProductReview productReview = new ProductReview();
+                productReview.setReviewId(resultSet.getInt("review_ID"));
+                productReview.setReadyProductId(id);
+                productReview.setUserId(resultSet.getInt("user_ID"));
+                productReview.setTitle(resultSet.getString("title"));
+                productReview.setText(resultSet.getString("text"));
+                productReview.setRating(resultSet.getInt("rating"));
+                productReview.setDate(resultSet.getDate("date"));
+                reviews.add(productReview);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return reviews;
+    }
+   
     public List<ProductReview> getAllProductReviews() {
         List<ProductReview> reviews = new ArrayList<>();
         try {

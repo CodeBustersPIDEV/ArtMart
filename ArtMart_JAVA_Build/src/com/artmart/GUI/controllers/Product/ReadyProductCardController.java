@@ -74,7 +74,7 @@ public class ReadyProductCardController implements Initializable {
         Categories cat = c.getCategoriesById(p.getCategoryId());
         String catName = cat.getName();
         this.category.setText(catName);
-        this.price.setText(Integer.toString(p.getPrice()));
+        this.price.setText(p.getPrice()+"");
 
         // Get the rating value using the ProductId field of the ReadyProduct object
         ReadyProductService readyProductService = new ReadyProductService();
@@ -118,10 +118,8 @@ public class ReadyProductCardController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewsList.fxml"));
             Parent root = loader.load();
-
             ReviewCardController controller = loader.getController();
-            controller.setProductReview(this.pid.getText());
-
+            controller.setProductReview(this.p.getReadyProductId());
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setResizable(false);

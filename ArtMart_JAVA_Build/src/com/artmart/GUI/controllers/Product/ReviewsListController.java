@@ -44,42 +44,41 @@ public class ReviewsListController implements Initializable {
     @FXML
     private Button backBtn;
     private List<ProductReview> productReviewsList;
+    int pageId;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        try {
-//            this.displayList();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            this.displayList();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setProductId(int pid) {
+    public void setProductId(int pid)throws SQLException {
         this.pid.setText(Integer.toString(pid));
+        pageId = pid;
+        this.pid.setText(Integer.toString(pid));
+        this.displayList();
     }
 
-//    public void displayList() throws SQLException {
-//        try {
-//            this.vBox.getChildren().clear();
-//            this.productReviewsList = this.readyProductService.getAllProductReviews();
-//            this.productReviewsList.forEach(rp -> {
-//                try {
-//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewCard.fxml"));
-//                    Parent root = loader.load();
-//                    ReviewCardController controller = loader.getController();
-//                    controller.setProductReview(rp, this);
-//                    root.setId("" + rp.getReviewId());
-//                    this.vBox.getChildren().add(root);
-//                } catch (IOException e) {
-//                    System.out.print(e.getCause());
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(ReviewsListController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            });
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void displayList() throws SQLException {
+            this.vBox.getChildren().clear();
+            this.productReviewsList = this.readyProductService.getAllProductReviews();
+            this.productReviewsList.forEach(rp -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewCard.fxml"));
+                    Parent root = loader.load();
+                    ReviewCardController controller = loader.getController();
+                    List<ProductReview> list = controller.setProductReview(rp.getReadyProductId());
+                    System.out.println("RESULT " + list);
+                    root.setId("" + rp.getReviewId());
+                    this.vBox.getChildren().add(root);
+                } catch (IOException e) {
+                    System.out.print(e.getCause());
+                }
+            });
+    }
 
     public void onBack(ActionEvent event) {
         try {
