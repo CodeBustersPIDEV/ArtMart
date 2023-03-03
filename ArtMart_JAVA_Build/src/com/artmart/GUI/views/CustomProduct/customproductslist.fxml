@@ -20,11 +20,13 @@
       <RadioButton fx:id="sweight" layoutX="849.0" layoutY="159.0" mnemonicParsing="false" onAction="#byweight" text="WEIGHT" />
       <RadioButton fx:id="sname" layoutX="856.0" layoutY="131.0" mnemonicParsing="false" onAction="#byname" text="NAME" />
       <Text layoutX="866.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sort By :" />
-      <Text fx:id="total" layoutX="878.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="total" />
-      <Text layoutX="827.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Total Weight Is :" />
-      <Button fx:id="statisticb" layoutX="858.0" layoutY="193.0" mnemonicParsing="false" onAction="#statistic" text="statistic" />
+      <Text fx:id="total" layoutX="878.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="total" />
+      <Text layoutX="827.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Total Weight Is :" />
+      <Button fx:id="statisticb" layoutX="858.0" layoutY="221.0" mnemonicParsing="false" onAction="#statistic" text="statistic" />
       <Button layoutX="920.0" layoutY="562.0" mnemonicParsing="false" onAction="#onexit" text="exit" />
-      <Text layoutX="819.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number Of Products:" />
-      <Text fx:id="totalp" layoutX="963.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" wrappingWidth="9.219728618860245" />
+      <Text layoutX="819.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number Of Products:" />
+      <Text fx:id="totalp" layoutX="963.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" wrappingWidth="9.219728618860245" />
+      <Button layoutX="839.0" layoutY="350.0" mnemonicParsing="false" onAction="#apply" text="Applications" />
+      <RadioButton fx:id="def" layoutX="849.0" layoutY="187.0" mnemonicParsing="false" onAction="#def" text="DEFAULT" />
    </children>
 </AnchorPane>

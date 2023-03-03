@@ -39,27 +39,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
-import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
-import com.twilio.Twilio;
-import com.twilio.converter.Promoter;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
-
-import java.net.URI;
-import java.math.BigDecimal;
-
-
-//mail
-import com.twilio.Twilio;
-import com.twilio.converter.Promoter;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
-
-import java.net.URI;
-import java.math.BigDecimal;
-
 /**
  * FXML Controller class
  *
@@ -92,9 +71,7 @@ public class AddCustomController implements Initializable {
     @FXML
     private ImageView img;
     private Image image;
- //for both
-public static final String ACCOUNT_SID = "AC85fdc289caf6aa747109220798d39394";
-  public static final String AUTH_TOKEN = "798a6da8a44c9ab785ba50336b882e31";
+
     /**
      * Initializes the controller class.
      */
@@ -209,22 +186,6 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         alert.setContentText("Failed to add custom product!");
         alert.showAndWait();
     }
-    
-    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-  
-  String phoneNumber = Session.getSession(session.getSessionId()).getPhoneNumber();
-
-     System.out.println("+216"+phoneNumber);
-Message message = Message.creator(
-        
-  new com.twilio.type.PhoneNumber("whatsapp:+216"+phoneNumber),
-        
-  new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),
-  //+12762888183
-  "your custom product is created")
-.create();
-
-System.out.println(message.getSid());
 }
 
 

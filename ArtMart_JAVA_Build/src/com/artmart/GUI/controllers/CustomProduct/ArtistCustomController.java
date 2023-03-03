@@ -5,6 +5,7 @@
  */
 package com.artmart.GUI.controllers.CustomProduct;
 
+import com.artmart.models.Artist;
 import com.artmart.models.CustomProduct;
 import com.artmart.services.CustomProductService;
 import com.artmart.services.ProductService;
@@ -50,12 +51,19 @@ public class ArtistCustomController implements Initializable {
     @FXML
     private RadioButton sname;
     @FXML
-    private Button statisticb;
-    @FXML
     private Text totalp;
         private final ProductService productService = new ProductService();
     private final CustomProductService customProductService = new CustomProductService();
         private List<CustomProduct> customProductslist;
+          
+        private Artist loggedInArtist;
+    // ...
+    @FXML
+    private Button apply;
+    
+    public void setLoggedInArtist(Artist artist) {
+        this.loggedInArtist = artist;
+    }
 
     /**
      * Initializes the controller class.
@@ -187,6 +195,16 @@ void calculateProduct() throws SQLException {
     }
 
     @FXML
-    private void statistic(ActionEvent event) {
+    private void apply(ActionEvent event) throws IOException {
+         FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/artmart/GUI/views/CustomProduct/applyListartist.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+        
     }
+
+  
 }

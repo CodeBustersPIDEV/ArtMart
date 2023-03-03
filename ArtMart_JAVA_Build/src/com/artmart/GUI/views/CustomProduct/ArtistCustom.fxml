@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.CustomProduct.ArtistCustomController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.CustomProduct.ArtistCustomController">
     
  <children>
       <ScrollPane layoutX="9.0" layoutY="12.0" prefHeight="581.0" prefWidth="787.0">
@@ -21,7 +21,7 @@
       <RadioButton fx:id="sweight" layoutX="849.0" layoutY="159.0" mnemonicParsing="false" onAction="#byweight" text="WEIGHT" />
       <RadioButton fx:id="sname" layoutX="856.0" layoutY="131.0" mnemonicParsing="false" onAction="#byname" text="NAME" />
       <Text layoutX="866.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sort By :" />
-      <Button fx:id="statisticb" layoutX="858.0" layoutY="193.0" mnemonicParsing="false" onAction="#statistic" text="statistic" />
+      <Button fx:id="apply" layoutX="865.0" layoutY="192.0" mnemonicParsing="false" onAction="#apply" text="apply" />
       <Button layoutX="920.0" layoutY="562.0" mnemonicParsing="false" onAction="#onexit" text="exit" />
       <Text layoutX="819.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number Of Products:" />
       <Text fx:id="totalp" layoutX="963.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" wrappingWidth="9.219728618860245" />

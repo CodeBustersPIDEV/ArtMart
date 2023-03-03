@@ -5,10 +5,14 @@
  */
 package com.artmart.GUI.controllers.CustomProduct;
 
+import com.artmart.dao.ApplyDao;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.CustomProductDao;
 import com.artmart.dao.UserDao;
+import com.artmart.models.Apply;
 import com.artmart.models.CustomProduct;
+import com.artmart.models.Session;
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -51,8 +55,11 @@ public class ArtistCardController implements Initializable {
     public static final String ACCOUNT_SID = "AC85fdc289caf6aa747109220798d39394";
   public static final String AUTH_TOKEN = "798a6da8a44c9ab785ba50336b882e31";
     private ArtistCustomController controller=new ArtistCustomController();
+
     @FXML
     private Text owner;
+    @FXML
+    private Button applyBtn;
 
     /**
      * Initializes the controller class.
@@ -64,7 +71,8 @@ public class ArtistCardController implements Initializable {
    public void setCustomProduct(CustomProduct param, ArtistCustomController controller) throws SQLException {
     this.p = param;
     this.controller = controller;
-    this.pid.setText(Integer.toString(p.getProductId()));
+    this.pid.setText(Integer.toString(p.getCustomProductId()));
+    
     // Retrieve the category name from the database using the CategoryDao
     String categoryName = s.getCategoryNameById(p.getCategoryId());
     this.CID.setText(categoryName);
@@ -85,32 +93,35 @@ public class ArtistCardController implements Initializable {
     this.WaightTxt.setText(""+p.getWeight());
 }
 
-   private void goapply(ActionEvent event) throws SQLException, IOException {
-//    // Get the client ID from the custom product
-//    int clientID = p.getClientID();
-//
-//    // Get the artist ID from the session
-//    int artistID = Session.getCurrentUserId(Session.getInstance().getSessionId());
-//    System.out.println(artistID);
-//    // Create a new Chat object with the client ID and artist ID
-//    Chat chat = new Chat(clientID,p.getCustomProductId(), artistID);
-//    System.out.println(clientID);
-//    System.out.println();
-//
-//    // Save the Chat object to the database using the ChatDao
-//    ChatDao chatDao = new ChatDao();
-//    int chatID = chatDao.createChat(chat);
-    
-    // Redirect the user to the chat room with the chat ID
-//    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/ChatRoom.fxml"));
-//    Parent chatRoomParent = loader.load();
-//    ChatRoomController chatRoomController = loader.getController();
-//    chatRoomController.setChatID(chatID);
-//    Scene chatRoomScene = new Scene(chatRoomParent);
-//    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//    window.setScene(chatRoomScene);
-//    window.show();
+   @FXML
+private void goapply(ActionEvent event) throws SQLException, IOException {
+
+    // Get the current user's ID from the session
+    int artistId = Session.getCurrentUserId(Session.getInstance().getSessionId());
+
+    // Get the ID of the custom product that the user is applying for
+    int customProductId = Integer.parseInt(pid.getText());
+    System.out.println(artistId);
+    System.out.println(customProductId);
+
+    // Create a new Apply object with the necessary information
+    Apply apply = new Apply(customProductId, artistId, "Pending");
+
+    // Create the Apply in the database using the ApplyDao
+    ApplyDao applyDao = new ApplyDao();
+    int applyId = applyDao.createApply(apply);
+
+    // Display a success message to the user
+    System.out.println("Apply created with ID: " + applyId);
+
+    // Disable the "Apply" button so it cannot be pressed again
+    applyBtn.setDisable(true);
+}
+
+
+
+
 }
 
     
-}
+

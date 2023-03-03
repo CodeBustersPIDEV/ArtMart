@@ -23,6 +23,7 @@ import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javax.swing.JPanel;
@@ -80,7 +81,9 @@ public class ProductStatisticsController implements Initializable {
     @FXML
     private void print(ActionEvent event) throws FileNotFoundException, DocumentException {
         Document document = new Document(PageSize.A4);
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("chart.pdf"));
+     //   PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(System.getProperty("user.home") + "/Desktop/chart.pdf"));
+
+       PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\solta\\OneDrive\\Bureau\\pdf\\chart.pdf"));
         document.open();
         document.newPage();
 
@@ -94,5 +97,11 @@ public class ProductStatisticsController implements Initializable {
 
         document.close();
         writer.close();
+        
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("PDF Export");
+    alert.setHeaderText(null);
+    alert.setContentText("PDF file has been saved to the desktop.");
+    alert.showAndWait();
     }
 }

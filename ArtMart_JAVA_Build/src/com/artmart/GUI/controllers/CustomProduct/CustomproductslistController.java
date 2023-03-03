@@ -1,5 +1,7 @@
 package com.artmart.GUI.controllers.CustomProduct;
 
+import com.artmart.dao.ApplyDao;
+import com.artmart.models.Apply;
 import com.artmart.models.CustomProduct;
 import com.artmart.models.Product;
 import com.artmart.models.Session;
@@ -60,6 +62,9 @@ public class CustomproductslistController implements Initializable {
     private Text totalp;
         HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
+    ApplyDao x = new ApplyDao();
+    @FXML
+    private RadioButton def;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -108,33 +113,7 @@ int clientId = session.getCurrentUserId(session.getSessionId());
             }
         });
     }
-    
-//    public void makeList() throws SQLException {
-//    
-//
-//    Session session = Session.getInstance();
-//    int clientId = session.getCurrentUserId(session.getSessionId());
-//    this.vBox.getChildren().clear();
-//    System.out.println("Client ID: " + clientId);
-//    
-//    List<CustomProduct> customProducts = this.customProductService.getCustomProductsByClientId(clientId);
-//    System.out.println("Number of custom products: " + customProducts.size());
-//
-//    for (CustomProduct customProduct : customProducts) {
-//        try {
-//              FXMLLoader loader = new FXMLLoader(
-//                    getClass().getResource("/com/artmart/GUI/views/CustomProduct/CustomProductCard.fxml"));
-//            Parent root = loader.load();
-//            CustomProductCardController controller = loader.getController();
-//            controller.setCustomProduct(customProduct, this);
-//            root.setId("" + customProduct.getCustomProductId());
-//            this.vBox.getChildren().add(root);
-//        } catch (IOException e) {
-//            System.out.print(e.getCause());
-//        }
-//    }
-//}
- 
+
 
 
     @FXML
@@ -234,5 +213,23 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+     
+    }
+
+    @FXML
+    private void apply(ActionEvent event) throws IOException {
+         FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/artmart/GUI/views/CustomProduct/applyList.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+        
+    }
+
+    @FXML
+    private void def(ActionEvent event) throws SQLException {
+        this.makeList();
     }
 }
