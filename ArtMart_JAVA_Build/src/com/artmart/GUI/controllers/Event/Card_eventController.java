@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 public class Card_eventController implements Initializable {
     
     private Event event = new Event();
-    private EventService es =new EventService();
+    private EventService es = new EventService();
     private List_eventController listEventController = new List_eventController();
 //    private int eventID;
 
@@ -44,8 +44,6 @@ public class Card_eventController implements Initializable {
     private Text txtEventStartDate;
     @FXML
     private Text txtEventEndDate;
-    @FXML
-    private Text txtUser;
     @FXML
     private Button btnDeleteEvent;
     @FXML
@@ -115,16 +113,16 @@ public class Card_eventController implements Initializable {
         boolean result = this.es.deleteEvent(this.event.getEventID());
             if (result) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Edit Event");
+                alert.setTitle("Delete Event");
                 alert.setHeaderText(null);
-                alert.setContentText("A new event has been updated successfully!");
+                alert.setContentText("The event has been deleted!");
                 alert.showAndWait();
                 alert.close();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Update Product");
                 alert.setHeaderText(null);
-                alert.setContentText("Failed to update event!");
+                alert.setContentText("Failed to delete event!");
                 alert.showAndWait();
             }
         this.listEventController.makeList();

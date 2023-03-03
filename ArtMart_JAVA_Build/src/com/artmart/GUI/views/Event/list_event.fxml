@@ -23,24 +23,20 @@
             <Font name="Brush Script MT Italic" size="48.0" />
          </font>
       </Text>
-      <Button layoutX="3.0" layoutY="3.0" mnemonicParsing="false" onAction="#returnToEventHomepage" text="&lt; Back" textFill="#5d53a8">
+      <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#returnToEventHomepage" text="&lt; Back" textFill="#5d53a8">
          <font>
-            <Font name="Agency FB Bold" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnSearch" layoutX="370.0" layoutY="104.0" mnemonicParsing="false" onAction="#onBtnSearch" text="Search" textFill="#10a12f">
+      <Button fx:id="btnSearch" layoutX="223.0" layoutY="104.0" mnemonicParsing="false" onAction="#onBtnSearch" text="Search" textFill="#10a12f">
          <font>
-            <Font name="Agency FB Bold" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="txtSearch" layoutX="175.0" layoutY="104.0" onKeyPressed="#onTxtSearch" prefHeight="28.0" prefWidth="173.0">
+      <TextField fx:id="txtSearch" layoutX="10.0" layoutY="104.0" onKeyPressed="#onTxtSearch" prefHeight="28.0" prefWidth="192.0" promptText="Type name of desired event here." />
+      <Button layoutX="291.0" layoutY="104.0" mnemonicParsing="false" onAction="#onBtnCancel" text="Cancel" textFill="RED">
          <font>
-            <Font name="Agency FB Bold" size="15.0" />
-         </font>
-      </TextField>
-      <Button layoutX="446.0" layoutY="105.0" mnemonicParsing="false" onAction="#onBtnCancel" text="Cancel" textFill="RED">
-         <font>
-            <Font name="Agency FB Bold" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
    </children>

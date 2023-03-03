@@ -9,6 +9,7 @@ import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.DateTimeException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -105,23 +106,10 @@ public class Edit_eventController implements Initializable {
         this.name = this.txtEventName.getText();
         this.location = this.txtEventLocation.getText();
         this.description = this.txtAreaEventDescription.getText();
-        this.type = (String) this.comboBoxEventType.getValue();
-//        this.entryFee = Float.parseFloat(this.txtEventEntryFee.getText());
-//        this.capacity = Integer.parseInt(this.txtEventCapacity.getText());
-        this.startDate = Date.valueOf(this.dpEventStartDate.getValue());
-        this.endDate = Date.valueOf(this.dpEventEndDate.getValue());  
-                    try {
-                this.entryFee = Float.parseFloat(this.txtEventEntryFee.getText());
-                this.capacity = Integer.parseInt(this.txtEventCapacity.getText());
-            } catch (NumberFormatException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Invalid input");
-                alert.setHeaderText(null);
-                alert.setContentText("Invalid input for entry fee or capacity.");
-                alert.showAndWait();
-                return;
-            }
-        
+//        this.type = (String) this.comboBoxEventType.getValue();
+//        this.startDate = Date.valueOf(this.dpEventStartDate.getValue());
+//        this.endDate = Date.valueOf(this.dpEventEndDate.getValue());  
+      
         // convert values for input check
         this.typeText = (String) this.comboBoxEventType.getValue(); 
         this.entryFeeText = this.txtEventEntryFee.getText();
@@ -137,22 +125,56 @@ public class Edit_eventController implements Initializable {
         || this.entryFeeText.isEmpty()
         || this.capacityText.isEmpty() 
         || this.startDateText == null || this.startDateText.isEmpty()
-        || this.endDateText == null || this.endDateText.isEmpty()) {
+        || this.endDateText == null || this.endDateText.isEmpty()) 
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing information");
             alert.setHeaderText(null);
             alert.setContentText("Failed to add event! \nComplete missing information.");
             alert.showAndWait();
+            
         }else {
+            this.type = (String) this.comboBoxEventType.getValue();
+            try {
+                this.startDate = Date.valueOf(this.dpEventStartDate.getValue());
+                this.endDate = Date.valueOf(this.dpEventEndDate.getValue());
+                startDate.before(endDate);
+                if(!startDate.before(endDate)){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Invalid dates");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Failed to add event! \nStart date must me before end date!");
+                    alert.showAndWait();
+                    return;
+                }
+            } catch (DateTimeException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid format");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid format for start date or end date!");
+                alert.showAndWait();
+                return;                
+            }
+            try {
+                this.entryFee = Float.parseFloat(this.txtEventEntryFee.getText());
+                this.capacity = Integer.parseInt(this.txtEventCapacity.getText());
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid format");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid format for entry fee or capacity!");
+                alert.showAndWait();
+                return;
+            }
             Event ev = new Event(
-                this.name, 
-                this.location, 
-                this.type, 
-                this.description, 
-                this.entryFee, 
-                this.capacity, 
-                this.startDate, 
-                this.endDate
+              this.name, 
+              this.location, 
+              this.type, 
+              this.description, 
+              this.entryFee, 
+              this.capacity, 
+              this.startDate, 
+              this.endDate
             );
 
             boolean result = this.es.updateEvent(this.eventID, ev);
@@ -163,7 +185,6 @@ public class Edit_eventController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("A new event has been updated successfully!");
                 alert.showAndWait();
-                //userID++;
                 alert.close();
                 this.onBtnCancelEvent(event);
             } else {

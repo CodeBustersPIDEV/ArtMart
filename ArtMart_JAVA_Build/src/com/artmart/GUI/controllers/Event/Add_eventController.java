@@ -10,6 +10,7 @@ import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.DateTimeException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -38,7 +39,7 @@ public class Add_eventController implements Initializable {
     private final HashMap user = (HashMap) Session.getActiveSessions();
     private final Session session = Session.getInstance();
     private final int userID = session.getCurrentUserId(session.getSessionId());
-    //private int eventID;
+
     private String name;
     private String location;
     private String type;
@@ -47,10 +48,7 @@ public class Add_eventController implements Initializable {
     private int capacity;
     private Date startDate;
     private Date endDate;
-    //private int userID;
-    //private int userID = 1;
 
-    
     private String typeText; 
     private String entryFeeText;
     private String capacityText;
@@ -118,20 +116,39 @@ public class Add_eventController implements Initializable {
             alert.setTitle("Missing information");
             alert.setHeaderText(null);
             alert.setContentText("Failed to add event! \nComplete missing information.");
-            alert.showAndWait();
+            alert.showAndWait();         
+            
         }else {
             
             this.type = (String) this.comboBoxType.getValue();
-            this.startDate = Date.valueOf(this.dpStartDate.getValue());
-            this.endDate = Date.valueOf(this.dpEndDate.getValue()); 
+            try {
+                this.startDate = Date.valueOf(this.dpStartDate.getValue());
+                this.endDate = Date.valueOf(this.dpEndDate.getValue());
+                startDate.before(endDate);
+                if(!startDate.before(endDate)){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Invalid dates");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Failed to add event! \nStart date must me before end date!");
+                    alert.showAndWait();
+                    return;
+                }
+            } catch (DateTimeException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid format");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid format for start date or end date!");
+                alert.showAndWait();
+                return;                
+            }
             try {
                 this.entryFee = Float.parseFloat(this.txtEntryFee.getText());
                 this.capacity = Integer.parseInt(this.txtCapacity.getText());
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Invalid input");
+                alert.setTitle("Invalid format");
                 alert.setHeaderText(null);
-                alert.setContentText("Invalid input for entry fee or capacity.");
+                alert.setContentText("Invalid format for entry fee or capacity!");
                 alert.showAndWait();
                 return;
             }
@@ -155,7 +172,6 @@ public class Add_eventController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("A new event has been added successfully!");
                 alert.showAndWait();
-                //userID++;
                 alert.close();
                 this.returnToEventHomepage(event);
             } else {
