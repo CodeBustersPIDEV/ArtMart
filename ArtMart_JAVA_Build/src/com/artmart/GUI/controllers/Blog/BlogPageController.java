@@ -16,13 +16,16 @@ import com.artmart.models.Session;
 import com.artmart.models.Tag;
 import com.artmart.models.User;
 import com.artmart.services.BlogService;
+import io.github.cdimascio.dotenv.Dotenv;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,23 +33,22 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * FXML Controller class
@@ -82,7 +84,7 @@ public class BlogPageController implements Initializable {
     @FXML
     private Label categoryLabel;
     @FXML
-    private HBox tagContainer;
+    private FlowPane tagContainer;
 
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
@@ -96,8 +98,6 @@ public class BlogPageController implements Initializable {
     private User connectedUser = new User();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
-    @FXML
-    private Button translate_blog;
 
     /**
      * Initializes the controller class.
@@ -220,27 +220,5 @@ public class BlogPageController implements Initializable {
         }
     }
 
-    @FXML
-    private void translate(ActionEvent event) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
-        RequestBody body = new FormBody.Builder()
-                .add("q", "Hello, world!")
-                .add("target", "es")
-                .add("source", "en")
-                .build();
-
-        Request request = new Request.Builder()
-                .url("https://google-translate1.p.rapidapi.com/language/translate/v2")
-                .post(body)
-                .addHeader("content-type", "application/x-www-form-urlencoded")
-                .addHeader("Accept-Encoding", "application/gzip")
-                .addHeader("X-RapidAPI-Key", "34e1d1f9a3msh91cd1774841a4e2p18aec5jsn46858db31efa")
-                .addHeader("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
-                .build();
-
-        Response response = client.newCall(request).execute();
-        System.out.println(response.body().string());
-    }
 
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -64,7 +64,6 @@
          </padding>
       </ScrollPane>
       <Label fx:id="categoryLabel" layoutX="728.0" layoutY="164.0" text="Category" />
-      <HBox fx:id="tagContainer" layoutX="539.0" layoutY="226.0" prefHeight="41.0" prefWidth="601.0" spacing="20.0" />
-      <Button fx:id="translate_blog" layoutX="916.0" layoutY="159.0" mnemonicParsing="false" onAction="#translate" text="Translate" />
+      <FlowPane fx:id="tagContainer" layoutX="539.0" layoutY="228.0" prefHeight="39.0" prefWidth="601.0" />
    </children>
 </AnchorPane>
