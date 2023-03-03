@@ -64,6 +64,6 @@
          </padding>
       </ScrollPane>
       <Label fx:id="categoryLabel" layoutX="728.0" layoutY="164.0" text="Category" />
-      <FlowPane fx:id="tagContainer" layoutX="539.0" layoutY="228.0" prefHeight="39.0" prefWidth="601.0" />
+      <FlowPane fx:id="tagContainer" hgap="20.0" layoutX="539.0" layoutY="228.0" prefHeight="39.0" prefWidth="601.0" />
    </children>
 </AnchorPane>
