@@ -16,7 +16,6 @@ import com.artmart.models.Session;
 import com.artmart.models.Tag;
 import com.artmart.models.User;
 import com.artmart.services.BlogService;
-import io.github.cdimascio.dotenv.Dotenv;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -44,11 +43,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import net.suuft.libretranslate.Language;
+import net.suuft.libretranslate.Translator;
 
 /**
  * FXML Controller class
@@ -85,6 +85,8 @@ public class BlogPageController implements Initializable {
     private Label categoryLabel;
     @FXML
     private FlowPane tagContainer;
+    @FXML
+    private Button translateBtn;
 
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
@@ -98,6 +100,7 @@ public class BlogPageController implements Initializable {
     private User connectedUser = new User();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
+//    private final String[] lang = {"RUSSIAN", "ENGLISH", "ARABIC", "CHINESE", "FRENCH", "GERMAN", "ITALIAN", "JAPANESE", "KOREAN", "PORTUGUESE", "SPANISH", "TURKISH", " NONE"};
 
     /**
      * Initializes the controller class.
@@ -220,5 +223,18 @@ public class BlogPageController implements Initializable {
         }
     }
 
+    @FXML
+    private void translate(ActionEvent event) {
+        ComboBox<Language> toComboBox = new ComboBox<>(FXCollections.observableArrayList(Language.values()));
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Translate Blog");
+        alert.setHeaderText("Choose the language you want to translate the blog to ");
+        alert.setGraphic(toComboBox);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            this.blogContent.setText(Translator.translate(Language.ENGLISH, toComboBox.getSelectionModel().getSelectedItem(), this.blogContent.getText()));
+        }
+
+    }
 
 }

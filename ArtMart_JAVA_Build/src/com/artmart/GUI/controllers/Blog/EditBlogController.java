@@ -177,7 +177,7 @@ public class EditBlogController implements Initializable {
                 String[] parts = this.tags.split("#");
                 for (String part : parts) {
                     Tag testTag = this.blogService.getOneTagByName(part);
-                    if (testTag == null && !part.equals("")) {
+                    if (testTag == null ) {
                         Tag testTag1 = new Tag(part);
                         int test = this.blogService.addTag(testTag1);
                         Tag resTag = blogService.getOneTagByName(part);
