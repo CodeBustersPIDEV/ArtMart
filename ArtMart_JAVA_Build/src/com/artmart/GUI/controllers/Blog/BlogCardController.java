@@ -113,7 +113,6 @@ public class BlogCardController implements Initializable {
     @FXML
     private void viewBlog(ActionEvent event) {
         try {
-//        this.SelectUserAndProduct();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogPage.fxml"));
             Parent root = loader.load();

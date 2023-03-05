@@ -5,13 +5,9 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
-import com.artmart.dao.UserDao;
 import com.artmart.models.Comment;
-import com.artmart.models.Session;
-import com.artmart.models.User;
 import com.artmart.services.BlogService;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -45,23 +41,25 @@ public class CommentCardController implements Initializable {
     private MenuItem deleteBtn;
     @FXML
     private MenuItem editBtn;
-    private TextArea editComment_content = new TextArea();
-
-    int blog_id;
 
     private final BlogService blogService = new BlogService();
-    private final UserDao userService = new UserDao();
     private Comment viewComment = new Comment();
-    private User connectedUser = new User();
-    HashMap user = (HashMap) Session.getActiveSessions();
-    private Session session = new Session();
+    private TextArea editComment_content = new TextArea();
+    int blog_id;
     private int id;
-    private boolean isEdited = false;
-    private boolean isDeleted = false;
+    BlogPageController controller;
 
     /**
      * Initializes the controller class.
      */
+    public void setController(BlogPageController controller) {
+        this.controller = controller;
+    }
+
+    public void setAuthorVisibility() {
+        this.iconBtn.setVisible(false);
+    }
+
     public void setCommentContent(String content) {
         this.comment_content.setText(content);
     }
@@ -82,27 +80,21 @@ public class CommentCardController implements Initializable {
         this.commentID.setText(comment_id);
     }
 
-    public boolean getIsEdited() {
-        return this.isEdited;
-    }
-
-    public boolean getIsDeleted() {
-        return this.isDeleted;
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
     }
 
     @FXML
     private void deleteComment(ActionEvent event) {
-        int id = Integer.parseInt(this.commentID.getText());
-        this.isDeleted = blogService.deleteComment(id);
+        this.id = Integer.parseInt(this.commentID.getText());
+        blogService.deleteComment(id);
+        this.controller.refresh(blog_id);
     }
 
     @FXML
     private void editComment(ActionEvent event) {
-        int id = Integer.parseInt(this.commentID.getText());
+        this.id = Integer.parseInt(this.commentID.getText());
         this.viewComment = blogService.getOneComment(id);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Edit Your Comment");
@@ -114,8 +106,8 @@ public class CommentCardController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             editedComment.setContent(editComment_content.getText());
-            this.isEdited = this.blogService.updateComment(id, editedComment);
-            System.out.println(this.isEdited);
+            this.blogService.updateComment(id, editedComment);
+            this.controller.refresh(blog_id);
         }
     }
 

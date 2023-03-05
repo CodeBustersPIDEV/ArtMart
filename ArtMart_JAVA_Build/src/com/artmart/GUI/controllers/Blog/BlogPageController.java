@@ -119,10 +119,12 @@ public class BlogPageController implements Initializable {
     }
 
     public void setupComments(int bc_id) {
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
         List<Comment> commentList = new ArrayList<>();
         commentList = this.blogService.getAllComments(bc_id);
         if (commentList != null) {
-            for (Comment comment : commentList) {
+            commentList.forEach(comment -> {
+//            for (Comment comment : commentList) {
                 String username = userService.getUser(comment.getAuthor()).getUsername();
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/CommentCard.fxml"));
@@ -133,15 +135,16 @@ public class BlogPageController implements Initializable {
                     controller.setCommentContent(comment.getContent());
                     controller.setUsername(username);
                     controller.setBlogID(bc_id);
+                    controller.setController(this);
+                    if (comment.getAuthor() != this.session.getUserId()) {
+                        controller.setAuthorVisibility();
+                    }
                     controller.setCommentID(Integer.toString(comment.getId()));
                     controller.setPostDate(comment.getPublishDate().toString());
-                    this.isEdited = controller.getIsEdited();
-                    this.isDeleted = controller.getIsDeleted();
-
                 } catch (IOException e) {
                     e.getMessage();
                 }
-            }
+            });
         }
     }
 
@@ -211,9 +214,8 @@ public class BlogPageController implements Initializable {
     }
 
     public void refresh(int bc_id) {
-        if (isEdited|| isDeleted) {
-            setupComments(bc_id);
-        }
+        this.commentContainer.getChildren().clear();
+        setupComments(bc_id);
     }
 
     @FXML

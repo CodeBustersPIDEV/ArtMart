@@ -1,11 +1,8 @@
 package com.artmart.GUI.controllers.Blog;
 
-import com.artmart.GUI.controllers.MainViewController;
-import com.artmart.GUI.controllers.User.LoginController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.models.Media;
-import com.artmart.models.Session;
 import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +21,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
