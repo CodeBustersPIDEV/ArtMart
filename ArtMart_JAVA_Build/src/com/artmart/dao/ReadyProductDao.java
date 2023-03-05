@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Product;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,7 +50,8 @@ public class ReadyProductDao {
                         productResultSet.getString("dimensions"),
                         productResultSet.getInt("weight"),
                         productResultSet.getString("material"),
-                        productResultSet.getString("image")
+                        productResultSet.getString("image"),
+                        productResultSet.getInt("user_ID")
                 );
                 ReadyProduct readyProduct = new ReadyProduct(
                         resultSet.getInt("ready_product_ID"),

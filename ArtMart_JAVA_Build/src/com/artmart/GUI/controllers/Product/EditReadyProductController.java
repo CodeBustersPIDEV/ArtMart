@@ -5,18 +5,23 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.ProductDao;
 import com.artmart.dao.ReadyProductDao;
+import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
 import com.artmart.models.Product;
 import com.artmart.models.ReadyProduct;
+import com.artmart.models.Session;
+import com.artmart.models.User;
 import com.artmart.services.ProductService;
 import com.artmart.services.ReadyProductService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -45,6 +50,8 @@ public class EditReadyProductController implements Initializable {
     @FXML
     private Label prodID;
     @FXML
+    private TextField userID;
+    @FXML
     private TextField nameF;
     @FXML
     private TextArea descriptionF;
@@ -71,14 +78,25 @@ public class EditReadyProductController implements Initializable {
     private Button backBtn;
     @FXML
     private Button uploadImage;
+    @FXML
+    private Label username;
 
     private File selectedImageFile;
 
     private ReadyProduct viewProd = new ReadyProduct();
     private int id;
 
+    HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
+    private User connectedUser = new User();
+    private final UserDao userService = new UserDao();
+    SignUpController profile = new SignUpController();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
+        this.connectedUser = this.userService.getUser(this.session.getUserId());
+        this.username.setText(this.connectedUser.getName());
         populateComboBox();
     }
 
@@ -98,6 +116,7 @@ public class EditReadyProductController implements Initializable {
     public void setUpData(String pid) {
         try {
             this.prodID.setText(pid);
+            this.userID.setText(this.connectedUser.getName());
             this.id = Integer.parseInt(this.prodID.getText());
             ReadyProductService readyProductService = new ReadyProductService();
 

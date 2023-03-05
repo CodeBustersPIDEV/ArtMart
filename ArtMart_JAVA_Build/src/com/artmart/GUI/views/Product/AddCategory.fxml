@@ -91,7 +91,7 @@
                 </LinearGradient>
             </stroke>
         </Rectangle>
-        <Button fx:id="backBtn" alignment="CENTER" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#onBack" prefHeight="18.0" prefWidth="28.0" text="🔙" textAlignment="CENTER" textFill="#21153d">
+        <Button fx:id="backBtn" alignment="CENTER" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#onBack" prefHeight="18.0" prefWidth="28.0" text="←" textAlignment="CENTER" textFill="#21153d">
             <font>
                 <Font name="Rockwell Nova Bold" size="20.0" />
             </font>

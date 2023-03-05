@@ -13,28 +13,34 @@ public class ReadyProduct extends Product {
     }
 
     public ReadyProduct(int readyProductId, Product p, int price) {
-        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
+        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage(), p.getUserId());
         this.readyProductId = readyProductId;
         this.price = price;
     }
 
     public ReadyProduct(Product p) {
-        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
+        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage(), p.getUserId());
     }
 
     public ReadyProduct(int aInt, int productId, Product product) {
     }
 
     public ReadyProduct(Product p, int price) {
-        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
+        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage(), p.getUserId());
         this.price = price;
     }
 
     public ReadyProduct(int readyProductId, Product p) {
-        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage());
+        super(p.getProductId(), p.getCategoryId(), p.getName(), p.getDescription(), p.getDimensions(), p.getWeight(), p.getMaterial(), p.getImage(), p.getUserId());
         this.readyProductId = readyProductId;
     }
 
+    public ReadyProduct(int categoryId, String name, String description, String dimensions, float weight, String material, String image, int userId, int price) {
+        super(categoryId, name, description, dimensions, weight, material, image, userId);
+        this.price = price;
+    }
+    
+    
     public ReadyProduct(int categoryId, String name, String description, String dimensions, float weight, String material, String image, int price) {
         super(categoryId, name, description, dimensions, weight, material, image);
         this.price = price;

@@ -70,12 +70,12 @@
             </LinearGradient>
          </stroke>
       </Rectangle>
-      <Text fill="#21153d" layoutX="779.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating:" textAlignment="CENTER">
+      <Text fill="#21153d" layoutX="767.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating:" textAlignment="CENTER">
          <font>
             <Font name="Dubai Bold" size="17.0" />
          </font>
       </Text>
-      <Label fx:id="rating" layoutX="835.0" layoutY="24.0" text="Rating" textFill="#21153d">
+      <Label fx:id="rating" layoutX="823.0" layoutY="24.0" text="Rating" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="17.0" />
          </font>
@@ -88,5 +88,10 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
+      <Text fill="#21153d" layoutX="846.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/10" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="17.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

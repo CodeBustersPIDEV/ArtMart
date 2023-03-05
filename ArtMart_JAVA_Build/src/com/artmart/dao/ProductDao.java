@@ -43,7 +43,8 @@ public class ProductDao implements IProductDao {
                     resultSet.getString("dimensions"),
                     resultSet.getFloat("weight"),
                     resultSet.getString("material"),
-                    resultSet.getString("image")
+                    resultSet.getString("image"),
+                    resultSet.getInt("user_ID")
             );
             return product;
         }
@@ -117,8 +118,9 @@ public class ProductDao implements IProductDao {
             float weight = result.getFloat("weight");
             String material = result.getString("material");
             String image = result.getString("image");
+            int user = result.getInt("user_ID");
 
-            Product product = new Product(product_ID, category_ID, name, description, dimensions, weight, material, image);
+            Product product = new Product(product_ID, category_ID, name, description, dimensions, weight, material, image, user);
             products.add(product);
         }
         return products;
