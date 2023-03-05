@@ -5,6 +5,7 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
+import com.artmart.models.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +50,7 @@ public class BlogCardController implements Initializable {
     private Rectangle cont2;
     private Image image;
     double h;
+    private User connectedUser = new User();
 
     /**
      * Initializes the controller class.
@@ -72,6 +74,10 @@ public class BlogCardController implements Initializable {
 
     public void setBlogTitle(String title) {
         this.blog_title.setText(title);
+    }
+
+    public void setConnectedUser(User connectedUser) {
+        this.connectedUser = connectedUser;
     }
 
     public void setCardCont1(double h) {

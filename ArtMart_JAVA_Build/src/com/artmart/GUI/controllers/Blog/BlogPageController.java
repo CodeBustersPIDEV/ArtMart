@@ -100,6 +100,8 @@ public class BlogPageController implements Initializable {
     private User connectedUser = new User();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
+    private boolean isEdited = false;
+    private boolean isDeleted = false;
 //    private final String[] lang = {"RUSSIAN", "ENGLISH", "ARABIC", "CHINESE", "FRENCH", "GERMAN", "ITALIAN", "JAPANESE", "KOREAN", "PORTUGUESE", "SPANISH", "TURKISH", " NONE"};
 
     /**
@@ -133,6 +135,9 @@ public class BlogPageController implements Initializable {
                     controller.setBlogID(bc_id);
                     controller.setCommentID(Integer.toString(comment.getId()));
                     controller.setPostDate(comment.getPublishDate().toString());
+                    this.isEdited = controller.getIsEdited();
+                    this.isDeleted = controller.getIsDeleted();
+
                 } catch (IOException e) {
                     e.getMessage();
                 }
@@ -176,18 +181,8 @@ public class BlogPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/CommentCard.fxml"));
-//        CommentCardController controller = loader.getController();
-//        boolean test = controller.getIsEdited();
-//        System.out.println(test);
-//        if (test) {
-//            this.comment_content.setText("");
-//            this.commentContainer.getChildren().clear();
-//            setupComments(this.id);
-//        }
         this.session = (Session) user.get(user.keySet().toArray()[0]);
-        this.connectedUser = this.userService.getUser(this.session.getUserId());
-
+//        this.connectedUser = this.userService.getUser(this.session.getUserId());
     }
 
     @FXML
@@ -216,9 +211,7 @@ public class BlogPageController implements Initializable {
     }
 
     public void refresh(int bc_id) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/CommentCard.fxml"));
-        CommentCardController controller = loader.getController();
-        if (controller.getIsEdited() || controller.getIsDeleted()) {
+        if (isEdited|| isDeleted) {
             setupComments(bc_id);
         }
     }
