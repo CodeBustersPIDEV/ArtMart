@@ -42,11 +42,11 @@ public class TagManagementController implements Initializable {
     @FXML
     private TableView<Tag> tagTableView;
     @FXML
-    private TableColumn<Tag, Integer> catID_Column;
-    @FXML
     private TableColumn<Tag, String> catNameColumn;
     @FXML
     private TableColumn<Tag, Void> operationColumn;
+    @FXML
+    private Button addTag;
     private final BlogService blogService = new BlogService();
     private List<Tag> tagList;
 
@@ -59,7 +59,6 @@ public class TagManagementController implements Initializable {
         ObservableList<Tag> items = FXCollections.observableArrayList(
                 this.tagList.stream().collect(Collectors.toList())
         );
-        this.catID_Column.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         this.catNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -95,8 +94,6 @@ public class TagManagementController implements Initializable {
                     ObservableList<Tag> items = FXCollections.observableArrayList(
                             tagList.stream().collect(Collectors.toList())
                     );
-                    catID_Column.setCellValueFactory(new PropertyValueFactory<>("id"));
-
                     catNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
                     tagTableView.setItems(items);
@@ -132,6 +129,18 @@ public class TagManagementController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
+
+    @FXML
+    private void goToAddTag(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addTag.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
 }
-
-

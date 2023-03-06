@@ -57,7 +57,7 @@ public class CommentCardController implements Initializable {
     }
 
     public void setAuthorVisibility() {
-        this.iconBtn.setVisible(false);
+        this.iconBtn.setVisible(true);
     }
 
     public void setCommentContent(String content) {

@@ -63,7 +63,7 @@ public class AddCategoryController implements Initializable {
                 if (result.get() == ButtonType.OK) {
                     try {
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCategoryManagement.fxml"));
                         Scene scene = new Scene(root);
                         stage.setResizable(false);
                         stage.setScene(scene);

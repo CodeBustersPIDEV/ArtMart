@@ -8,7 +8,6 @@ package com.artmart.GUI.controllers.Blog;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Session;
 import com.artmart.models.User;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -22,8 +21,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -42,11 +39,7 @@ public class BlogMenuController implements Initializable {
     @FXML
     private Button link_blog_manage;
     @FXML
-    private Button link_add_category;
-    @FXML
     private Button link_Cat_manage;
-    @FXML
-    private Button link_add_tag;
     @FXML
     private Button link_Tag_manage;
     @FXML
@@ -120,38 +113,10 @@ public class BlogMenuController implements Initializable {
     }
 
     @FXML
-    private void goToAddCategory(ActionEvent event) {
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addCategory.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
-    @FXML
     private void goToCatManagement(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCategoryManagement.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
-    @FXML
-    private void goToAddTag(ActionEvent event) {
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addTag.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);

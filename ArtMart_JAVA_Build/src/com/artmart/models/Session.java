@@ -17,6 +17,7 @@ public class Session {
     private static Session instance;
     private int userId;
     private String username;
+    private String userRole;
     private String sessionId;
     private static final Map<String, Session> activeSessions = new HashMap<>();
 
@@ -36,6 +37,14 @@ public class Session {
 
     public int getUserId() {
         return userId;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public void setUsername(String username) {
@@ -91,9 +100,11 @@ public class Session {
     public String toString() {
         return "Session{" + "userId=" + userId + ", username=" + username + ", sessionId=" + sessionId + '}';
     }
-      public static Session getSession(String sessionId) {
+
+    public static Session getSession(String sessionId) {
         return activeSessions.get(sessionId);
     }
+
     public static int getCurrentUserId(String sessionId) {
         Session session = getSession(sessionId);
         if (session != null) {
@@ -101,6 +112,5 @@ public class Session {
         }
         return 0;
     }
-    
 
 }

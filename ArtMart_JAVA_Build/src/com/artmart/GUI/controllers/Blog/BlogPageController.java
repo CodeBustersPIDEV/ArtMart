@@ -136,7 +136,7 @@ public class BlogPageController implements Initializable {
                     controller.setUsername(username);
                     controller.setBlogID(bc_id);
                     controller.setController(this);
-                    if (comment.getAuthor() != this.session.getUserId()) {
+                    if (comment.getAuthor() == this.session.getUserId() || this.session.getUserRole().equals("Admin")) {
                         controller.setAuthorVisibility();
                     }
                     controller.setCommentID(Integer.toString(comment.getId()));

@@ -103,27 +103,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="60.0" prefWidth="361.0" spacing="20.0">
                <children>
-                  <Button fx:id="link_add_category" mnemonicParsing="false" onAction="#goToAddCategory" text="Add Category" textFill="#21153d">
-                     <font>
-                        <Font name="Dubai Bold" size="15.0" />
-                     </font>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Button>
                   <Button fx:id="link_Cat_manage" mnemonicParsing="false" onAction="#goToCatManagement" text="Category Management" textFill="#21153d">
-                     <font>
-                        <Font name="Dubai Bold" size="15.0" />
-                     </font>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="352.0" spacing="20.0">
-               <children>
-                  <Button fx:id="link_add_tag" mnemonicParsing="false" onAction="#goToAddTag" text="Add Tag" textFill="#21153d">
                      <font>
                         <Font name="Dubai Bold" size="15.0" />
                      </font>

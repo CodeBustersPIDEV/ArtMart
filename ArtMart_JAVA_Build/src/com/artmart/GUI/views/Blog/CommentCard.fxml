@@ -20,7 +20,7 @@
       </Label>
       <Label fx:id="comment_content" alignment="TOP_LEFT" layoutX="18.0" layoutY="73.0" prefHeight="46.0" prefWidth="268.0" text="Label" wrapText="true" />
       <Label fx:id="commentID" layoutX="14.0" layoutY="10.0" text="  " visible="false" />
-      <MenuButton fx:id="iconBtn" layoutX="266.0" layoutY="9.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="19.0">
+      <MenuButton fx:id="iconBtn" layoutX="266.0" layoutY="9.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="19.0" visible="false">
         <items>
           <MenuItem fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteComment" text="Delete" />
           <MenuItem fx:id="editBtn" mnemonicParsing="false" onAction="#editComment" text="Edit" />

@@ -43,14 +43,15 @@ public class BlogCategoryManagementController implements Initializable {
     @FXML
     private TableView<BlogCategories> categoryTableView;
     @FXML
-    private TableColumn<BlogCategories, Integer> catID_Column;
-    @FXML
     private TableColumn<BlogCategories, String> catNameColumn;
     @FXML
     private TableColumn<BlogCategories, Void> operationColumn;
-   
+
     private final BlogService blogService = new BlogService();
     private List<BlogCategories> blogCategoriesList;
+    @FXML
+    private Button addCat;
+
     /**
      * Initializes the controller class.
      */
@@ -60,8 +61,6 @@ public class BlogCategoryManagementController implements Initializable {
         ObservableList<BlogCategories> items = FXCollections.observableArrayList(
                 this.blogCategoriesList.stream().collect(Collectors.toList())
         );
-        this.catID_Column.setCellValueFactory(new PropertyValueFactory<>("id"));
-
         this.catNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         this.categoryTableView.setItems(items);
@@ -96,8 +95,6 @@ public class BlogCategoryManagementController implements Initializable {
                     ObservableList<BlogCategories> items = FXCollections.observableArrayList(
                             blogCategoriesList.stream().collect(Collectors.toList())
                     );
-                    catID_Column.setCellValueFactory(new PropertyValueFactory<>("id"));
-
                     catNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
                     categoryTableView.setItems(items);
@@ -127,6 +124,20 @@ public class BlogCategoryManagementController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goToAddCat(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addCategory.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
