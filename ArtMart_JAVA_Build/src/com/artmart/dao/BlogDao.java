@@ -56,6 +56,7 @@ public class BlogDao implements IBlogServiceDao {
                         result.getString("title"),
                         result.getString("content"),
                         result.getDate("date"),
+                        result.getDouble("rating"),
                         result.getInt("author")
                 );
             }
@@ -65,6 +66,7 @@ public class BlogDao implements IBlogServiceDao {
         return blogFound;
     }
     
+    @Override
      public Blog getOneBlogByTitle(String blog_title) {
         Blog blogFound = null;
         try {
@@ -80,6 +82,7 @@ public class BlogDao implements IBlogServiceDao {
                         result.getString("title"),
                         result.getString("content"),
                         result.getDate("date"),
+                        result.getDouble("rating"),
                         result.getInt("author")
                 );
             }
@@ -102,6 +105,7 @@ public class BlogDao implements IBlogServiceDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getDate("date"),
+                        rs.getDouble("rating"),
                         rs.getInt("author")
                 ));
             }
@@ -124,6 +128,7 @@ public class BlogDao implements IBlogServiceDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getDate("date"),
+                        rs.getDouble("rating"),
                         rs.getInt("author")
                 ));
             }
@@ -147,6 +152,7 @@ public class BlogDao implements IBlogServiceDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getDate("date"),
+                        rs.getDouble("rating"),
                         rs.getInt("author")
                 ));
             }
@@ -164,6 +170,21 @@ public class BlogDao implements IBlogServiceDao {
             st.setString(1, editedBlog.getTitle());
             st.setString(2, editedBlog.getContent());
             st.setInt(3, blog_id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            return false;
+        }
+    }
+    
+        @Override
+    public boolean updateBlogRating(int blog_id, double blogRating) {
+        try {
+            String sql = "UPDATE blogs SET rating = ? WHERE blogs_ID = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setDouble(1, blogRating);
+            st.setInt(2, blog_id);
             st.executeUpdate();
             return true;
         } catch (SQLException e) {

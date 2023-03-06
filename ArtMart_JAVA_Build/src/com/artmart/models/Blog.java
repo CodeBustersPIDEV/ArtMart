@@ -8,27 +8,33 @@ public class Blog {
     private String title;
     private String content;
     private Date publishDate;
+    private double rating;
     private int author;
 
     public Blog() {
     }
-public Blog(String title, String content, int author) {
+
+    public Blog(String title, String content, double rating, int author) {
         this.title = title;
         this.content = content;
-        this.author = author;
-    }
-    public Blog(String title, String content, Date publishDate, int author) {
-        this.title = title;
-        this.content = content;
-        this.publishDate = publishDate;
+        this.rating = rating;
         this.author = author;
     }
 
-    public Blog(int id, String title, String content, Date publishDate, int author) {
+    public Blog(String title, String content, Date publishDate, double rating, int author) {
+        this.title = title;
+        this.content = content;
+        this.publishDate = publishDate;
+        this.rating = rating;
+        this.author = author;
+    }
+
+    public Blog(int id, String title, String content, Date publishDate, double rating, int author) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.publishDate = publishDate;
+        this.rating = rating;
         this.author = author;
     }
 
@@ -37,9 +43,10 @@ public Blog(String title, String content, int author) {
         return "Blog{" + "id=" + id + ", title=" + title + ", content=" + content + ", publishDate=" + publishDate + ", author=" + author + '}';
     }
 
-    public Blog(String title, String content) {
+    public Blog(String title, String content ,double rating) {
         this.title = title;
         this.content = content;
+        this.rating = rating;
     }
 
     public int getId() {
@@ -62,6 +69,10 @@ public Blog(String title, String content, int author) {
         return author;
     }
 
+    public double getRating() {
+        return rating;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -81,5 +92,9 @@ public Blog(String title, String content, int author) {
     public void setAuthor(int author) {
         this.author = author;
     }
-    
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
 }

@@ -49,6 +49,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import net.suuft.libretranslate.Language;
 import net.suuft.libretranslate.Translator;
+import java.text.DecimalFormat;
 
 /**
  * FXML Controller class
@@ -87,22 +88,26 @@ public class BlogPageController implements Initializable {
     private FlowPane tagContainer;
     @FXML
     private Button translateBtn;
+    @FXML
+    private ComboBox<Integer> rating;
+    @FXML
+    private Label ratingLabel;
 
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     private Blog viewBlog = new Blog();
-    private int id;
+    private int id, perso_rate;
+    private double blogRating;
     private Image image;
     private Media img = new Media();
     private BlogCategories resBlogCategories = new BlogCategories();
     private List<Tag> tags = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
     private List<HasTag> listHasTag;
     private User connectedUser = new User();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
-    private boolean isEdited = false;
-    private boolean isDeleted = false;
-//    private final String[] lang = {"RUSSIAN", "ENGLISH", "ARABIC", "CHINESE", "FRENCH", "GERMAN", "ITALIAN", "JAPANESE", "KOREAN", "PORTUGUESE", "SPANISH", "TURKISH", " NONE"};
 
     /**
      * Initializes the controller class.
@@ -120,8 +125,7 @@ public class BlogPageController implements Initializable {
 
     public void setupComments(int bc_id) {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
-        List<Comment> commentList = new ArrayList<>();
-        commentList = this.blogService.getAllComments(bc_id);
+        this.commentList = this.blogService.getAllComments(bc_id);
         if (commentList != null) {
             commentList.forEach(comment -> {
                 String username = userService.getUser(comment.getAuthor()).getUsername();
@@ -155,6 +159,7 @@ public class BlogPageController implements Initializable {
         this.listHasTag = this.blogService.getAllTagsbyBlog(this.id);
         this.categoryLabel.setText(this.resBlogCategories.getName());
         this.viewBlog = blogService.getOneBlog(id);
+        this.ratingLabel.setText(String.valueOf(df.format(viewBlog.getRating())));
         this.img = this.blogService.getOneMediaByBlogID(id);
         if (!(img == null)) {
             File file = new File(img.getFile_path());
@@ -183,6 +188,7 @@ public class BlogPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.rating.getItems().addAll(1, 2, 3, 4, 5);
         this.session = (Session) user.get(user.keySet().toArray()[0]);
 //        this.connectedUser = this.userService.getUser(this.session.getUserId());
     }
@@ -203,13 +209,21 @@ public class BlogPageController implements Initializable {
 
     @FXML
     private void postComment(ActionEvent event) {
-        Comment comment = new Comment(this.comment_content.getText(), this.session.getUserId(), this.id);
+        Comment comment = new Comment(this.comment_content.getText(), this.perso_rate, this.session.getUserId(), this.id);
         int test = this.blogService.addComment(comment);
         if (test == 1) {
             this.comment_content.setText("");
+            this.rating.getSelectionModel().clearSelection();
             this.commentContainer.getChildren().clear();
             setupComments(this.id);
+            calculateRating(this.id);
         }
+    }
+
+    public void calculateRating(int idBlog) {
+        this.blogRating = this.blogService.calculateRating(idBlog);
+        this.blogService.updateBlogRating(idBlog, this.blogRating);
+        this.ratingLabel.setText(String.valueOf(df.format(this.blogRating)));
     }
 
     public void refresh(int bc_id) {
@@ -229,6 +243,11 @@ public class BlogPageController implements Initializable {
             this.blogContent.setText(Translator.translate(Language.ENGLISH, toComboBox.getSelectionModel().getSelectedItem(), this.blogContent.getText()));
         }
 
+    }
+
+    @FXML
+    private void rate(ActionEvent event) {
+        this.perso_rate = this.rating.getSelectionModel().getSelectedItem();
     }
 
 }

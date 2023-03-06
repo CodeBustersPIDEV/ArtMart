@@ -24,6 +24,8 @@ public interface IBlogService {
     public List<Blog> searchBlogsByTitle(String blog_title);
 
     public boolean updateBlog(int blog_id, Blog editedBlog);
+    
+    public boolean updateBlogRating(int blog_id, double blogRating);
 
     public boolean deleteBlog(int blog_id);
 
@@ -34,6 +36,8 @@ public interface IBlogService {
     public List<Comment> getAllComments(int blog_id);
 
     public boolean updateComment(int comment_id, Comment editedComment);
+    
+    public double calculateRating(int blog_id);
 
     public boolean deleteComment(int comment_id);
 
