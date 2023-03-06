@@ -2,6 +2,8 @@ package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
+import com.artmart.models.BlogCategories;
+import com.artmart.models.HasCategory;
 import com.artmart.models.Media;
 import com.artmart.services.BlogService;
 import java.io.File;
@@ -18,6 +20,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,8 +45,55 @@ public class BlogGUIController implements Initializable {
     private Button searchBtn;
     @FXML
     private Button cancelSearchBtn;
+    @FXML
+    private MenuItem cat;
+    @FXML
+    private MenuItem keyw;
+    @FXML
+    private ComboBox<BlogCategories> catComboBox;
     private final BlogService blogService = new BlogService();
     private List<Blog> matchingBlogs;
+    private List<BlogCategories> blogCategoriesList;
+
+    private void initBlogs() {
+        UserDao userService = new UserDao();
+        List<Blog> blogList = new ArrayList<>();
+        blogList = this.blogService.getAllBlogs();
+        blogList.forEach(blog -> {
+            String username = userService.getUser(blog.getAuthor()).getUsername();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCard.fxml"));
+                Pane pane = loader.load();
+                pane.setId("blog_card" + blog.getId());
+                BlogCardController controller = loader.getController();
+                Media img = this.blogService.getOneMediaByBlogID(blog.getId());
+                if (img == null) {
+                    File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
+                    Image image = new Image(file.toURI().toString());
+                    controller.setImage(image);
+                    controller.setBlogImage(image);
+//                    System.out.println("image"+image.getHeight());
+//                    controller.setCardCont1(image.getHeight());
+//                    controller.setCardCont2(image.getHeight());
+                } else {
+                    File file = new File(img.getFile_path());
+                    Image image = new Image(file.toURI().toString());
+                    controller.setImage(image);
+                    controller.setBlogImage(image);
+//                    System.out.println("image"+image.getHeight());
+//                    controller.setCardCont1(image.getHeight());
+//                    controller.setCardCont2(image.getHeight());
+                }
+                controller.setBlogTitle(blog.getTitle());
+                container.getChildren().add(pane);
+                controller.setUsername(username);
+                controller.setBlogID(Integer.toString(blog.getId()));
+                controller.setPublishDate(blog.getPublishDate().toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,10 +111,9 @@ public class BlogGUIController implements Initializable {
         imageView2.setFitHeight(16);
         this.cancelSearchBtn.setGraphic(imageView2);
 
-        BlogService blogService = new BlogService();
         UserDao userService = new UserDao();
         List<Blog> blogList = new ArrayList<>();
-        blogList = blogService.getAllBlogs();
+        blogList = this.blogService.getAllBlogs();
         blogList.forEach(blog -> {
             String username = userService.getUser(blog.getAuthor()).getUsername();
             try {
@@ -71,7 +121,7 @@ public class BlogGUIController implements Initializable {
                 Pane pane = loader.load();
                 pane.setId("blog_card" + blog.getId());
                 BlogCardController controller = loader.getController();
-                Media img = blogService.getOneMediaByBlogID(blog.getId());
+                Media img = this.blogService.getOneMediaByBlogID(blog.getId());
                 if (img == null) {
                     File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
                     Image image = new Image(file.toURI().toString());
@@ -216,5 +266,74 @@ public class BlogGUIController implements Initializable {
                 e.printStackTrace();
             }
         });
+    }
+
+    @FXML
+    private void setCategoryCombobox(ActionEvent event) {
+        this.container.getChildren().clear();
+        this.initBlogs();
+        this.catComboBox.setVisible(true);
+        this.searchText.setVisible(false);
+        this.searchBtn.setVisible(false);
+        this.cancelSearchBtn.setVisible(false);
+
+        blogCategoriesList = blogService.getAllBlogCategories();
+        blogCategoriesList.forEach(cat -> {
+            this.catComboBox.getItems().add(cat);
+
+        });
+
+    }
+
+    @FXML
+    private void setKeywordsSearchField(ActionEvent event) {
+        this.container.getChildren().clear();
+        this.initBlogs();
+        this.catComboBox.setVisible(false);
+        this.searchText.setVisible(true);
+        this.searchBtn.setVisible(true);
+        this.cancelSearchBtn.setVisible(true);
+    }
+
+    @FXML
+    private void searchByCategory(ActionEvent event) {
+        List<HasCategory> hasCatList = new ArrayList<>();
+        List<Blog> blogsByCat = new ArrayList<>();
+        hasCatList = this.blogService.getAllCatbyBlog(this.catComboBox.getValue().getId());
+        hasCatList.forEach(hasCat -> {
+            blogsByCat.add(this.blogService.getOneBlog(hasCat.getBlog_id()));
+        });
+
+        this.container.getChildren().clear();
+        UserDao userService = new UserDao();
+        blogsByCat.forEach(blog -> {
+            String username = userService.getUser(blog.getAuthor()).getUsername();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCard.fxml"));
+                Pane pane = loader.load();
+                pane.setId("blog_card" + blog.getId());
+                BlogCardController controller = loader.getController();
+                Media img = blogService.getOneMediaByBlogID(blog.getId());
+                if (img == null) {
+                    File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
+                    Image image = new Image(file.toURI().toString());
+                    controller.setImage(image);
+                    controller.setBlogImage(image);
+                } else {
+                    File file = new File(img.getFile_path());
+                    Image image = new Image(file.toURI().toString());
+                    controller.setImage(image);
+                    controller.setBlogImage(image);
+                }
+                controller.setBlogTitle(blog.getTitle());
+                container.getChildren().add(pane);
+                controller.setUsername(username);
+                controller.setBlogID(Integer.toString(blog.getId()));
+                controller.setPublishDate(blog.getPublishDate().toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 }

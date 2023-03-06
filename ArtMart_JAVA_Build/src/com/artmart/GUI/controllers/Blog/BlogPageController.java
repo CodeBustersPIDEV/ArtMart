@@ -124,7 +124,6 @@ public class BlogPageController implements Initializable {
         commentList = this.blogService.getAllComments(bc_id);
         if (commentList != null) {
             commentList.forEach(comment -> {
-//            for (Comment comment : commentList) {
                 String username = userService.getUser(comment.getAuthor()).getUsername();
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/CommentCard.fxml"));

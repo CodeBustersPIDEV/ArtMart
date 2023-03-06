@@ -38,13 +38,12 @@ public class HasCategoryDao implements IHasCategory {
     }
 
     @Override
-    public List<HasCategory> getAllCatbyBlog(int blog_id) {
+    public List<HasCategory> getAllCatbyBlog(int category_id) {
         List<HasCategory> blog_hasCat = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM has_blog_category WHERE blog_id = ?";
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, blog_id);
-            ResultSet rs = st.executeQuery(sql);
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM has_blog_category WHERE category_id = ?");
+            st.setInt(1, category_id);
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 blog_hasCat.add(new HasCategory(
                         rs.getInt("id"),
