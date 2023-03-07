@@ -11,9 +11,14 @@ import javafx.scene.layout.VBox;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class ApplylistController implements Initializable {
     @FXML
@@ -43,9 +48,13 @@ public class ApplylistController implements Initializable {
     }
 
     @FXML
-    private void exit() {
-        Label label = new Label("Exit button clicked!");
-        vBox.getChildren().add(label);
+    private void exit(ActionEvent event) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
+    Parent root = loader.load();
+    Scene scene = new Scene(root);
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.setScene(scene);
+    stage.show();
     }
 
 

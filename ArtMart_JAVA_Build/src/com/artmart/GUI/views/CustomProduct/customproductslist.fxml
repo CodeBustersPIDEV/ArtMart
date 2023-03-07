@@ -28,5 +28,9 @@
       <Text fx:id="totalp" layoutX="963.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" wrappingWidth="9.219728618860245" />
       <Button layoutX="839.0" layoutY="350.0" mnemonicParsing="false" onAction="#apply" text="Applications" />
       <RadioButton fx:id="def" layoutX="849.0" layoutY="187.0" mnemonicParsing="false" onAction="#def" text="DEFAULT" />
+      <Button layoutX="815.0" layoutY="562.0" mnemonicParsing="false" onAction="#goToInstagram" text="Instagram" />
+      <Button layoutX="816.0" layoutY="520.0" mnemonicParsing="false" onAction="#gofb" text="Facebook" />
+      <Button layoutX="858.0" layoutY="414.0" mnemonicParsing="false" onAction="#goR" text="Reddit" />
+      <Text layoutX="817.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check Others Reviews" />
    </children>
 </AnchorPane>

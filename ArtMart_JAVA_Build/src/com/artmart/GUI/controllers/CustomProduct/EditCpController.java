@@ -28,7 +28,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 /**
  * FXML Controller class
  *
@@ -94,7 +102,7 @@ public class EditCpController implements Initializable {
     }
 
   @FXML
-private void edit(ActionEvent event) throws SQLException, IOException {
+private void edit(ActionEvent event) throws SQLException, IOException, AddressException, MessagingException {
     // Get the user inputs
     String name = nameField.getText();
     String desc = descField.getText();
@@ -151,6 +159,10 @@ private void edit(ActionEvent event) throws SQLException, IOException {
         alert.setContentText("Oops! Can not update product");
         alert.showAndWait();
     }
+    
+    
+  
+    
 }
 
 

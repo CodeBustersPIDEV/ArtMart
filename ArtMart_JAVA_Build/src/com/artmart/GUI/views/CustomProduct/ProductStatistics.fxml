@@ -9,6 +9,7 @@
       <children>
             <StackPane fx:id="chartContainer" prefHeight="560.0" prefWidth="600.0" />
          <Button layoutX="541.0" layoutY="563.0" mnemonicParsing="false" onAction="#print" text="Print" />
+         <Button layoutX="459.0" layoutY="563.0" mnemonicParsing="false" onAction="#qrcode" text="old stats" />
       </children>
    </AnchorPane>
 </StackPane>

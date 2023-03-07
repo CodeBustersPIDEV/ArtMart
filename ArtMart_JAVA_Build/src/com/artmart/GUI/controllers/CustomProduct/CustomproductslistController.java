@@ -29,6 +29,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * FXML Controller class
@@ -231,5 +243,35 @@ int clientId = session.getCurrentUserId(session.getSessionId());
     @FXML
     private void def(ActionEvent event) throws SQLException {
         this.makeList();
+    }
+
+    @FXML
+    private void goToInstagram(ActionEvent event) {
+         String url = "https://www.instagram.com/soltani_amir_/";
+    try {
+        Desktop.getDesktop().browse(new URI(url));
+    } catch (IOException | URISyntaxException e) {
+        e.printStackTrace();
+    }
+    }
+
+    @FXML
+    private void gofb(ActionEvent event) {
+                String url = "https://www.facebook.com/amir.soltani.503/";
+    try {
+        Desktop.getDesktop().browse(new URI(url));
+    } catch (IOException | URISyntaxException e) {
+        e.printStackTrace();
+    }
+    }
+
+    @FXML
+    private void goR(ActionEvent event) {
+                String url = "https://www.reddit.com/search/?q=art";
+    try {
+        Desktop.getDesktop().browse(new URI(url));
+    } catch (IOException | URISyntaxException e) {
+        e.printStackTrace();
+    }
     }
 }

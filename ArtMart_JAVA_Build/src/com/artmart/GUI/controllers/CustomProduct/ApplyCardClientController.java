@@ -17,6 +17,10 @@ import com.twilio.Twilio;
 import com.twilio.converter.Promoter;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import java.awt.AWTException;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 
 import java.net.URI;
 import java.math.BigDecimal;
@@ -62,7 +66,7 @@ public class ApplyCardClientController implements Initializable {
     }
 
     @FXML
-    private void accept() {
+    private void accept() throws AWTException {
         try {
             apply.setStatus("in progress");
             applyDao.updateApply(apply.getApply_ID(), apply);
@@ -87,12 +91,28 @@ String phoneNumber = Session.getSession(session.getSessionId()).getPhoneNumber()
 
     .create();
           System.out.println(message.getSid());    
-            
+         
+          
+          
+            SystemTray tray = SystemTray.getSystemTray();
+
+
+        java.awt.Image image = Toolkit.getDefaultToolkit().createImage("some-icon.png");
+ 
+
+    TrayIcon trayIcon = new TrayIcon(image, "Application");
+
+    trayIcon.setImageAutoSize(true);
+
+    trayIcon.setToolTip("Application");
+    tray.add(trayIcon);
+
+    trayIcon.displayMessage("Accepted ", "Application", TrayIcon.MessageType.INFO);
         
     }
 
     @FXML
-private void reject() {
+private void reject() throws AWTException {
     try {
         apply.setStatus("Rejected");
         applyDao.updateApply(apply.getApply_ID(), apply);
@@ -101,6 +121,21 @@ private void reject() {
     } catch (SQLException e) {
         e.printStackTrace();
     }
+    
+      SystemTray tray = SystemTray.getSystemTray();
+
+
+        java.awt.Image image = Toolkit.getDefaultToolkit().createImage("some-icon.png");
+ 
+
+    TrayIcon trayIcon = new TrayIcon(image, "Application");
+
+    trayIcon.setImageAutoSize(true);
+
+    trayIcon.setToolTip("Application");
+    tray.add(trayIcon);
+
+    trayIcon.displayMessage("refused ", "Application", TrayIcon.MessageType.INFO);
 }
 
 

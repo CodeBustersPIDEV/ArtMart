@@ -19,6 +19,10 @@ import com.twilio.Twilio;
 import com.twilio.converter.Promoter;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import java.awt.AWTException;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import java.net.URI;
 import java.math.BigDecimal;
 /**
@@ -63,7 +67,7 @@ public static final String AUTH_TOKEN = "df3d004d8411369066d20af591ac52a0";
    
 
     @FXML
-    private void finish(ActionEvent event) {
+    private void finish(ActionEvent event) throws AWTException {
           try {
    
       
@@ -88,12 +92,39 @@ Message message = Message.creator(
 .create();
 
 System.out.println(message.getSid());
+
+
+
             
             
             
         } catch (SQLException e) {
             e.printStackTrace();
         }
+          
+          
+            SystemTray tray = SystemTray.getSystemTray();
+
+
+        java.awt.Image image = Toolkit.getDefaultToolkit().createImage("some-icon.png");
+ 
+
+    TrayIcon trayIcon = new TrayIcon(image, "Application");
+
+    trayIcon.setImageAutoSize(true);
+
+    trayIcon.setToolTip("Application");
+    tray.add(trayIcon);
+
+    trayIcon.displayMessage("DONE ", "Application", TrayIcon.MessageType.INFO);
+    
+    
+    
+    
+    
+    
+    
+    
           
     }
     

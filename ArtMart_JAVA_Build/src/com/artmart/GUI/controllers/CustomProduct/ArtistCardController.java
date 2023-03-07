@@ -13,6 +13,10 @@ import com.artmart.models.Apply;
 import com.artmart.models.CustomProduct;
 import com.artmart.models.Session;
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import java.awt.AWTException;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -94,7 +98,7 @@ public class ArtistCardController implements Initializable {
 }
 
    @FXML
-private void goapply(ActionEvent event) throws SQLException, IOException {
+private void goapply(ActionEvent event) throws SQLException, IOException, AWTException {
 
     // Get the current user's ID from the session
     int artistId = Session.getCurrentUserId(Session.getInstance().getSessionId());
@@ -116,6 +120,27 @@ private void goapply(ActionEvent event) throws SQLException, IOException {
 
     // Disable the "Apply" button so it cannot be pressed again
     applyBtn.setDisable(true);
+    
+    
+     SystemTray tray = SystemTray.getSystemTray();
+
+
+        java.awt.Image image = Toolkit.getDefaultToolkit().createImage("some-icon.png");
+ 
+
+    TrayIcon trayIcon = new TrayIcon(image, "Application");
+
+    trayIcon.setImageAutoSize(true);
+
+    trayIcon.setToolTip("Application");
+    tray.add(trayIcon);
+
+    trayIcon.displayMessage("Application done ", "Application", TrayIcon.MessageType.INFO);
+    
+    
+    
+
+
 }
 
 
