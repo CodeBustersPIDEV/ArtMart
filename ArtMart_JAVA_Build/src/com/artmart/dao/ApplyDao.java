@@ -89,6 +89,21 @@ public class ApplyDao {
         }
         return applies;
     }
+         public List<Apply> getAllApplies2() throws SQLException {
+        List<Apply> applies = new ArrayList<>();
+        String query = "SELECT apply_ID, customproduct_ID, artist_ID, status FROM Apply WHERE status IN ('Pending')";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        ResultSet result = statement.executeQuery();
+        while (result.next()) {
+            int applyId = result.getInt("apply_ID");
+            int customProductId = result.getInt("customproduct_ID");
+            int artistId = result.getInt("artist_ID");
+            String status = result.getString("status");
+            Apply x = new Apply(applyId, customProductId, artistId, status);
+            applies.add(x);
+        }
+        return applies;
+    }
  public String getCustomProductNameById(int customProductId) throws SQLException {
     String query = "SELECT p.name FROM product p INNER JOIN customProduct cp ON p.product_ID = cp.product_ID WHERE cp.custom_product_ID = ?";
     PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);

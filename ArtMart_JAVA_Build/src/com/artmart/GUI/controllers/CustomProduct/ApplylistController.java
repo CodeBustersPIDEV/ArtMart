@@ -34,7 +34,7 @@ public class ApplylistController implements Initializable {
 
     public void displayApplies() {
         try {
-            List<Apply> applies = applyDao.getAllApplies();
+            List<Apply> applies = applyDao.getAllApplies2();
             for (Apply apply : applies) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ApplyCardClient.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
@@ -56,6 +56,9 @@ public class ApplylistController implements Initializable {
     stage.setScene(scene);
     stage.show();
     }
-
+public void refreshApplies() {
+    vBox.getChildren().clear();
+    displayApplies();
+}
 
 }

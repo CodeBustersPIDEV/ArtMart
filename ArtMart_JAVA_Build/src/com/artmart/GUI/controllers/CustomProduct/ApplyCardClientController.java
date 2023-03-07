@@ -26,6 +26,7 @@ import java.net.URI;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -41,7 +42,7 @@ public class ApplyCardClientController implements Initializable {
     private Text statustxt;
     @FXML
     private Text pid;
-
+   private ApplylistController applylistController;
     private Apply apply;
     private ApplyDao applyDao;
     
@@ -66,7 +67,7 @@ public class ApplyCardClientController implements Initializable {
     }
 
     @FXML
-    private void accept() throws AWTException {
+    private void accept() throws AWTException, SQLException {
         try {
             apply.setStatus("in progress");
             applyDao.updateApply(apply.getApply_ID(), apply);
@@ -74,6 +75,8 @@ public class ApplyCardClientController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+       
+       
         
           Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
   Session session = Session.getInstance();
@@ -108,7 +111,7 @@ String phoneNumber = Session.getSession(session.getSessionId()).getPhoneNumber()
     tray.add(trayIcon);
 
     trayIcon.displayMessage("Accepted ", "Application", TrayIcon.MessageType.INFO);
-        
+              
     }
 
     @FXML
@@ -136,6 +139,10 @@ private void reject() throws AWTException {
     tray.add(trayIcon);
 
     trayIcon.displayMessage("refused ", "Application", TrayIcon.MessageType.INFO);
+    
+
+                ApplylistController applylistController = new ApplylistController();
+            applylistController.displayApplies();
 }
 
 
