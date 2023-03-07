@@ -8,17 +8,25 @@ package com.artmart.GUI.controllers.Blog;
 import com.artmart.models.Comment;
 import com.artmart.services.BlogService;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -41,12 +49,16 @@ public class CommentCardController implements Initializable {
     private MenuItem deleteBtn;
     @FXML
     private MenuItem editBtn;
+    private ComboBox<Integer> rating;
+    HBox hBox = new HBox();
 
     private final BlogService blogService = new BlogService();
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     private Comment viewComment = new Comment();
     private TextArea editComment_content = new TextArea();
     int blog_id;
     private int id;
+    private double blogRating;
     BlogPageController controller;
 
     /**
@@ -82,6 +94,12 @@ public class CommentCardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
+
+    public void calculateRating(int idBlog) {
+        this.blogRating = this.blogService.calculateRating(idBlog);
+        this.blogService.updateBlogRating(idBlog, this.blogRating);
+        this.controller.getRatingLabel().setText(String.valueOf(df.format(this.blogRating)));
 
     }
 
@@ -90,6 +108,7 @@ public class CommentCardController implements Initializable {
         this.id = Integer.parseInt(this.commentID.getText());
         blogService.deleteComment(id);
         this.controller.refresh(blog_id);
+        calculateRating(blog_id);
     }
 
     @FXML
@@ -98,17 +117,23 @@ public class CommentCardController implements Initializable {
         this.viewComment = blogService.getOneComment(id);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Edit Your Comment");
-        alert.setHeaderText(null);
-        alert.setWidth(125);
-        alert.setGraphic(this.editComment_content);
+        hBox.setSpacing(10);
         this.editComment_content.setText(this.viewComment.getContent());
+        hBox.getChildren().addAll(this.editComment_content, this.rating);
+        alert.setGraphic(hBox);
         Comment editedComment = new Comment();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             editedComment.setContent(editComment_content.getText());
+            editedComment.setRating(this.rating.getSelectionModel().getSelectedItem());
             this.blogService.updateComment(id, editedComment);
             this.controller.refresh(blog_id);
+            calculateRating(blog_id);
         }
+    }
+
+    public void setRating(ComboBox<Integer> rating) {
+        this.rating = rating;
     }
 
 }

@@ -91,7 +91,7 @@ public class CommentDao implements ICommentServiceDao {
 
     @Override
     public double calculateRating(int blog_id) {
-        double averageRating =0;
+        double averageRating = 0;
         try {
             String sql = "SELECT AVG(rating) FROM comments WHERE blog_ID = ?";
             PreparedStatement st = connection.prepareStatement(sql);
@@ -109,10 +109,10 @@ public class CommentDao implements ICommentServiceDao {
     @Override
     public boolean updateComment(int comment_id, Comment editedComment) {
         try {
-            String sql = "UPDATE comments SET content = ? WHERE comments_ID = ?";
-            PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement("UPDATE comments SET content = ?, rating = ? WHERE comments_ID = ?");
             st.setString(1, editedComment.getContent());
-            st.setInt(2, comment_id);
+            st.setInt(2, editedComment.getRating());
+            st.setInt(3, comment_id);
             st.executeUpdate();
             return true;
         } catch (SQLException e) {

@@ -30,8 +30,9 @@ public class Comment {
         this.blog_id = blog_id;
     }
 
-    public Comment(String content) {
+    public Comment(String content, int rating) {
         this.content = content;
+        this.rating = rating;
     }
 
     public int getId() {

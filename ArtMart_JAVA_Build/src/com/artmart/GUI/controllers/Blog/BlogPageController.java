@@ -50,6 +50,7 @@ import javafx.stage.Stage;
 import net.suuft.libretranslate.Language;
 import net.suuft.libretranslate.Translator;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 /**
  * FXML Controller class
@@ -123,6 +124,20 @@ public class BlogPageController implements Initializable {
         return this.blog_id.getText();
     }
 
+    public ComboBox<Integer> getRating() {
+        return rating;
+    }
+
+    public Label getRatingLabel() {
+        return ratingLabel;
+    }
+
+    public void setRatingLabel(Label ratingLabel) {
+        this.ratingLabel = ratingLabel;
+    }
+    
+    
+
     public void setupComments(int bc_id) {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
         this.commentList = this.blogService.getAllComments(bc_id);
@@ -138,6 +153,7 @@ public class BlogPageController implements Initializable {
                     controller.setCommentContent(comment.getContent());
                     controller.setUsername(username);
                     controller.setBlogID(bc_id);
+                    controller.setRating(this.rating);
                     controller.setController(this);
                     if (comment.getAuthor() == this.session.getUserId() || this.session.getUserRole().equals("Admin")) {
                         controller.setAuthorVisibility();
@@ -209,7 +225,7 @@ public class BlogPageController implements Initializable {
 
     @FXML
     private void postComment(ActionEvent event) {
-        Comment comment = new Comment(this.comment_content.getText(), this.perso_rate, this.session.getUserId(), this.id);
+        Comment comment = new Comment(this.comment_content.getText(), this.rating.getSelectionModel().getSelectedItem(), this.session.getUserId(), this.id);
         int test = this.blogService.addComment(comment);
         if (test == 1) {
             this.comment_content.setText("");
@@ -245,9 +261,6 @@ public class BlogPageController implements Initializable {
 
     }
 
-    @FXML
-    private void rate(ActionEvent event) {
-        this.perso_rate = this.rating.getSelectionModel().getSelectedItem();
-    }
+
 
 }

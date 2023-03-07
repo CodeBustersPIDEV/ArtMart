@@ -14,7 +14,7 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String title, String content, double rating, int author) {
+    public Blog(String title, String content, int author) {
         this.title = title;
         this.content = content;
         this.rating = rating;
@@ -43,10 +43,9 @@ public class Blog {
         return "Blog{" + "id=" + id + ", title=" + title + ", content=" + content + ", publishDate=" + publishDate + ", author=" + author + '}';
     }
 
-    public Blog(String title, String content ,double rating) {
+    public Blog(String title, String content ) {
         this.title = title;
         this.content = content;
-        this.rating = rating;
     }
 
     public int getId() {
