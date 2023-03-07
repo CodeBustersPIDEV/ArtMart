@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.text.DecimalFormat;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,8 +50,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import net.suuft.libretranslate.Language;
 import net.suuft.libretranslate.Translator;
-import java.text.DecimalFormat;
-import java.util.Arrays;
 
 /**
  * FXML Controller class

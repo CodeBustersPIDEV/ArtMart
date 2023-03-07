@@ -9,19 +9,14 @@ import com.artmart.models.Comment;
 import com.artmart.services.BlogService;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -63,6 +58,8 @@ public class CommentCardController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * @param controller
      */
     public void setController(BlogPageController controller) {
         this.controller = controller;
@@ -90,6 +87,10 @@ public class CommentCardController implements Initializable {
 
     public void setCommentID(String comment_id) {
         this.commentID.setText(comment_id);
+    }
+
+    public void setRating(ComboBox<Integer> rating) {
+        this.rating = rating;
     }
 
     @Override
@@ -130,10 +131,6 @@ public class CommentCardController implements Initializable {
             this.controller.refresh(blog_id);
             calculateRating(blog_id);
         }
-    }
-
-    public void setRating(ComboBox<Integer> rating) {
-        this.rating = rating;
     }
 
 }
