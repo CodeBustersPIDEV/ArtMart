@@ -10,7 +10,7 @@ CREATE TABLE `user` (
     picture VARCHAR(255),
     blocked boolean,
     enabled boolean,
-    token VARCHAR(255),
+    token VARCHAR(255) DEFAULT NULL,
     dateOfCreation DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
