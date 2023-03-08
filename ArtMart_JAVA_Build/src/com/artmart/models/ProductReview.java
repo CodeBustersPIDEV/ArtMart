@@ -9,13 +9,13 @@ public class ProductReview {
     private int userId;
     private String title;
     private String text;
-    private int rating;
+    private float rating;
     private Date date;
 
     public ProductReview() {
     }
 
-    public ProductReview(int readyProductId, int userId, String title, String text, int rating, Date date) {
+    public ProductReview(int readyProductId, int userId, String title, String text, float rating, Date date) {
         this.readyProductId = readyProductId;
         this.userId = userId;
         this.title = title;
@@ -24,7 +24,7 @@ public class ProductReview {
         this.date = date;
     }
 
-    public ProductReview(int reviewId, int readyProductId, int userId, String title, String text, int rating, Date date) {
+    public ProductReview(int reviewId, int readyProductId, int userId, String title, String text, float rating, Date date) {
         this.reviewId = reviewId;
         this.readyProductId = readyProductId;
         this.userId = userId;
@@ -74,7 +74,7 @@ public class ProductReview {
         this.text = text;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 

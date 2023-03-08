@@ -65,7 +65,7 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
         return readyProductDao.deleteReadyProduct(id);
     }
 
-    public String generateVerificationEmail(String recipientEmail, String verificationCode) {
+    public String generateVerificationEmail(String recipientEmail, String verificationName) {
         String emailContent = "<!DOCTYPE html>"
                 + "<html>"
                 + "<head>"
@@ -73,15 +73,12 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
                 + "<title>Verify your products list</title>"
                 + "<style>"
                 + "body { font-family: Arial, sans-serif; }"
-                + "h1 { color: #333; }"
-                + ".button { background-color: #4CAF50; border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 5px; }"
                 + "</style>"
                 + "</head>"
                 + "<body>"
                 + "<h1>Your products list has been updated</h1>"
                 + "<p>Dear " + recipientEmail + ",</p>"
-                + "<p>The admin has added a new product for you, click the button bellow to verify the action:</p>"
-                + "<p><a href='http://localhost/artmart/Verify.jsp?&token=" + verificationCode + "&email=" + recipientEmail + "' class='button'>Verify products list</a></p>"
+                + "<p>The admin has added a new product for you with the name: "+ verificationName +" please check your list.</p>"
                 + "</body>"
                 + "</html>";
         return emailContent;
@@ -100,14 +97,14 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
         Authenticator auth = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("rima.essaidi@esprit.tn", "223JFT3339");
+                return new PasswordAuthentication("samar.hamdi@esprit.tn", "pika05072001");
             }
         };
         Session session = Session.getInstance(properties, auth);
 
         // Create a new email message
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("rima.essaidi@esprit.tn"));
+        message.setFrom(new InternetAddress("samar.hamdi@esprit.tn"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
         message.setSubject(emailSubject);
         message.setContent(emailBody, "text/html");
@@ -161,6 +158,11 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
     @Override
     public float getRatingByProductId(int id) throws SQLException {
         return productReviewDao.getRatingByProductId(id);
+    }
+    
+    @Override
+    public float getProductReviewCountByProdId(int id) throws SQLException {
+        return productReviewDao.getProductReviewCountByProdId(id);
     }
 
     public List<ReadyProduct> getAllReadyProductsByCategoryName(String categoryName, int uID) throws SQLException {

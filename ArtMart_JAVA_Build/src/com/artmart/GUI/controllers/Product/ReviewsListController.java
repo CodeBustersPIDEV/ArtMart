@@ -5,12 +5,21 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.User.SignUpController;
+import com.artmart.dao.CategoriesDao;
+import com.artmart.dao.ProductReviewDao;
+import com.artmart.dao.UserDao;
+import com.artmart.models.Categories;
 import com.artmart.models.ProductReview;
+import com.artmart.models.ReadyProduct;
+import com.artmart.models.Session;
+import com.artmart.models.User;
 import com.artmart.services.ReadyProductService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,7 +34,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -38,48 +50,108 @@ public class ReviewsListController implements Initializable {
     private final ReadyProductService readyProductService = new ReadyProductService();
 
     @FXML
-    private Label pid;
-    @FXML
     private VBox vBox;
     @FXML
     private Button backBtn;
     private List<ProductReview> productReviewsList;
+    ReadyProduct viewProd = new ReadyProduct();
     int pageId;
+    @FXML
+    private Label pid;
+    @FXML
+    private Text name;
+    @FXML
+    private Text nb;
+    @FXML
+    private Label connUsername;
+    @FXML
+    private Label username;
+    @FXML
+    private Label category;
+    @FXML
+    private Text price;
+    @FXML
+    private Button addReview;
+    @FXML
+    private ImageView imagePreview;
+
+    HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
+    private User connectedUser = new User();
+    private final UserDao userService = new UserDao();
+    SignUpController profile = new SignUpController();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            this.displayList();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
+        this.connectedUser = this.userService.getUser(this.session.getUserId());
+        this.connUsername.setText(this.connectedUser.getName());
     }
 
-    public void setProductId(int pid)throws SQLException {
-        this.pid.setText(Integer.toString(pid));
+    public void setProductId(int pid) throws SQLException {
         pageId = pid;
-        this.pid.setText(Integer.toString(pid));
         this.displayList();
     }
 
-    public void displayList() throws SQLException {
-            this.vBox.getChildren().clear();
-            this.productReviewsList = this.readyProductService.getAllProductReviews();
-            this.productReviewsList.forEach(rp -> {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewCard.fxml"));
-                    Parent root = loader.load();
-                    ReviewCardController controller = loader.getController();
-                    List<ProductReview> list = controller.setProductReview(rp.getReadyProductId());
-                    System.out.println("RESULT " + list);
-                    root.setId("" + rp.getReviewId());
-                    this.vBox.getChildren().add(root);
-                } catch (IOException e) {
-                    System.out.print(e.getCause());
-                }
-            });
+    public void setReadyProduct(ReadyProduct param) throws SQLException {
+        this.viewProd = param;
+        this.pid.setText("" + pageId);
+        CategoriesDao c = new CategoriesDao();
+        Categories cat = c.getCategoriesById(this.viewProd.getCategoryId());
+        String catName = cat.getName();
+        this.category.setText(catName);
+        this.price.setText(this.viewProd.getPrice() + "");
+        ProductReviewDao revCount = new ProductReviewDao();
+        int count = revCount.getProductReviewCountByProdId(pageId);
+        this.nb.setText("" + count);
+
+        UserDao u = new UserDao();
+        int uID = this.viewProd.getUserId();
+        User user = u.getUser(uID);
+        String userN = user.getName();
+        this.username.setText("" + userN);
+
+        // Load the image from the file path stored in ReadyProduct object's image field
+        Image image = new Image("file:" + this.viewProd.getImage());
+        this.imagePreview.setImage(image);
+
+        this.name.setText(viewProd.getName());
     }
 
+    public void displayList() throws SQLException {
+        this.vBox.getChildren().clear();
+        this.productReviewsList = this.readyProductService.getAllProductReviewsByProdId(pageId);
+        this.productReviewsList.forEach(pr -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewCard.fxml"));
+                Parent root = loader.load();
+                ReviewCardController controller = loader.getController();
+                controller.setProductReview(pr);
+                root.setId("" + pr.getReviewId());
+                this.vBox.getChildren().add(root);
+            } catch (IOException e) {
+                System.out.print(e.getCause());
+            }
+        });
+    }
+
+    public void onAdd(ActionEvent event) {
+        try {
+            Stage stage = (Stage) addReview.getScene().getWindow();
+            stage.close();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AddReview.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Add Product Review");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
     public void onBack(ActionEvent event) {
         try {
             Stage stage = (Stage) backBtn.getScene().getWindow();

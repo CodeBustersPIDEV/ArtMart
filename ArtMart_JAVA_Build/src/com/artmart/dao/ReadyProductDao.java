@@ -63,40 +63,30 @@ public class ReadyProductDao {
         }
         return null;
     }
-    
-    public ReadyProduct getReadyProductById(int id) throws SQLException {
-        String query = "SELECT * FROM readyproduct WHERE ready_product_ID = ?";
-        String productQuery = "SELECT * FROM product WHERE product_ID = ?";
 
+    public ReadyProduct getReadyProductById(int id) throws SQLException {
+        String query = "SELECT * FROM readyproduct JOIN product ON readyproduct.product_ID = product.product_ID WHERE ready_product_ID = ?";
         PreparedStatement statement = sqlConnection.prepareStatement(query);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
-            int productId = resultSet.getInt("product_ID");
-
-            PreparedStatement productStatement = sqlConnection.prepareStatement(productQuery);
-            productStatement.setInt(1, productId);
-            ResultSet productResultSet = productStatement.executeQuery();
-
-            if (productResultSet.next()) {
-                Product product = new Product(
-                        productResultSet.getInt("product_ID"),
-                        productResultSet.getInt("category_ID"),
-                        productResultSet.getString("name"),
-                        productResultSet.getString("description"),
-                        productResultSet.getString("dimensions"),
-                        productResultSet.getInt("weight"),
-                        productResultSet.getString("material"),
-                        productResultSet.getString("image")
-                );
-                ReadyProduct readyProduct = new ReadyProduct(
-                        resultSet.getInt("ready_product_ID"),
-                        productId,
-                        product
-                );
-                return readyProduct;
-            }
+            Product product = new Product(
+                    resultSet.getInt("product_ID"),
+                    resultSet.getInt("category_ID"),
+                    resultSet.getString("name"),
+                    resultSet.getString("description"),
+                    resultSet.getString("dimensions"),
+                    resultSet.getInt("weight"),
+                    resultSet.getString("material"),
+                    resultSet.getString("image")
+            );
+            ReadyProduct readyProduct = new ReadyProduct(
+                    resultSet.getInt("ready_product_ID"),
+                    product,
+                    resultSet.getInt("price")
+            );
+            return readyProduct;
         }
         return null;
     }
@@ -113,7 +103,7 @@ public class ReadyProductDao {
             return 0;
         }
     }
-    
+
     public int getReadyProductId(int id) throws SQLException {
         String query = "SELECT product_ID FROM readyproduct WHERE ready_product_ID = ?";
         PreparedStatement statement = sqlConnection.prepareStatement(query);
@@ -145,8 +135,7 @@ public class ReadyProductDao {
         }
         return readyProducts;
     }
-    
-    
+
     public List<ReadyProduct> getAllReadyProducts() throws SQLException {
         List<ReadyProduct> readyProducts = new ArrayList<>();
         String query = "SELECT * FROM readyproduct";

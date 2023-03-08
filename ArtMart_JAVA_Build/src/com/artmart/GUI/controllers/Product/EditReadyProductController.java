@@ -74,6 +74,8 @@ public class EditReadyProductController implements Initializable {
 
     private final ProductDao productDao = new ProductDao();
 
+    private final ReadyProductDao rp = new ReadyProductDao();
+
     private final CategoriesDao categoriesDao = new CategoriesDao();
 
     // variable to hold the ID of the ready product
@@ -131,6 +133,9 @@ public class EditReadyProductController implements Initializable {
             ProductService productService = new ProductService();
             Product product = productService.getProductById(productId);
 
+            this.viewProd = rp.getReadyProductById(productId);
+            int price = this.viewProd.getPrice();
+
             this.viewProd = convertToReadyProduct(product);
 
             this.nameF.setText(this.viewProd.getName());
@@ -139,7 +144,7 @@ public class EditReadyProductController implements Initializable {
             this.weightF.setText(Float.toString(this.viewProd.getWeight()));
             this.materialF.setText(this.viewProd.getMaterial());
             this.imageField.setText(this.viewProd.getImage());
-            this.priceF.setText(Integer.toString(this.viewProd.getPrice()));
+            this.priceF.setText("" + price);
             System.out.println(this.viewProd.getPrice());
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
