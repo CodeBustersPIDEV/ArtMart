@@ -6,12 +6,9 @@
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.dao.CategoriesDao;
-import com.artmart.dao.ProductReviewDao;
 import com.artmart.dao.ReadyProductDao;
 import com.artmart.models.Categories;
-import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
-import com.artmart.services.ReadyProductService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -34,30 +31,38 @@ import javafx.stage.Stage;
  *
  * @author rymae
  */
-public class ReadyProductCardController implements Initializable {
+public class ArtistReadyProductCardController implements Initializable {
 
     @FXML
     private Label pid;
+    @FXML
+    private Label userID;
     @FXML
     private Text name;
     @FXML
     private Label category;
     @FXML
-    private Label price;
+    private Label dimensions;
     @FXML
-    private Label rating;
+    private Label material;
+    @FXML
+    private Label description;
+    @FXML
+    private Label weight;
+    @FXML
+    private Label price;
     @FXML
     private ImageView imagePreview;
     @FXML
     private Button details;
     @FXML
-    private Button reviews;
+    private Button edit;
 
     private ReadyProduct p = new ReadyProduct();
 
     private ReadyProductDao rPDao = new ReadyProductDao();
 
-    private ReadyproductsListController controller = new ReadyproductsListController();
+    private ArtistReadyProductsListController controller = new ArtistReadyProductsListController();
 
     private ProductDetailsController controller2 = new ProductDetailsController();
 
@@ -66,22 +71,22 @@ public class ReadyProductCardController implements Initializable {
         // TODO
     }
 
-    public void setReadyProduct(ReadyProduct param, ReadyproductsListController controller) throws SQLException {
+    public void setReadyProduct(ReadyProduct param, ArtistReadyProductsListController controller) throws SQLException {
         this.p = param;
         this.controller = controller;
         this.pid.setText(Integer.toString(p.getProductId()));
+        this.userID.setText(Integer.toString(p.getUserId()));
+        
         CategoriesDao c = new CategoriesDao();
         Categories cat = c.getCategoriesById(p.getCategoryId());
         String catName = cat.getName();
         this.category.setText(catName);
-        this.price.setText(p.getPrice()+"");
-
-        // Get the rating value using the ProductId field of the ReadyProduct object
-        ReadyProductService readyProductService = new ReadyProductService();
-        float rating = readyProductService.getRatingByProductId(p.getProductId());
-
-        // Set the rating value in the rating label
-        this.rating.setText(Float.toString(rating));
+        
+        this.price.setText(Integer.toString(p.getPrice()));
+        this.weight.setText(Float.toString(p.getWeight()));
+        this.dimensions.setText(p.getDimensions());
+        this.description.setText(p.getDescription());
+        this.material.setText(p.getMaterial());
 
         // Load the image from the file path stored in ReadyProduct object's image field
         Image image = new Image("file:" + p.getImage());
@@ -90,42 +95,30 @@ public class ReadyProductCardController implements Initializable {
         this.name.setText(p.getName());
     }
 
+    @FXML
+    private void onDelete(ActionEvent event) throws SQLException {
+        this.rPDao.deleteReadyProduct(this.p.getReadyProductId());
+        this.controller.displayList();
+    }
+
     public void setProductId(int pid) {
         this.pid.setText(Integer.toString(pid));
     }
 
-    public void onDetails(ActionEvent event) {
-        try {
-            Stage stage = (Stage) details.getScene().getWindow();
-            stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ProductDetails.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            ProductDetailsController controller2 = loader.getController();
-            controller2.setUpData(this.pid.getText());
-            stage.setResizable(false);
-            stage.setTitle("Ready Product details");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
     @FXML
-    public void onReviews(ActionEvent event) {
+    private void onEdit(ActionEvent event) throws SQLException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewsList.fxml"));
+            Stage stage = (Stage) edit.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/EditReadyProduct.fxml"));
             Parent root = loader.load();
-            ReviewCardController controller = loader.getController();
-            controller.setProductReview(this.p.getReadyProductId());
-            Stage stage = new Stage();
             Scene scene = new Scene(root);
+            EditReadyProductController controller = loader.getController();
+            controller.setUpData(this.pid.getText());
             stage.setResizable(false);
-            stage.setTitle("Reviews List");
             stage.setScene(scene);
             stage.show();
+
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }

@@ -21,7 +21,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     private Button productBtn;
-      @FXML
+    @FXML
     private Button userBtn;
     @FXML
     private Button eventBtn;
@@ -29,11 +29,12 @@ public class MainViewController implements Initializable {
     private Button cProductBtn;
     @FXML
     private Button blogBtn;
-    
+
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
@@ -74,18 +75,47 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void goToProduct(ActionEvent event) {
-        try {
-            Stage stage = (Stage) productBtn.getScene().getWindow();
-            stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
+        if (this.connectedUser.getRole().equals("artist")) {
+            try {
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
 
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("Product Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
+        }
+        if (this.connectedUser.getRole().equals("admin")) {
+            try {
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AdminBoard.fxml"));
+
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
+        }
+        if (this.connectedUser.getRole().equals("client")) {
+            try {
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
+
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
         }
     }
 
@@ -106,48 +136,48 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void goToCustomProduct(ActionEvent event) {
-         if (this.connectedUser.getRole().equals("admin")) {
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader
-                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("Custom Product Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
+        if (this.connectedUser.getRole().equals("admin")) {
+            try {
+                Stage stage = new Stage();
+                Parent root = FXMLLoader
+                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Custom Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
         }
-         }
         if (this.connectedUser.getRole().equals("client")) {
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader
-                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/UserCustom.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("Custom Product Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
+            try {
+                Stage stage = new Stage();
+                Parent root = FXMLLoader
+                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/UserCustom.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Custom Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
         }
-         }
-                if (this.connectedUser.getRole().equals("artist")) {
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader
-                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCustom.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("Custom Product Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
+        if (this.connectedUser.getRole().equals("artist")) {
+            try {
+                Stage stage = new Stage();
+                Parent root = FXMLLoader
+                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCustom.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Custom Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
         }
-         }
     }
 
     @FXML

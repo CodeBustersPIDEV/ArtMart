@@ -96,7 +96,7 @@
                </stops>
             </LinearGradient>
          </stroke></Rectangle>
-      <Button fx:id="backBtn" alignment="CENTER" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#onBack" prefHeight="18.0" prefWidth="28.0" text="🔙" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="backBtn" alignment="CENTER" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#onBack" prefHeight="18.0" prefWidth="28.0" text="←" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Rockwell Nova Bold" size="20.0" />
          </font>
@@ -120,7 +120,7 @@
             <Font name="Dubai Light" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="price" layoutX="857.0" layoutY="546.0" text="Price" textFill="#f53179">
+      <Label fx:id="price" layoutX="802.0" layoutY="546.0" text="Price" textFill="#f53179">
          <font>
             <Font name="Dubai Bold" size="20.0" />
          </font>
@@ -165,7 +165,7 @@
             <Font name="Dubai Light" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="order" alignment="CENTER" layoutX="965.0" layoutY="545.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="64.0" text="Order" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="order" alignment="CENTER" layoutX="901.0" layoutY="545.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" text="Add to wishlist" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>
@@ -173,7 +173,7 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Text fill="#f72f78" layoutX="905.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TND" textAlignment="CENTER">
+      <Text fill="#f72f78" layoutX="850.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TND" textAlignment="CENTER">
          <font>
             <Font name="Dubai Bold" size="20.0" />
          </font>

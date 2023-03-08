@@ -98,7 +98,7 @@ public class ProductDetailsController implements Initializable {
             this.description.setText(this.viewProd.getDescription());
             this.dimensions.setText(this.viewProd.getDimensions());
             this.weight.setText(Float.toString(this.viewProd.getWeight()));
-            this.price.setText(Float.toString(this.viewProd.getPrice()));
+            this.price.setText(Integer.toString(this.viewProd.getPrice()));
             this.material.setText(this.viewProd.getMaterial());
 
             CategoriesDao c = new CategoriesDao();

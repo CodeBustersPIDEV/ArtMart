@@ -44,10 +44,10 @@
          </font></Label>
       <Label fx:id="price" layoutX="236.0" layoutY="129.0" text="Price" textFill="#f53179">
          <font>
-            <Font name="Dubai Regular" size="20.0" />
+            <Font name="Dubai Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="delete" alignment="CENTER" layoutX="678.0" layoutY="130.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="29.0" prefWidth="63.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="details" alignment="CENTER" layoutX="836.0" layoutY="124.0" mnemonicParsing="false" onAction="#onDetails" prefHeight="38.0" prefWidth="71.0" text="Details" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>
@@ -55,7 +55,32 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Button fx:id="edit" alignment="CENTER" layoutX="764.0" layoutY="130.0" mnemonicParsing="false" onAction="#onEdit" prefHeight="29.0" prefWidth="63.0" text="Edit" textAlignment="CENTER" textFill="#21153d">
+      <Text fill="#f72f78" layoutX="287.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TND" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="42.0" layoutX="740.0" layoutY="18.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="165.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Rectangle>
+      <Text fill="#21153d" layoutX="767.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="17.0" />
+         </font>
+      </Text>
+      <Label fx:id="rating" layoutX="823.0" layoutY="24.0" text="Rating" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="reviews" alignment="CENTER" layoutX="742.0" layoutY="123.0" mnemonicParsing="false" onAction="#onReviews" prefHeight="38.0" prefWidth="72.0" text="Reviews" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>
@@ -63,13 +88,10 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Button fx:id="details" alignment="CENTER" layoutX="850.0" layoutY="130.0" mnemonicParsing="false" onAction="#onDetails" prefHeight="38.0" prefWidth="71.0" text="Details" textAlignment="CENTER" textFill="#21153d">
+      <Text fill="#21153d" layoutX="846.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/10" textAlignment="CENTER">
          <font>
-            <Font name="Dubai Bold" size="15.0" />
+            <Font name="Dubai Bold" size="17.0" />
          </font>
-         <effect>
-            <DropShadow color="#00000087" />
-         </effect>
-      </Button>
+      </Text>
    </children>
 </Pane>
