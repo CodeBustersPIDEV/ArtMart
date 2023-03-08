@@ -25,6 +25,8 @@ public interface IUserDao {
 
     public void StoreToken(String token, String email);
 
-    public boolean verifyToken(String email, String token);
+    public String verifyToken(String email);
+
+    public boolean enableUser(String email);
 
 }

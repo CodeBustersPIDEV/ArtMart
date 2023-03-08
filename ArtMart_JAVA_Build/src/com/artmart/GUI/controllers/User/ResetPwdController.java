@@ -53,19 +53,20 @@ public class ResetPwdController implements Initializable {
     }
 
     public void setId(int id) {
-                
- UserID = id;
-       user = user_ser.getUser(UserID);
+
+        UserID = id;
+        user = user_ser.getUser(UserID);
     }
+
     @FXML
     public void OnResetPwd(ActionEvent event) {
-      String name = user.getName();
-      String email = user.getEmail();
+        String name = user.getName();
+        String email = user.getEmail();
         Date birthday = user.getBirthday();
         int phoneNumber = user.getPhone_nbr();
         String username = user.getUsername();
         String password = pwdField.getText();
-        String Picture=user.getPicture();
+        String Picture = user.getPicture();
         String confirmPassword = cpwdField.getText();
         if (!password.equals(confirmPassword)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -85,13 +86,26 @@ public class ResetPwdController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Password reseted");
                 alert.showAndWait();
+                 try {
+            Stage stage = (Stage) backBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ProfileClientController.class.getName()).log(Level.SEVERE, null, ex);
+        }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
                 alert.setContentText("Oops!!Can not reset password");
                 alert.showAndWait();
-              
+
             }
         }
     }

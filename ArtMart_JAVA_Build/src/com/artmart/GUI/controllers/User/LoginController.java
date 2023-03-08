@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.User;
 
 import static com.artmart.dao.UserDao.hashPassword;
@@ -12,6 +7,9 @@ import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,15 +17,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javax.mail.MessagingException;
 
-/**
- * FXML Controller class
- *
- * @author 21697
- */
 public class LoginController implements Initializable {
 
     @FXML
@@ -41,15 +37,19 @@ public class LoginController implements Initializable {
     @FXML
     private Button signUpBtn;
     @FXML
-    private Button forgotPwdBtn;
-    UserService user_ser = new UserService();
+    private Hyperlink forgotPwdLink;
 
+    @FXML
+    private Button activateAccountBtn;
+    UserService user_ser = new UserService();
+User u =new User();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        activateAccountBtn.setVisible(false);
     }
 
     @FXML
@@ -77,14 +77,17 @@ public class LoginController implements Initializable {
         if (!username.isEmpty() && !password.isEmpty()) {
 
             int id = user_ser.getUserIdByUsername(username);
-            User u = user_ser.getUser(id);
+             u = user_ser.getUser(id);
             if (u.getPwd().equals(hashPassword(password))) {
                 if (u.getBlocked() == true) {
                     loginMsg.setText("This user is blocked");
                 } else {
-                    boolean a = user_ser.authenticate(username, password);
-
-                    if (a) {
+                    if (!u.isEnabled() == true) {
+                        loginMsg.setText("This account is no activated");
+                        activateAccountBtn.setVisible(true);
+                    } else {
+                        boolean a = user_ser.authenticate(username, password);
+                        if (a) {
                         Session session = Session.getInstance();
                         session.setUserId(id);
                         session.setUsername(username);
@@ -92,18 +95,19 @@ public class LoginController implements Initializable {
                         session.setSessionId("1");
                         session.logIn(session.getSessionId(), session);
 
-                        try {
-                            Stage stage = (Stage) LoginBtn.getScene().getWindow();
-                            stage.close();
-                            stage = new Stage();
-                            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Mainview.fxml"));
-                            Scene scene = new Scene(root);
-                            stage.setResizable(false);
-                            stage.setTitle("User Managment");
-                            stage.setScene(scene);
-                            stage.show();
-                        } catch (IOException e) {
-                            System.out.print(e.getMessage());
+                            try {
+                                Stage stage = (Stage) LoginBtn.getScene().getWindow();
+                                stage.close();
+                                stage = new Stage();
+                                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Mainview.fxml"));
+                                Scene scene = new Scene(root);
+                                stage.setResizable(false);
+                                stage.setTitle("User Managment");
+                                stage.setScene(scene);
+                                stage.show();
+                            } catch (IOException e) {
+                                System.out.print(e.getMessage());
+                            }
                         }
                     }
                 }
@@ -126,7 +130,7 @@ public class LoginController implements Initializable {
     @FXML
     private void OnForgotPwd(ActionEvent event) {
         try {
-            Stage stage = (Stage) forgotPwdBtn.getScene().getWindow();
+            Stage stage = (Stage) forgotPwdLink.getScene().getWindow();
             stage.close();
             stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/recuperatePwd.fxml"));
@@ -140,4 +144,33 @@ public class LoginController implements Initializable {
         }
     }
 
+    @FXML
+    private void OnActivateAccount(ActionEvent event) {
+        String email=u.getEmail();
+        String token=UUID.randomUUID().toString();
+               
+                user_ser.StoreToken(token, email);
+                System.out.println("test begin");
+        try {
+            user_ser.sendEmail(email,"Account Verification",user_ser.generateVerificationEmail(u.getUsername(),token));
+        } catch (MessagingException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                System.out.println("test end");
+         try {
+            Stage stage = (Stage) activateAccountBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/Verification.fxml"));
+                Pane pane = loader.load();
+                VerificationController controller = loader.getController();
+                controller.setEmail(email);
+                 Scene scene = new Scene(pane);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
 }
