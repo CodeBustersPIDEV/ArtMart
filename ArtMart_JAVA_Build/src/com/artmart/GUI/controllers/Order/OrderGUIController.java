@@ -12,7 +12,6 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -154,5 +152,11 @@ public class OrderGUIController implements Initializable {
             Order newOrder = new Order(this.user.getUser_id(), product.getProductId(), 1, shippingOption, shippingAddress, paymentMethod, Date.valueOf(dtf.format(now)), 100);
             this.orderSerivce.createOrder(newOrder);
         });
+        this.closeUI();
+    }
+
+    private void closeUI() {
+        Stage thisPage = (Stage) placeOrderBtn.getScene().getWindow();
+        thisPage.close();
     }
 }

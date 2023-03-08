@@ -14,21 +14,29 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 public class OrderManagmentController implements Initializable {
 
@@ -113,7 +121,7 @@ public class OrderManagmentController implements Initializable {
     }
 
     @FXML
-    private void OnStatisticsClick(ActionEvent event) {
+    private void OnStatisticsClick(ActionEvent event) throws IOException {
         List<Order> orders = this.orderService.getOrders();
         int totalOrders = orders.size();
         double totalRevenue = orders.stream().mapToDouble(Order::getTotalCost).sum();
@@ -124,7 +132,6 @@ public class OrderManagmentController implements Initializable {
         fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV Files", "*.csv"));
         File file = fileChooser.showSaveDialog(null);
 
-        // Write the statistics to the CSV file
         if (file != null) {
             try (FileWriter writer = new FileWriter(file)) {
                 for (Order order : orders) {
@@ -142,6 +149,25 @@ public class OrderManagmentController implements Initializable {
         alert.setTitle("Report File Generated");
         alert.setHeaderText("Statistics file saved to " + file.getAbsolutePath());
         alert.showAndWait();
+        BarChart<String, Number> barChart = new BarChart<>(new CategoryAxis(), new NumberAxis());
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        for (int i = 0; i < orders.size(); i++) {
+            series.getData().add(new XYChart.Data<>("Order " + (i + 1), orders.get(i).getTotalCost()));
+        }
+        String path = file.getAbsolutePath();
+        String chartPath = path.substring(0, path.lastIndexOf(File.separator) + 1) + "revenue-chart.png";
+        barChart.getData().add(series);
+        barChart.setTitle("Revenue per Order");
+        Stage chartStage = new Stage();
+        chartStage.setScene(new Scene(barChart, 600, 400));
+        chartStage.show();
+        WritableImage image = barChart.snapshot(new SnapshotParameters(), null);
+        try {
+            File chartFile = new File(chartPath);
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", chartFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
