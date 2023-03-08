@@ -7,9 +7,11 @@ package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.CategoriesDao;
+import com.artmart.dao.ReadyProductDao;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
 import com.artmart.models.Product;
+import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
 import com.artmart.models.User;
@@ -27,6 +29,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +46,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -61,33 +65,21 @@ import javax.mail.MessagingException;
  *
  * @author rymae
  */
-public class AddReadyProductController implements Initializable {
+public class AddReviewController implements Initializable {
 
     @FXML
-    private TextField nameF;
+    private TextArea textF;
     @FXML
-    private TextArea descriptionF;
+    private TextField titleF;
     @FXML
-    private TextField dimensionsF;
+    private TextField ratingF;
     @FXML
-    private TextField weightF;
-    @FXML
-    private TextField priceF;
-    @FXML
-    private TextField userF;
-    @FXML
-    private TextField materialF;
-    @FXML
-    private ComboBox<Categories> categoryF;
-    @FXML
-    private TextField imageField;
+    private ComboBox<ReadyProduct> productF;
+    private final ReadyProductDao readyProductDao = new ReadyProductDao();
     @FXML
     private Button add;
-    private final CategoriesDao categoriesDao = new CategoriesDao();
     @FXML
     private Button backBtn;
-    @FXML
-    private Button uploadImage;
     @FXML
     private ChoiceBox<String> profileChoiceBox;
 
@@ -107,10 +99,6 @@ public class AddReadyProductController implements Initializable {
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
-    private final String phpUrl = "http://localhost:88/PIDEV/upload.php";
-    String boundary = "---------------------------12345";
-    private boolean testImg = false;
-    private final FileChooser fileChooser = new FileChooser();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -122,10 +110,8 @@ public class AddReadyProductController implements Initializable {
             Map<String, String> profileActions = new HashMap<>();
             profileActions.put("Logout", "logout");
             profileActions.put("Profile", "profile");
-
             // Populate the choice box with display names
             profileChoiceBox.getItems().addAll(profileActions.keySet());
-
             // Add an event listener to handle the selected item's ID
             profileChoiceBox.setOnAction(event -> {
                 String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
@@ -146,19 +132,19 @@ public class AddReadyProductController implements Initializable {
                     }
                 }
             });
-            // Get all categories from the database
-            List<Categories> categories = categoriesDao.getAllCategories();
+            // Get all ready products from the database
+            List<ReadyProduct> products = readyProductDao.getAllReadyProducts();
 
-            // Add categories to the ComboBox
-            categoryF.getItems().addAll(categories);
+            // Add ready products to the ComboBox
+            productF.getItems().addAll(products);
 
-            // Set the ComboBox to display category names
-            categoryF.setCellFactory(new Callback<ListView<Categories>, ListCell<Categories>>() {
+            // Set the ComboBox to display ready products names
+            productF.setCellFactory(new Callback<ListView<ReadyProduct>, ListCell<ReadyProduct>>() {
                 @Override
-                public ListCell<Categories> call(ListView<Categories> param) {
-                    return new ListCell<Categories>() {
+                public ListCell<ReadyProduct> call(ListView<ReadyProduct> param) {
+                    return new ListCell<ReadyProduct>() {
                         @Override
-                        protected void updateItem(Categories item, boolean empty) {
+                        protected void updateItem(ReadyProduct item, boolean empty) {
                             super.updateItem(item, empty);
                             if (item == null || empty) {
                                 setText(null);
@@ -170,17 +156,17 @@ public class AddReadyProductController implements Initializable {
                 }
             });
 
-            // Set the ComboBox to use the category name as the selected value
-            categoryF.setConverter(new StringConverter<Categories>() {
+            // Set the ComboBox to use the ready product's name as the selected value
+            productF.setConverter(new StringConverter<ReadyProduct>() {
                 @Override
-                public String toString(Categories category) {
-                    return category == null ? null : category.getName();
+                public String toString(ReadyProduct prod) {
+                    return prod == null ? null : prod.getName();
                 }
 
                 @Override
-                public Categories fromString(String categoryName) {
-                    return categories.stream()
-                            .filter(category -> category.getName().equals(categoryName))
+                public ReadyProduct fromString(String prodName) {
+                    return products.stream()
+                            .filter(category -> category.getName().equals(prodName))
                             .findFirst()
                             .orElse(null);
                 }
@@ -192,47 +178,60 @@ public class AddReadyProductController implements Initializable {
     }
 
     @FXML
-    private void onAddNew(ActionEvent event) throws SQLException, IOException, MessagingException {
-        String name = nameF.getText();
-        String description = descriptionF.getText();
-        String dimensions = dimensionsF.getText();
-        float weight = Float.parseFloat(weightF.getText());
-        String material = materialF.getText();
-        String imagePath = imageField.getText();
-        int price = Integer.parseInt(priceF.getText());
+    private void onAddNew(ActionEvent event) throws SQLException, IOException, MessagingException, ParseException {
+        String title = titleF.getText();
+        String text = textF.getText();
+        float rating = Float.parseFloat(ratingF.getText());
         int us = this.connectedUser.getUser_id();
+        
+         // Get the current date and time
+        Date currentDate = new Date();
 
+        // Create a date format string
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Format the current date as a string
+        String dateString = dateFormat.format(currentDate);
+        
+         // Parse the date string into a Date object
+        Date myDate = null;
+        try {
+            myDate = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        Date date = myDate;
+        
         // Get the selected category from the combo box
-        Categories selectedCategory = (Categories) categoryF.getSelectionModel().getSelectedItem();
+        ReadyProduct selectedProduct = (ReadyProduct) productF.getSelectionModel().getSelectedItem();
 
-        if (selectedCategory == null) {
-            Alert alert = new Alert(AlertType.ERROR);
+        if (selectedProduct == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Add Ready Product");
             alert.setHeaderText(null);
             alert.setContentText("Please select a category!");
             alert.showAndWait();
             return;
         }
+        
+        ProductReview baseRev = new ProductReview(selectedProduct.getReadyProductId(), us, title, text, rating, date);
 
-        Product basePr = new Product(selectedCategory.getCategories_ID(), name, description, dimensions, weight, material, imagePath);
-
-        ReadyProduct readyPr = new ReadyProduct(basePr, price, us);
-        System.out.println(readyPr);
-        int result = readyProductService.createReadyProduct(readyPr);
+        int result = readyProductService.createProductReview(baseRev);
         if (result > 0) {
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Add Ready Product");
             alert.setHeaderText(null);
-            alert.setContentText("Ready product has been added successfully!");
+            alert.setContentText("Review has been added successfully!");
             alert.showAndWait();
 
-            //test email
-            String productName = nameF.getText();
-            User u = user_ser.getUser(this.session.getUserId());
-            String email = this.connectedUser.getEmail();
-            System.out.println("test begin");
-            readyProductService.sendEmail(email, "New product added", readyProductService.generateVerificationEmail(u.getName(), productName));
-            System.out.println("test reached");
+//            //test email
+//            String productName = nameF.getText();
+//            User u = user_ser.getUser(this.session.getUserId());
+//            String email = this.connectedUser.getEmail();
+//            System.out.println("test begin");
+//            readyProductService.sendEmail(email, "New product added", readyProductService.generateVerificationEmail(u.getName(), productName));
+//            System.out.println("test reached");
 
             // Close the current window
             Stage stage = (Stage) add.getScene().getWindow();
@@ -240,7 +239,7 @@ public class AddReadyProductController implements Initializable {
 
             // Load and display the ArtistReadyProductsList interface
             stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewsList.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage newStage = new Stage();
@@ -248,71 +247,13 @@ public class AddReadyProductController implements Initializable {
             newStage.show();
         } else {
             // Display an error message
-            Alert alert = new Alert(AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Add Ready Product");
             alert.setHeaderText(null);
             alert.setContentText("Failed to add ready product!");
             alert.showAndWait();
         }
 
-    }
-
-    @FXML
-    private void onUpload(ActionEvent event) throws IOException {
-        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        this.fileChooser.setTitle("Select an image");
-        this.fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
-        );
-
-        File file = this.fileChooser.showOpenDialog(primaryStage);
-        if (file != null) {
-            this.testImg = true;
-//            Path sourcePath = file.toPath();
-            byte[] imageData = Files.readAllBytes(file.toPath());
-
-            URL url = new URL(phpUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-
-            OutputStream outputStream = connection.getOutputStream();
-            outputStream.write(("--" + boundary + "\r\n").getBytes());
-            outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n").getBytes());
-            outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
-            outputStream.write(imageData);
-            outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
-            outputStream.flush();
-            outputStream.close();
-
-            // Read the response from the PHP script
-            InputStream inputStream = connection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-            reader.close();
-            Path destinationPath = Paths.get("C:\\xampp\\htdocs\\PIDEV\\BlogUploads\\" + file.getName());
-
-            this.imageField.setText(destinationPath.toString());
-
-            try {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Image Upload");
-                alert.setHeaderText(null);
-                alert.setContentText("Image uploaded successfully.");
-                alert.showAndWait();
-
-            } catch (Exception ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("An Error occured");
-                alert.showAndWait();
-            }
-        }
     }
 
     public void onBack(ActionEvent event) {
@@ -332,4 +273,5 @@ public class AddReadyProductController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
+
 }

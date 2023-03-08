@@ -41,14 +41,17 @@ public class ProductReviewDao {
                 productReview.setTitle(resultSet.getString("title"));
                 productReview.setText(resultSet.getString("text"));
                 productReview.setRating(resultSet.getInt("rating"));
-                productReview.setDate(resultSet.getDate("date"));
+                // Convert java.util.Date to java.sql.Date
+                java.util.Date date = resultSet.getDate("date");
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                productReview.setDate(sqlDate);
             }
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
         return productReview;
     }
-    
+
     public int getProductReviewId(int id) throws SQLException {
         String query = "SELECT ready_product_ID FROM productreview WHERE review_ID = ?";
         PreparedStatement statement = sqlConnection.prepareStatement(query);
@@ -61,12 +64,13 @@ public class ProductReviewDao {
         }
 
     }
-   public List<ProductReview> getAllProductReviewsByProdId(int id) {
+
+    public List<ProductReview> getAllProductReviewsByProdId(int id) {
         List<ProductReview> reviews = new ArrayList<>();
         try {
-            String query="SELECT * FROM productreview where ready_product_ID = ?";
+            String query = "SELECT * FROM productreview where ready_product_ID = ?";
             PreparedStatement statement = sqlConnection.prepareStatement(query);
-            statement.setInt(1,id);
+            statement.setInt(1, id);
             System.out.println(statement);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -77,7 +81,10 @@ public class ProductReviewDao {
                 productReview.setTitle(resultSet.getString("title"));
                 productReview.setText(resultSet.getString("text"));
                 productReview.setRating(resultSet.getInt("rating"));
-                productReview.setDate(resultSet.getDate("date"));
+                // Convert java.util.Date to java.sql.Date
+                java.util.Date date = resultSet.getDate("date");
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                productReview.setDate(sqlDate);
                 reviews.add(productReview);
             }
         } catch (SQLException e) {
@@ -85,7 +92,7 @@ public class ProductReviewDao {
         }
         return reviews;
     }
-   
+
     public List<ProductReview> getAllProductReviews() {
         List<ProductReview> reviews = new ArrayList<>();
         try {
@@ -99,7 +106,10 @@ public class ProductReviewDao {
                 productReview.setTitle(resultSet.getString("title"));
                 productReview.setText(resultSet.getString("text"));
                 productReview.setRating(resultSet.getInt("rating"));
-                productReview.setDate(resultSet.getDate("date"));
+                // Convert java.util.Date to java.sql.Date
+                java.util.Date date = resultSet.getDate("date");
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                productReview.setDate(sqlDate);
                 reviews.add(productReview);
             }
         } catch (SQLException e) {
@@ -116,8 +126,11 @@ public class ProductReviewDao {
             statement.setInt(2, productReview.getUserId());
             statement.setString(3, productReview.getTitle());
             statement.setString(4, productReview.getText());
-            statement.setInt(5, productReview.getRating());
-            statement.setDate(6, (Date) productReview.getDate());
+            statement.setFloat(5, productReview.getRating());
+            // Convert java.util.Date to java.sql.Date
+            java.util.Date date = productReview.getDate();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            statement.setDate(6, sqlDate);
 
             return statement.executeUpdate();
         } catch (SQLException e) {
@@ -137,8 +150,11 @@ public class ProductReviewDao {
             statement.setInt(2, productReview.getUserId());
             statement.setString(3, productReview.getTitle());
             statement.setString(4, productReview.getText());
-            statement.setInt(5, productReview.getRating());
-            statement.setDate(6, (Date) productReview.getDate());
+            statement.setFloat(5, productReview.getRating());
+            // Convert java.util.Date to java.sql.Date
+            java.util.Date date = productReview.getDate();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            statement.setDate(6, sqlDate);
             statement.setInt(7, id);
 
             return statement.executeUpdate();
@@ -179,6 +195,15 @@ public class ProductReviewDao {
             System.err.print(e.getMessage());
         }
         return Math.round(rating * 10) / 10f;
+    }
+
+    public int getProductReviewCountByProdId(int productId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM productreview WHERE ready_product_ID = ?";
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, productId);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        return resultSet.getInt(1);
     }
 
 }

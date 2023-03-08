@@ -114,12 +114,13 @@ public class ReadyProductCardController implements Initializable {
     }
 
     @FXML
-    public void onReviews(ActionEvent event) {
+    public void onReviews(ActionEvent event) throws SQLException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewsList.fxml"));
             Parent root = loader.load();
-            ReviewCardController controller = loader.getController();
-            controller.setProductReview(this.p.getReadyProductId());
+            ReviewsListController contr = loader.getController();
+            contr.setProductId(this.p.getReadyProductId());
+            contr.setReadyProduct(this.p);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setResizable(false);
