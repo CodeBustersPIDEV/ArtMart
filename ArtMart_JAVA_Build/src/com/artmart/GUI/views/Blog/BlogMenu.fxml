@@ -71,7 +71,7 @@
                </source>
             </ImageInput>
          </effect></Button>
-      <VBox layoutX="335.0" layoutY="291.0" prefHeight="283.0" prefWidth="581.0">
+      <VBox layoutX="335.0" layoutY="291.0" prefHeight="238.0" prefWidth="581.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="501.0" spacing="20.0">
                <children>
@@ -112,6 +112,18 @@
                      </effect>
                   </Button>
                   <Button fx:id="link_Tag_manage" mnemonicParsing="false" onAction="#goToTagManagement" text="Tag Management" textFill="#21153d">
+                     <font>
+                        <Font name="Dubai Bold" size="15.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="361.0" spacing="20.0">
+               <children>
+                  <Button fx:id="blogStatBtn" mnemonicParsing="false" onAction="#goToBlogStat" text="Blog Stats" textFill="#21153d">
                      <font>
                         <Font name="Dubai Bold" size="15.0" />
                      </font>
