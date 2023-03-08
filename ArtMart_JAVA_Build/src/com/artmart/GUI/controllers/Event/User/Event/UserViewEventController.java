@@ -5,6 +5,7 @@
 package com.artmart.GUI.controllers.Event.User.Event;
 
 import com.artmart.GUI.controllers.Event.Artist.Event.ListEventController;
+import com.artmart.GUI.controllers.Event.User.Feedback.AddFeedbackController;
 import com.artmart.models.Event;
 import com.artmart.models.Participation;
 import com.artmart.models.Session;
@@ -30,11 +31,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class UserViewEventController implements Initializable {
     
     private final HashMap user = (HashMap) Session.getActiveSessions();
@@ -75,20 +71,12 @@ public class UserViewEventController implements Initializable {
     @FXML
     private Text txtRate;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         this.tfEventDescription.setStyle("-fx-border-color: #ff5946; -fx-border-width: 1px;");
         this.tfEventDescription.setPrefWidth(270);
         this.attendingStatus.setText("No ☹");
-//        if (participation == null) {
-//            this.attendingStatus.setText("No!");
-//        }else {
-//            this.attendingStatus.setText(participation.getAttendanceStatus());
-//        }
     }    
     
     public void setUpEventData(Event event) {
@@ -120,7 +108,6 @@ public class UserViewEventController implements Initializable {
                 this.attendingStatus.setText("No 😓");
             }
         }
-
     }
 
     @FXML
@@ -212,7 +199,14 @@ public class UserViewEventController implements Initializable {
         System.out.println("heha333");
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/add_feedback.fxml"));
+            //Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/add_feedback.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/add_feedback.fxml"));
+            Parent root = loader.load();
+            
+            AddFeedbackController controller = loader.getController();
+            controller.setUpEventData(this.event);
+            
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");

@@ -24,11 +24,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class UserCardEventController implements Initializable {
     
     private final HashMap user = (HashMap) Session.getActiveSessions();
@@ -60,9 +55,6 @@ public class UserCardEventController implements Initializable {
     @FXML
     private Text txtEventStatus;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

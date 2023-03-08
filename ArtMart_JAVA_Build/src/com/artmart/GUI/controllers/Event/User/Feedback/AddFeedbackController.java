@@ -4,9 +4,13 @@
  */
 package com.artmart.GUI.controllers.Event.User.Feedback;
 
+import com.artmart.models.Event;
 import com.artmart.models.Feedback;
+import com.artmart.models.Session;
+import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,9 +34,13 @@ public class AddFeedbackController implements Initializable {
     private String comment;
     private Integer rating;
 
-    /**
-     * Initializes the controller class.
-     */
+    private Event event = new Event();
+    private final EventService es = new EventService();
+
+    private final HashMap user = (HashMap) Session.getActiveSessions();
+    private final Session session = Session.getInstance();
+    private final int userID = session.getCurrentUserId(session.getSessionId()); 
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.txtAreaComment.setWrapText(true);
@@ -41,6 +49,10 @@ public class AddFeedbackController implements Initializable {
         spinnerRating.setValueFactory(valueFactory);
     }    
 
+    public void setUpEventData(Event event) {
+        this.event = event;
+    }
+    
     @FXML
     private void onPost(ActionEvent event) {
         
@@ -59,11 +71,12 @@ public class AddFeedbackController implements Initializable {
         }else {
             
             Feedback feedback = new Feedback(
-                    0, 
-                    0, 
-                    this.rating, 
-                    this.comment);
-
+                this.event.getEventID(),
+                this.userID,
+                this.rating, 
+                this.comment
+            );
+            System.out.println(feedback);
             int result = 0;
                     //as.createActivity(activity);
 
