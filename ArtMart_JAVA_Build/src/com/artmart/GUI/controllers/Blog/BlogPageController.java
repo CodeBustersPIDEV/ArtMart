@@ -152,7 +152,8 @@ public class BlogPageController implements Initializable {
                     controller.setCommentContent(comment.getContent());
                     controller.setUsername(username);
                     controller.setBlogID(bc_id);
-                    controller.setRating(this.rating);
+                    ComboBox<Integer> ratingEdit=this.rating;
+                    controller.setRating(ratingEdit);
                     controller.setController(this);
                     if (comment.getAuthor() == this.session.getUserId() || this.session.getUserRole().equals("Admin")) {
                         controller.setAuthorVisibility();

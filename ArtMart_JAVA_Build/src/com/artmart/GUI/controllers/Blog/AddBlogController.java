@@ -306,6 +306,5 @@ public class AddBlogController implements Initializable {
     @FXML
     private void inc_tag(ActionEvent event) {
         this.tags += "#" + this.tagsInput.getSelectionModel().getSelectedItem();
-        System.out.println(this.tags);
     }
 }

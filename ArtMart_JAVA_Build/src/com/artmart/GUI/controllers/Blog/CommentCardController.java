@@ -44,7 +44,7 @@ public class CommentCardController implements Initializable {
     private MenuItem deleteBtn;
     @FXML
     private MenuItem editBtn;
-    private ComboBox<Integer> rating;
+    private ComboBox<Integer> ratingEdit;
     HBox hBox = new HBox();
 
     private final BlogService blogService = new BlogService();
@@ -90,7 +90,7 @@ public class CommentCardController implements Initializable {
     }
 
     public void setRating(ComboBox<Integer> rating) {
-        this.rating = rating;
+        this.ratingEdit = rating;
     }
 
     @Override
@@ -120,13 +120,13 @@ public class CommentCardController implements Initializable {
         alert.setTitle("Edit Your Comment");
         hBox.setSpacing(10);
         this.editComment_content.setText(this.viewComment.getContent());
-        hBox.getChildren().addAll(this.editComment_content, this.rating);
+        hBox.getChildren().addAll(this.editComment_content, this.ratingEdit);
         alert.setGraphic(hBox);
         Comment editedComment = new Comment();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             editedComment.setContent(editComment_content.getText());
-            editedComment.setRating(this.rating.getSelectionModel().getSelectedItem());
+            editedComment.setRating(this.ratingEdit.getSelectionModel().getSelectedItem());
             this.blogService.updateComment(id, editedComment);
             this.controller.refresh(blog_id);
             calculateRating(blog_id);
