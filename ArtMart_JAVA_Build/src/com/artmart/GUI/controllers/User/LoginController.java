@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
 
     /**
      * Initializes the controller class.
-     */    
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -88,6 +88,7 @@ public class LoginController implements Initializable {
                         Session session = Session.getInstance();
                         session.setUserId(id);
                         session.setUsername(username);
+                        session.setUserRole(u.getRole());
                         session.setSessionId("1");
                         session.logIn(session.getSessionId(), session);
 

@@ -12,12 +12,12 @@ public class HasTag {
         this.tag_id = tag_id;
     }
 
-    public HasTag(int blog_id, int category_id) {
+    public HasTag(int blog_id, int tag_id) {
         this.blog_id = blog_id;
         this.tag_id = tag_id;
     }
 
-    public HasTag(int category_id) {
+    public HasTag(int tag_id) {
         this.tag_id = tag_id;
     }
 

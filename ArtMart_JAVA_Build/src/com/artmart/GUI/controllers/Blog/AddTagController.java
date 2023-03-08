@@ -5,7 +5,7 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
-import com.artmart.models.BlogCategories;
+import com.artmart.models.Tag;
 import com.artmart.services.BlogService;
 import java.io.IOException;
 import java.net.URL;
@@ -29,15 +29,14 @@ import javafx.stage.Stage;
  *
  * @author marwen
  */
-public class AddCategoryController implements Initializable {
+public class AddTagController implements Initializable {
 
     @FXML
-    private TextField cat_nameTextField;
+    private TextField tag_nameTextField;
     @FXML
-    private Button addCategory;
+    private Button addtag;
     @FXML
     private Button goBack;
-
     private final BlogService blogService = new BlogService();
     private int test1;
 
@@ -52,18 +51,18 @@ public class AddCategoryController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         try {
-            BlogCategories blogCat = new BlogCategories(this.cat_nameTextField.getText());
-            test1 = blogService.addBlogCategories(blogCat);
+            Tag blogTag = new Tag(this.tag_nameTextField.getText());
+            test1 = blogService.addTag(blogTag);
             if (test1 == 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Category Added");
+                alert.setTitle("Tag Added");
                 alert.setHeaderText(null);
-                alert.setContentText("Your blog category has been added.");
+                alert.setContentText("Your blog tag has been added.");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     try {
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCategoryManagement.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/TagManagement.fxml"));
                         Scene scene = new Scene(root);
                         stage.setResizable(false);
                         stage.setScene(scene);
@@ -76,7 +75,7 @@ public class AddCategoryController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
-                alert.setContentText("Oops!!Can not add your blog category.");
+                alert.setContentText("Oops!!Can not add your blog tag.");
                 alert.showAndWait();
             }
         } catch (Exception ex) {
@@ -84,19 +83,19 @@ public class AddCategoryController implements Initializable {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("An Error occured");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    try {
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/addCategory.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/addTag.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
                 }
+            }
 
         }
     }
@@ -114,5 +113,6 @@ public class AddCategoryController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-
 }
+
+

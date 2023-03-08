@@ -36,7 +36,7 @@ public class BlogCategories {
 
     @Override
     public String toString() {
-        return "BlogCategories{" + "id=" + id + ", name=" + name + '}';
+        return this.name;
     }
 
 }

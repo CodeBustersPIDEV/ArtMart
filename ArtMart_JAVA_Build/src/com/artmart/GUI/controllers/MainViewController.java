@@ -152,7 +152,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void goToBlog(ActionEvent event) {
-        if (this.connectedUser.getRole().equals("Admin")) {
+        if (this.connectedUser.getRole().equals("admin")) {
             try {
                 Stage stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));

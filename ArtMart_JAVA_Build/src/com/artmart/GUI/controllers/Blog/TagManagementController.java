@@ -5,7 +5,7 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
-import com.artmart.models.BlogCategories;
+import com.artmart.models.Tag;
 import com.artmart.services.BlogService;
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +23,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,49 +35,49 @@ import javafx.stage.Stage;
  *
  * @author marwen
  */
-public class BlogCategoryManagementController implements Initializable {
+public class TagManagementController implements Initializable {
 
     @FXML
     private Button goBack;
     @FXML
-    private TableView<BlogCategories> categoryTableView;
+    private TableView<Tag> tagTableView;
     @FXML
-    private TableColumn<BlogCategories, String> catNameColumn;
+    private TableColumn<Tag, String> catNameColumn;
     @FXML
-    private TableColumn<BlogCategories, Void> operationColumn;
-
+    private TableColumn<Tag, Void> operationColumn;
+    @FXML
+    private Button addTag;
     private final BlogService blogService = new BlogService();
-    private List<BlogCategories> blogCategoriesList;
-    @FXML
-    private Button addCat;
+    private List<Tag> tagList;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.blogCategoriesList = this.blogService.getAllBlogCategories();
-        ObservableList<BlogCategories> items = FXCollections.observableArrayList(
-                this.blogCategoriesList.stream().collect(Collectors.toList())
+        this.tagList = this.blogService.getAllTags();
+        ObservableList<Tag> items = FXCollections.observableArrayList(
+                this.tagList.stream().collect(Collectors.toList())
         );
+
         this.catNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        this.categoryTableView.setItems(items);
+        this.tagTableView.setItems(items);
 
-        this.operationColumn.setCellFactory(param -> new TableCell<BlogCategories, Void>() {
+        this.operationColumn.setCellFactory(param -> new TableCell<Tag, Void>() {
             private final Button editButton = new Button("Edit");
             private final Button deleteButton = new Button("Delete");
 
             {
                 editButton.setOnAction(event -> {
                     try {
-                        BlogCategories category = getTableView().getItems().get(getIndex());
+                        Tag tag = getTableView().getItems().get(getIndex());
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/editBlogCategory.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/editTag.fxml"));
                         Parent root = loader.load();
                         Scene scene = new Scene(root);
-                        EditBlogCategoryController controller = loader.getController();
-                        controller.setUpData(String.valueOf(category.getId()));
+                        EditTagController controller = loader.getController();
+                        controller.setUpData(String.valueOf(tag.getId()));
                         stage.setResizable(false);
                         stage.setScene(scene);
                         stage.show();
@@ -89,15 +88,15 @@ public class BlogCategoryManagementController implements Initializable {
                 });
 
                 deleteButton.setOnAction(event -> {
-                    BlogCategories category = getTableView().getItems().get(getIndex());
-                    boolean isDeleted = blogService.deleteBlogCategory(category.getId());
-                    blogCategoriesList = blogService.getAllBlogCategories();
-                    ObservableList<BlogCategories> items = FXCollections.observableArrayList(
-                            blogCategoriesList.stream().collect(Collectors.toList())
+                    Tag tag = getTableView().getItems().get(getIndex());
+                    boolean isDeleted = blogService.deleteTag(tag.getId());
+                    tagList = blogService.getAllTags();
+                    ObservableList<Tag> items = FXCollections.observableArrayList(
+                            tagList.stream().collect(Collectors.toList())
                     );
                     catNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-                    categoryTableView.setItems(items);
+                    tagTableView.setItems(items);
 
                 });
             }
@@ -132,10 +131,10 @@ public class BlogCategoryManagementController implements Initializable {
     }
 
     @FXML
-    private void goToAddCat(ActionEvent event) {
+    private void goToAddTag(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addCategory.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addTag.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -144,5 +143,4 @@ public class BlogCategoryManagementController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-
 }

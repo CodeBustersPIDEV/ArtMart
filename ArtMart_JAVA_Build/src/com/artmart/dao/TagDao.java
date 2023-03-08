@@ -48,7 +48,29 @@ public class TagDao implements ITagDao {
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 tagFound = new Tag(
-                        result.getInt("tag_id"),
+                        result.getInt("tags_ID"),
+                        result.getString("name")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return tagFound;
+    }
+    
+        @Override
+    public Tag getOneTagByName(String tag_name) {
+        Tag tagFound = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM tags WHERE name = ?"
+            );
+            statement.setString(1, tag_name);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                tagFound = new Tag(
+                        result.getInt("tags_ID"),
                         result.getString("name")
                 );
             }
