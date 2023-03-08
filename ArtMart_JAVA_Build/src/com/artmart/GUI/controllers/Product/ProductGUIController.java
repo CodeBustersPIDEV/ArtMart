@@ -5,6 +5,7 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.ProductDao;
 import com.artmart.dao.ReadyProductDao;
@@ -73,6 +74,7 @@ public class ProductGUIController implements Initializable {
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
+int UserID = session.getUserID("1");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -112,7 +114,21 @@ public class ProductGUIController implements Initializable {
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
-                profile.goToProfile(event, "ProfileClient");
+            
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+                try {
+                    Parent root = loader.load();
+
+                    ProfileClientController controller = loader.getController();
+                    controller.setProfile(UserID);
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
                 Node source = (Node) event.getSource();

@@ -5,6 +5,9 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.User.ProfileAdminController;
+import com.artmart.GUI.controllers.User.ProfileArtistController;
+import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.ProductDao;
@@ -17,13 +20,17 @@ import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.ProductService;
 import com.artmart.services.ReadyProductService;
+import com.artmart.services.UserService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +40,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -86,17 +94,21 @@ public class EditReadyProductController implements Initializable {
     private Button uploadImage;
     @FXML
     private Label username;
+    @FXML
+    private ChoiceBox<String> profileChoiceBox;
 
     private File selectedImageFile;
 
     private ReadyProduct viewProd = new ReadyProduct();
     private int id;
+    UserService user_ser = new UserService();
 
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
+    int UserID = session.getUserID("1");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,6 +116,64 @@ public class EditReadyProductController implements Initializable {
         this.connectedUser = this.userService.getUser(this.session.getUserId());
         this.username.setText(this.connectedUser.getName());
         populateComboBox();
+        Map<String, String> profileActions = new HashMap<>();
+        profileActions.put("Logout", "logout");
+        profileActions.put("Profile", "profile");
+        // Populate the choice box with display names
+        profileChoiceBox.getItems().addAll(profileActions.keySet());
+        // Add an event listener to handle the selected item's ID
+        profileChoiceBox.setOnAction(event -> {
+            String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
+            String selectedId = profileActions.get(selectedItem);
+            // Handle the action based on the selected ID
+            if ("profile".equals(selectedId)) {
+
+               User u = user_ser.getUser(UserID);
+                    if (u.getRole().equals("admin")) {
+                        Stage stage = new Stage();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                        try {
+                            Parent root = loader.load();
+
+                            ProfileAdminController controller = loader.getController();
+                            controller.setProfile(UserID);
+                            Scene scene = new Scene(root);
+                            stage.setResizable(false);
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException ex) {
+                            Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else if (u.getRole().equals("artist")) {
+                        Stage stage = new Stage();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+                        try {
+                            Parent root = loader.load();
+
+                            ProfileArtistController controller = loader.getController();
+                            controller.setProfile(UserID);
+                            Scene scene = new Scene(root);
+                            stage.setResizable(false);
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException ex) {
+                            Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
+            } else if ("logout".equals(selectedId)) {
+                session.logOut("1");
+                Node source = (Node) event.getSource();
+                Stage stage = (Stage) source.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     private void populateComboBox() {

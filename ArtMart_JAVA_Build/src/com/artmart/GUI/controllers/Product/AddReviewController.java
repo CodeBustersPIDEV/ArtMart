@@ -5,6 +5,7 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.ReadyProductDao;
@@ -93,12 +94,12 @@ public class AddReviewController implements Initializable {
 
     ReadyProductService readyProductService = new ReadyProductService();
     UserService user_ser = new UserService();
-
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
+    int UserID = session.getUserID("1");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -118,7 +119,21 @@ public class AddReviewController implements Initializable {
                 String selectedId = profileActions.get(selectedItem);
                 // Handle the action based on the selected ID
                 if ("profile".equals(selectedId)) {
-                    profile.goToProfile(event, "ProfileClient");
+                  
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileClientController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else if ("logout".equals(selectedId)) {
                     session.logOut("1");
                     Node source = (Node) event.getSource();
@@ -183,8 +198,8 @@ public class AddReviewController implements Initializable {
         String text = textF.getText();
         float rating = Float.parseFloat(ratingF.getText());
         int us = this.connectedUser.getUser_id();
-        
-         // Get the current date and time
+
+        // Get the current date and time
         Date currentDate = new Date();
 
         // Create a date format string
@@ -192,17 +207,17 @@ public class AddReviewController implements Initializable {
 
         // Format the current date as a string
         String dateString = dateFormat.format(currentDate);
-        
-         // Parse the date string into a Date object
+
+        // Parse the date string into a Date object
         Date myDate = null;
         try {
             myDate = dateFormat.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        
+
         Date date = myDate;
-        
+
         // Get the selected category from the combo box
         ReadyProduct selectedProduct = (ReadyProduct) productF.getSelectionModel().getSelectedItem();
 
@@ -214,7 +229,7 @@ public class AddReviewController implements Initializable {
             alert.showAndWait();
             return;
         }
-        
+
         ProductReview baseRev = new ProductReview(selectedProduct.getReadyProductId(), us, title, text, rating, date);
 
         int result = readyProductService.createProductReview(baseRev);
@@ -232,7 +247,6 @@ public class AddReviewController implements Initializable {
 //            System.out.println("test begin");
 //            readyProductService.sendEmail(email, "New product added", readyProductService.generateVerificationEmail(u.getName(), productName));
 //            System.out.println("test reached");
-
             // Close the current window
             Stage stage = (Stage) add.getScene().getWindow();
             stage.close();

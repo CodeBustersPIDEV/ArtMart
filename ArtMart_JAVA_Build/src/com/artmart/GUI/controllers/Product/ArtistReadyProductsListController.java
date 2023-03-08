@@ -5,6 +5,9 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.User.ProfileAdminController;
+import com.artmart.GUI.controllers.User.ProfileArtistController;
+import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
@@ -13,6 +16,7 @@ import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.CategoriesService;
 import com.artmart.services.ReadyProductService;
+import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -77,7 +81,7 @@ public class ArtistReadyProductsListController implements Initializable {
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
-
+    int UserID = session.getUserID("1");
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -100,9 +104,23 @@ public class ArtistReadyProductsListController implements Initializable {
                 String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
                 String selectedId = profileActions.get(selectedItem);
                 // Handle the action based on the selected ID
-                if ("profile".equals(selectedId)) {
-                    profile.goToProfile(event, "ProfileClient");
-                } else if ("logout".equals(selectedId)) {
+                if (selectedItem.equals("Profile")) {
+
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileArtistController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if ("Logout".equals(selectedItem)) {
                     session.logOut("1");
                     Node source = (Node) event.getSource();
                     Stage stage = (Stage) source.getScene().getWindow();
@@ -268,14 +286,33 @@ public class ArtistReadyProductsListController implements Initializable {
         });
     }
 
-    @FXML
-    private void handleProfileButtonClick() {
-        // Get selected item from choice box
-        String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            // Set label text to selected item
-            profileLabel.setText(selectedItem);
+    public void goToProfile(String profile) {
+        try {
+
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/" + profile + ".fxml"));
+            Parent root = loader.load();
+            if (profile.equals("ProfileArtist")) {
+                ProfileArtistController controller = loader.getController();
+                controller.setProfile(UserID);
+
+            } else if (profile.equals("ProfileAdmin")) {
+                ProfileAdminController controller = loader.getController();
+                controller.setProfile(UserID);
+
+            } else if (profile.equals("ProfileClient")) {
+                ProfileClientController controller = loader.getController();
+                controller.setProfile(UserID);
+
+            }
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
         }
+
     }
 
     public void refreshScene(ActionEvent event) {

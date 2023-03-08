@@ -5,6 +5,9 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.User.ProfileAdminController;
+import com.artmart.GUI.controllers.User.ProfileArtistController;
+import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.UserDao;
@@ -111,6 +114,7 @@ public class AddReadyProductController implements Initializable {
     String boundary = "---------------------------12345";
     private boolean testImg = false;
     private final FileChooser fileChooser = new FileChooser();
+    int UserID = session.getUserID("1");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -132,7 +136,39 @@ public class AddReadyProductController implements Initializable {
                 String selectedId = profileActions.get(selectedItem);
                 // Handle the action based on the selected ID
                 if ("profile".equals(selectedId)) {
-                    profile.goToProfile(event, "ProfileClient");
+                    User u = user_ser.getUser(UserID);
+                    if (u.getRole().equals("admin")) {
+                        Stage stage = new Stage();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                        try {
+                            Parent root = loader.load();
+
+                            ProfileAdminController controller = loader.getController();
+                            controller.setProfile(UserID);
+                            Scene scene = new Scene(root);
+                            stage.setResizable(false);
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException ex) {
+                            Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else if (u.getRole().equals("artist")) {
+                        Stage stage = new Stage();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+                        try {
+                            Parent root = loader.load();
+
+                            ProfileArtistController controller = loader.getController();
+                            controller.setProfile(UserID);
+                            Scene scene = new Scene(root);
+                            stage.setResizable(false);
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException ex) {
+                            Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
                 } else if ("logout".equals(selectedId)) {
                     session.logOut("1");
                     Node source = (Node) event.getSource();
