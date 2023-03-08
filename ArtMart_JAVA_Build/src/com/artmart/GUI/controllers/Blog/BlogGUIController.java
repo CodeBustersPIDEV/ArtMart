@@ -9,6 +9,7 @@ import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -54,12 +55,14 @@ public class BlogGUIController implements Initializable {
     private final BlogService blogService = new BlogService();
     private List<Blog> matchingBlogs;
     private List<BlogCategories> blogCategoriesList;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     private void initBlogs() {
         UserDao userService = new UserDao();
         List<Blog> blogList = new ArrayList<>();
         blogList = this.blogService.getAllBlogs();
         blogList.forEach(blog -> {
+
             String username = userService.getUser(blog.getAuthor()).getUsername();
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCard.fxml"));
@@ -67,27 +70,24 @@ public class BlogGUIController implements Initializable {
                 pane.setId("blog_card" + blog.getId());
                 BlogCardController controller = loader.getController();
                 Media img = this.blogService.getOneMediaByBlogID(blog.getId());
+                System.out.println(blog.toString());
                 if (img == null) {
                     File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
                     Image image = new Image(file.toURI().toString());
                     controller.setImage(image);
                     controller.setBlogImage(image);
-//                    System.out.println("image"+image.getHeight());
-//                    controller.setCardCont1(image.getHeight());
-//                    controller.setCardCont2(image.getHeight());
                 } else {
                     File file = new File(img.getFile_path());
                     Image image = new Image(file.toURI().toString());
                     controller.setImage(image);
                     controller.setBlogImage(image);
-//                    System.out.println("image"+image.getHeight());
-//                    controller.setCardCont1(image.getHeight());
-//                    controller.setCardCont2(image.getHeight());
                 }
                 controller.setBlogTitle(blog.getTitle());
                 container.getChildren().add(pane);
                 controller.setUsername(username);
                 controller.setBlogID(Integer.toString(blog.getId()));
+                controller.setViewsLabel(Integer.toString(blog.getNb_views()));
+                controller.setRatingLabel(String.valueOf(df.format(blog.getRating())));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.printStackTrace();

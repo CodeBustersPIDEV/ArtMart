@@ -21,5 +21,7 @@ public interface IBlogServiceDao {
 
     public boolean updateBlogRating(int blog_id, double blogRating);
 
+    public boolean updateBlogViews(int blog_id);
+
     public boolean deleteBlog(int blog_id);
 }
