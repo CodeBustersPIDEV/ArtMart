@@ -24,7 +24,8 @@ public interface IUserDao {
     public boolean authenticate(String username, String password);
 
     public void StoreToken(String token, String email);
-
-    public boolean verifyToken(String email, String token);
+    public boolean enableUser(String email);
+    public String verifyToken(String email);
+    public String getPhoneNumberById(int userId);
 
 }

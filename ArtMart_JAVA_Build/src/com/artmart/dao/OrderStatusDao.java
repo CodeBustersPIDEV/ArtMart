@@ -22,16 +22,18 @@ public class OrderStatusDao implements IOrderStatusDao {
 
     @Override
     public int createOrderStatus(OrderStatus orderStatus) {
+        int result = 0;
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO OrderStatus (OrderID, Status, Date) VALUES (?, ?, ?)");
             stmt.setInt(1, orderStatus.getOrderId());
             stmt.setString(2, orderStatus.getStatus());
             stmt.setDate(3, orderStatus.getDate());
-            return stmt.executeUpdate();
+            result = stmt.executeUpdate();
+            stmt.close();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
-        return 0;
+        return result;
     }
 
     @Override
@@ -48,6 +50,8 @@ public class OrderStatusDao implements IOrderStatusDao {
                 orderStatus.setOrderId(result.getInt("OrderID"));
                 orderStatus.setStatus(result.getString("Status"));
                 orderStatus.setDate(result.getDate("Date"));
+                stmt.close();
+                result.close();
                 return orderStatus;
             }
         } catch (SQLException e) {
@@ -65,8 +69,10 @@ public class OrderStatusDao implements IOrderStatusDao {
             stmt.setInt(1, id);
             ResultSet result = stmt.executeQuery();
             if (result.next()) {
-                orderStatus = new OrderStatus(result.getInt("orderStatus_ID"),id,OrderCurrentStatus.valueOf(result.getString("Status")),result.getDate("Date"));
+                orderStatus = new OrderStatus(result.getInt("orderStatus_ID"), id, OrderCurrentStatus.valueOf(result.getString("Status")), result.getDate("Date"));
             }
+            stmt.close();
+            result.close();
         } catch (SQLException e) {
             System.err.print(e.getCause());
         }
@@ -79,7 +85,6 @@ public class OrderStatusDao implements IOrderStatusDao {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM OrderStatus");
             ResultSet resultSet = statement.executeQuery();
             List<OrderStatus> orderStatuses = new ArrayList<>();
-
             while (resultSet.next()) {
                 OrderStatus orderStatus = new OrderStatus();
                 orderStatus.setId(resultSet.getInt("orderStatus_ID"));
@@ -88,6 +93,8 @@ public class OrderStatusDao implements IOrderStatusDao {
                 orderStatus.setDate(resultSet.getDate("Date"));
                 orderStatuses.add(orderStatus);
             }
+            statement.close();
+            resultSet.close();
             return orderStatuses;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -96,14 +103,16 @@ public class OrderStatusDao implements IOrderStatusDao {
     }
 
     @Override
-    public boolean updateOrderStatus(int id,OrderCurrentStatus status) {
+    public boolean updateOrderStatus(int id, OrderCurrentStatus status) {
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE OrderStatus SET Status = ?, Date = ? WHERE OrderID = ?");
             statement.setString(1, status.getStatus());
             System.err.print(status.getStatus());
             statement.setDate(2, java.sql.Date.valueOf(java.time.LocalDate.now()));
             statement.setInt(3, id);
-            return statement.executeUpdate()>0;
+            int rowsDeleted = statement.executeUpdate();
+            statement.close();
+            return rowsDeleted == 1;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
@@ -115,7 +124,9 @@ public class OrderStatusDao implements IOrderStatusDao {
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM OrderStatus WHERE OrderID = ?");
             stmt.setInt(1, id);
-            return stmt.executeUpdate()>0;
+            int rowsDeleted = stmt.executeUpdate();
+            stmt.close();
+            return rowsDeleted == 1;
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }

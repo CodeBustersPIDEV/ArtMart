@@ -5,32 +5,23 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
-import com.artmart.dao.UserDao;
 import com.artmart.models.Comment;
 import com.artmart.services.BlogService;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -40,7 +31,7 @@ import javafx.stage.Stage;
 public class CommentCardController implements Initializable {
 
     @FXML
-    private ImageView iconBtn;
+    private MenuButton iconBtn;
     @FXML
     private Label username;
     @FXML
@@ -50,29 +41,44 @@ public class CommentCardController implements Initializable {
     @FXML
     private Label commentID;
     @FXML
-    private Pane btnPane;
+    private MenuItem deleteBtn;
     @FXML
-    private MenuButton operations;
+    private MenuItem editBtn;
+    private ComboBox<Integer> ratingEdit;
+    HBox hBox = new HBox();
 
     private final BlogService blogService = new BlogService();
-    private final UserDao userService = new UserDao();
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     private Comment viewComment = new Comment();
-
+    private TextArea editComment_content = new TextArea();
+    int blog_id;
     private int id;
-    private boolean isEdited = false;
-
-    MenuItem menuItem1;
-    MenuItem menuItem2;
+    private double blogRating;
+    BlogPageController controller;
 
     /**
      * Initializes the controller class.
+     *
+     * @param controller
      */
+    public void setController(BlogPageController controller) {
+        this.controller = controller;
+    }
+
+    public void setAuthorVisibility() {
+        this.iconBtn.setVisible(true);
+    }
+
     public void setCommentContent(String content) {
         this.comment_content.setText(content);
     }
 
     public void setPostDate(String date) {
         this.date.setText(date);
+    }
+
+    public void setBlogID(int id) {
+        blog_id = id;
     }
 
     public void setUsername(String user_name) {
@@ -83,58 +89,48 @@ public class CommentCardController implements Initializable {
         this.commentID.setText(comment_id);
     }
 
-    public boolean getIsEdited() {
-        return this.isEdited;
+    public void setRating(ComboBox<Integer> rating) {
+        this.ratingEdit = rating;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        File file = new File("src/com/artmart/assets/BlogAssets/menu.png");
-        Image image = new Image(file.toURI().toString());
-        this.iconBtn.setImage(image);
-        menuItem1 = new MenuItem("Edit");
-        menuItem1.setId(commentID.getText());
-        TextArea editComment_content = new TextArea();
-        editComment_content.setWrapText(true);
-        editComment_content.setLayoutX(125);
-        editComment_content.setLayoutY(75);
-        menuItem1.setOnAction(e -> {
-            menuItem1.setId(commentID.getText());
-            int id = Integer.parseInt(menuItem1.getId());
-            this.viewComment = blogService.getOneComment(id);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Edit Your Comment");
-            alert.setHeaderText(null);
-            alert.setWidth(125);
-            alert.setGraphic(editComment_content);
-            editComment_content.setText(viewComment.getContent());
-            Comment editedComment = new Comment();
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                editedComment.setContent(editComment_content.getText());
-                this.blogService.updateComment(id, editedComment);
-                refreshCommentSection();
-            }
+    }
 
-        });
-        menuItem2 = new MenuItem("Delete");
-
-//        this.operations.getItems().addAll(menuItem1.getText(), menuItem2.getText());
-        this.operations.getItems().addAll(menuItem1, menuItem2);
-
-        this.iconBtn.setOnMouseClicked(e -> {
-            this.operations.show();
-        });
+    public void calculateRating(int idBlog) {
+        this.blogRating = this.blogService.calculateRating(idBlog);
+        this.blogService.updateBlogRating(idBlog, this.blogRating);
+        this.controller.getRatingLabel().setText(String.valueOf(df.format(this.blogRating)));
 
     }
 
-    private void refreshCommentSection() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogPage.fxml"));
-        BlogPageController controller = loader.getController();
+    @FXML
+    private void deleteComment(ActionEvent event) {
+        this.id = Integer.parseInt(this.commentID.getText());
+        blogService.deleteComment(id);
+        this.controller.refresh(blog_id);
+        calculateRating(blog_id);
+    }
 
-        controller.getContainer().getChildren().clear();
-
-        controller.setupComments(Integer.parseInt(controller.getBlogID()));
+    @FXML
+    private void editComment(ActionEvent event) {
+        this.id = Integer.parseInt(this.commentID.getText());
+        this.viewComment = blogService.getOneComment(id);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Edit Your Comment");
+        hBox.setSpacing(10);
+        this.editComment_content.setText(this.viewComment.getContent());
+        hBox.getChildren().addAll(this.editComment_content, this.ratingEdit);
+        alert.setGraphic(hBox);
+        Comment editedComment = new Comment();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            editedComment.setContent(editComment_content.getText());
+            editedComment.setRating(this.ratingEdit.getSelectionModel().getSelectedItem());
+            this.blogService.updateComment(id, editedComment);
+            this.controller.refresh(blog_id);
+            calculateRating(blog_id);
+        }
     }
 
 }

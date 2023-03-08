@@ -25,7 +25,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +33,6 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,12 +45,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -88,7 +85,7 @@ public class EditBlogController implements Initializable {
 
     private List<BlogCategories> blogCategoriesList;
     private List<Tag> blogTagsList;
-    private ObservableList<String> blogTList ;
+    private ObservableList<String> blogTList;
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
     private Blog viewBlog = new Blog();
@@ -104,6 +101,8 @@ public class EditBlogController implements Initializable {
     private Media img = new Media();
     private Media imgEdited = new Media();
     private final Desktop desktop = Desktop.getDesktop();
+    private String tags = "";
+    private String parts2 = "";
     private final FileChooser fileChooser = new FileChooser();
     private final String phpUrl = "http://localhost/PIDEV/upload.php";
     String boundary = "---------------------------12345";
@@ -127,13 +126,25 @@ public class EditBlogController implements Initializable {
             File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
             this.image = new Image(file.toURI().toString());
         }
-
         this.blog_title.setText(this.viewBlog.getTitle());
         this.blog_content.setText(this.viewBlog.getContent());
-        this.blog_category.getSelectionModel().select(hs.getCategory_id()-1);
-        this.tagsInput.getSelectionModel().select(ht.getTag_id()-1);
+        this.blog_category.getSelectionModel().select(hs.getCategory_id() - 1);
+        this.tagsInput.getSelectionModel().select(ht.getTag_id() - 1);
         this.blogImage.setImage(this.image);
+        retrieve();
 
+    }
+
+    private void retrieve() {
+        List<HasTag> hasTagsList;
+        List<Tag> tagsList = new ArrayList<>();
+        hasTagsList = blogService.getAllTagsbyBlog(id);
+        hasTagsList.forEach(hasTag -> {
+            tagsList.add(this.blogService.getOneTag(hasTag.getTag_id()));
+        });
+        tagsList.forEach(tag -> {
+            this.parts2 += "#" + tag.getName();
+        });
     }
 
     @Override
@@ -143,12 +154,13 @@ public class EditBlogController implements Initializable {
                 blogCategoriesList.stream().map(BlogCategories::getName).collect(Collectors.toList())
         );
         this.blog_category.setItems(blogCatList);
-        
-                blogTagsList = blogService.getAllTags();
+
+        blogTagsList = blogService.getAllTags();
         this.blogTList = FXCollections.observableArrayList(
                 blogTagsList.stream().map(Tag::getName).collect(Collectors.toList())
         );
         this.tagsInput.setItems(this.blogTList);
+        System.out.println(this.parts2);
     }
 
     @FXML
@@ -162,6 +174,21 @@ public class EditBlogController implements Initializable {
                 HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
                 this.test2 = blogService.updateHasCat(this.id, hc);
 //                File file = new File(this.img.getFile_path());
+                String[] parts = this.tags.split("#");
+                for (String part : parts) {
+                    Tag testTag = this.blogService.getOneTagByName(part);
+                    if (testTag == null ) {
+                        Tag testTag1 = new Tag(part);
+                        int test = this.blogService.addTag(testTag1);
+                        Tag resTag = blogService.getOneTagByName(part);
+                        HasTag ht = new HasTag(resBlog.getId(), resTag.getId());
+                        int testa = this.blogService.addBlog2HasTag(ht);
+                    } else {
+                        HasTag ht = new HasTag(resBlog.getId(), testTag.getId());
+                        int testa = this.blogService.addBlog2HasTag(ht);
+                    }
+                }
+
                 if (img == null) {
                     if (testImg) {
                         this.imgEdited.setBlog_id(resBlog.getId());
@@ -334,8 +361,10 @@ public class EditBlogController implements Initializable {
         }
     }
 
-    private void search(InputMethodEvent event) {
-     
+    @FXML
+    private void inc_tag(ActionEvent event) {
+        this.tags += "#" + this.tagsInput.getSelectionModel().getSelectedItem();
+        System.out.println(tags);
     }
 
 }

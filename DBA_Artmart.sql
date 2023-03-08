@@ -7,8 +7,9 @@ CREATE TABLE `user` (
     role VARCHAR(30) NOT NULL,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    picture text,
+    picture VARCHAR(255),
     blocked boolean,
+    enabled boolean,
     dateOfCreation DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -16,7 +17,6 @@ CREATE TABLE `artist` (
     artist_ID INT AUTO_INCREMENT PRIMARY KEY,
     user_ID INT NOT NULL,
     nbr_artwork INT NOT NULL,
-    qr_code VARCHAR(255) DEFAULT NULL,
     bio VARCHAR(255),
     FOREIGN KEY (user_ID) REFERENCES User(user_ID)
 );
@@ -36,15 +36,6 @@ CREATE TABLE `client` (
     FOREIGN KEY (user_ID) REFERENCES User(user_ID)
 );
 
-CREATE TABLE `premium` (
-    sub_ID INT AUTO_INCREMENT PRIMARY KEY,
-    start_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    user_ID INT NOT NULL,
-    duration INT NOT NULL,
-    price FLOAT NOT NULL,
-    FOREIGN KEY (user_ID) REFERENCES User(user_ID)
-);
-
 -- Blog 
 
 CREATE TABLE `blogs` (
@@ -52,8 +43,21 @@ CREATE TABLE `blogs` (
   title VARCHAR(255) NOT NULL,
   content TEXT NOT NULL,
   date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  rating FLOAT DEFAULT NULL,
+  nb_views INT NOT NULL DEFAULT 0;
   author INT NOT NULL,
   FOREIGN KEY (author) REFERENCES user(user_ID)
+);
+
+CREATE TABLE `comments` (
+  comments_ID INT AUTO_INCREMENT PRIMARY KEY,
+  content TEXT NOT NULL,
+  date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  rating INT DEFAULT NULL,
+  author INT NOT NULL,
+  blog_ID INT NOT NULL,
+  FOREIGN KEY (author) REFERENCES user(user_ID),
+  FOREIGN KEY (blog_ID) REFERENCES blogs(blogs_ID)
 );
 
 CREATE TABLE `blogcategories` (
@@ -124,39 +128,42 @@ CREATE TABLE `readyProduct` (
     ready_product_ID INT AUTO_INCREMENT PRIMARY KEY,
     price INT NOT NULL,
     product_ID INT NOT NULL,
+    user_ID INT NOT NULL,
+    FOREIGN KEY (user_ID) REFERENCES user(user_ID),
     FOREIGN KEY (product_ID) REFERENCES Product(product_ID)
 );
 
 CREATE TABLE `productReview` (
     review_ID INT AUTO_INCREMENT PRIMARY KEY,
     ready_product_ID INT NOT NULL,
+    user_ID INT NOT NULL,
     username VARCHAR(255) NOT NULL,
     title VARCHAR(255) NOT NULL,
     text TEXT NOT NULL,
     rating INT NOT NULL,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_ID) REFERENCES user(user_ID),
     FOREIGN KEY (ready_product_ID) REFERENCES ReadyProduct(ready_product_ID)
 );
 
 CREATE TABLE `customProduct` (
     custom_product_ID INT AUTO_INCREMENT PRIMARY KEY,
     product_ID INT NOT NULL,
-    FOREIGN KEY (product_ID) REFERENCES Product(product_ID)
-);
-
-CREATE TABLE `chat` (
-    chat_ID INT AUTO_INCREMENT PRIMARY KEY,
     client_ID INT NOT NULL,
-    custom_product_ID INT NOT NULL,
-    artist_ID INT NOT NULL,
-    history TEXT NOT NULL,
-    FOREIGN KEY (client_ID) REFERENCES Client(client_ID),
-    FOREIGN KEY (custom_product_ID) REFERENCES CustomProduct(custom_product_ID),
-    FOREIGN KEY (artist_ID) REFERENCES Artist(artist_ID)
+    FOREIGN KEY (product_ID) REFERENCES Product(product_ID),
+    FOREIGN KEY (client_ID) REFERENCES user(user_ID),
 );
 
--- Order
+CREATE TABLE `apply` (
+    apply_ID INT AUTO_INCREMENT PRIMARY KEY,
+    customproduct_ID INT NOT NULL,
+    artist_ID INT NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    FOREIGN KEY (customproduct_ID) REFERENCES customProduct(custom_product_ID),
+    FOREIGN KEY (artist_ID) REFERENCES artist(artist_ID),
+);
 
+-- Orderom
 CREATE TABLE `shippingOption` (
     shippingOption_ID INT PRIMARY KEY AUTO_INCREMENT,
     Name VARCHAR(255),
@@ -222,6 +229,8 @@ CREATE TABLE `wishlist` (
     UserID INT,
     ProductID INT,
     Date DATE,
+    Quantity INT,
+    Price FLOAT,
     FOREIGN KEY (UserID) REFERENCES `user`(user_ID),
     FOREIGN KEY (ProductID) REFERENCES Product(product_ID)
 );

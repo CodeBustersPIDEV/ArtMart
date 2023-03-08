@@ -5,9 +5,10 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="373.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Order.OrderCheckOutController">
+<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="373.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.OrderCheckOutController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/ordercheckout.css" />
     </stylesheets>
@@ -20,5 +21,10 @@
       <Text layoutX="50.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shipping Address :" />
       <Button layoutX="255.0" layoutY="363.0" mnemonicParsing="false" onAction="#OnPayAction" prefHeight="25.0" prefWidth="63.0" text="Pay" />
       <Button layoutX="180.0" layoutY="363.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" text="Cancel" />
+      <Text layoutX="112.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check Out">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

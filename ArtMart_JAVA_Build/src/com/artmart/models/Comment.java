@@ -9,27 +9,30 @@ public class Comment {
     private Date publishDate;
     private int author;
     private int blog_id;
+    private int rating;
 
     public Comment() {
     }
 
-    public Comment(int id, String content, Date publishDate, int author, int blog_id) {
+    public Comment(int id, String content, Date publishDate, int rating,int author, int blog_id) {
         this.id = id;
         this.content = content;
         this.publishDate = publishDate;
+        this.rating = rating;
         this.author = author;
         this.blog_id = blog_id;
     }
 
-    public Comment(String content, int author, int blog_id) {
+    public Comment(String content,  int rating,int author, int blog_id) {
         this.content = content;
-        this.publishDate = publishDate;
+        this.rating = rating;
         this.author = author;
         this.blog_id = blog_id;
     }
 
-    public Comment(String content) {
+    public Comment(String content, int rating) {
         this.content = content;
+        this.rating = rating;
     }
 
     public int getId() {
@@ -38,7 +41,7 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "Comment{" + "id=" + id + ", content=" + content + ", publishDate=" + publishDate + ", author=" + author + ", blog_id=" + blog_id + '}';
+        return "Comment{" + "id=" + id + ", content=" + content + ", publishDate=" + publishDate + ", rating=" + rating +", author=" + author + ", blog_id=" + blog_id + '}';
     }
 
     public String getContent() {
@@ -76,5 +79,15 @@ public class Comment {
     public void setBlog_id(int blog_id) {
         this.blog_id = blog_id;
     }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+    
+    
 
 }

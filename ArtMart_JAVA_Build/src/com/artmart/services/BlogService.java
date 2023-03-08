@@ -50,6 +50,11 @@ public class BlogService implements IBlogService {
     }
 
     @Override
+    public List<Blog> getAllBlogsOrdered() {
+        return this.blogDao.getAllBlogsOrdered();
+    }
+
+    @Override
     public List<Blog> getAllBlogsByUser(int user_id) {
         return this.blogDao.getAllBlogsByUser(user_id);
     }
@@ -62,6 +67,18 @@ public class BlogService implements IBlogService {
     @Override
     public boolean updateBlog(int blog_id, Blog editedBlog) {
         return this.blogDao.updateBlog(blog_id, editedBlog);
+
+    }
+
+    @Override
+    public boolean updateBlogRating(int blog_id, double blogRating) {
+        return this.blogDao.updateBlogRating(blog_id, blogRating);
+
+    }
+
+    @Override
+    public boolean updateBlogViews(int blog_id) {
+        return this.blogDao.updateBlogViews(blog_id);
 
     }
 
@@ -83,6 +100,11 @@ public class BlogService implements IBlogService {
     @Override
     public List<Comment> getAllComments(int blog_id) {
         return this.commentDao.getAllComments(blog_id);
+    }
+
+    @Override
+    public double calculateRating(int blog_id) {
+        return this.commentDao.calculateRating(blog_id);
     }
 
     @Override
@@ -138,6 +160,11 @@ public class BlogService implements IBlogService {
     @Override
     public Tag getOneTag(int tag_id) {
         return this.tag.getOneTag(tag_id);
+    }
+
+    @Override
+    public Tag getOneTagByName(String tag_name) {
+        return this.tag.getOneTagByName(tag_name);
     }
 
     @Override

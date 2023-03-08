@@ -1,5 +1,6 @@
 package com.artmart.GUI.controllers.Order;
 
+import com.artmart.dao.CategoriesDao;
 import com.artmart.models.Order;
 import com.artmart.models.Product;
 import com.artmart.models.Receipt;
@@ -10,11 +11,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -65,6 +69,7 @@ public class OrderDetailController implements Initializable {
     private OrderListController orderListController;
     private Product product = new Product();
     private ShippingOption shippingOption = new ShippingOption();
+    private final CategoriesDao catDao = new CategoriesDao();
     @FXML
     private Label estimatedTime;
 
@@ -104,28 +109,32 @@ public class OrderDetailController implements Initializable {
     }
 
     private void setupUI() {
-        this.shippingMethod.setText(this.shippingOption.getName());
-        this.orderStatus.setText(this.status);
-        this.orderId.setText("" + this.order.getId());
-        this.ShpiingAddress.setText(this.order.getShippingAddress());
-        this.orderDate.setText(this.order.getOrderDate().toString());
-        this.productName.setText(this.product.getName());
-        this.productCategory.setText("" + this.product.getCategoryId());
-        this.descriptionField.setText(this.product.getDescription());
-        this.productDimension.setText(this.product.getDimensions());
-        this.productWeight.setText(this.product.getWeight() + "");
-        this.productMat.setText(this.product.getMaterial());
-        this.paymentMethod.setText(this.order.getPaymentMethod() + "");
-        this.orderQuantity.setText(this.order.getQuantity() + "");
-        this.orderCost.setText("" + this.order.getTotalCost());
-        this.estimatedTime.setText(getFormattedEstimatedDeliveryDate());
-        switch (OrderCurrentStatus.valueOf(this.status)) {
-            case PENDING:
-                this.closeButton.setDisable(false);
-                break;
-            default:
-                this.closeButton.setDisable(true);
-                break;
+        try {
+            this.shippingMethod.setText(this.shippingOption.getName());
+            this.orderStatus.setText(this.status);
+            this.orderId.setText("" + this.order.getId());
+            this.ShpiingAddress.setText(this.order.getShippingAddress());
+            this.orderDate.setText(this.order.getOrderDate().toString());
+            this.productName.setText(this.product.getName());
+            this.productCategory.setText(this.catDao.getCategoryNameById(this.product.getCategoryId()));
+            this.descriptionField.setText(this.product.getDescription());
+            this.productDimension.setText(this.product.getDimensions());
+            this.productWeight.setText(this.product.getWeight() + "");
+            this.productMat.setText(this.product.getMaterial());
+            this.paymentMethod.setText(this.orderService.getPaymentOption(this.order.getPaymentMethod()).getName());
+            this.orderQuantity.setText(this.order.getQuantity() + "");
+            this.orderCost.setText("" + this.order.getTotalCost());
+            this.estimatedTime.setText(getFormattedEstimatedDeliveryDate());
+            switch (OrderCurrentStatus.valueOf(this.status)) {
+                case PENDING:
+                    this.closeButton.setDisable(false);
+                    break;
+                default:
+                    this.closeButton.setDisable(true);
+                    break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

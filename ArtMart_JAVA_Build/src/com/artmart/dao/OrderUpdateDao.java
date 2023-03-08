@@ -22,6 +22,7 @@ public class OrderUpdateDao implements IOrderUpdateDao {
     @Override
     public int createOrderUpdate(OrderUpdate orderUpdate) {
         String sql = "INSERT INTO orderupdate (orderid, updatemessage, date) VALUES (?, ?, ?)";
+        int result = 0;
         try {
             java.util.Date utilDate = new java.util.Date();
             java.sql.Date todayDate = new java.sql.Date(utilDate.getTime());
@@ -29,11 +30,12 @@ public class OrderUpdateDao implements IOrderUpdateDao {
             stmt.setInt(1, orderUpdate.getOrderId());
             stmt.setString(2, orderUpdate.getUpdateMessage());
             stmt.setDate(3, todayDate);
-            return stmt.executeUpdate();
+            result = stmt.executeUpdate();
+            stmt.close();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         }
-        return 0;
+        return result;
     }
 
     @Override
@@ -44,8 +46,12 @@ public class OrderUpdateDao implements IOrderUpdateDao {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
+                    stmt.close();
+                    rs.close();
                     return new OrderUpdate(rs.getInt("id"), rs.getInt("order_id"), rs.getString("update_message"), rs.getDate("date"));
                 } else {
+                    stmt.close();
+                    rs.close();
                     return null;
                 }
             }

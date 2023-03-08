@@ -5,11 +5,14 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
+import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.HasCategory;
 import com.artmart.models.Media;
 import com.artmart.models.Session;
+import com.artmart.models.Tag;
+import com.artmart.models.HasTag;
 import com.artmart.models.User;
 import com.artmart.services.BlogService;
 import java.awt.Desktop;
@@ -42,7 +45,6 @@ import java.net.HttpURLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
@@ -78,9 +80,14 @@ public class AddBlogController implements Initializable {
     private Button cancel_btn;
     @FXML
     private ImageView blogImage_preview;
+    @FXML
+    private ComboBox<String> tagsInput;
 
     private final BlogService blogService = new BlogService();
+    private final UserDao userService = new UserDao();
     private List<BlogCategories> blogCategoriesList;
+    private List<Tag> blogTagsList;
+    private ObservableList<String> blogTList;
     private Blog resBlog = new Blog();
     private BlogCategories resBlogCategories = new BlogCategories();
     private int test1, test2, test3;
@@ -89,6 +96,7 @@ public class AddBlogController implements Initializable {
     private final FileChooser fileChooser = new FileChooser();
     private Media img = new Media();
     private Image image;
+    private String tags = "";
     private User connectedUser = new User();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
@@ -103,14 +111,25 @@ public class AddBlogController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
+        this.connectedUser = this.userService.getUser(this.session.getUserId());
         blogCategoriesList = blogService.getAllBlogCategories();
         ObservableList<String> blogCatList = FXCollections.observableArrayList(
                 blogCategoriesList.stream().map(BlogCategories::getName).collect(Collectors.toList())
         );
+        blogTagsList = blogService.getAllTags();
+        this.blogTList = FXCollections.observableArrayList(
+                blogTagsList.stream().map(Tag::getName).collect(Collectors.toList())
+        );
+        this.tagsInput.setItems(this.blogTList);
         this.blog_category.setItems(blogCatList);
         File file = new File("src/com/artmart/assets/BlogAssets/alt.png");
         this.image = new Image(file.toURI().toString());
         this.blogImage_preview.setImage(image);
+        this.blogImage_preview.setFitHeight(143);
+        this.blogImage_preview.setFitWidth(163);
+        this.blogImage_preview.setLayoutX(158);
+        this.blogImage_preview.setLayoutY(303);
         this.session = (Session) user.get(user.keySet().toArray()[0]);
     }
 
@@ -127,6 +146,21 @@ public class AddBlogController implements Initializable {
                     resBlogCategories = blogService.getOneBlogCategory(this.blog_category.getSelectionModel().getSelectedItem());
                     HasCategory hc = new HasCategory(resBlog.getId(), resBlogCategories.getId());
                     test2 = blogService.addBlog2HasCat(hc);
+                    String[] parts = this.tags.split("#");
+                    for (String part : parts) {
+                        Tag testTag = this.blogService.getOneTagByName(part);
+                        if (testTag == null && !part.equals(" ")) {
+                            Tag testTag1 = new Tag(part);
+                            int test = this.blogService.addTag(testTag1);
+                            Tag resTag = blogService.getOneTagByName(part);
+                            HasTag ht = new HasTag(resBlog.getId(), resTag.getId());
+                            int testa = this.blogService.addBlog2HasTag(ht);
+                        } else {
+                            HasTag ht = new HasTag(resBlog.getId(), testTag.getId());
+                            int testa = this.blogService.addBlog2HasTag(ht);
+                        }
+                    }
+
                     if (testImg) {
                         this.img.setBlog_id(resBlog.getId());
                         test3 = blogService.addMedia(img);
@@ -167,7 +201,12 @@ public class AddBlogController implements Initializable {
     private void goBackToMenu(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+            Parent root;
+            if (this.connectedUser.getRole().equals("Admin")) {
+                root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
+            }
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setScene(scene);
@@ -230,10 +269,10 @@ public class AddBlogController implements Initializable {
                         this.blogImage_preview.setImage(image);
                         this.blogImage_preview.setLayoutX(14);
                         this.blogImage_preview.setLayoutY(155);
-                        this.blogImage_preview.setFitHeight(252);
-                        this.blogImage_preview.setFitWidth(339);
-                        this.add_imageBlog.setLayoutX(102);
-                        this.add_imageBlog.setLayoutY(471);
+                        this.blogImage_preview.setFitHeight(423);
+                        this.blogImage_preview.setFitWidth(450);
+                        this.add_imageBlog.setLayoutX(148);
+                        this.add_imageBlog.setLayoutY(634);
                     } catch (Exception e) {
                         e.getMessage();
                     }
@@ -262,5 +301,10 @@ public class AddBlogController implements Initializable {
             System.out.println("Failed to get the image type.");
             ex.getMessage();
         }
+    }
+
+    @FXML
+    private void inc_tag(ActionEvent event) {
+        this.tags += "#" + this.tagsInput.getSelectionModel().getSelectedItem();
     }
 }

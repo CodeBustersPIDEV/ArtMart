@@ -7,7 +7,6 @@ import com.artmart.models.Client;
 import com.artmart.models.User;
 import java.util.List;
 import com.artmart.dao.*;
-//import com.artmart.models.Session;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import java.util.Properties;
@@ -130,14 +129,13 @@ public class UserService implements IUserService {
                 + "<style>"
                 + "body { font-family: Arial, sans-serif; }"
                 + "h1 { color: #333; }"
-                + ".button { background-color: #4CAF50; border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 5px; }"
                 + "</style>"
                 + "</head>"
                 + "<body>"
                 + "<h1>Verify your email address</h1>"
                 + "<p>Dear " + recipientEmail + ",</p>"
-                + "<p>Thank you for registering with our service. To verify your email address, please click the button below:</p>"
-                + "<p><a href='http://localhost/artmart/Verify.jsp?&token=" + verificationCode + "&email=" + recipientEmail + "' class='button'>Verify Email Address</a></p>"
+                + "<p>Thank you for registering with our service. To verify your email address, please copy the token bellow:</p>"
+                + "<p>" + verificationCode + "</p>"
                 + "</body>"
                 + "</html>";
         return emailContent;
@@ -184,8 +182,18 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean verifyToken(String email, String token) {
-       return this.userDao.verifyToken(email, token);
+    public String verifyToken(String email) {
+        return this.userDao.verifyToken(email);
+    }
+
+    @Override
+    public boolean enableUser(String email) {
+        return this.userDao.enableUser(email);
+    }
+
+    @Override
+    public String getPhoneNumberById(int userId) {
+        return this.userDao.getPhoneNumberById(userId);
     }
 
 }

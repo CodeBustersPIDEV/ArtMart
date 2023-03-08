@@ -11,12 +11,21 @@ import com.artmart.services.CustomProductService;
 import com.artmart.models.Product;
 import com.artmart.models.Session;
 import com.artmart.models.User;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +37,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -71,7 +81,9 @@ public class AddCustomController implements Initializable {
     @FXML
     private ImageView img;
     private Image image;
-
+  private boolean testImg = false;
+     private final String phpUrl = "http://localhost/PIDEV/upload.php";
+    String boundary = "---------------------------12345";
     /**
      * Initializes the controller class.
      */
@@ -189,18 +201,65 @@ int clientId = session.getCurrentUserId(session.getSessionId());
 }
 
 
-
+ FileChooser fileChooser = new FileChooser();
     @FXML
-    private void handleSelectImageAction(ActionEvent event) {
-         FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Select Image");
-    fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-    File selectedFile = fileChooser.showOpenDialog(imageButton.getScene().getWindow());
-    if (selectedFile != null) {
-        imageField.setText(selectedFile.getAbsolutePath());
-    }
-}
+    private void handleSelectImageAction(ActionEvent event) throws IOException {
+ 
+   Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        this.fileChooser.setTitle("Select an image");
+        this.fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File file = this.fileChooser.showOpenDialog(primaryStage);
+        if (file != null) {
+            this.testImg = true;
+//            Path sourcePath = file.toPath();
+            byte[] imageData = Files.readAllBytes(file.toPath());
+
+            URL url = new URL(phpUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+            OutputStream outputStream = connection.getOutputStream();
+            outputStream.write(("--" + boundary + "\r\n").getBytes());
+            outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n").getBytes());
+            outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+            outputStream.write(imageData);
+            outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+            outputStream.flush();
+            outputStream.close();
+
+            // Read the response from the PHP script
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+            Path destinationPath = Paths.get("C:/xampp/htdocs/PIDEV/BlogUploads/" + file.getName());
+
+             this.imageField.setText(destinationPath.toString());
+
+            try {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Image Upload");
+                alert.setHeaderText(null);
+                alert.setContentText("Image uploaded successfully.");
+               alert.showAndWait();
+         
+                }
+            catch (Exception ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("An Error occured");
+                alert.showAndWait();
+            }
+}}
 
     @FXML
     private void back(ActionEvent event) throws IOException {

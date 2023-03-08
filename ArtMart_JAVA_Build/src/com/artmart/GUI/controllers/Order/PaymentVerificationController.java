@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,12 +61,14 @@ public class PaymentVerificationController implements Initializable {
                         Alert alertSuccess = new Alert(Alert.AlertType.CONFIRMATION);
                         alertSuccess.setHeaderText("Payment successful, You can close this now !");
                         alertSuccess.showAndWait();
+                        this.closeUI();
                         this.checkoutController.successfulPayment();
                         break;
                     default:
                         Alert alertFailed = new Alert(Alert.AlertType.ERROR);
                         alertFailed.setHeaderText("Payment denied, You can close this now !");
                         alertFailed.showAndWait();
+                        this.closeUI();
                         break;
                 }
             } catch (JSONException e) {
@@ -75,5 +78,9 @@ public class PaymentVerificationController implements Initializable {
             }
         } catch (IOException e) {
         }
+    }
+    private void closeUI(){
+        Stage thisPage = (Stage) verifyBtn.getScene().getWindow();
+        thisPage.close();
     }
 }

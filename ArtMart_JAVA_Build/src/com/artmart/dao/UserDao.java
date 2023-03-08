@@ -81,6 +81,7 @@ public class UserDao implements IUserDao {
                 user.setRole(resultSet.getString("role"));
                 user.setPicture(resultSet.getString("picture"));
                 user.setBlocked(resultSet.getBoolean("blocked"));
+                user.setEnabled(resultSet.getBoolean("enabled"));
 
                 return user;
             }
@@ -229,7 +230,6 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-
     public boolean blockUser(int user_id, boolean state) {
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -244,7 +244,9 @@ public class UserDao implements IUserDao {
         }
         return false;
     }
- public boolean enableUser(String email) {
+
+    @Override
+    public boolean enableUser(String email) {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE user SET enabled = ? WHERE email = ?"
@@ -258,6 +260,7 @@ public class UserDao implements IUserDao {
         }
         return false;
     }
+
     public String getClientNameById(int clientId) throws SQLException {
         String clientName = null;
 
@@ -307,30 +310,58 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public boolean verifyToken(String email, String token) {
+    public String verifyToken(String email) {
 
         PreparedStatement statement;
         try {
             statement = connection.prepareStatement(
-                    "SELECT * FROM user WHERE email = ?"
+                    "SELECT token FROM user WHERE email = ?"
             );
 
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
-            User user = new User();
-            user.setToken(resultSet.getString("token"));
-            String retrivedToken = user.getToken();
-            if (retrivedToken.equals(token)) {
-                user.setEnabled(true);
-                enableUser(email);
-                return true;
-            } else {
-                 return false;
+            if (resultSet.next()) {
+                User user = new User();
+
+                user.setToken(resultSet.getString("token"));
+                String retrivedToken = user.getToken();
+                return retrivedToken;
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(VerificationTokenDao.class.getName()).log(Level.SEVERE, null, ex);
-                 return false;
+            return null;
         }
-
+        return null;
     }
+
+    public String getPhoneNumberById(int userId) {
+        String phoneNumber = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement("SELECT phoneNumber FROM user WHERE user_ID = ?");
+            statement.setInt(1, userId);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                phoneNumber = resultSet.getString("phoneNumber");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources in reverse order of creation
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return phoneNumber;
+    }
+
 }

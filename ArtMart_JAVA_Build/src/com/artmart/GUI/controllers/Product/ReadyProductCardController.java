@@ -6,9 +6,12 @@
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.dao.CategoriesDao;
+import com.artmart.dao.ProductReviewDao;
 import com.artmart.dao.ReadyProductDao;
 import com.artmart.models.Categories;
+import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
+import com.artmart.services.ReadyProductService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -43,11 +45,13 @@ public class ReadyProductCardController implements Initializable {
     @FXML
     private Label price;
     @FXML
+    private Label rating;
+    @FXML
     private ImageView imagePreview;
     @FXML
     private Button details;
     @FXML
-    private Button edit;
+    private Button reviews;
 
     private ReadyProduct p = new ReadyProduct();
 
@@ -70,7 +74,14 @@ public class ReadyProductCardController implements Initializable {
         Categories cat = c.getCategoriesById(p.getCategoryId());
         String catName = cat.getName();
         this.category.setText(catName);
-        this.price.setText(Integer.toString(p.getPrice()));
+        this.price.setText(p.getPrice()+"");
+
+        // Get the rating value using the ProductId field of the ReadyProduct object
+        ReadyProductService readyProductService = new ReadyProductService();
+        float rating = readyProductService.getRatingByProductId(p.getProductId());
+
+        // Set the rating value in the rating label
+        this.rating.setText(Float.toString(rating));
 
         // Load the image from the file path stored in ReadyProduct object's image field
         Image image = new Image("file:" + p.getImage());
@@ -79,33 +90,8 @@ public class ReadyProductCardController implements Initializable {
         this.name.setText(p.getName());
     }
 
-    @FXML
-    private void onDelete(ActionEvent event) throws SQLException {
-        this.rPDao.deleteReadyProduct(this.p.getReadyProductId());
-        this.controller.displayList();
-    }
-
     public void setProductId(int pid) {
         this.pid.setText(Integer.toString(pid));
-    }
-
-    @FXML
-    private void onEdit(ActionEvent event) throws SQLException {
-        try {
-            Stage stage = (Stage) edit.getScene().getWindow();
-            stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/EditReadyProduct.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            EditReadyProductController controller = loader.getController();
-            controller.setUpData(this.pid.getText());
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
     }
 
     public void onDetails(ActionEvent event) {
@@ -120,6 +106,25 @@ public class ReadyProductCardController implements Initializable {
             controller2.setUpData(this.pid.getText());
             stage.setResizable(false);
             stage.setTitle("Ready Product details");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
+    public void onReviews(ActionEvent event) throws SQLException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewsList.fxml"));
+            Parent root = loader.load();
+            ReviewsListController contr = loader.getController();
+            contr.setProductId(this.p.getReadyProductId());
+            contr.setReadyProduct(this.p);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Reviews List");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

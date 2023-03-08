@@ -36,6 +36,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -83,6 +84,10 @@ public class UpdateProfileController implements Initializable {
     UserService user_ser = new UserService();
     User user = new User();
     Artist artist = new Artist();
+        private final FileChooser fileChooser = new FileChooser();
+            String boundary = "---------------------------12345";
+
+
 
     boolean test2, test1, a;
     int userID;
@@ -241,65 +246,53 @@ public class UpdateProfileController implements Initializable {
     }
 
     @FXML
-    public void OnUpload(ActionEvent event) throws MalformedURLException, ProtocolException, UnsupportedEncodingException, UnsupportedEncodingException {
+    public void OnUpload(ActionEvent event) throws MalformedURLException, ProtocolException, UnsupportedEncodingException, UnsupportedEncodingException, IOException {
 
         String serverUrl = "http://localhost/upload_script.php";
 
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select an image file to upload");
-        int result = fileChooser.showOpenDialog(null);
+Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        this.fileChooser.setTitle("Select an image");
+        this.fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
 
-        if (result == JFileChooser.APPROVE_OPTION) {
-            try {
-                File file = fileChooser.getSelectedFile();
+        File file = this.fileChooser.showOpenDialog(primaryStage);
+        if (file != null) {
+//            Path sourcePath = file.toPath();
+            byte[] imageData = Files.readAllBytes(file.toPath());
 
-                HttpURLConnection connection = (HttpURLConnection) new URL(serverUrl).openConnection();
-                connection.setDoOutput(true);
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + "*****");
+            URL url = new URL(serverUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
 
-                String boundary = "*****";
+            OutputStream outputStream = connection.getOutputStream();
+            outputStream.write(("--" + boundary + "\r\n").getBytes());
+            outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n").getBytes());
+            outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+            outputStream.write(imageData);
+            outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+            outputStream.flush();
+            outputStream.close();
 
-                String fileName = file.getName();
-                String mimeType = "image/jpeg";
-                String fieldName = "image";
-
-                StringBuilder data = new StringBuilder();
-                data.append("--").append(boundary).append("\r\n");
-                data.append("Content-Disposition: form-data; name=\"").append(fieldName).append("\"; filename=\"").append(fileName).append("\"\r\n");
-                data.append("Content-Type: ").append(mimeType).append("\r\n\r\n");
-
-                byte[] headerBytes = data.toString().getBytes("UTF-8");
-                byte[] footerBytes = ("\r\n--" + boundary + "--\r\n").getBytes("UTF-8");
-
-                connection.setRequestProperty("Content-Length", String.valueOf(headerBytes.length + file.length() + footerBytes.length));
-
-                connection.connect();
-
-                connection.getOutputStream().write(headerBytes);
-
-                FileInputStream fileInputStream = new FileInputStream(file);
-                byte[] buffer = new byte[8192];
-                int bytesRead;
-                while ((bytesRead = fileInputStream.read(buffer)) != -1) {
-                    connection.getOutputStream().write(buffer, 0, bytesRead);
-                }
-
-                connection.getOutputStream().write(footerBytes);
-
-                connection.getOutputStream().flush();
-                connection.getOutputStream().close();
-                imageUrl = "http://localhost/images/" + fileName;
+            // Read the response from the PHP script
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+                imageUrl = "http://localhost/PIDEV/BlogUploads/" + file.getName();
                 int responseCode = connection.getResponseCode();
-                //user.setPicture("http://localhost/images/"+fileName);
                 Image Image = new Image(imageUrl);
+                System.out.println(imageUrl);
                 ProfilePic.setImage(Image);
+                user.setPicture(imageUrl);
                 user_ser.updateAccountU(userID, user);
                 System.out.println("Response code: " + responseCode);
 
-            } catch (IOException ex) {
-                Logger.getLogger(UpdateProfileController.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
     }

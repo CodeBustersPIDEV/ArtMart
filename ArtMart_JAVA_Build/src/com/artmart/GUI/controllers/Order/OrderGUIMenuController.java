@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Order;
 
 import com.artmart.dao.ProductDao;
@@ -31,6 +26,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.*;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -43,7 +39,8 @@ public class OrderGUIMenuController implements Initializable {
     private Product productToOrder = new Product();
     private List<User> userOptionsList;
     private List<Product> productOptionsList;
-
+    private final OrderService orderSerice = new OrderService();
+    
     @FXML
     private ComboBox<String> userComboBox;
     @FXML
@@ -53,21 +50,14 @@ public class OrderGUIMenuController implements Initializable {
     @FXML
     private ComboBox<String> productComboBox;
     @FXML
-    private Button saveToWishListBtn;
-
-    private OrderService orderSerice = new OrderService();
-    @FXML
-    private Button artistviewOrderList;
-    @FXML
-    private Button artistviewOrderList1;
-    @FXML
     private Button adminViewOrderList;
+    @FXML
+    private Button saveToWishListBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             userOptionsList = this.userDao.viewListOfUsers();
-            //ProductOptionsList = this.productDao().getAll(;
             ObservableList<String> userOptions = FXCollections.observableArrayList(
                     userOptionsList.stream().map(user -> user.getName() + " (" + user.getRole() + ")").collect(Collectors.toList())
             );
@@ -139,12 +129,13 @@ public class OrderGUIMenuController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate currentDate = LocalDate.now();
         String formattedDate = currentDate.format(formatter);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Added To Wishlist");
+        alert.setHeaderText("Product Saved for your wishlist");
+        alert.showAndWait();
         this.orderSerice.createWishlist(new Wishlist(this.connectedUser.getUser_id(), this.productToOrder.getProductId(), Date.valueOf(formattedDate)));
     }
 
-    @FXML
-    private void OnArtistViewList(ActionEvent event) {
-    }
 
     @FXML
     private void OnAdminViewList(ActionEvent event) {

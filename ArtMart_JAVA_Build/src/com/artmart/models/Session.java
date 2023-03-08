@@ -1,33 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.models;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author 21697
- */
 public class Session {
 
+    private String userRole;
     private static Session instance;
     private int userId;
     private String username;
     private String sessionId;
+    private String phoneNumber;
     private static final Map<String, Session> activeSessions = new HashMap<>();
 
     public Session() {
-    }
-
-    public static Session getInstance() {
-        if (instance == null) {
-            instance = new Session();
-        }
-        return instance;
     }
 
     public void setUserId(int userId) {
@@ -36,6 +22,14 @@ public class Session {
 
     public int getUserId() {
         return userId;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public void setUsername(String username) {
@@ -62,15 +56,26 @@ public class Session {
         activeSessions.put(sessionId, session);
     }
 
-    public int getUserID(String sessionId) {
+    public static Session getInstance() {
+        if (instance == null) {
+            instance = new Session();
+        }
+        return instance;
+    }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setPhoneNumber(String sessionId, String phoneNumber) {
         Session session = activeSessions.get(sessionId);
         if (session != null) {
-            int userId = session.getUserId();
-            System.out.println(userId);
-            return userId;
+            session.setPhoneNumber(phoneNumber);
         }
-        return 0;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public boolean isLoggedIn() {
@@ -78,9 +83,7 @@ public class Session {
     }
 
     public void logOut(String sessionId) {
-
         Session session = activeSessions.remove(sessionId);
-
     }
 
     public static Map<String, Session> getActiveSessions() {
@@ -91,9 +94,11 @@ public class Session {
     public String toString() {
         return "Session{" + "userId=" + userId + ", username=" + username + ", sessionId=" + sessionId + '}';
     }
-      public static Session getSession(String sessionId) {
+
+    public static Session getSession(String sessionId) {
         return activeSessions.get(sessionId);
     }
+
     public static int getCurrentUserId(String sessionId) {
         Session session = getSession(sessionId);
         if (session != null) {
@@ -101,6 +106,15 @@ public class Session {
         }
         return 0;
     }
-    
 
+    public int getUserID(String sessionId) {
+
+        Session session = activeSessions.get(sessionId);
+        if (session != null) {
+            int userId = session.getUserId();
+            System.out.println(userId);
+            return userId;
+        }
+        return 0;
+    }
 }

@@ -5,6 +5,8 @@
  */
 package com.artmart.GUI.controllers.Blog;
 
+import com.artmart.models.User;
+import com.artmart.services.BlogService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +23,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -47,8 +48,14 @@ public class BlogCardController implements Initializable {
     private Pane cardContainer;
     @FXML
     private Rectangle cont2;
+    @FXML
+    private Label ratingLabel;
+    @FXML
+    private Label viewsLabel;
     private Image image;
     double h;
+    private User connectedUser = new User();
+    private final BlogService blogService = new BlogService();
 
     /**
      * Initializes the controller class.
@@ -74,14 +81,8 @@ public class BlogCardController implements Initializable {
         this.blog_title.setText(title);
     }
 
-    public void setCardCont1(double h) {
-        this.cardContainer.setMaxHeight(h);
-        System.out.println("cardContainer" + this.cardContainer.getHeight());
-    }
-
-    public void setCardCont2(double h) {
-        this.cont2.setHeight(h);
-        System.out.println("cont2" + this.cont2.getHeight());
+    public void setConnectedUser(User connectedUser) {
+        this.connectedUser = connectedUser;
     }
 
     public void setPublishDate(String date) {
@@ -104,10 +105,20 @@ public class BlogCardController implements Initializable {
         this.image = image;
     }
 
+    public void setRatingLabel(String rating) {
+        this.ratingLabel.setText(rating);
+    }
+
+    public void setViewsLabel(String nb_views) {
+        this.viewsLabel.setText(nb_views + " Views");
+    }
+    
+    
+
     @FXML
     private void viewBlog(ActionEvent event) {
+        this.blogService.updateBlogViews(Integer.parseInt(this.blog_id.getText()));
         try {
-//        this.SelectUserAndProduct();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogPage.fxml"));
             Parent root = loader.load();

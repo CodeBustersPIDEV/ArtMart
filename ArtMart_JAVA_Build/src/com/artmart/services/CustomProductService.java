@@ -47,7 +47,9 @@ public class CustomProductService implements ICustomProductDao {
   return customProductDao.getCustomProductsByClientId(clientId);
     }
  
-
+public List<CustomProduct> searchCustomProductByName1(String name) throws SQLException {
+      return customProductDao.searchCustomProductByName(name);
+  }
    
 
   

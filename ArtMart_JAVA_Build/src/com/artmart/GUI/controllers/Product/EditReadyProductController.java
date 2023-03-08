@@ -5,18 +5,23 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.ProductDao;
 import com.artmart.dao.ReadyProductDao;
+import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
 import com.artmart.models.Product;
 import com.artmart.models.ReadyProduct;
+import com.artmart.models.Session;
+import com.artmart.models.User;
 import com.artmart.services.ProductService;
 import com.artmart.services.ReadyProductService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -45,6 +50,8 @@ public class EditReadyProductController implements Initializable {
     @FXML
     private Label prodID;
     @FXML
+    private Label userID;
+    @FXML
     private TextField nameF;
     @FXML
     private TextArea descriptionF;
@@ -62,23 +69,40 @@ public class EditReadyProductController implements Initializable {
     private TextField imageField;
     @FXML
     private Button edit;
+
     private ReadyproductsListController controller = new ReadyproductsListController();
+
     private final ProductDao productDao = new ProductDao();
+
+    private final ReadyProductDao rp = new ReadyProductDao();
+
     private final CategoriesDao categoriesDao = new CategoriesDao();
+
     // variable to hold the ID of the ready product
     private int readyProductId;
     @FXML
     private Button backBtn;
     @FXML
     private Button uploadImage;
+    @FXML
+    private Label username;
 
     private File selectedImageFile;
 
     private ReadyProduct viewProd = new ReadyProduct();
     private int id;
 
+    HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
+    private User connectedUser = new User();
+    private final UserDao userService = new UserDao();
+    SignUpController profile = new SignUpController();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
+        this.connectedUser = this.userService.getUser(this.session.getUserId());
+        this.username.setText(this.connectedUser.getName());
         populateComboBox();
     }
 
@@ -98,6 +122,7 @@ public class EditReadyProductController implements Initializable {
     public void setUpData(String pid) {
         try {
             this.prodID.setText(pid);
+            this.userID.setText(this.connectedUser.getName());
             this.id = Integer.parseInt(this.prodID.getText());
             ReadyProductService readyProductService = new ReadyProductService();
 
@@ -108,15 +133,19 @@ public class EditReadyProductController implements Initializable {
             ProductService productService = new ProductService();
             Product product = productService.getProductById(productId);
 
+            this.viewProd = rp.getReadyProductById(productId);
+            int price = this.viewProd.getPrice();
+
             this.viewProd = convertToReadyProduct(product);
 
             this.nameF.setText(this.viewProd.getName());
             this.descriptionF.setText(this.viewProd.getDescription());
             this.dimensionsF.setText(this.viewProd.getDimensions());
             this.weightF.setText(Float.toString(this.viewProd.getWeight()));
-            this.priceF.setText(Float.toString(this.viewProd.getPrice()));
             this.materialF.setText(this.viewProd.getMaterial());
             this.imageField.setText(this.viewProd.getImage());
+            this.priceF.setText("" + price);
+            System.out.println(this.viewProd.getPrice());
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -201,8 +230,7 @@ public class EditReadyProductController implements Initializable {
         try {
             Stage stage = (Stage) backBtn.getScene().getWindow();
             stage.close();
-            stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/readyproductslist.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

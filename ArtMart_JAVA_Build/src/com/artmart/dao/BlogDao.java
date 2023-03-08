@@ -56,6 +56,8 @@ public class BlogDao implements IBlogServiceDao {
                         result.getString("title"),
                         result.getString("content"),
                         result.getDate("date"),
+                        result.getDouble("rating"),
+                        result.getInt("nb_views"),
                         result.getInt("author")
                 );
             }
@@ -64,8 +66,9 @@ public class BlogDao implements IBlogServiceDao {
         }
         return blogFound;
     }
-    
-     public Blog getOneBlogByTitle(String blog_title) {
+
+    @Override
+    public Blog getOneBlogByTitle(String blog_title) {
         Blog blogFound = null;
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -80,6 +83,8 @@ public class BlogDao implements IBlogServiceDao {
                         result.getString("title"),
                         result.getString("content"),
                         result.getDate("date"),
+                        result.getDouble("rating"),
+                        result.getInt("nb_views"),
                         result.getInt("author")
                 );
             }
@@ -102,6 +107,8 @@ public class BlogDao implements IBlogServiceDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getDate("date"),
+                        rs.getDouble("rating"),
+                        rs.getInt("nb_views"),
                         rs.getInt("author")
                 ));
             }
@@ -111,6 +118,30 @@ public class BlogDao implements IBlogServiceDao {
         return blogs;
     }
     
+    @Override
+    public List<Blog> getAllBlogsOrdered() {
+        List<Blog> blogs = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM blogs ORDER BY rating DESC";
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                blogs.add(new Blog(
+                        rs.getInt("blogs_ID"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getDate("date"),
+                        rs.getDouble("rating"),
+                        rs.getInt("nb_views"),
+                        rs.getInt("author")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return blogs;
+    }
+
     @Override
     public List<Blog> getAllBlogsByUser(int user_id) {
         List<Blog> blogs = new ArrayList<>();
@@ -124,6 +155,8 @@ public class BlogDao implements IBlogServiceDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getDate("date"),
+                        rs.getDouble("rating"),
+                        rs.getInt("nb_views"),
                         rs.getInt("author")
                 ));
             }
@@ -132,11 +165,11 @@ public class BlogDao implements IBlogServiceDao {
         }
         return blogs;
     }
-    
+
     @Override
     public List<Blog> searchBlogsByTitle(String blog_title) {
         List<Blog> blogs = new ArrayList<>();
-        String keyword= '%'+blog_title+'%';
+        String keyword = '%' + blog_title + '%';
         try {
             PreparedStatement st = connection.prepareStatement("SELECT * FROM blogs where title LIKE ?");
             st.setString(1, keyword);
@@ -147,6 +180,8 @@ public class BlogDao implements IBlogServiceDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getDate("date"),
+                        rs.getDouble("rating"),
+                        rs.getInt("nb_views"),
                         rs.getInt("author")
                 ));
             }
@@ -164,6 +199,35 @@ public class BlogDao implements IBlogServiceDao {
             st.setString(1, editedBlog.getTitle());
             st.setString(2, editedBlog.getContent());
             st.setInt(3, blog_id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateBlogViews(int blog_id) {
+        try {
+            String sql = "UPDATE blogs SET nb_views = nb_views + 1 WHERE blogs_ID = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, blog_id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateBlogRating(int blog_id, double blogRating) {
+        try {
+            String sql = "UPDATE blogs SET rating = ? WHERE blogs_ID = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setDouble(1, blogRating);
+            st.setInt(2, blog_id);
             st.executeUpdate();
             return true;
         } catch (SQLException e) {

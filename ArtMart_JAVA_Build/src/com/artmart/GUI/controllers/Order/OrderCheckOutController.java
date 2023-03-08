@@ -75,7 +75,7 @@ public class OrderCheckOutController implements Initializable {
                     + "    \"app_token\": \"b9e12676-1459-41a1-b608-48d7c2cedcb0\",\n"
                     + "    \"app_secret\": \"9947737a-ee91-4119-b773-fc3a190d13af\",\n"
                     + "    \"accept_card\": \"true\",\n"
-                    + "    \"amount\": \"5000\",\n"
+                    + "    \"amount\": \"100000\",\n"
                     + "    \"success_link\": \"http://localhost/artmart/success.html\",\n"
                     + "    \"fail_link\": \"http://localhost/artmart/fail.html\",\n"
                     + "    \"session_timeout_secs\": 1200,\n"
@@ -117,10 +117,10 @@ public class OrderCheckOutController implements Initializable {
 
     public void successfulPayment() {
         this.orderGUIController.successfulPayment(
-                this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getId(),
-                this.shippingAddress.getText(),
-                this.paymentList.get(this.paymentOptionsList.getSelectionModel().getSelectedIndex()).getId()
-                );
+            this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getId(),
+            this.shippingAddress.getText(),
+            this.paymentList.get(this.paymentOptionsList.getSelectionModel().getSelectedIndex()).getId()
+        );
     }
 
     public void link(OrderGUIController controller) {

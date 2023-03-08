@@ -26,11 +26,12 @@ public class CommentDao implements ICommentServiceDao {
     @Override
     public int addComment(Comment c) {
         try {
-            String sql = "INSERT INTO comments ( content, author, blog_ID) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO comments ( content, rating,author, blog_ID) VALUES (?, ?, ?, ?)";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, c.getContent());
-            st.setInt(2, c.getAuthor());
-            st.setInt(3, c.getBlog_id());
+            st.setInt(2, c.getRating());
+            st.setInt(3, c.getAuthor());
+            st.setInt(4, c.getBlog_id());
             st.executeUpdate();
             return 1;
         } catch (SQLException e) {
@@ -54,6 +55,7 @@ public class CommentDao implements ICommentServiceDao {
                         result.getInt("comments_ID"),
                         result.getString("content"),
                         result.getDate("date"),
+                        result.getInt("rating"),
                         result.getInt("author"),
                         result.getInt("blog_ID")
                 );
@@ -76,6 +78,7 @@ public class CommentDao implements ICommentServiceDao {
                         rs.getInt("comments_ID"),
                         rs.getString("content"),
                         rs.getDate("date"),
+                        rs.getInt("rating"),
                         rs.getInt("author"),
                         rs.getInt("blog_ID")
                 ));
@@ -87,12 +90,29 @@ public class CommentDao implements ICommentServiceDao {
     }
 
     @Override
+    public double calculateRating(int blog_id) {
+        double averageRating = 0;
+        try {
+            String sql = "SELECT AVG(rating) FROM comments WHERE blog_ID = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, blog_id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                averageRating = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return averageRating;
+    }
+
+    @Override
     public boolean updateComment(int comment_id, Comment editedComment) {
         try {
-            String sql = "UPDATE comments SET content = ? WHERE comments_ID = ?";
-            PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement("UPDATE comments SET content = ?, rating = ? WHERE comments_ID = ?");
             st.setString(1, editedComment.getContent());
-            st.setInt(2, comment_id);
+            st.setInt(2, editedComment.getRating());
+            st.setInt(3, comment_id);
             st.executeUpdate();
             return true;
         } catch (SQLException e) {

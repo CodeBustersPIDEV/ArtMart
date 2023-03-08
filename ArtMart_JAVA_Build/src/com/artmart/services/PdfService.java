@@ -1,6 +1,5 @@
 package com.artmart.services;
 
-
 import com.artmart.models.Event;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.BadElementException;
@@ -19,10 +18,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- *
- * @author GhassenZ
- */
 public class PdfService {
 
     public void generatePdf(String filename, Event event, int id) throws FileNotFoundException, DocumentException, BadElementException, IOException, InterruptedException, SQLException {
@@ -31,14 +26,11 @@ public class PdfService {
         };
         PdfWriter.getInstance(document, new FileOutputStream(filename + ".pdf"));
         document.open();
-        
         //EventService es = new EventService();
-
         document.add(new Paragraph("Date created  : " + LocalDateTime.now()));
         document.add(new Paragraph("Event name : " + event.getName()));
         document.add(new Paragraph("                      "));
         document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------"));
-
         document.add(new Paragraph("Type : " + event.getType()));
         document.add(new Paragraph("                      "));
         document.add(new Paragraph("Location : " + event.getLocation()));
@@ -53,8 +45,6 @@ public class PdfService {
         document.add(new Paragraph("                      "));
         document.add(new Paragraph("Description : " + event.getDescription()));
         document.add(new Paragraph("                      "));
-       
-
         document.add(new Paragraph("---------------------------------------------------------------------------------------------------------------------------------- "));
         document.add(new Paragraph("ArtMart"));
         document.close();

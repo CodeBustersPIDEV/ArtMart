@@ -34,5 +34,4 @@ public class ProductService implements IProductDao {
     public List<Product> getAllProduct() throws SQLException {
        return productDao.getAllProduct();
     }
-
 }

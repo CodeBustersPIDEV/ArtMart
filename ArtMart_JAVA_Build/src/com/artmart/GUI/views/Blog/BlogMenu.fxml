@@ -2,30 +2,152 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogMenuController">
    <children>
-      <Label layoutX="214.0" layoutY="44.0" text="Blog Menu">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9e9e9" height="709.0" stroke="BLACK" strokeType="INSIDE" width="1240.0" />
+      <Circle fill="#fa7a1e00" layoutX="94.0" layoutY="80.0" radius="33.0" strokeType="OUTSIDE" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="0.6333333333333333">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.5071295967136706" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Circle>
+      <Line endX="100.0" layoutX="620.0" layoutY="659.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="354.0" layoutX="498.0" layoutY="683.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.533949520085318" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Label layoutX="499.0" layoutY="196.0" prefHeight="95.0" prefWidth="254.0" text="Blog Menu">
          <font>
-            <Font name="System Bold" size="34.0" />
-         </font></Label>
-      <Button fx:id="link_add_blog" layoutX="147.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToAddBlog" text="Add Blog" />
-      <Button fx:id="link_list_blogs" layoutX="236.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToBlogList" text="Consult Blogs" />
-      <Button fx:id="back_btn" layoutX="41.0" layoutY="38.0" mnemonicParsing="false" onAction="#goBackToAppMenu" text="Back" />
-      <Button fx:id="link_blog_manage" layoutX="356.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToBlogManagement" text="Blog Management" />
-      <Label layoutX="92.0" layoutY="127.0" text="Blog:">
-         <font>
-            <Font size="24.0" />
+            <Font name="Dubai Bold" size="54.0" />
          </font>
-      </Label>
-      <Label layoutX="71.0" layoutY="183.0" text="Category:">
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startX="0.46601941747572817" startY="0.7281553398058253">
+               <stops>
+                  <Stop color="#21153d" />
+                  <Stop color="#461111" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill></Label>
+      <Button fx:id="back_btn" alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="64.0" mnemonicParsing="false" onAction="#goBackToAppMenu" prefHeight="32.0" prefWidth="32.0" textAlignment="CENTER">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/back-arrow.png" />
+               </source>
+            </ImageInput>
+         </effect></Button>
+      <VBox layoutX="335.0" layoutY="291.0" prefHeight="283.0" prefWidth="581.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="501.0" spacing="20.0">
+               <children>
+                  <Button fx:id="link_add_blog" mnemonicParsing="false" onAction="#goToAddBlog" text="Add Blog" textFill="#21153d">
+                     <font>
+                        <Font name="Dubai Bold" size="15.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button fx:id="link_list_blogs" mnemonicParsing="false" onAction="#goToBlogList" text="Consult Blogs" textFill="#21153d">
+                     <font>
+                        <Font name="Dubai Bold" size="15.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button fx:id="link_blog_manage" mnemonicParsing="false" onAction="#goToBlogManagement" text="Blog Management" textFill="#21153d">
+                     <font>
+                        <Font name="Dubai Bold" size="15.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="361.0" spacing="20.0">
+               <children>
+                  <Button fx:id="link_Cat_manage" mnemonicParsing="false" onAction="#goToCatManagement" text="Category Management" textFill="#21153d">
+                     <font>
+                        <Font name="Dubai Bold" size="15.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button fx:id="link_Tag_manage" mnemonicParsing="false" onAction="#goToTagManagement" text="Tag Management" textFill="#21153d">
+                     <font>
+                        <Font name="Dubai Bold" size="15.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label layoutX="815.0" layoutY="85.0" prefHeight="70.0" prefWidth="154.0" text="Welcome Mr.">
          <font>
-            <Font size="24.0" />
+            <Font name="Dubai Bold" size="24.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startX="0.46601941747572817" startY="0.7281553398058253">
+               <stops>
+                  <Stop color="#21153d" />
+                  <Stop color="#461111" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
-      <Button fx:id="link_add_category" layoutX="180.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToAddCategory" text="Add Category" />
-      <Button fx:id="link_Cat_manage" layoutX="301.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToCatManagement" text="Category Management" />
+      <Label fx:id="connectedAdin" layoutX="960.0" layoutY="86.0" prefHeight="69.0" prefWidth="262.0" text="Username" wrapText="true">
+         <font>
+            <Font name="Dubai Bold" size="24.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startX="0.46601941747572817" startY="0.7281553398058253">
+               <stops>
+                  <Stop color="#21153d" />
+                  <Stop color="#461111" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
    </children>
 </AnchorPane>

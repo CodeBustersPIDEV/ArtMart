@@ -8,7 +8,7 @@ package com.artmart.GUI.controllers.CustomProduct;
 
 import com.artmart.models.Categories;
 import com.artmart.services.CategoriesService;
-import com.artmart.services.ChatService;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

@@ -13,14 +13,11 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="createOrder" layoutX="402.0" layoutY="119.0" mnemonicParsing="false" onAction="#OnOrderCreatePressEvent" prefHeight="25.0" prefWidth="142.0" text="Checkout" />
-      <ComboBox fx:id="userComboBox" layoutX="51.0" layoutY="78.0" prefHeight="25.0" prefWidth="142.0" />
-      <Button fx:id="viewOrderList" layoutX="402.0" layoutY="166.0" mnemonicParsing="false" onAction="#onViewList" prefHeight="25.0" prefWidth="142.0" text="View Order List" />
-      <ComboBox fx:id="productComboBox" layoutX="225.0" layoutY="78.0" onAction="#OnSelectProduct" prefWidth="150.0" />
-      <Button fx:id="saveToWishListBtn" layoutX="402.0" layoutY="78.0" mnemonicParsing="false" onAction="#OnSaveToWishList" prefHeight="25.0" prefWidth="142.0" text="Save To Wishlist" />
-      <Button fx:id="artistviewOrderList" disable="true" layoutX="51.0" layoutY="337.0" mnemonicParsing="false" onAction="#OnArtistViewList" prefHeight="25.0" prefWidth="142.0" text="View Order List" />
-      <Button fx:id="artistviewOrderList1" disable="true" layoutX="51.0" layoutY="299.0" mnemonicParsing="false" onAction="#OnArtistViewList" prefHeight="25.0" prefWidth="142.0" text="Update Product" />
-      <Button fx:id="adminViewOrderList" layoutX="406.0" layoutY="337.0" mnemonicParsing="false" onAction="#OnAdminViewList" prefHeight="25.0" prefWidth="142.0" text="Orders Manage" />
-      <Button disable="true" layoutX="406.0" layoutY="299.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Artist List" />
+      <Button fx:id="createOrder" layoutX="51.0" layoutY="294.0" mnemonicParsing="false" onAction="#OnOrderCreatePressEvent" prefHeight="25.0" prefWidth="142.0" text="Checkout" />
+      <ComboBox fx:id="userComboBox" layoutX="51.0" layoutY="93.0" prefHeight="25.0" prefWidth="142.0" />
+      <Button fx:id="viewOrderList" layoutX="51.0" layoutY="242.0" mnemonicParsing="false" onAction="#onViewList" prefHeight="25.0" prefWidth="142.0" text="View Order List" />
+      <ComboBox fx:id="productComboBox" layoutX="51.0" layoutY="144.0" onAction="#OnSelectProduct" prefHeight="25.0" prefWidth="142.0" />
+      <Button fx:id="saveToWishListBtn" layoutX="51.0" layoutY="194.0" mnemonicParsing="false" onAction="#OnSaveToWishList" prefHeight="25.0" prefWidth="142.0" text="Save To Wishlist" />
+      <Button fx:id="adminViewOrderList" layoutX="364.0" layoutY="169.0" mnemonicParsing="false" onAction="#OnAdminViewList" prefHeight="25.0" prefWidth="142.0" text="Orders Manage" />
    </children>
 </AnchorPane>
