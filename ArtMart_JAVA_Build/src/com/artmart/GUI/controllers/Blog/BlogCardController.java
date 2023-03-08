@@ -110,7 +110,7 @@ public class BlogCardController implements Initializable {
     }
 
     public void setViewsLabel(String nb_views) {
-        this.viewsLabel.setText(nb_views);
+        this.viewsLabel.setText(nb_views + " Views");
     }
     
     
