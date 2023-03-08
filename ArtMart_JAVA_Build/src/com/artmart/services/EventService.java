@@ -25,8 +25,13 @@ public class EventService implements IEventDao {
     }
 
     @Override
-    public List<Event> getAllEventsByID(int id) {
-        return dao.getAllEventsByID(id);
+    public List<Event> getMyEvents(int id) {
+        return dao.getMyEvents(id);
+    }
+
+    @Override
+    public List<Event> getOtherEvents(int id) {
+        return dao.getOtherEvents(id);
     }
 
     @Override
@@ -40,8 +45,13 @@ public class EventService implements IEventDao {
     }
     
     @Override
-    public List<Event> searchEventByName(String name, int userID){
-        return dao.searchEventByName(name, userID);
+    public List<Event> searchMyEventByName(String name, int userID){
+        return dao.searchMyEventByName(name, userID);
+    }
+    
+    @Override
+    public List<Event> searchOtherEventByName(String name, int userID){
+        return dao.searchOtherEventByName(name, userID);
     }
     
     @Override

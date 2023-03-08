@@ -29,10 +29,11 @@ public class EventReportDao implements IEventReportDao {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO eventreport (eventID, attendance) VALUES (?, ?)"
+                    "INSERT INTO eventreport (eventID, userID, attendance) VALUES (?, ?, ?)"
             );
             statement.setInt(1, eventReport.getEventID());
-            statement.setInt(2, eventReport.getAttendance());
+            statement.setInt(2, eventReport.getUserID());
+            statement.setInt(3, eventReport.getAttendance());
             result = statement.executeUpdate();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -54,6 +55,7 @@ public class EventReportDao implements IEventReportDao {
                 eventReport = new EventReport();
                 eventReport.setEventReportID(resultSet.getInt("reportID"));
                 eventReport.setEventID(resultSet.getInt("eventID"));
+                eventReport.setEventID(resultSet.getInt("userID"));
                 eventReport.setAttendance(resultSet.getInt("attendance"));
             }
         } catch (SQLException e) {
@@ -74,6 +76,7 @@ public class EventReportDao implements IEventReportDao {
                 EventReport eventReport = new EventReport();
                 eventReport.setEventReportID(resultSet.getInt("reportID"));
                 eventReport.setEventID(resultSet.getInt("eventID"));
+                eventReport.setEventID(resultSet.getInt("userID"));
                 eventReport.setAttendance(resultSet.getInt("attendance"));
 
                 eventReports.add(eventReport);
@@ -89,12 +92,13 @@ public class EventReportDao implements IEventReportDao {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE EventReport "
-                    + "SET eventID = ?, attendance = ? "
+                    + "SET eventID = ?, userID = ?, attendance = ? "
                     + "WHERE reportID = ?"
             );
             statement.setInt(1, eventReport.getEventID());
-            statement.setInt(1, eventReport.getAttendance());
-            statement.setInt(1, eventReport.getEventReportID());
+            statement.setInt(2, eventReport.getUserID());
+            statement.setInt(3, eventReport.getAttendance());
+            statement.setInt(4, eventReport.getEventReportID());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.print(e.getMessage());

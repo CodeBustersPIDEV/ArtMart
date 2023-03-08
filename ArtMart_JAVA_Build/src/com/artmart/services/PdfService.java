@@ -34,29 +34,29 @@ public class PdfService {
         
         //EventService es = new EventService();
 
-        document.add(new Paragraph("            Date created  :"+LocalDateTime.now()));
-        document.add(new Paragraph("            Event :"+ event.getName()));
+        document.add(new Paragraph("Date created  : " + LocalDateTime.now()));
+        document.add(new Paragraph("Event name : " + event.getName()));
         document.add(new Paragraph("                      "));
         document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------"));
 
-        document.add(new Paragraph("Type :" + event.getType()));
+        document.add(new Paragraph("Type : " + event.getType()));
         document.add(new Paragraph("                      "));
-        document.add(new Paragraph("Location :" + event.getLocation()));
+        document.add(new Paragraph("Location : " + event.getLocation()));
         document.add(new Paragraph("                      "));
-        document.add(new Paragraph("Start date:" + event.getStartDate()));
+        document.add(new Paragraph("Start date : " + event.getStartDate()));
         document.add(new Paragraph("                      "));
-        document.add(new Paragraph("End date :" + event.getEndDate()));
+        document.add(new Paragraph("End date : " + event.getEndDate()));
         document.add(new Paragraph("                      "));
-        document.add(new Paragraph("Capacity :" + event.getCapacity()));
+        document.add(new Paragraph("Capacity : " + event.getCapacity()));
         document.add(new Paragraph("                      "));
-        document.add(new Paragraph("Entry fee :" + event.getEntryFee()));
+        document.add(new Paragraph("Entry fee : " + event.getEntryFee()));
         document.add(new Paragraph("                      "));
-        document.add(new Paragraph("Description :" + event.getDescription()));
+        document.add(new Paragraph("Description : " + event.getDescription()));
         document.add(new Paragraph("                      "));
        
 
         document.add(new Paragraph("---------------------------------------------------------------------------------------------------------------------------------- "));
-        document.add(new Paragraph("                              ArtMart                     "));
+        document.add(new Paragraph("ArtMart"));
         document.close();
         Process process = Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + filename + ".pdf");
     }

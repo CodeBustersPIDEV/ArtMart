@@ -11,13 +11,17 @@ public interface IEventDao {
 
     List<Event> getAllEvents();
 
-    List<Event> getAllEventsByID(int id);
+    List<Event> getMyEvents(int id);
+
+    List<Event> getOtherEvents(int id);
 
     boolean updateEvent(int eventID, Event event);
 
     boolean deleteEvent(int eventID);
     
-    List<Event> searchEventByName(String name, int userID);
+    List<Event> searchMyEventByName(String name, int userID);
+
+    List<Event> searchOtherEventByName(String name, int userID);
     
     Event getEventByName(String name);
 
