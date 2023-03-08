@@ -10,7 +10,6 @@ public class Product {
     private float weight;
     private String material;
     private String image;
-    private int userId;
 
     public Product(int productId, int categoryId, String name, String description, String dimensions, float weight, String material, String image) {
         this.productId = productId;
@@ -44,41 +43,6 @@ public class Product {
         this.image = image;
     }
 
-    public Product(int productId, int categoryId, String name, String description, String dimensions, float weight, String material, String image, int userId) {
-        this.productId = productId;
-        this.categoryId = categoryId;
-        this.name = name;
-        this.description = description;
-        this.dimensions = dimensions;
-        this.weight = weight;
-        this.material = material;
-        this.image = image;
-        this.userId = userId;
-    }
-
-    public Product(int id, int categoryId, String name, String description, String dimensions, int weight, String material, String image, int userId) {
-        this.productId = id;
-        this.categoryId = categoryId;
-        this.name = name;
-        this.description = description;
-        this.dimensions = dimensions;
-        this.weight = weight;
-        this.material = material;
-        this.image = image;
-        this.userId = userId;
-    }
-
-    public Product(int categoryId, String name, String description, String dimensions, float weight, String material, String image, int userId) {
-        this.categoryId = categoryId;
-        this.name = name;
-        this.description = description;
-        this.dimensions = dimensions;
-        this.weight = weight;
-        this.material = material;
-        this.image = image;
-        this.userId = userId;
-    }
-
     public Product() {
     }
 
@@ -96,14 +60,6 @@ public class Product {
 
     public int getCategoryId() {
         return categoryId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public void setCategoryId(int categoryId) {
@@ -160,7 +116,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "productId=" + productId + ", categoryId=" + categoryId + ", name=" + name + ", description=" + description + ", dimensions=" + dimensions + ", weight=" + weight + ", material=" + material + ", image=" + image + ", userId=" + userId + '}';
+        return "Product{" + "productId=" + productId + ", categoryId=" + categoryId + ", name=" + name + ", description=" + description + ", dimensions=" + dimensions + ", weight=" + weight + ", material=" + material + ", image=" + image + '}';
     }
 
 }

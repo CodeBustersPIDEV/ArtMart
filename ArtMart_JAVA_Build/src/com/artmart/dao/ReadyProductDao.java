@@ -26,6 +26,44 @@ public class ReadyProductDao {
 
     private ProductDao productDAO = new ProductDao();
 
+    public ReadyProduct getReadyProductById(int id, int uID) throws SQLException {
+        String query = "SELECT * FROM readyproduct WHERE ready_product_ID = ? AND user_ID = ?";
+        String productQuery = "SELECT * FROM product WHERE product_ID = ?";
+
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, id);
+        statement.setInt(2, uID);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            int productId = resultSet.getInt("product_ID");
+
+            PreparedStatement productStatement = sqlConnection.prepareStatement(productQuery);
+            productStatement.setInt(1, productId);
+            ResultSet productResultSet = productStatement.executeQuery();
+
+            if (productResultSet.next()) {
+                Product product = new Product(
+                        productResultSet.getInt("product_ID"),
+                        productResultSet.getInt("category_ID"),
+                        productResultSet.getString("name"),
+                        productResultSet.getString("description"),
+                        productResultSet.getString("dimensions"),
+                        productResultSet.getInt("weight"),
+                        productResultSet.getString("material"),
+                        productResultSet.getString("image")
+                );
+                ReadyProduct readyProduct = new ReadyProduct(
+                        resultSet.getInt("ready_product_ID"),
+                        productId,
+                        product
+                );
+                return readyProduct;
+            }
+        }
+        return null;
+    }
+    
     public ReadyProduct getReadyProductById(int id) throws SQLException {
         String query = "SELECT * FROM readyproduct WHERE ready_product_ID = ?";
         String productQuery = "SELECT * FROM product WHERE product_ID = ?";
@@ -50,8 +88,7 @@ public class ReadyProductDao {
                         productResultSet.getString("dimensions"),
                         productResultSet.getInt("weight"),
                         productResultSet.getString("material"),
-                        productResultSet.getString("image"),
-                        productResultSet.getInt("user_ID")
+                        productResultSet.getString("image")
                 );
                 ReadyProduct readyProduct = new ReadyProduct(
                         resultSet.getInt("ready_product_ID"),
@@ -64,6 +101,19 @@ public class ReadyProductDao {
         return null;
     }
 
+    public int getReadyProductId(int id, int uID) throws SQLException {
+        String query = "SELECT product_ID FROM readyproduct WHERE ready_product_ID = ? AND user_ID = ?";
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, id);
+        statement.setInt(2, uID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("product_ID");
+        } else {
+            return 0;
+        }
+    }
+    
     public int getReadyProductId(int id) throws SQLException {
         String query = "SELECT product_ID FROM readyproduct WHERE ready_product_ID = ?";
         PreparedStatement statement = sqlConnection.prepareStatement(query);
@@ -74,9 +124,29 @@ public class ReadyProductDao {
         } else {
             return 0;
         }
-
     }
 
+    public List<ReadyProduct> getAllReadyProducts(int uID) throws SQLException {
+        List<ReadyProduct> readyProducts = new ArrayList<>();
+        String query = "SELECT * FROM readyproduct WHERE user_ID = ?";
+
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, uID);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            ReadyProduct readyProduct = new ReadyProduct(
+                    resultSet.getInt("ready_product_ID"),
+                    this.productDAO.getProductById(resultSet.getInt("product_ID")),
+                    resultSet.getInt("price"),
+                    resultSet.getInt("user_ID")
+            );
+            readyProducts.add(readyProduct);
+        }
+        return readyProducts;
+    }
+    
+    
     public List<ReadyProduct> getAllReadyProducts() throws SQLException {
         List<ReadyProduct> readyProducts = new ArrayList<>();
         String query = "SELECT * FROM readyproduct";
@@ -88,7 +158,8 @@ public class ReadyProductDao {
             ReadyProduct readyProduct = new ReadyProduct(
                     resultSet.getInt("ready_product_ID"),
                     this.productDAO.getProductById(resultSet.getInt("product_ID")),
-                    resultSet.getInt("price")
+                    resultSet.getInt("price"),
+                    resultSet.getInt("user_ID")
             );
             readyProducts.add(readyProduct);
         }
@@ -98,11 +169,12 @@ public class ReadyProductDao {
     public int createReadyProduct(ReadyProduct p) throws SQLException {
         try {
             PreparedStatement statement = sqlConnection.prepareStatement(
-                    "INSERT INTO readyproduct (product_ID, price) "
-                    + "VALUES (?, ?)"
+                    "INSERT INTO readyproduct (product_ID, price, user_ID) "
+                    + "VALUES (?, ?, ?)"
             );
             statement.setInt(1, productDAO.createProduct(p));
             statement.setInt(2, p.getPrice());
+            statement.setInt(3, p.getUserId());
             statement.executeUpdate();
             return 1;
 
@@ -182,15 +254,17 @@ public class ReadyProductDao {
         return images;
     }
 
-    public List<ReadyProduct> getAllReadyProductsByCategoryName(String categoryName) throws SQLException {
+    public List<ReadyProduct> getAllReadyProductsByCategoryName(String categoryName, int uID) throws SQLException {
         List<ReadyProduct> readyProducts = new ArrayList<>();
-        String query = "SELECT readyproduct.ready_product_ID, readyproduct.product_ID FROM readyproduct "
+        String query = "SELECT readyproduct.ready_product_ID, readyproduct.product_ID, readyproduct.user_ID FROM readyproduct "
                 + "INNER JOIN product ON readyproduct.product_ID = product.product_ID "
                 + "INNER JOIN categories ON product.category_ID = categories.categories_ID "
-                + "WHERE categories.name = ?";
+                + "INNER JOIN user ON readyproduct.user_ID = user.user_ID "
+                + "WHERE categories.name = ? AND readyproduct.user_ID = ?";
 
         PreparedStatement statement = sqlConnection.prepareStatement(query);
         statement.setString(1, categoryName);
+        statement.setInt(2, uID);
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {

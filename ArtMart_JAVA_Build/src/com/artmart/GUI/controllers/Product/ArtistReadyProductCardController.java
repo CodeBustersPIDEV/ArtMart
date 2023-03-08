@@ -36,6 +36,8 @@ public class ArtistReadyProductCardController implements Initializable {
     @FXML
     private Label pid;
     @FXML
+    private Label userID;
+    @FXML
     private Text name;
     @FXML
     private Label category;
@@ -73,10 +75,13 @@ public class ArtistReadyProductCardController implements Initializable {
         this.p = param;
         this.controller = controller;
         this.pid.setText(Integer.toString(p.getProductId()));
+        this.userID.setText(Integer.toString(p.getUserId()));
+        
         CategoriesDao c = new CategoriesDao();
         Categories cat = c.getCategoriesById(p.getCategoryId());
         String catName = cat.getName();
         this.category.setText(catName);
+        
         this.price.setText(Integer.toString(p.getPrice()));
         this.weight.setText(Float.toString(p.getWeight()));
         this.dimensions.setText(p.getDimensions());

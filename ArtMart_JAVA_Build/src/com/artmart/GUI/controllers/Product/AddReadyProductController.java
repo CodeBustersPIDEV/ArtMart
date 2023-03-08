@@ -203,9 +203,9 @@ public class AddReadyProductController implements Initializable {
             return;
         }
 
-        Product basePr = new Product(selectedCategory.getCategories_ID(), name, description, dimensions, weight, material, imagePath, us);
+        Product basePr = new Product(selectedCategory.getCategories_ID(), name, description, dimensions, weight, material, imagePath);
 
-        ReadyProduct readyPr = new ReadyProduct(basePr, price);
+        ReadyProduct readyPr = new ReadyProduct(basePr, price, us);
         System.out.println(readyPr);
         int result = readyProductService.createReadyProduct(readyPr);
         if (result > 0) {

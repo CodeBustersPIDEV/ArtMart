@@ -117,9 +117,14 @@ public class ReadyproductsListController implements Initializable {
     }
 
     public void displayList() throws SQLException {
-        try {
-            this.vBox.getChildren().clear();
-            this.readyProductslist = this.readyProductService.getAllReadyProducts();
+        this.vBox.getChildren().clear();
+        this.readyProductslist = this.readyProductService.getAllReadyProducts();
+        if (this.readyProductslist.isEmpty()) {
+            // display a message if the list is empty
+            Label emptyLabel = new Label("No products found.");
+            this.vBox.getChildren().add(emptyLabel);
+        } else {
+            // add new items to the vBox
             this.readyProductslist.forEach(rp -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductCard.fxml"));
@@ -134,8 +139,6 @@ public class ReadyproductsListController implements Initializable {
                     Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -183,21 +186,28 @@ public class ReadyproductsListController implements Initializable {
         this.sortPrice.setSelected(true);
         this.vBox.getChildren().clear();
         this.readyProductslist.sort(Comparator.comparing(ReadyProduct::getPrice));
-        this.readyProductslist.forEach(RProduct -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductCard.fxml"));
-                Parent root = loader.load();
-                ReadyProductCardController controller = loader.getController();
-                controller.setReadyProduct(RProduct, this);
-                root.setId("" + RProduct.getReadyProductId());
-                this.vBox.getChildren().add(root);
-            } catch (IOException e) {
-                System.out.print(e.getCause());
-            } catch (SQLException ex) {
-                Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+        if (this.readyProductslist.isEmpty()) {
+            // display a message if the list is empty
+            Label emptyLabel = new Label("No products found.");
+            this.vBox.getChildren().add(emptyLabel);
+        } else {
+            // add new items to the vBox
+            this.readyProductslist.forEach(RProduct -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductCard.fxml"));
+                    Parent root = loader.load();
+                    ReadyProductCardController controller = loader.getController();
+                    controller.setReadyProduct(RProduct, this);
+                    root.setId("" + RProduct.getReadyProductId());
+                    this.vBox.getChildren().add(root);
+                } catch (IOException e) {
+                    System.out.print(e.getCause());
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        }
     }
 
     @FXML
@@ -206,21 +216,28 @@ public class ReadyproductsListController implements Initializable {
         this.sortPrice.setSelected(false);
         this.vBox.getChildren().clear();
         this.readyProductslist.sort(Comparator.comparing(ReadyProduct::getCategoryId));
-        this.readyProductslist.forEach(RProduct -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductCard.fxml"));
-                Parent root = loader.load();
-                ReadyProductCardController controller = loader.getController();
-                controller.setReadyProduct(RProduct, this);
-                root.setId("" + RProduct.getReadyProductId());
-                this.vBox.getChildren().add(root);
-            } catch (IOException e) {
-                System.out.print(e.getCause());
-            } catch (SQLException ex) {
-                Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+        if (this.readyProductslist.isEmpty()) {
+            // display a message if the list is empty
+            Label emptyLabel = new Label("No products found.");
+            this.vBox.getChildren().add(emptyLabel);
+        } else {
+            // add new items to the vBox
+            this.readyProductslist.forEach(RProduct -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductCard.fxml"));
+                    Parent root = loader.load();
+                    ReadyProductCardController controller = loader.getController();
+                    controller.setReadyProduct(RProduct, this);
+                    root.setId("" + RProduct.getReadyProductId());
+                    this.vBox.getChildren().add(root);
+                } catch (IOException e) {
+                    System.out.print(e.getCause());
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        }
     }
 
     public void refreshScene(ActionEvent event) {

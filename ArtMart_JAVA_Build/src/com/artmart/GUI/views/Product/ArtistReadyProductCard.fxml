@@ -18,6 +18,11 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Label fx:id="userID" layoutX="550.0" layoutY="30.0" text="userID">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="379.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="949.0">
          <stroke>
             <LinearGradient endX="1.0" endY="1.0">

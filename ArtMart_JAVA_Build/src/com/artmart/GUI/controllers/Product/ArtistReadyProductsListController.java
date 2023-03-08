@@ -121,9 +121,14 @@ public class ArtistReadyProductsListController implements Initializable {
     }
 
     public void displayList() throws SQLException {
-        try {
-            this.vBox.getChildren().clear();
-            this.readyProductslist = this.readyProductService.getAllReadyProducts();
+        this.vBox.getChildren().clear();
+        this.readyProductslist = this.readyProductService.getAllReadyProducts(this.connectedUser.getUser_id());
+        if (this.readyProductslist.isEmpty()) {
+            // display a message if the list is empty
+            Label emptyLabel = new Label("No products found.");
+            this.vBox.getChildren().add(emptyLabel);
+        } else {
+            // add new items to the vBox
             this.readyProductslist.forEach(rp -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductCard.fxml"));
@@ -138,36 +143,41 @@ public class ArtistReadyProductsListController implements Initializable {
                     Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     public void makeList() throws SQLException {
         this.vBoxCat.getChildren().clear();
         this.categorieslist = this.CategoriesService.getAllCategories();
-        this.categorieslist.forEach(category -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/CategoryCard.fxml"));
-                Node categoryCard = loader.load();
-                CategoryCardController controller = loader.getController();
-                controller.setCategories(category, this);
-                categoryCard.setId("" + category.getCategories_ID());
-                // Set the event handler for the category label
-                Label categoryLabel = controller.getCategoryLabel();
-                categoryLabel.setOnMouseClicked(event -> {
-                    String categoryName = controller.getCategoryName();
-                    try {
-                        sortByCategoryName(categoryName);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
-                this.vBoxCat.getChildren().add(categoryCard);
-            } catch (IOException e) {
-                System.out.print(e.getCause());
-            }
-        });
+        if (this.categorieslist.isEmpty()) {
+            // display a message if the list is empty
+            Label emptyLabel = new Label("No categories found.");
+            this.vBox.getChildren().add(emptyLabel);
+        } else {
+            // add new items to the vBox
+            this.categorieslist.forEach(category -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/CategoryCard.fxml"));
+                    Node categoryCard = loader.load();
+                    CategoryCardController controller = loader.getController();
+                    controller.setCategories(category, this);
+                    categoryCard.setId("" + category.getCategories_ID());
+                    // Set the event handler for the category label
+                    Label categoryLabel = controller.getCategoryLabel();
+                    categoryLabel.setOnMouseClicked(event -> {
+                        String categoryName = controller.getCategoryName();
+                        try {
+                            sortByCategoryName(categoryName, category.getCategories_ID());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    });
+                    this.vBoxCat.getChildren().add(categoryCard);
+                } catch (IOException e) {
+                    System.out.print(e.getCause());
+                }
+            });
+        }
     }
 
     public void onBack(ActionEvent event) {
@@ -239,9 +249,9 @@ public class ArtistReadyProductsListController implements Initializable {
         });
     }
 
-    public void sortByCategoryName(String categoryName) throws SQLException {
+    public void sortByCategoryName(String categoryName, int uID) throws SQLException {
         this.vBox.getChildren().clear();
-        this.readyProductslist = this.readyProductService.getAllReadyProductsByCategoryName(categoryName);
+        this.readyProductslist = this.readyProductService.getAllReadyProductsByCategoryName(categoryName, this.connectedUser.getUser_id());
         this.readyProductslist.forEach(rp -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductCard.fxml"));

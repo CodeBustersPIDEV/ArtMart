@@ -50,7 +50,7 @@ public class EditReadyProductController implements Initializable {
     @FXML
     private Label prodID;
     @FXML
-    private TextField userID;
+    private Label userID;
     @FXML
     private TextField nameF;
     @FXML
@@ -69,9 +69,13 @@ public class EditReadyProductController implements Initializable {
     private TextField imageField;
     @FXML
     private Button edit;
+
     private ReadyproductsListController controller = new ReadyproductsListController();
+
     private final ProductDao productDao = new ProductDao();
+
     private final CategoriesDao categoriesDao = new CategoriesDao();
+
     // variable to hold the ID of the ready product
     private int readyProductId;
     @FXML
@@ -133,9 +137,10 @@ public class EditReadyProductController implements Initializable {
             this.descriptionF.setText(this.viewProd.getDescription());
             this.dimensionsF.setText(this.viewProd.getDimensions());
             this.weightF.setText(Float.toString(this.viewProd.getWeight()));
-            this.priceF.setText(Float.toString(this.viewProd.getPrice()));
             this.materialF.setText(this.viewProd.getMaterial());
             this.imageField.setText(this.viewProd.getImage());
+            this.priceF.setText(Integer.toString(this.viewProd.getPrice()));
+            System.out.println(this.viewProd.getPrice());
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
