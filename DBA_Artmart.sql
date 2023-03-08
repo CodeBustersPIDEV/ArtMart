@@ -44,7 +44,7 @@ CREATE TABLE `blogs` (
   content TEXT NOT NULL,
   date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   rating FLOAT DEFAULT NULL,
-  nb_views INT NOT NULL DEFAULT 0;
+  nb_views INT NOT NULL DEFAULT 0,
   author INT NOT NULL,
   FOREIGN KEY (author) REFERENCES user(user_ID)
 );
@@ -95,16 +95,6 @@ CREATE TABLE `media` (
   FOREIGN KEY (blog_id) REFERENCES blogs(blogs_ID)
 );
 
-CREATE TABLE `comments` (
-  comments_ID INT AUTO_INCREMENT PRIMARY KEY,
-  content TEXT NOT NULL,
-  date DATETIME DEFAULT CURRENT_TIMESTAMP,
-  author INT NOT NULL,
-  blog_ID INT NOT NULL,
-  FOREIGN KEY (author) REFERENCES user(user_ID),
-  FOREIGN KEY (blog_ID) REFERENCES blogs(blogs_ID)
-);
-
 -- Product 
 
 CREATE TABLE `categories` (
@@ -151,7 +141,7 @@ CREATE TABLE `customProduct` (
     product_ID INT NOT NULL,
     client_ID INT NOT NULL,
     FOREIGN KEY (product_ID) REFERENCES Product(product_ID),
-    FOREIGN KEY (client_ID) REFERENCES user(user_ID),
+    FOREIGN KEY (client_ID) REFERENCES user(user_ID)
 );
 
 CREATE TABLE `apply` (
@@ -160,7 +150,7 @@ CREATE TABLE `apply` (
     artist_ID INT NOT NULL,
     status VARCHAR(255) NOT NULL,
     FOREIGN KEY (customproduct_ID) REFERENCES customProduct(custom_product_ID),
-    FOREIGN KEY (artist_ID) REFERENCES artist(artist_ID),
+    FOREIGN KEY (artist_ID) REFERENCES artist(artist_ID)
 );
 
 -- Orderom
@@ -254,7 +244,6 @@ CREATE TABLE `salesReport` (
 );
 
 -- Event
-
 CREATE TABLE `event` (
     eventID INT AUTO_INCREMENT PRIMARY KEY,
     userID INT NOT NULL,
@@ -266,30 +255,45 @@ CREATE TABLE `event` (
     capacity INT NOT NULL,
     startDate DATETIME NOT NULL,
     endDate DATETIME NOT NULL,
-    FOREIGN KEY (userID) REFERENCES User(user_ID)
+    image VARCHAR(255) NULL,
+    status VARCHAR(255) DEFAULT 'Scheduled',
+    FOREIGN KEY (userID) REFERENCES user(user_ID)
 );
 
 CREATE TABLE `activity` (
     activityID INT AUTO_INCREMENT PRIMARY KEY,
     eventID INT NOT NULL,
+    date DATETIME NOT NULL,
     title VARCHAR(255) NOT NULL,
     host VARCHAR(255) NOT NULL,
-    date DATETIME NOT NULL,
-    FOREIGN KEY (eventID) REFERENCES Event(eventID)
+    FOREIGN KEY (eventID) REFERENCES event(eventID)
 );
 
-CREATE TABLE `eventReport` (
+CREATE TABLE eventReport (
     reportID INT AUTO_INCREMENT PRIMARY KEY,
-    eventID INT,
+    eventID INT NOT NULL,
     attendance INT NOT NULL,
-    FOREIGN KEY (eventID) REFERENCES `event`(eventID)
+    FOREIGN KEY (eventID) REFERENCES event(eventID)
 );
 
-CREATE TABLE `feedback` (
+CREATE TABLE feedback (
     feedbackID INT AUTO_INCREMENT PRIMARY KEY,
-    eventReportID INT NOT NULL,
+    eventID INT NOT NULL,
+    userID INT NOT NULL,    
     rating INT NOT NULL,
     comment TEXT NOT NULL,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (eventReportID) REFERENCES EventReport(reportID)
+    FOREIGN KEY (eventID) REFERENCES event(eventID),
+    FOREIGN KEY (userID) REFERENCES user(user_ID)
+);
+
+CREATE TABLE participation (
+    participationID INT AUTO_INCREMENT PRIMARY KEY,
+    userID INT NOT NULL,
+    eventID INT NOT NULL,
+    attendanceStatus VARCHAR(255) DEFAULT 'Not attending',
+    registrationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (eventID, userID),
+    FOREIGN KEY (eventID) REFERENCES event(eventID),
+    FOREIGN KEY (userID) REFERENCES user(user_ID)
 );
