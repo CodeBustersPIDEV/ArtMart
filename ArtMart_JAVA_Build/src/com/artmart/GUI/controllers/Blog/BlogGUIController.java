@@ -70,7 +70,6 @@ public class BlogGUIController implements Initializable {
                 pane.setId("blog_card" + blog.getId());
                 BlogCardController controller = loader.getController();
                 Media img = this.blogService.getOneMediaByBlogID(blog.getId());
-                System.out.println(blog.toString());
                 if (img == null) {
                     File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
                     Image image = new Image(file.toURI().toString());
@@ -127,22 +126,18 @@ public class BlogGUIController implements Initializable {
                     Image image = new Image(file.toURI().toString());
                     controller.setImage(image);
                     controller.setBlogImage(image);
-//                    System.out.println("image"+image.getHeight());
-//                    controller.setCardCont1(image.getHeight());
-//                    controller.setCardCont2(image.getHeight());
                 } else {
                     File file = new File(img.getFile_path());
                     Image image = new Image(file.toURI().toString());
                     controller.setImage(image);
                     controller.setBlogImage(image);
-//                    System.out.println("image"+image.getHeight());
-//                    controller.setCardCont1(image.getHeight());
-//                    controller.setCardCont2(image.getHeight());
                 }
                 controller.setBlogTitle(blog.getTitle());
                 container.getChildren().add(pane);
                 controller.setUsername(username);
                 controller.setBlogID(Integer.toString(blog.getId()));
+                controller.setViewsLabel(Integer.toString(blog.getNb_views()));
+                controller.setRatingLabel(String.valueOf(df.format(blog.getRating())));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -223,6 +218,8 @@ public class BlogGUIController implements Initializable {
                 container.getChildren().add(pane);
                 controller.setUsername(username);
                 controller.setBlogID(Integer.toString(blog.getId()));
+                controller.setViewsLabel(Integer.toString(blog.getNb_views()));
+                controller.setRatingLabel(String.valueOf(df.format(blog.getRating())));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -261,6 +258,8 @@ public class BlogGUIController implements Initializable {
                 container.getChildren().add(pane);
                 controller.setUsername(username);
                 controller.setBlogID(Integer.toString(blog.getId()));
+                controller.setViewsLabel(Integer.toString(blog.getNb_views()));
+                controller.setRatingLabel(String.valueOf(df.format(blog.getRating())));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -329,6 +328,8 @@ public class BlogGUIController implements Initializable {
                 container.getChildren().add(pane);
                 controller.setUsername(username);
                 controller.setBlogID(Integer.toString(blog.getId()));
+                controller.setViewsLabel(Integer.toString(blog.getNb_views()));
+                controller.setRatingLabel(String.valueOf(df.format(blog.getRating())));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.printStackTrace();
