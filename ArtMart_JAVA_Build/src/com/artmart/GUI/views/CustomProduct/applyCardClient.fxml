@@ -13,7 +13,7 @@
       <Text fx:id="Artisttxt" fill="#282d2f" layoutX="173.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
       <Text fx:id="CPtxt" fill="#282d2f" layoutX="173.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
       <Text fx:id="statustxt" fill="#282d2f" layoutX="173.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
-      <Button layoutX="310.0" layoutY="68.0" mnemonicParsing="false" onAction="#accept" text="accept" />
+      <Button fx:id="accept" layoutX="310.0" layoutY="68.0" mnemonicParsing="false" onAction="#accept" text="accept" />
       <Text fill="#3a98b9" layoutX="56.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -26,7 +26,7 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Text>
-      <Button layoutX="313.0" layoutY="25.0" mnemonicParsing="false" onAction="#reject" text="reject" />
+      <Button fx:id="reject" layoutX="313.0" layoutY="25.0" mnemonicParsing="false" onAction="#reject" text="reject" />
    
    </children>
 </AnchorPane>

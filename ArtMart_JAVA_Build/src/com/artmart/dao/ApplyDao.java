@@ -76,7 +76,7 @@ public class ApplyDao {
     }
       public List<Apply> getAllApplies1() throws SQLException {
         List<Apply> applies = new ArrayList<>();
-        String query = "SELECT apply_ID, customproduct_ID, artist_ID, status FROM Apply WHERE status IN ('done', 'in progress')";
+        String query = "SELECT apply_ID, customproduct_ID, artist_ID, status FROM Apply WHERE status IN ('in progress')";
         PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
         ResultSet result = statement.executeQuery();
         while (result.next()) {
@@ -126,5 +126,19 @@ public class ApplyDao {
         return null;
     }
 }
+ 
+ public boolean checkIfApplyExists(int customProductId) throws SQLException {
+    String query = "SELECT COUNT(*) as count FROM Apply WHERE customproduct_ID = ?";
+    PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+    statement.setInt(1, customProductId);
+    ResultSet result = statement.executeQuery();
+    if (result.next()) {
+        int count = result.getInt("count");
+        return count > 0;
+    } else {
+        return false;
+    }
+}
+
 }
 

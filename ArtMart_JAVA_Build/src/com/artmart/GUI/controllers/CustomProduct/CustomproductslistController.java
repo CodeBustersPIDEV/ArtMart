@@ -3,6 +3,8 @@ package com.artmart.GUI.controllers.CustomProduct;
 import com.artmart.dao.ApplyDao;
 import com.artmart.models.Apply;
 import com.artmart.models.CustomProduct;
+import com.artmart.models.HasCategory;
+import com.artmart.models.HasTag;
 import com.artmart.models.Product;
 import com.artmart.models.Session;
 import com.artmart.services.CustomProductService;
@@ -38,6 +40,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -72,12 +75,12 @@ public class CustomproductslistController implements Initializable {
     private Text total;
     @FXML
     private Text totalp;
-        HashMap user = (HashMap) Session.getActiveSessions();
+    HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     ApplyDao x = new ApplyDao();
     @FXML
     private RadioButton def;
-   
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -106,8 +109,8 @@ public class CustomproductslistController implements Initializable {
 
     public void makeList() throws SQLException {
         this.vBox.getChildren().clear();
-           Session session = Session.getInstance();
-int clientId = session.getCurrentUserId(session.getSessionId());
+        Session session = Session.getInstance();
+        int clientId = session.getCurrentUserId(session.getSessionId());
         this.customProductslist = this.customProductService.getCustomProductsByClientId(clientId);
         this.customProductslist.forEach(CProduct -> {
             try {
@@ -126,12 +129,10 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         });
     }
 
-
-
     @FXML
     private void onsearch(ActionEvent event) throws SQLException {
         String keyword = search.getText();
-          List<CustomProduct> matchingProducts = customProductService.searchCustomProductByName1(keyword);
+        List<CustomProduct> matchingProducts = customProductService.searchCustomProductByName1(keyword);
         this.vBox.getChildren().clear();
         matchingProducts.forEach(CProduct -> {
             try {
@@ -155,6 +156,7 @@ int clientId = session.getCurrentUserId(session.getSessionId());
 
         this.sname.setSelected(false);
         this.sweight.setSelected(true);
+                 this.def.setSelected(false);
         this.vBox.getChildren().clear();
         this.customProductslist.sort(Comparator.comparing(CustomProduct::getWeight));
         this.customProductslist.forEach(CProduct -> {
@@ -179,6 +181,7 @@ int clientId = session.getCurrentUserId(session.getSessionId());
 
         this.sname.setSelected(true);
         this.sweight.setSelected(false);
+            this.def.setSelected(false);
         this.vBox.getChildren().clear();
         this.customProductslist.sort(Comparator.comparing(CustomProduct::getName));
         this.customProductslist.forEach(CProduct -> {
@@ -204,7 +207,7 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         try {
             Stage stage = new Stage();
             Parent root = FXMLLoader
-                   .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ProductStatistics.fxml"));
+                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ProductStatistics.fxml"));
 
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -225,53 +228,59 @@ int clientId = session.getCurrentUserId(session.getSessionId());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-     
+
     }
 
     @FXML
     private void apply(ActionEvent event) throws IOException {
-         FXMLLoader loader = new FXMLLoader(
+        FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/com/artmart/GUI/views/CustomProduct/applyList.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-        
+
     }
 
     @FXML
     private void def(ActionEvent event) throws SQLException {
+        this.sname.setSelected(false);
+        this.sweight.setSelected(false);
+        this.def.setSelected(true);
         this.makeList();
     }
 
     @FXML
     private void goToInstagram(ActionEvent event) {
-         String url = "https://www.instagram.com/soltani_amir_/";
-    try {
-        Desktop.getDesktop().browse(new URI(url));
-    } catch (IOException | URISyntaxException e) {
-        e.printStackTrace();
-    }
+        String url = "https://www.instagram.com/soltani_amir_/";
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void gofb(ActionEvent event) {
-                String url = "https://www.facebook.com/amir.soltani.503/";
-    try {
-        Desktop.getDesktop().browse(new URI(url));
-    } catch (IOException | URISyntaxException e) {
-        e.printStackTrace();
-    }
+        String url = "https://www.facebook.com/amir.soltani.503/";
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void goR(ActionEvent event) {
-                String url = "https://www.reddit.com/search/?q=art";
-    try {
-        Desktop.getDesktop().browse(new URI(url));
-    } catch (IOException | URISyntaxException e) {
-        e.printStackTrace();
+        String url = "https://www.reddit.com/search/?q=art";
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
-    }
+    
+
+
 }

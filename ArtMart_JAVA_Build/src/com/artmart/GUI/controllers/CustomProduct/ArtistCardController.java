@@ -52,13 +52,13 @@ public class ArtistCardController implements Initializable {
     private Text mat;
     @FXML
     private ImageView img;
-        
-    private CustomProduct p=new CustomProduct();
-     private CategoriesDao s=new CategoriesDao();
+
+    private CustomProduct p = new CustomProduct();
+    private CategoriesDao s = new CategoriesDao();
     private CustomProductDao cPDao = new CustomProductDao();
     public static final String ACCOUNT_SID = "AC85fdc289caf6aa747109220798d39394";
-  public static final String AUTH_TOKEN = "798a6da8a44c9ab785ba50336b882e31";
-    private ArtistCustomController controller=new ArtistCustomController();
+    public static final String AUTH_TOKEN = "798a6da8a44c9ab785ba50336b882e31";
+    private ArtistCustomController controller = new ArtistCustomController();
 
     @FXML
     private Text owner;
@@ -71,82 +71,79 @@ public class ArtistCardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-   public void setCustomProduct(CustomProduct param, ArtistCustomController controller) throws SQLException {
-    this.p = param;
-    this.controller = controller;
-    this.pid.setText(Integer.toString(p.getCustomProductId()));
-    
-    // Retrieve the category name from the database using the CategoryDao
-    String categoryName = s.getCategoryNameById(p.getCategoryId());
-    this.CID.setText(categoryName);
-    this.dim.setText(p.getDimensions());
-    this.mat.setText(p.getMaterial());
-    
-    // Retrieve the client name from the database using the ClientService
-    UserDao clientService = new UserDao();
-    String clientName = clientService.getClientNameById(p.getClientID());
-    this.owner.setText(clientName);
+    }
 
-    // Load the image from the file path stored in CustomProduct object's image field
-    Image image = new Image("file:" + p.getImage());
-    this.img.setImage(image);
+    public void setCustomProduct(CustomProduct param, ArtistCustomController controller) throws SQLException {
+        this.p = param;
+        this.controller = controller;
+        this.pid.setText(Integer.toString(p.getCustomProductId()));
 
-    this.nameTxt.setText(p.getName());
-    this.descTxt.setText(p.getDescription());
-    this.WaightTxt.setText(""+p.getWeight());
-}
+        // Retrieve the category name from the database using the CategoryDao
+        String categoryName = s.getCategoryNameById(p.getCategoryId());
+        this.CID.setText(categoryName);
+        this.dim.setText(p.getDimensions());
+        this.mat.setText(p.getMaterial());
 
-   @FXML
-private void goapply(ActionEvent event) throws SQLException, IOException, AWTException {
+        // Retrieve the client name from the database using the ClientService
+        UserDao clientService = new UserDao();
+        String clientName = clientService.getClientNameById(p.getClientID());
+        this.owner.setText(clientName);
 
-    // Get the current user's ID from the session
+        // Load the image from the file path stored in CustomProduct object's image field
+        Image image = new Image("file:" + p.getImage());
+        this.img.setImage(image);
+
+        this.nameTxt.setText(p.getName());
+        this.descTxt.setText(p.getDescription());
+        this.WaightTxt.setText("" + p.getWeight());
+        
+        
+        
+        ApplyDao applyDao = new ApplyDao();
     int artistId = Session.getCurrentUserId(Session.getInstance().getSessionId());
-
-    // Get the ID of the custom product that the user is applying for
     int customProductId = Integer.parseInt(pid.getText());
-    System.out.println(artistId);
-    System.out.println(customProductId);
+    if (applyDao.checkIfApplyExists(customProductId)) {
+        applyBtn.setDisable(true);
+    }
+    }
 
-    // Create a new Apply object with the necessary information
-    Apply apply = new Apply(customProductId, artistId, "Pending");
+    @FXML
+    private void goapply(ActionEvent event) throws SQLException, IOException, AWTException {
 
-    // Create the Apply in the database using the ApplyDao
-    ApplyDao applyDao = new ApplyDao();
-    int applyId = applyDao.createApply(apply);
+        // Get the current user's ID from the session
+        int artistId = Session.getCurrentUserId(Session.getInstance().getSessionId());
 
-    // Display a success message to the user
-    System.out.println("Apply created with ID: " + applyId);
+        // Get the ID of the custom product that the user is applying for
+        int customProductId = Integer.parseInt(pid.getText());
+        System.out.println(artistId);
+        System.out.println(customProductId);
 
-    // Disable the "Apply" button so it cannot be pressed again
-    applyBtn.setDisable(true);
-    
-    
-     SystemTray tray = SystemTray.getSystemTray();
+        // Create a new Apply object with the necessary information
+        Apply apply = new Apply(customProductId, artistId, "Pending");
 
+        // Create the Apply in the database using the ApplyDao
+        ApplyDao applyDao = new ApplyDao();
+        int applyId = applyDao.createApply(apply);
+
+        // Display a success message to the user
+        System.out.println("Apply created with ID: " + applyId);
+
+        // Disable the "Apply" button so it cannot be pressed again
+        applyBtn.setDisable(true);
+
+        SystemTray tray = SystemTray.getSystemTray();
 
         java.awt.Image image = Toolkit.getDefaultToolkit().createImage("some-icon.png");
- 
 
-    TrayIcon trayIcon = new TrayIcon(image, "Application");
+        TrayIcon trayIcon = new TrayIcon(image, "Application");
 
-    trayIcon.setImageAutoSize(true);
+        trayIcon.setImageAutoSize(true);
 
-    trayIcon.setToolTip("Application");
-    tray.add(trayIcon);
+        trayIcon.setToolTip("Application");
+        tray.add(trayIcon);
 
-    trayIcon.displayMessage("Application done ", "Application", TrayIcon.MessageType.INFO);
-    
-    
-    
+        trayIcon.displayMessage("Application done ", "Application", TrayIcon.MessageType.INFO);
 
+    }
 
 }
-
-
-
-
-}
-
-    
-

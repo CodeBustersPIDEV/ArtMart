@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -50,6 +51,10 @@ public class ApplyCardClientController implements Initializable {
   public static final String AUTH_TOKEN = "df3d004d8411369066d20af591ac52a0";
       private Session session = new Session();
   HashMap user = (HashMap) Session.getActiveSessions();
+    @FXML
+    private Button accept;
+    @FXML
+    private Button reject;
 
      @Override
     public void initialize(URL location, ResourceBundle resources)  {
@@ -75,6 +80,8 @@ public class ApplyCardClientController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+            accept.setDisable(true);
+                 reject.setDisable(true);
        
        
         
@@ -115,7 +122,7 @@ String phoneNumber = Session.getSession(session.getSessionId()).getPhoneNumber()
     }
 
     @FXML
-private void reject() throws AWTException {
+private void reject() throws AWTException, SQLException {
     try {
         apply.setStatus("Rejected");
         applyDao.updateApply(apply.getApply_ID(), apply);
@@ -124,10 +131,11 @@ private void reject() throws AWTException {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    
+             accept.setDisable(true);
+                 reject.setDisable(true);
       SystemTray tray = SystemTray.getSystemTray();
 
-
+applyDao.deleteApply(apply.getApply_ID());
         java.awt.Image image = Toolkit.getDefaultToolkit().createImage("some-icon.png");
  
 
@@ -141,8 +149,8 @@ private void reject() throws AWTException {
     trayIcon.displayMessage("refused ", "Application", TrayIcon.MessageType.INFO);
     
 
-                ApplylistController applylistController = new ApplylistController();
-            applylistController.displayApplies();
+    
+
 }
 
 

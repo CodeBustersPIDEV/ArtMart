@@ -111,7 +111,9 @@ void calculateProduct() throws SQLException {
             } catch (SQLException ex) {
                 Logger.getLogger(CustomproductslistController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         });
+        
     }
 
     @FXML
