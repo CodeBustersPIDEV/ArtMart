@@ -33,6 +33,11 @@ public class ActivityService implements IActivityDao{
     }
 
     @Override
+    public List<Activity> getAllActivitiesByID(int userID) {
+        return dao.getAllActivitiesByID(userID);
+    }
+
+    @Override
     public boolean updateActivity(int activityID, Activity activity) {
         return dao.updateActivity(activityID, activity);
     }
@@ -43,7 +48,7 @@ public class ActivityService implements IActivityDao{
     }
     
     @Override
-    public List<Activity> searchActivityByTitle(String name){
-        return dao.searchActivityByTitle(name);
+    public List<Activity> searchActivityByTitle(String name, int userID){
+        return dao.searchActivityByTitle(name, userID);
     }
 }

@@ -6,27 +6,24 @@ public class Activity {
 
     private int activityID;
     private int eventID;
-    private Date startDate;
-    private Date endDate;
+    private Date date;
     private String title;
     private String host;
 
     public Activity() {
     }
 
-    public Activity(int activityID, int eventID, Date startDate, Date endDate, String title, String host) {
+    public Activity(int activityID, int eventID, Date date, String title, String host) {
         this.activityID = activityID;
         this.eventID = eventID;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.date = date;
         this.title = title;
         this.host = host;
     }
 
-    public Activity(int eventID, Date startDate, Date endDate, String title, String host) {
+    public Activity(int eventID, Date date, String title, String host) {
         this.eventID = eventID;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.date = date;
         this.title = title;
         this.host = host;
     }
@@ -47,20 +44,12 @@ public class Activity {
         this.eventID = eventID;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getTitle() {
@@ -81,6 +70,6 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Activity{" + "activityID=" + activityID + ", eventID=" + eventID + ", startDate=" + startDate + ", endDate=" + endDate + ", title=" + title + ", host=" + host + '}';
+        return "Activity{" + "activityID=" + activityID + ", eventID=" + eventID + ", startDate=" + date + ", title=" + title + ", host=" + host + '}';
     }
 }

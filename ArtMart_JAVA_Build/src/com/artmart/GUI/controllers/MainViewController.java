@@ -123,7 +123,7 @@ public class MainViewController implements Initializable {
     private void goToEvent(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/event_home.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("Event Managment");

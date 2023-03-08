@@ -28,8 +28,8 @@ public class EventDao implements IEventDao {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO event (userID, name, location, type, description, entryFee, capacity, startDate, endDate) "
-                   +"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    "INSERT INTO event (userID, name, location, type, description, entryFee, capacity, startDate, endDate, image) "
+                   +"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
             );
             statement.setInt(1, event.getUserID());
             statement.setString(2, event.getName());
@@ -40,6 +40,7 @@ public class EventDao implements IEventDao {
             statement.setInt(7, event.getCapacity());
             statement.setDate(8, event.getStartDate());
             statement.setDate(9, event.getEndDate());
+            statement.setString(10, event.getImage());
             result = statement.executeUpdate();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -69,6 +70,8 @@ public class EventDao implements IEventDao {
                 event.setCapacity(resultSet.getInt("capacity"));
                 event.setStartDate(resultSet.getDate("startDate"));
                 event.setEndDate(resultSet.getDate("endDate"));
+                event.setImage(resultSet.getString("image"));
+                event.setStatus(resultSet.getString("status"));
             }
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -94,6 +97,68 @@ public class EventDao implements IEventDao {
                 event.setCapacity(resultSet.getInt("capacity"));
                 event.setStartDate(resultSet.getDate("startDate"));
                 event.setEndDate(resultSet.getDate("endDate"));
+                event.setImage(resultSet.getString("image"));
+                event.setStatus(resultSet.getString("status"));                
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return events;
+    }
+
+    @Override
+    public List<Event> getMyEvents(int id) {
+        List<Event> events = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Event WHERE userID = ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Event event = new Event();
+                event.setEventID(resultSet.getInt("eventID"));
+                event.setUserID(resultSet.getInt("userID"));
+                event.setName(resultSet.getString("name"));
+                event.setLocation(resultSet.getString("location"));
+                event.setType(resultSet.getString("type"));
+                event.setDescription(resultSet.getString("description"));
+                event.setEntryFee(resultSet.getDouble("entryFee"));
+                event.setCapacity(resultSet.getInt("capacity"));
+                event.setStartDate(resultSet.getDate("startDate"));
+                event.setEndDate(resultSet.getDate("endDate"));
+                event.setImage(resultSet.getString("image"));
+                event.setStatus(resultSet.getString("status"));                
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return events;
+    }
+
+    @Override
+    public List<Event> getOtherEvents(int id) {
+        List<Event> events = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Event WHERE userID NOT LIKE ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Event event = new Event();
+                event.setEventID(resultSet.getInt("eventID"));
+                event.setUserID(resultSet.getInt("userID"));
+                event.setName(resultSet.getString("name"));
+                event.setLocation(resultSet.getString("location"));
+                event.setType(resultSet.getString("type"));
+                event.setDescription(resultSet.getString("description"));
+                event.setEntryFee(resultSet.getDouble("entryFee"));
+                event.setCapacity(resultSet.getInt("capacity"));
+                event.setStartDate(resultSet.getDate("startDate"));
+                event.setEndDate(resultSet.getDate("endDate"));
+                event.setImage(resultSet.getString("image"));
+                event.setStatus(resultSet.getString("status"));                
                 events.add(event);
             }
         } catch (SQLException e) {
@@ -106,7 +171,7 @@ public class EventDao implements IEventDao {
     public boolean updateEvent(int eventID, Event event) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "UPDATE Event SET name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?"
+                "UPDATE Event SET name = ?, location = ?, type = ?, description = ?, entryFee = ?, capacity = ?, startDate = ?, endDate = ?, image = ?, status = ?"
                +"WHERE eventID = ?"
             );
             //statement.setInt(1, event.getUserID());
@@ -118,7 +183,9 @@ public class EventDao implements IEventDao {
             statement.setInt(6, event.getCapacity());
             statement.setDate(7, event.getStartDate());
             statement.setDate(8, event.getEndDate());
-            statement.setInt(9, eventID);
+            statement.setString(9, event.getImage());
+            statement.setString(10, event.getStatus());
+            statement.setInt(11, eventID);
             
             statement.executeUpdate();
             return true;
@@ -141,12 +208,12 @@ public class EventDao implements IEventDao {
     }
     
     @Override
-    public List<Event> searchEventByName(String name) {
+    public List<Event> searchMyEventByName(String name, int userID) {
         List<Event> events = new ArrayList<>();
         try{
-            String query = "SELECT * FROM Event WHERE name LIKE ?";
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Event WHERE name LIKE ? and userID LIKE ?");
             statement.setString(1, "%" + name + "%");
+            statement.setInt(2, userID);
             ResultSet resultSet = statement.executeQuery();
 
             while(resultSet.next()) {
@@ -157,5 +224,55 @@ public class EventDao implements IEventDao {
             System.err.print(e.getMessage());
         }
         return events;
+    }
+    
+    @Override
+    public List<Event> searchOtherEventByName(String name, int userID) {
+        List<Event> events = new ArrayList<>();
+        try{
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Event WHERE name LIKE ? and userID NOT LIKE ?");
+            statement.setString(1, "%" + name + "%");
+            statement.setInt(2, userID);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+                Event event = this.getEvent(resultSet.getInt("eventID"));
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return events;
+    }
+    
+    @Override
+    public Event getEventByName(String name) {
+        Event event = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM Event WHERE name LIKE ?"
+            );
+            statement.setString(1, name);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                event = new Event();
+                event.setEventID(resultSet.getInt("eventID"));
+                event.setUserID(resultSet.getInt("userID"));
+                event.setName(resultSet.getString("name"));
+                event.setLocation(resultSet.getString("location"));
+                event.setType(resultSet.getString("type"));
+                event.setDescription(resultSet.getString("description"));
+                event.setEntryFee(resultSet.getDouble("entryFee"));
+                event.setCapacity(resultSet.getInt("capacity"));
+                event.setStartDate(resultSet.getDate("startDate"));
+                event.setEndDate(resultSet.getDate("endDate"));
+                event.setImage(resultSet.getString("image"));
+                event.setStatus(resultSet.getString("status"));
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return event;
     }
 }

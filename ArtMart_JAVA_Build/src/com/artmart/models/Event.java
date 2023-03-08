@@ -14,12 +14,15 @@ public class Event {
     private Date startDate;
     private Date endDate;
     private int userID;
+    private String image;
+    private String status;
 
     public Event() {
     }
 
-    public Event(int eventID, String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate, int userID) {
+    public Event(int eventID, int userID, String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate, String image, String status) {
         this.eventID = eventID;
+        this.userID = userID;
         this.name = name;
         this.location = location;
         this.type = type;
@@ -28,10 +31,12 @@ public class Event {
         this.capacity = capacity;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.userID = userID;
+        this.image = image;
+        this.status = status;
     }
 
-    public Event(String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate, int userID) {
+    public Event(int userID, String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate, String image, String status) {
+        this.userID = userID;
         this.name = name;
         this.location = location;
         this.type = type;
@@ -40,7 +45,20 @@ public class Event {
         this.capacity = capacity;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.image = image;
+        this.status = status;
+    }
+
+    public Event(int userID, String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate) {
         this.userID = userID;
+        this.name = name;
+        this.location = location;
+        this.type = type;
+        this.description = description;
+        this.entryFee = entryFee;
+        this.capacity = capacity;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Event(String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate) {
@@ -54,8 +72,6 @@ public class Event {
         this.endDate = endDate;
     }
     
-    
-
     public int getEventID() {
         return eventID;
     }
@@ -136,8 +152,29 @@ public class Event {
         this.userID = userID;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+//    @Override
+//    public String toString() {
+//        return name;
+//    }
+
     @Override
     public String toString() {
-        return "Event{" + "eventID=" + eventID + ", name=" + name + ", location=" + location + ", type=" + type + ", description=" + description + ", entryFee=" + entryFee + ", capacity=" + capacity + ", startDate=" + startDate + ", endDate=" + endDate + ", userID=" + userID + '}';
+        return "Event{" + "eventID=" + eventID + ", name=" + name + ", location=" + location + ", type=" + type + ", description=" + description + ", entryFee=" + entryFee + ", capacity=" + capacity + ", startDate=" + startDate + ", endDate=" + endDate + ", userID=" + userID + ", image=" + image + ", status=" + status + '}';
     }
 }

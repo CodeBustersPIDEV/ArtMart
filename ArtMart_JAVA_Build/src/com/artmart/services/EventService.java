@@ -25,6 +25,16 @@ public class EventService implements IEventDao {
     }
 
     @Override
+    public List<Event> getMyEvents(int id) {
+        return dao.getMyEvents(id);
+    }
+
+    @Override
+    public List<Event> getOtherEvents(int id) {
+        return dao.getOtherEvents(id);
+    }
+
+    @Override
     public boolean updateEvent(int eventID, Event event) {
         return dao.updateEvent(eventID, event);
     }
@@ -35,7 +45,17 @@ public class EventService implements IEventDao {
     }
     
     @Override
-    public List<Event> searchEventByName(String name){
-        return dao.searchEventByName(name);
+    public List<Event> searchMyEventByName(String name, int userID){
+        return dao.searchMyEventByName(name, userID);
+    }
+    
+    @Override
+    public List<Event> searchOtherEventByName(String name, int userID){
+        return dao.searchOtherEventByName(name, userID);
+    }
+    
+    @Override
+    public Event getEventByName(String name){
+        return dao.getEventByName(name);
     }
 }

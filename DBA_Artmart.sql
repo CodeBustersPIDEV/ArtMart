@@ -65,17 +65,17 @@ CREATE TABLE `blogcategories` (
   name VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE `tags` (
+  tags_ID INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE `has_blog_category` (
   id INT AUTO_INCREMENT PRIMARY KEY,
   blog_id INT NOT NULL,
   category_id INT NOT NULL,
   FOREIGN KEY (blog_id) REFERENCES blogs(blogs_ID),
   FOREIGN KEY (category_id) REFERENCES blogcategories(categories_ID)
-);
-
-CREATE TABLE `tags` (
-  tags_ID INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE `blog_tags` (
@@ -93,6 +93,16 @@ CREATE TABLE `media` (
   file_type VARCHAR(255) NOT NULL,
   file_path VARCHAR(255) NOT NULL,
   FOREIGN KEY (blog_id) REFERENCES blogs(blogs_ID)
+);
+
+CREATE TABLE `comments` (
+  comments_ID INT AUTO_INCREMENT PRIMARY KEY,
+  content TEXT NOT NULL,
+  date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  author INT NOT NULL,
+  blog_ID INT NOT NULL,
+  FOREIGN KEY (author) REFERENCES user(user_ID),
+  FOREIGN KEY (blog_ID) REFERENCES blogs(blogs_ID)
 );
 
 -- Product 
@@ -262,10 +272,9 @@ CREATE TABLE `event` (
 CREATE TABLE `activity` (
     activityID INT AUTO_INCREMENT PRIMARY KEY,
     eventID INT NOT NULL,
-    startDate DATETIME NOT NULL,
-    endDate DATETIME NOT NULL,
     title VARCHAR(255) NOT NULL,
     host VARCHAR(255) NOT NULL,
+    date DATETIME NOT NULL,
     FOREIGN KEY (eventID) REFERENCES Event(eventID)
 );
 
