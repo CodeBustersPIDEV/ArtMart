@@ -42,7 +42,8 @@ public class LoginController implements Initializable {
     @FXML
     private Button activateAccountBtn;
     UserService user_ser = new UserService();
-User u =new User();
+    User u = new User();
+
     /**
      * Initializes the controller class.
      */
@@ -77,7 +78,8 @@ User u =new User();
         if (!username.isEmpty() && !password.isEmpty()) {
 
             int id = user_ser.getUserIdByUsername(username);
-             u = user_ser.getUser(id);
+            u = user_ser.getUser(id);
+
             if (u.getPwd().equals(hashPassword(password))) {
                 if (u.getBlocked() == true) {
                     loginMsg.setText("This user is blocked");
@@ -88,28 +90,58 @@ User u =new User();
                     } else {
                         boolean a = user_ser.authenticate(username, password);
                         if (a) {
-                        Session session = Session.getInstance();
-                        session.setUserId(id);
-                        session.setUsername(username);
-                        session.setUserRole(u.getRole());
-                        session.setSessionId("1");
-                        String phoneNumber = user_ser.getPhoneNumberById(u.getUser_id());
-                        session.setPhoneNumber(phoneNumber); 
-                        session.logIn(session.getSessionId(), session);
-
-                            try {
-                                Stage stage = (Stage) LoginBtn.getScene().getWindow();
-                                stage.close();
-                                stage = new Stage();
-                                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Mainview.fxml"));
-                                Scene scene = new Scene(root);
-                                stage.setResizable(false);
-                                stage.setTitle("User Managment");
-                                stage.setScene(scene);
-                                stage.show();
-                            } catch (IOException e) {
-                                System.out.print(e.getMessage());
+                            Session session = Session.getInstance();
+                            session.setUserId(id);
+                            session.setUsername(username);
+                            session.setUserRole(u.getRole());
+                            session.setSessionId("1");
+                            String phoneNumber = user_ser.getPhoneNumberById(u.getUser_id());
+                            session.setPhoneNumber(phoneNumber);
+                            session.logIn(session.getSessionId(), session);
+                            if (u.getRole().equals("admin")) {
+                                try {
+                                    Stage stage = (Stage) LoginBtn.getScene().getWindow();
+                                    stage.close();
+                                    stage = new Stage();
+                                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Mainview.fxml"));
+                                    Scene scene = new Scene(root);
+                                    stage.setResizable(false);
+                                    stage.setTitle("User Managment");
+                                    stage.setScene(scene);
+                                    stage.show();
+                                } catch (IOException e) {
+                                    System.out.print(e.getMessage());
+                                }
+                            } else if (u.getRole().equals("artist")) {
+                                try {
+                                    Stage stage = (Stage) LoginBtn.getScene().getWindow();
+                                    stage.close();
+                                    stage = new Stage();
+                                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
+                                    Scene scene = new Scene(root);
+                                    stage.setResizable(false);
+                                    stage.setTitle("User Managment");
+                                    stage.setScene(scene);
+                                    stage.show();
+                                } catch (IOException e) {
+                                    System.out.print(e.getMessage());
+                                }
+                            } else if (u.getRole().equals("client")) {
+                                try {
+                                    Stage stage = (Stage) LoginBtn.getScene().getWindow();
+                                    stage.close();
+                                    stage = new Stage();
+                                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductsList.fxml"));
+                                    Scene scene = new Scene(root);
+                                    stage.setResizable(false);
+                                    stage.setTitle("User Managment");
+                                    stage.setScene(scene);
+                                    stage.show();
+                                } catch (IOException e) {
+                                    System.out.print(e.getMessage());
+                                }
                             }
+
                         }
                     }
                 }
@@ -148,26 +180,26 @@ User u =new User();
 
     @FXML
     private void OnActivateAccount(ActionEvent event) {
-        String email=u.getEmail();
-        String token=UUID.randomUUID().toString();
-               
-                user_ser.StoreToken(token, email);
-                System.out.println("test begin");
+        String email = u.getEmail();
+        String token = UUID.randomUUID().toString();
+
+        user_ser.StoreToken(token, email);
+        System.out.println("test begin");
         try {
-            user_ser.sendEmail(email,"Account Verification",user_ser.generateVerificationEmail(u.getUsername(),token));
+            user_ser.sendEmail(email, "Account Verification", user_ser.generateVerificationEmail(u.getUsername(), token));
         } catch (MessagingException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-                System.out.println("test end");
-         try {
+        System.out.println("test end");
+        try {
             Stage stage = (Stage) activateAccountBtn.getScene().getWindow();
             stage.close();
             stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/Verification.fxml"));
-                Pane pane = loader.load();
-                VerificationController controller = loader.getController();
-                controller.setEmail(email);
-                 Scene scene = new Scene(pane);
+            Pane pane = loader.load();
+            VerificationController controller = loader.getController();
+            controller.setEmail(email);
+            Scene scene = new Scene(pane);
             stage.setTitle("User Managment");
             stage.setScene(scene);
             stage.show();
