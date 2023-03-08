@@ -114,7 +114,12 @@ public class EditCpController implements Initializable {
         this.weightField.setText(Float.toString(viewBlog.getWeight()));
         this.materialField.setText(viewBlog.getMaterial());
         this.imageField.setText(viewBlog.getImage());
-        this.categoryComboBox.getSelectionModel().select(viewBlog.getCategoryId());
+ int categoryId = viewBlog.getCategoryId();
+    String categoryName = categoriesDao.getCategoryNameById(categoryId);
+    this.categoryComboBox.getItems().stream()
+        .filter(category -> category.getName().equals(categoryName))
+        .findFirst()
+        .ifPresent(category -> this.categoryComboBox.getSelectionModel().select(category));
 
     }
 
