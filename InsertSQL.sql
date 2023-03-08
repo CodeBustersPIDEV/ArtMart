@@ -6,11 +6,7 @@ INSERT INTO admin(user_ID, department) VALUES (1, 'Human Resources');
 
 INSERT INTO client(user_ID, nbr_orders, nbr_demands) VALUES (1, 0, 0);
 
-INSERT INTO premium(user_ID, duration, price) VALUES (1, 30, 9.99);
-
 INSERT INTO blogs(title, content, author) VALUES ('The Importance of Art Education', 'In this blog post, I discuss the importance of art education and how it can positively impact a child’s life.', 1);
-
-INSERT INTO comments(content, author, blog_ID) VALUES ('I completely agree with your points. Art education is crucial for developing creativity and critical thinking skills.', 1, 1);
 
 INSERT INTO blogcategories(name) VALUES ('Education');
 
@@ -26,20 +22,13 @@ INSERT INTO categories(name) VALUES ('Furniture');
 
 INSERT INTO product(category_ID, name, description, dimensions, weight, material, image) VALUES (1, 'Modern Sofa', 'A comfortable and stylish sofa for any living room.', '72" L x 30" H x 36" D', 75.50, 'Leather', 'sofa.jpg');
 
-INSERT INTO readyProduct(price, product_ID) VALUES (599, 1);
-
 INSERT INTO productReview(ready_product_ID, username, title, text, rating) VALUES (1, 'johndoe', 'Great Sofa!', 'This sofa is comfortable and looks great in my living room. Highly recommend!', 5);
-
-INSERT INTO customProduct(product_ID) VALUES (1);
 
 INSERT INTO chat(client_ID, custom_product_ID, artist_ID, history) VALUES (1, 1, 1, 'Hi, I am interested in purchasing a custom version of the Modern Sofa.');
 
 INSERT INTO shippingOption(Name, Carrier, ShippingSpeed, ShippingFee, AvailableRegions) VALUES ('Standard Shipping', 'UPS', '5-7 business days', 10.00, 'US');
 
 INSERT INTO paymentOption(Name, AvailableCountries) VALUES ('Credit Card', 'US');
-
-INSERT INTO wishlist (userID, productID, date) 
-VALUES (1, 2, '2023-02-16');
 
 INSERT INTO salesReport (productID, totalSales, averageSalesPerDay, date) 
 VALUES (1, 5000.0, 200.0, '2023-02-16');
@@ -52,6 +41,3 @@ VALUES (1, '2023-03-10 10:00:00', 'Yoga Class', 'John Doe');
 
 INSERT INTO eventReport (eventID, attendance) 
 VALUES (1, 50);
-
-INSERT INTO feedback (eventReportID, rating, comment) 
-VALUES (1, 4, "The event was well-organized and enjoyable.");
