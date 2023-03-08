@@ -83,7 +83,6 @@ public class CustomProductGUIController implements Initializable {
    
 }
 
-    @FXML
     private void handleConsultAllChatsButton(ActionEvent event) {
          try {
             Stage stage = new Stage();

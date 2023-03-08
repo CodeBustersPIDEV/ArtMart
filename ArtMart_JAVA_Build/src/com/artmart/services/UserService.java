@@ -7,7 +7,6 @@ import com.artmart.models.Client;
 import com.artmart.models.User;
 import java.util.List;
 import com.artmart.dao.*;
-//import com.artmart.models.Session;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import java.util.Properties;
@@ -190,4 +189,8 @@ public class UserService implements IUserService {
  public boolean enableUser(String email) {
      return this.userDao.enableUser(email);
  }
+       @Override
+public String getPhoneNumberById(int userId)
+{ return this.userDao.getPhoneNumberById(userId);
+}
 }

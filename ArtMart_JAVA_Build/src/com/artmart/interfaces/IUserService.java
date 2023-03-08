@@ -48,8 +48,8 @@ public interface IUserService {
 
     public void StoreToken(String token, String email);
 
-    public String verifyToken(String email);
-
     public boolean enableUser(String email);
+    public boolean verifyToken(String email, String token);
+    public String getPhoneNumberById(int userId);
 
 }

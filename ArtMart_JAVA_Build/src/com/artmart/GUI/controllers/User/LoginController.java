@@ -93,6 +93,8 @@ User u =new User();
                         session.setUsername(username);
                         session.setUserRole(u.getRole());
                         session.setSessionId("1");
+                        String phoneNumber = user_ser.getPhoneNumberById(u.getUser_id());
+                        session.setPhoneNumber(phoneNumber); 
                         session.logIn(session.getSessionId(), session);
 
                             try {

@@ -17,7 +17,7 @@
       <Text fx:id="CID" fill="#282d2f" layoutX="535.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
       <Text fx:id="dim" fill="#282d2f" layoutX="535.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
       <Text fx:id="mat" fill="#282d2f" layoutX="532.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
-      <Button layoutX="694.0" layoutY="188.0" mnemonicParsing="false" onAction="#goapply" text="Apply" />
+      <Button fx:id="applyBtn" layoutX="694.0" layoutY="188.0" mnemonicParsing="false" onAction="#goapply" text="Apply" />
       <ImageView fx:id="img" fitHeight="207.0" fitWidth="284.0" layoutX="14.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
       <Text fill="#3a98b9" layoutX="380.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAME:">
          <font>

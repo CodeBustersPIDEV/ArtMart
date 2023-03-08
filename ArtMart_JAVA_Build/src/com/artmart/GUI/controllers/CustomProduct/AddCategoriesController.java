@@ -5,6 +5,8 @@
  */
 package com.artmart.GUI.controllers.CustomProduct;
 
+import com.artmart.dao.ApplyDao;
+import com.artmart.models.Apply;
 import com.artmart.models.Categories;
 import com.artmart.services.CategoriesService;
 import java.io.IOException;
@@ -83,6 +85,8 @@ return; // exit the method if the name is empty
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.setScene(scene);
     stage.show();
+        ApplyDao x= new ApplyDao();
+        x.deleteApply(1);
     }
     
 }

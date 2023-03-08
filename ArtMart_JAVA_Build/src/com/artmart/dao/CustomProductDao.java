@@ -9,7 +9,7 @@ import com.artmart.models.Product;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.artmart.models.Session;
 public class CustomProductDao {
 
     private Connection sqlConnection;
@@ -158,11 +158,13 @@ public int createCustomProduct(Product baseProduct, int clientID) {
         return 1;
     }
     
-    public List<CustomProduct> searchCustomProductByName(String name) throws SQLException {
+    public List<CustomProduct> searchCustomProductByName1(String name) throws SQLException {
+        Session session = Session.getInstance();
     List<CustomProduct> customProducts = new ArrayList<>();
-    String query = "SELECT * FROM customproduct INNER JOIN product ON customproduct.product_ID = product.product_ID WHERE product.name LIKE ?";
+ String query = "SELECT * FROM customproduct INNER JOIN product ON customproduct.product_ID = product.product_ID WHERE product.name LIKE ? AND customproduct.client_ID = ? ";
     PreparedStatement statement = sqlConnection.prepareStatement(query);
     statement.setString(1, "%" + name + "%");
+     statement.setInt(2, session.getCurrentUserId(session.getSessionId()));
     ResultSet resultSet = statement.executeQuery();
 
     while(resultSet.next()) {
@@ -174,7 +176,24 @@ public int createCustomProduct(Product baseProduct, int clientID) {
     }
     return customProducts;
 }
+ public List<CustomProduct> searchCustomProductByName(String name) throws SQLException {
+            Session session = Session.getInstance();
+    List<CustomProduct> customProducts = new ArrayList<>();
+    String query = "SELECT * FROM customproduct INNER JOIN product ON customproduct.product_ID = product.product_ID WHERE product.name LIKE ? ";
+    PreparedStatement statement = sqlConnection.prepareStatement(query);
+    statement.setString(1, "%" + name + "%");
+    ResultSet resultSet = statement.executeQuery();
 
+    while(resultSet.next()) {
+        CustomProduct customProduct = new CustomProduct(
+            resultSet.getInt("custom_product_ID"),
+                
+            this.productDAO.getProductById(resultSet.getInt("product_ID"))
+        );
+        customProducts.add(customProduct);
+    }
+    return customProducts;
+}
 
 
 }

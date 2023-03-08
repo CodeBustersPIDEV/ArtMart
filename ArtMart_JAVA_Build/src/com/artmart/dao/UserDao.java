@@ -335,4 +335,33 @@ public class UserDao implements IUserDao {
 
                      return null;
     }
+    public String getPhoneNumberById(int userId) {
+    String phoneNumber = null;
+    PreparedStatement statement = null;
+    ResultSet resultSet = null;
+    try {
+        statement = connection.prepareStatement("SELECT phoneNumber FROM user WHERE user_ID = ?");
+        statement.setInt(1, userId);
+        resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            phoneNumber = resultSet.getString("phoneNumber");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        // Close resources in reverse order of creation
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    return phoneNumber;
+}
+
 }

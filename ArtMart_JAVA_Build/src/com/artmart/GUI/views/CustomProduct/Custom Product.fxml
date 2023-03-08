@@ -15,19 +15,18 @@
     </stylesheets>   
     <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8d5c4" height="409.0" layoutX="-2.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" width="606.0" />
-      <Text fill="#3a98b9" layoutX="66.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Products Admin Panel">
+      <Text fill="#3a98b9" layoutX="170.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Products">
          <font>
             <Font name="System Italic" size="36.0" />
          </font></Text>
       <Button layoutX="221.0" layoutY="211.0" mnemonicParsing="false" onAction="#gotoadd" text="Create a new Product" />
 <Button layoutX="221.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleConsultAllProductsButton" prefHeight="31.0" prefWidth="162.0" text="Consult all Products" />
-      <Button layoutX="246.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleConsultAllChatsButton" text="Consult Chats" />
       <ImageView fx:id="img" fitHeight="76.0" fitWidth="200.0" layoutX="-39.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../New_Project-removebg-preview.png" />
          </image>
       </ImageView>
-      <Button layoutX="257.0" layoutY="294.0" mnemonicParsing="false" onAction="#handleCategoriesButton" text="Categories" />
+      <Button layoutX="257.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleCategoriesButton" text="Categories" />
 
    </children>
 </AnchorPane>
