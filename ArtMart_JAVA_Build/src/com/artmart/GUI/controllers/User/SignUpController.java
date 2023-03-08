@@ -250,7 +250,7 @@ public class SignUpController implements Initializable {
             goToProfile(event, "ProfileClient");
 
         } else if (user.getRole().equals("admin")) {
-            goToProfile(event, "ProfileAdmin");
+            goToProfile(event,"ProfileAdmin");
         }
 
     }
