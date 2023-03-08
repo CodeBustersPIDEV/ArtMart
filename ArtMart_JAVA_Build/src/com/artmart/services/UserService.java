@@ -135,7 +135,7 @@ public class UserService implements IUserService {
                 + "<h1>Verify your email address</h1>"
                 + "<p>Dear " + recipientEmail + ",</p>"
                 + "<p>Thank you for registering with our service. To verify your email address, please copy the token bellow:</p>"
-                + "<p>"+ verificationCode + "</p>"
+                + "<p>" + verificationCode + "</p>"
                 + "</body>"
                 + "</html>";
         return emailContent;
@@ -183,14 +183,17 @@ public class UserService implements IUserService {
 
     @Override
     public String verifyToken(String email) {
-       return this.userDao.verifyToken(email);
+        return this.userDao.verifyToken(email);
     }
+
     @Override
- public boolean enableUser(String email) {
-     return this.userDao.enableUser(email);
- }
-       @Override
-public String getPhoneNumberById(int userId)
-{ return this.userDao.getPhoneNumberById(userId);
-}
+    public boolean enableUser(String email) {
+        return this.userDao.enableUser(email);
+    }
+
+    @Override
+    public String getPhoneNumberById(int userId) {
+        return this.userDao.getPhoneNumberById(userId);
+    }
+
 }

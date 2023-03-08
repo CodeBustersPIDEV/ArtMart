@@ -230,7 +230,6 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-
     public boolean blockUser(int user_id, boolean state) {
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -245,9 +244,9 @@ public class UserDao implements IUserDao {
         }
         return false;
     }
-    
+
     @Override
- public boolean enableUser(String email) {
+    public boolean enableUser(String email) {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE user SET enabled = ? WHERE email = ?"
@@ -261,6 +260,7 @@ public class UserDao implements IUserDao {
         }
         return false;
     }
+
     public String getClientNameById(int clientId) throws SQLException {
         String clientName = null;
 
@@ -318,50 +318,50 @@ public class UserDao implements IUserDao {
                     "SELECT token FROM user WHERE email = ?"
             );
 
-            statement.setString(1,email);
+            statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 User user = new User();
-            
-            user.setToken(resultSet.getString("token"));
-            String retrivedToken = user.getToken();
-            return retrivedToken;
-        }
-        
+
+                user.setToken(resultSet.getString("token"));
+                String retrivedToken = user.getToken();
+                return retrivedToken;
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(VerificationTokenDao.class.getName()).log(Level.SEVERE, null, ex);
-                 return null;
+            return null;
         }
-
-                     return null;
+        return null;
     }
+
     public String getPhoneNumberById(int userId) {
-    String phoneNumber = null;
-    PreparedStatement statement = null;
-    ResultSet resultSet = null;
-    try {
-        statement = connection.prepareStatement("SELECT phoneNumber FROM user WHERE user_ID = ?");
-        statement.setInt(1, userId);
-        resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            phoneNumber = resultSet.getString("phoneNumber");
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        // Close resources in reverse order of creation
+        String phoneNumber = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (statement != null) {
-                statement.close();
+            statement = connection.prepareStatement("SELECT phoneNumber FROM user WHERE user_ID = ?");
+            statement.setInt(1, userId);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                phoneNumber = resultSet.getString("phoneNumber");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            // Close resources in reverse order of creation
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return phoneNumber;
     }
-    return phoneNumber;
-}
 
 }
