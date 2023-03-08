@@ -54,6 +54,8 @@ public class CardEventController implements Initializable {
     private Button btnEditEvent;
     @FXML
     private Button btnDeleteEvent;
+    @FXML
+    private Text txtEventStatus;
 
     /**
      * Initializes the controller class.
@@ -70,6 +72,7 @@ public class CardEventController implements Initializable {
         this.txtEventLocation.setText(event.getLocation());
         this.txtEventStartDate.setText(event.getStartDate().toString());
         this.txtEventEndDate.setText(event.getEndDate().toString());
+        this.txtEventStatus.setText(event.getStatus());
 //        this.eventID = event.getUserID();
     }   
 

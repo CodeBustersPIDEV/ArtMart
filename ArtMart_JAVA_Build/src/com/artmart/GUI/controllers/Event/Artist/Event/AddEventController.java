@@ -28,11 +28,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class AddEventController implements Initializable {
     
     private final EventService es = new EventService();
@@ -76,9 +71,6 @@ public class AddEventController implements Initializable {
     @FXML
     private DatePicker dpStartDate;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         

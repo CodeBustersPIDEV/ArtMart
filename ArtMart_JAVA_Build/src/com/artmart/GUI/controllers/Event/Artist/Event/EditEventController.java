@@ -48,6 +48,7 @@ public class EditEventController implements Initializable {
     private int userID = 1;
     
     private String typeText; 
+    private String statusText; 
     private String entryFeeText;
     private String capacityText;
     private String startDateText;
@@ -58,7 +59,7 @@ public class EditEventController implements Initializable {
     @FXML
     private TextField txtEventName;
     @FXML
-    private ComboBox comboBoxEventType = new ComboBox();;
+    private ComboBox comboBoxEventType = new ComboBox();
     @FXML
     private TextField txtEventCapacity;
     @FXML
@@ -73,6 +74,9 @@ public class EditEventController implements Initializable {
     private Button btnCancelEvent;
     @FXML
     private Button btnConfirm;
+    @FXML
+    private ComboBox comboBoxEventStatus = new ComboBox();
+    private String status;
 
     /**
      * Initializes the controller class.
@@ -81,6 +85,7 @@ public class EditEventController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         this.comboBoxEventType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
+        this.comboBoxEventStatus.getItems().addAll("Scheduled", "Started", "Finished","Cancelled");
         this.txtAreaEventDescription.setWrapText(true);
     }    
     
@@ -95,6 +100,7 @@ public class EditEventController implements Initializable {
         this.txtEventCapacity.setText(String.valueOf(event.getCapacity()));
         this.txtEventEntryFee.setText(String.valueOf(event.getEntryFee()));
         this.eventID = event.getEventID();
+        this.comboBoxEventStatus.setValue(event.getStatus());
         System.out.println("event id " + this.eventID);
     }
 
@@ -111,6 +117,7 @@ public class EditEventController implements Initializable {
 //        this.endDate = Date.valueOf(this.dpEventEndDate.getValue());  
       
         // convert values for input check
+        this.statusText = (String) this.comboBoxEventStatus.getValue(); 
         this.typeText = (String) this.comboBoxEventType.getValue(); 
         this.entryFeeText = this.txtEventEntryFee.getText();
         this.capacityText = this.txtEventCapacity.getText();
@@ -121,6 +128,7 @@ public class EditEventController implements Initializable {
         if(this.name.isEmpty() 
         || this.location.isEmpty() 
         || this.typeText == null || this.typeText.isEmpty()
+        || this.statusText == null || this.statusText.isEmpty()
         || this.description.isEmpty() 
         || this.entryFeeText.isEmpty()
         || this.capacityText.isEmpty() 
@@ -135,6 +143,7 @@ public class EditEventController implements Initializable {
             
         }else {
             this.type = (String) this.comboBoxEventType.getValue();
+            this.status = (String) this.comboBoxEventStatus.getValue();
             try {
                 this.startDate = Date.valueOf(this.dpEventStartDate.getValue());
                 this.endDate = Date.valueOf(this.dpEventEndDate.getValue());
@@ -167,14 +176,15 @@ public class EditEventController implements Initializable {
                 return;
             }
             Event ev = new Event(
-              this.name, 
-              this.location, 
-              this.type, 
-              this.description, 
-              this.entryFee, 
-              this.capacity, 
-              this.startDate, 
-              this.endDate
+                this.name, 
+                this.location, 
+                this.type, 
+                this.description, 
+                this.entryFee, 
+                this.capacity, 
+                this.startDate, 
+                this.endDate,
+                this.status
             );
 
             boolean result = this.es.updateEvent(this.eventID, ev);

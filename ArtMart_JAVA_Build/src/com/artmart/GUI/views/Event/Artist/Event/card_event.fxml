@@ -17,19 +17,19 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Text fx:id="txtEventTitle" fill="#5d53a8" layoutX="550.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="156.00000321865082">
+      <Text fx:id="txtEventTitle" fill="#5d53a8" layoutX="550.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="156.00000321865082">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font></Text>
-      <Text fx:id="txtEventLocation" fill="#5d53a8" layoutX="551.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+      <Text fx:id="txtEventLocation" fill="#5d53a8" layoutX="550.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font></Text>
-      <Text fx:id="txtEventStartDate" fill="#5d53a8" layoutX="550.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
+      <Text fx:id="txtEventStartDate" fill="#5d53a8" layoutX="550.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font></Text>
-      <Text fx:id="txtEventEndDate" fill="#5d53a8" layoutX="733.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
+      <Text fx:id="txtEventEndDate" fill="#5d53a8" layoutX="733.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
@@ -38,22 +38,22 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Text fill="#5d53a8" layoutX="375.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date ">
+      <Text fill="#5d53a8" layoutX="375.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date ">
          <font>
             <Font name="Brush Script MT Italic" size="40.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="375.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title " wrappingWidth="156.00000321865082">
+      <Text fill="#5d53a8" layoutX="375.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title " wrappingWidth="156.00000321865082">
          <font>
             <Font name="Brush Script MT Italic" size="40.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="375.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location ">
+      <Text fill="#5d53a8" layoutX="375.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location ">
          <font>
             <Font name="Brush Script MT Italic" size="40.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="703.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;">
+      <Text fill="#5d53a8" layoutX="703.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
@@ -63,5 +63,15 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
+      <Text fill="#5d53a8" layoutX="375.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+         <font>
+            <Font name="Brush Script MT Italic" size="40.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtEventStatus" fill="#5d53a8" layoutX="550.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+         <font>
+            <Font name="Brush Script MT Italic" size="30.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

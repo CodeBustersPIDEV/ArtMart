@@ -4,22 +4,19 @@ public class EventReport {
 
     private int eventReportID;
     private int eventID;
-    private int userID;
     private int attendance;
 
     public EventReport() {
     }
 
-    public EventReport(int eventReportID, int eventID, int userID, int attendance) {
+    public EventReport(int eventReportID, int eventID, int attendance) {
         this.eventReportID = eventReportID;
         this.eventID = eventID;
-        this.userID = userID;
         this.attendance = attendance;
     }
 
-    public EventReport(int eventID, int userID, int attendance) {
+    public EventReport(int eventID, int attendance) {
         this.eventID = eventID;
-        this.userID = userID;
         this.attendance = attendance;
     }
 
@@ -47,17 +44,9 @@ public class EventReport {
         this.attendance = attendance;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
     @Override
     public String toString() {
-        return "EventReport{" + "eventReportID=" + eventReportID + ", eventID=" + eventID + ", userID=" + userID + ", attendance=" + attendance + '}';
+        return "EventReport{" + "eventReportID=" + eventReportID + ", eventID=" + eventID + ", attendance=" + attendance + '}';
     }
 
 

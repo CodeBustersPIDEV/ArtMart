@@ -30,11 +30,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class AddActivityController implements Initializable {
     
     private final ActivityService as = new ActivityService();
@@ -65,9 +60,6 @@ public class AddActivityController implements Initializable {
     private Button btnCancelActivity;
 
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

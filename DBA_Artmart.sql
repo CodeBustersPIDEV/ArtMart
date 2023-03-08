@@ -257,30 +257,45 @@ CREATE TABLE `event` (
     capacity INT NOT NULL,
     startDate DATETIME NOT NULL,
     endDate DATETIME NOT NULL,
-    FOREIGN KEY (userID) REFERENCES User(user_ID)
+    image VARCHAR(255) NULL,
+    status VARCHAR(255) DEFAULT 'Scheduled',
+    FOREIGN KEY (userID) REFERENCES user(user_ID)
 );
 
 CREATE TABLE `activity` (
     activityID INT AUTO_INCREMENT PRIMARY KEY,
     eventID INT NOT NULL,
+    date DATETIME NOT NULL,
     title VARCHAR(255) NOT NULL,
     host VARCHAR(255) NOT NULL,
-    date DATETIME NOT NULL,
-    FOREIGN KEY (eventID) REFERENCES Event(eventID)
+    FOREIGN KEY (eventID) REFERENCES event(eventID)
 );
 
 CREATE TABLE `eventReport` (
     reportID INT AUTO_INCREMENT PRIMARY KEY,
-    eventID INT,
+    eventID INT NOT NULL,
     attendance INT NOT NULL,
-    FOREIGN KEY (eventID) REFERENCES `event`(eventID)
+    FOREIGN KEY (eventID) REFERENCES event(eventID)
 );
 
 CREATE TABLE `feedback` (
     feedbackID INT AUTO_INCREMENT PRIMARY KEY,
-    eventReportID INT NOT NULL,
+    eventID INT NOT NULL,
+    userID INT NOT NULL,    
     rating INT NOT NULL,
     comment TEXT NOT NULL,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (eventReportID) REFERENCES EventReport(reportID)
+    FOREIGN KEY (eventID) REFERENCES event(eventID),
+    FOREIGN KEY (userID) REFERENCES user(user_ID)
+);
+
+CREATE TABLE `participation` (
+    participationID AUTO_INCREMENT PRIMARY KEY,
+    userID INT NOT NULL,
+    eventID INT NOT NULL,
+    attendanceStatus VARCHAR(255) DEFAULT 'Not attending',
+    registrationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (eventID, userID),
+    FOREIGN KEY (eventID) REFERENCES event(eventID),
+    FOREIGN KEY (userID) REFERENCES user(user_ID)
 );

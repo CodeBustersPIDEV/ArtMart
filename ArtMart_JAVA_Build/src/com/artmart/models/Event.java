@@ -61,7 +61,7 @@ public class Event {
         this.endDate = endDate;
     }
 
-    public Event(String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate) {
+    public Event(String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate, String status) {
         this.name = name;
         this.location = location;
         this.type = type;
@@ -70,6 +70,7 @@ public class Event {
         this.capacity = capacity;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.status = status;
     }
     
     public int getEventID() {

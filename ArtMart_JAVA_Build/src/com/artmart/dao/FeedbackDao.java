@@ -28,13 +28,14 @@ public class FeedbackDao implements IFeedbackDao {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO activity (eventReportID, rating, comment, date) "
-                    + "VALUES (?, ?, ?, ?)"
+                    "INSERT INTO activity (eventID, userID, rating, comment, date) "
+                    + "VALUES (?, ?, ?, ?, ?)"
             );
-            statement.setInt(1, feedback.getEventReportID());
-            statement.setInt(2, feedback.getRating());
-            statement.setString(3, feedback.getComment());
-            statement.setDate(4, feedback.getDate());
+            statement.setInt(1, feedback.getEventID());
+            statement.setInt(2, feedback.getUserID());
+            statement.setInt(3, feedback.getRating());
+            statement.setString(4, feedback.getComment());
+            statement.setDate(5, feedback.getDate());
 
             result = statement.executeUpdate();
         } catch (SQLException e) {
@@ -58,7 +59,8 @@ public class FeedbackDao implements IFeedbackDao {
             if (resultSet.next()) {
                 feedback = new Feedback();
                 feedback.setFeedbackID(resultSet.getInt("feedbackID"));
-                feedback.setEventReportID(resultSet.getInt("eventReportID"));
+                feedback.setEventID(resultSet.getInt("eventID"));
+                feedback.setEventID(resultSet.getInt("userID"));
                 feedback.setRating(resultSet.getInt("rating"));
                 feedback.setComment(resultSet.getString("comment"));
                 feedback.setDate(resultSet.getDate("date"));
@@ -78,7 +80,8 @@ public class FeedbackDao implements IFeedbackDao {
             while (resultSet.next()) {
                 Feedback feedback = new Feedback();
                 feedback.setFeedbackID(resultSet.getInt("feedbackID"));
-                feedback.setEventReportID(resultSet.getInt("eventReportID"));
+                feedback.setEventID(resultSet.getInt("eventID"));
+                feedback.setEventID(resultSet.getInt("userID"));
                 feedback.setRating(resultSet.getInt("rating"));
                 feedback.setComment(resultSet.getString("comment"));
                 feedback.setDate(resultSet.getDate("date"));
@@ -95,14 +98,15 @@ public class FeedbackDao implements IFeedbackDao {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE Feedback"
-                    + "SET eventReportID = ?, rating = ?, comment = ?, date = ?"
+                    + "SET eventID = ?, userID = ?, rating = ?, comment = ?, date = ?"
                     + "WHERE feedbackID = ?"
             );
-            statement.setInt(1, feedback.getEventReportID());
-            statement.setInt(2, feedback.getRating());
-            statement.setString(3, feedback.getComment());
-            statement.setDate(4, feedback.getDate());
-            statement.setInt(1, feedbackID);
+            statement.setInt(1, feedback.getEventID());
+            statement.setInt(2, feedback.getUserID());
+            statement.setInt(3, feedback.getRating());
+            statement.setString(4, feedback.getComment());
+            statement.setDate(5, feedback.getDate());
+            statement.setInt(6, feedbackID);
 
             return statement.executeUpdate() > 0;
 

@@ -4,7 +4,7 @@
  */
 package com.artmart.GUI.controllers.Event.User.Event;
 
-import com.artmart.GUI.controllers.Event.Artist.Event.EditEventController;
+import com.artmart.GUI.controllers.Event.Artist.Event.ListEventController;
 import com.artmart.models.Event;
 import com.artmart.models.Participation;
 import com.artmart.models.Session;
@@ -12,6 +12,7 @@ import com.artmart.services.EventService;
 import com.artmart.services.ParticipationService;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -22,7 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -39,6 +40,9 @@ public class UserViewEventController implements Initializable {
     private final HashMap user = (HashMap) Session.getActiveSessions();
     private final Session session = Session.getInstance();
     private final int userID = session.getCurrentUserId(session.getSessionId());    
+
+    private ListEventController listEventController = new ListEventController();
+
     
     private Event event = new Event();
     private Participation participation = new Participation();
@@ -48,8 +52,6 @@ public class UserViewEventController implements Initializable {
     private int eventID;
     private Text description;
 
-    @FXML
-    private Button btnReturn;
     @FXML
     private Text txtEventName;
     @FXML
@@ -70,6 +72,8 @@ public class UserViewEventController implements Initializable {
     private Text txtEventStatus;
     @FXML
     private Text attendingStatus;
+    @FXML
+    private Text txtRate;
 
     /**
      * Initializes the controller class.
@@ -121,7 +125,8 @@ public class UserViewEventController implements Initializable {
 
     @FXML
     private void onBtnAttend(ActionEvent event) {
-            Participation participation = new Participation(
+        if(this.event.getStatus().equals("Scheduled") || this.event.getStatus().equals("Started")) {
+            participation = new Participation(
                 this.userID,
                 this.event.getEventID(),
                 "Yes"
@@ -130,14 +135,15 @@ public class UserViewEventController implements Initializable {
             int result = ps.createParticipation(participation);
 
             if (result > 0) {
-
+                this.attendingStatus.setText("Yes 😄");
+                this.attendingStatus.setFill(Color.web("#09a83e"));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Attend Event");
                 alert.setHeaderText(null);
                 alert.setContentText("You are now attending the event!");
                 alert.showAndWait();
                 alert.close();
-               this.onBtnReturn(event);
+                //this.onRefresh(event);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Attend Event");
@@ -145,12 +151,19 @@ public class UserViewEventController implements Initializable {
                 alert.setContentText("You are already attending the event!");
                 alert.showAndWait();
             }   
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Attend Event");
+            alert.setHeaderText(null);
+            alert.setContentText("Sorry, you can't attend the event.\n It's either cancelled or already finished");
+            alert.showAndWait();
+        }
     }
 
     @FXML
-    private void onBtnCancel(ActionEvent event) {
+    private void onBtnCancel(ActionEvent event) throws SQLException {
         Participation p = this.ps.getParticipationByID(userID, this.event.getEventID());
-        if(participation == null) {
+        if(p == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Cancel participation to event");
             alert.setHeaderText(null);
@@ -159,6 +172,8 @@ public class UserViewEventController implements Initializable {
         }else {
             boolean result = this.ps.deleteParticipation(p.getParticipationlD());
             if (result) {
+                this.attendingStatus.setText("No ☹");
+                this.attendingStatus.setFill(Color.RED);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Cancel participation to event");
                 alert.setHeaderText(null);
@@ -172,15 +187,32 @@ public class UserViewEventController implements Initializable {
                 alert.setContentText("Failed to cancel participation!");
                 alert.showAndWait();
             }
-        this.onBtnReturn(event);
+//        this.listEventController.makeUserList();
+        //this.onRefresh(event);
         }
     }
     
+//    @FXML
+//    private void onBtnReturn(ActionEvent event) {
+//        try {
+//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/list_event.fxml"));
+//            Scene scene = new Scene(root);
+//            stage.setResizable(false);
+//            stage.setTitle("");
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (IOException e) {
+//            System.out.print(e.getMessage());
+//        }        
+//    }
+
     @FXML
-    private void onBtnReturn(ActionEvent event) {
+    private void onRate(MouseEvent event) {
+        System.out.println("heha333");
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/list_event.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/add_feedback.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");

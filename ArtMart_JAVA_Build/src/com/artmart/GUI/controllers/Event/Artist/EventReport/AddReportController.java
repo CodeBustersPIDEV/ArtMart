@@ -4,7 +4,6 @@
  */
 package com.artmart.GUI.controllers.Event.Artist.EventReport;
 
-import com.artmart.models.Activity;
 import com.artmart.models.Event;
 import com.artmart.models.EventReport;
 import com.artmart.models.Session;
@@ -12,8 +11,6 @@ import com.artmart.services.EventReportService;
 import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.time.DateTimeException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -101,9 +98,9 @@ public class AddReportController implements Initializable {
                 return;
             }
             System.out.println(attendance + this.es.getEventByName(eventName).getEventID());
+            
             EventReport report = new EventReport(
                 this.es.getEventByName(eventName).getEventID(),
-                userID,
                 this.attendance
             );
 

@@ -5,7 +5,6 @@
 package com.artmart.GUI.controllers.Event.User.Event;
 
 import com.artmart.GUI.controllers.Event.Artist.Event.ListEventController;
-import com.artmart.GUI.controllers.Event.Artist.Event.ViewEventController;
 import com.artmart.models.Event;
 import com.artmart.models.Participation;
 import com.artmart.models.Session;
@@ -19,7 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -59,6 +57,8 @@ public class UserCardEventController implements Initializable {
     private Text txtEventTitle1;
     @FXML
     private Text txtEventLocation1;
+    @FXML
+    private Text txtEventStatus;
 
     /**
      * Initializes the controller class.
@@ -75,13 +75,23 @@ public class UserCardEventController implements Initializable {
         this.txtEventLocation.setText(event.getLocation());
         this.txtEventStartDate.setText(event.getStartDate().toString());
         this.txtEventEndDate.setText(event.getEndDate().toString());
+        this.txtEventStatus.setText(event.getStatus());
 //        this.eventID = event.getUserID();
     }  
 
     @FXML
     private void onBtnViewEvent(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            /*
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Blog Managment");
+                stage.setScene(scene);
+                stage.show();
+            */
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/User/Event/user_view_event.fxml"));
             Parent root = loader.load();
             UserViewEventController controller = loader.getController();

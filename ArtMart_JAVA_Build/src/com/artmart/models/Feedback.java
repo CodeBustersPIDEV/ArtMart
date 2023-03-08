@@ -5,7 +5,8 @@ import java.sql.*;
 public class Feedback {
 
     private int feedbackID;
-    private int eventReportID;
+    private int eventID;
+    private int userID;
     private int rating;
     private String comment;
     private Date date;
@@ -13,19 +14,28 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(int feedbackID, int eventReportID, int rating, String comment, Date date) {
+    public Feedback(int feedbackID, int eventID, int userID, int rating, String comment, Date date) {
         this.feedbackID = feedbackID;
-        this.eventReportID = eventReportID;
+        this.eventID = eventID;
+        this.userID = userID;
         this.rating = rating;
         this.comment = comment;
         this.date = date;
     }
 
-    public Feedback(int eventReportID, int rating, String comment, Date date) {
-        this.eventReportID = eventReportID;
+    public Feedback(int eventID, int userID, int rating, String comment, Date date) {
+        this.eventID = eventID;
+        this.userID = userID;
         this.rating = rating;
         this.comment = comment;
         this.date = date;
+    }
+
+    public Feedback(int eventID, int userID, int rating, String comment) {
+        this.eventID = eventID;
+        this.userID = userID;
+        this.rating = rating;
+        this.comment = comment;
     }
 
     public int getFeedbackID() {
@@ -36,12 +46,20 @@ public class Feedback {
         this.feedbackID = feedbackID;
     }
 
-    public int getEventReportID() {
-        return eventReportID;
+    public int getEventID() {
+        return eventID;
     }
 
-    public void setEventReportID(int eventReportID) {
-        this.eventReportID = eventReportID;
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public int getRating() {
@@ -70,6 +88,6 @@ public class Feedback {
 
     @Override
     public String toString() {
-        return "Feedback{" + "feedbackID=" + feedbackID + ", eventReportID=" + eventReportID + ", rating=" + rating + ", comment=" + comment + ", date=" + date + '}';
+        return "Feedback{" + "feedbackID=" + feedbackID + ", eventID=" + eventID + ", userID=" + userID + ", rating=" + rating + ", comment=" + comment + ", date=" + date + '}';
     }
 }
