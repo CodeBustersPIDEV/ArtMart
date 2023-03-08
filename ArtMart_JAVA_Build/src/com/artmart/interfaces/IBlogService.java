@@ -19,6 +19,8 @@ public interface IBlogService {
 
     public List<Blog> getAllBlogs();
 
+    public List<Blog> getAllBlogsOrdered();
+
     public List<Blog> getAllBlogsByUser(int user_id);
 
     public List<Blog> searchBlogsByTitle(String blog_title);

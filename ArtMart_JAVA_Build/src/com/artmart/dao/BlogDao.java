@@ -117,6 +117,30 @@ public class BlogDao implements IBlogServiceDao {
         }
         return blogs;
     }
+    
+    @Override
+    public List<Blog> getAllBlogsOrdered() {
+        List<Blog> blogs = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM blogs ORDER BY rating DESC";
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                blogs.add(new Blog(
+                        rs.getInt("blogs_ID"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getDate("date"),
+                        rs.getDouble("rating"),
+                        rs.getInt("nb_views"),
+                        rs.getInt("author")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.print(e.getMessage());
+        }
+        return blogs;
+    }
 
     @Override
     public List<Blog> getAllBlogsByUser(int user_id) {

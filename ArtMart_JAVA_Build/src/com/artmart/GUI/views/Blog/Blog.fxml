@@ -53,5 +53,6 @@
         </items>
       </MenuButton>
       <ComboBox fx:id="catComboBox" layoutX="667.0" layoutY="14.0" onAction="#searchByCategory" prefHeight="31.0" prefWidth="187.0" promptText="Categories" visible="false" />
+      <Button fx:id="sortBtn" layoutX="314.0" layoutY="14.0" mnemonicParsing="false" onAction="#sort" text="Button" />
    </children>
 </AnchorPane>

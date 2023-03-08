@@ -50,6 +50,11 @@ public class BlogService implements IBlogService {
     }
 
     @Override
+    public List<Blog> getAllBlogsOrdered() {
+        return this.blogDao.getAllBlogsOrdered();
+    }
+
+    @Override
     public List<Blog> getAllBlogsByUser(int user_id) {
         return this.blogDao.getAllBlogsByUser(user_id);
     }

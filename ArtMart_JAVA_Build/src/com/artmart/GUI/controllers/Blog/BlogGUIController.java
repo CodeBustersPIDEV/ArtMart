@@ -56,6 +56,8 @@ public class BlogGUIController implements Initializable {
     private List<Blog> matchingBlogs;
     private List<BlogCategories> blogCategoriesList;
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    @FXML
+    private Button sortBtn;
 
     private void initBlogs() {
         UserDao userService = new UserDao();
@@ -313,6 +315,46 @@ public class BlogGUIController implements Initializable {
                 pane.setId("blog_card" + blog.getId());
                 BlogCardController controller = loader.getController();
                 Media img = blogService.getOneMediaByBlogID(blog.getId());
+                if (img == null) {
+                    File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
+                    Image image = new Image(file.toURI().toString());
+                    controller.setImage(image);
+                    controller.setBlogImage(image);
+                } else {
+                    File file = new File(img.getFile_path());
+                    Image image = new Image(file.toURI().toString());
+                    controller.setImage(image);
+                    controller.setBlogImage(image);
+                }
+                controller.setBlogTitle(blog.getTitle());
+                container.getChildren().add(pane);
+                controller.setUsername(username);
+                controller.setBlogID(Integer.toString(blog.getId()));
+                controller.setViewsLabel(Integer.toString(blog.getNb_views()));
+                controller.setRatingLabel(String.valueOf(df.format(blog.getRating())));
+                controller.setPublishDate(blog.getPublishDate().toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    @FXML
+    private void sort(ActionEvent event) {
+        this.container.getChildren().clear();
+        UserDao userService = new UserDao();
+        List<Blog> blogList = new ArrayList<>();
+        blogList = this.blogService.getAllBlogsOrdered();
+        blogList.forEach(blog -> {
+
+            String username = userService.getUser(blog.getAuthor()).getUsername();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCard.fxml"));
+                Pane pane = loader.load();
+                pane.setId("blog_card" + blog.getId());
+                BlogCardController controller = loader.getController();
+                Media img = this.blogService.getOneMediaByBlogID(blog.getId());
                 if (img == null) {
                     File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
                     Image image = new Image(file.toURI().toString());
