@@ -151,7 +151,7 @@ CREATE TABLE `apply` (
     artist_ID INT NOT NULL,
     status VARCHAR(255) NOT NULL,
     FOREIGN KEY (customproduct_ID) REFERENCES customProduct(custom_product_ID),
-    FOREIGN KEY (artist_ID) REFERENCES artist(artist_ID)
+    FOREIGN KEY (artist_ID) REFERENCES user(user_ID)
 );
 
 -- Orderom
