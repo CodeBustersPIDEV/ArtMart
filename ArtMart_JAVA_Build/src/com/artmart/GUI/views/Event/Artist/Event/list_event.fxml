@@ -7,19 +7,91 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1206.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.Event.ListEventController">
+<AnchorPane id="AnchorPane" prefHeight="755.0" prefWidth="1366.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.Event.ListEventController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/event/list_event.css" />
     </stylesheets>
    <children>
-      <ScrollPane fx:id="scrollPaneEventList" hbarPolicy="NEVER" layoutY="142.0" prefHeight="658.0" prefWidth="1206.0" vbarPolicy="ALWAYS">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9e9e9" height="776.0" stroke="BLACK" strokeType="INSIDE" width="1376.0" />
+      <Circle fill="#fa7a1e00" layoutX="1280.0" layoutY="88.0" radius="57.0" strokeType="OUTSIDE" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="0.6333333333333333">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.5071295967136706" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Circle>
+      <Line endX="-100.00003051757812" endY="-114.0" layoutX="193.0" layoutY="740.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="6.0" layoutX="152.0" layoutY="683.0" startX="-124.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="100.0" layoutX="364.0" layoutY="29.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="354.0" layoutX="110.0" layoutY="43.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.533949520085318" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="6.0" layoutX="152.0" layoutY="694.0" startX="-46.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <ScrollPane fx:id="scrollPaneEventList" hbarPolicy="NEVER" layoutX="325.0" layoutY="165.0" prefHeight="542.0" prefWidth="696.0" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="vBox" prefHeight="657.0" prefWidth="1191.0" />
+            <VBox fx:id="vBox" prefHeight="539.0" prefWidth="680.0" />
          </content></ScrollPane>
-      <Text fill="#ff5946" layoutX="503.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event List">
+      <Text fill="#ff5946" layoutX="559.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event List">
          <font>
             <Font name="Brush Script MT Italic" size="64.0" />
          </font>
@@ -29,17 +101,27 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnSearch" layoutX="225.0" layoutY="104.0" mnemonicParsing="false" onAction="#onBtnSearch" text="Search" textFill="#10a12f">
+      <Button fx:id="btnSearch" layoutX="101.0" layoutY="220.0" mnemonicParsing="false" onAction="#onBtnSearch" text="Search" textFill="#10a12f">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="txtSearch" layoutX="12.0" layoutY="104.0" onKeyPressed="#onTxtSearch" prefHeight="28.0" prefWidth="192.0" promptText="Type name of desired event here" />
-      <Button layoutX="293.0" layoutY="104.0" mnemonicParsing="false" onAction="#onBtnCancel" text="Cancel" textFill="RED">
+      <TextField fx:id="txtSearch" layoutX="66.0" layoutY="165.0" onKeyPressed="#onTxtSearch" prefHeight="28.0" prefWidth="192.0" promptText="Type name of desired event here" />
+      <Button layoutX="169.0" layoutY="220.0" mnemonicParsing="false" onAction="#onBtnCancel" text="Cancel" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <ComboBox fx:id="comboBox" layoutX="559.0" layoutY="106.0" onAction="#onComboBox" prefHeight="25.0" prefWidth="112.0" promptText="My events" />
+      <ComboBox fx:id="comboBox" layoutX="425.0" layoutY="131.0" onAction="#onComboBox" prefHeight="25.0" prefWidth="112.0" promptText="My events" />
+      <Button fx:id="btnAddEvent" layoutX="893.0" layoutY="131.0" mnemonicParsing="false" onAction="#onBtnAddEvent" text="➕" textFill="#5d53a8">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Text fill="#5d53a8" layoutX="792.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Event">
+         <font>
+            <Font name="Brush Script MT Italic" size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -66,6 +66,12 @@ public class AddEventController implements Initializable {
     private DatePicker dpEndDate;
     @FXML
     private DatePicker dpStartDate;
+    @FXML
+    private TextField txtImage;
+    @FXML
+    private ComboBox<?> comboBoxEventStatus;
+    @FXML
+    private Button btnAddImage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -187,5 +193,9 @@ public class AddEventController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }        
+    }
+
+    @FXML
+    private void onBtnAddImage(ActionEvent event) {
     }
 }

@@ -24,7 +24,7 @@
             <Font name="Brush Script MT Italic" size="48.0" />
          </font>
       </Text>
-      <Button fx:id="btnReturn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnReturn" text="&lt;&lt; Return" textFill="#5d53a8">
+      <Button fx:id="btnReturn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onReturn" text="&lt;&lt; Return" textFill="#5d53a8">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
@@ -40,5 +40,15 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
+      <Button fx:id="btnAddActivity" layoutX="610.0" layoutY="116.0" mnemonicParsing="false" onAction="#onBtnAddActivity" text="➕" textFill="#5d53a8">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Text fill="#5d53a8" layoutX="498.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Activity">
+         <font>
+            <Font name="Brush Script MT Italic" size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

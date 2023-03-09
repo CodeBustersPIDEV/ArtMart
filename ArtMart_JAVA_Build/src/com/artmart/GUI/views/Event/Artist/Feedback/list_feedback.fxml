@@ -7,8 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="732.0" prefWidth="634.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Event.Artist.Feedback.ListFeedbackController">
+<AnchorPane id="AnchorPane" prefHeight="732.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.Feedback.ListFeedbackController">
    <children>
       <ScrollPane fx:id="scrollPaneFeedbackList" hbarPolicy="NEVER" layoutY="168.0" prefHeight="564.0" prefWidth="634.0" vbarPolicy="ALWAYS">
          <content>
@@ -20,7 +19,7 @@
             <Font name="Brush Script MT Italic" size="48.0" />
          </font>
       </Text>
-      <Button layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onAction="#onReturn" text="&lt;&lt; Return" textFill="#5d53a8">
+      <Button fx:id="btnReturn" layoutX="10.0" layoutY="9.0" mnemonicParsing="false" onAction="#onReturn" text="&lt;&lt; Return" textFill="#5d53a8">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

@@ -46,6 +46,8 @@ public class ListEventController implements Initializable {
     private ComboBox comboBox = new ComboBox();
     @FXML
     private Button btnReturn;
+    @FXML
+    private Button btnAddEvent;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -208,6 +210,23 @@ public class ListEventController implements Initializable {
             stage.close();
             stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }        
+    }    
+
+    @FXML
+    private void onBtnAddEvent(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnAddEvent.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/add_event.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");

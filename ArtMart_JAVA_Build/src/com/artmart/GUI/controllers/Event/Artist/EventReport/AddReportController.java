@@ -114,7 +114,9 @@ public class AddReportController implements Initializable {
     @FXML
     private void onBtnCancelReport(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnCancelReport.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -123,7 +125,7 @@ public class AddReportController implements Initializable {
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
-        }           
-    }
+        }        
+    }    
     
 }

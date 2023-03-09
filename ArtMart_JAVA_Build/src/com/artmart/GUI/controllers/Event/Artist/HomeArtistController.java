@@ -40,7 +40,6 @@ public class HomeArtistController implements Initializable {
         }
     }    
 
-    @FXML
     private void onBtnAddEvent(ActionEvent event) {
         try {
             Stage stage = (Stage) btnReturn.getScene().getWindow();
@@ -74,7 +73,6 @@ public class HomeArtistController implements Initializable {
         }
     } 
 
-    @FXML
     private void onBtnAddActivity(ActionEvent event) {
         try {
             Stage stage = (Stage) btnReturn.getScene().getWindow();
@@ -108,7 +106,6 @@ public class HomeArtistController implements Initializable {
         }
     } 
 
-    @FXML
     private void onBtnAddReport(ActionEvent event) {
         try {
             Stage stage = (Stage) btnReturn.getScene().getWindow();
@@ -165,7 +162,7 @@ public class HomeArtistController implements Initializable {
             Stage stage = (Stage) btnReturn.getScene().getWindow();
             stage.close();
             stage = new Stage();            
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/user_list_feedback.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Feedback/list_feedback.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");

@@ -21,69 +21,76 @@
             <Font name="Brush Script MT Italic" size="64.0" />
          </font>
       </Label>
-      <TextField fx:id="txtEventLocation" layoutX="270.0" layoutY="278.0" prefHeight="45.0" prefWidth="200.0" promptText="Location" />
+      <TextField fx:id="txtEventLocation" layoutX="270.0" layoutY="258.0" prefHeight="45.0" prefWidth="200.0" promptText="Location" />
       <TextField fx:id="txtEventName" layoutX="270.0" layoutY="138.0" prefHeight="45.0" prefWidth="200.0" promptText="Name" />
-      <ComboBox fx:id="comboBoxEventType" layoutX="270.0" layoutY="208.0" prefHeight="45.0" prefWidth="200.0" promptText="Type" />
-      <TextField fx:id="txtEventCapacity" layoutX="270.0" layoutY="488.0" prefHeight="45.0" prefWidth="200.0" promptText="Capacity" />
-      <TextField fx:id="txtEventEntryFee" layoutX="270.0" layoutY="558.0" prefHeight="45.0" prefWidth="200.0" promptText="Entry Fee" />
-      <TextArea fx:id="txtAreaEventDescription" layoutX="585.0" layoutY="218.0" prefHeight="365.0" prefWidth="522.0" promptText="Description" />
-      <Button fx:id="btnConfirm" layoutX="919.0" layoutY="618.0" mnemonicParsing="false" onAction="#onBtnConfirm" prefHeight="45.0" prefWidth="100.0" text="Confirm" textAlignment="CENTER" textFill="#0d9e31">
+      <ComboBox fx:id="comboBoxEventType" layoutX="270.0" layoutY="198.0" prefHeight="45.0" prefWidth="200.0" promptText="Type" />
+      <TextField fx:id="txtEventCapacity" layoutX="270.0" layoutY="438.0" prefHeight="45.0" prefWidth="200.0" promptText="Capacity" />
+      <TextField fx:id="txtEventEntryFee" layoutX="270.0" layoutY="498.0" prefHeight="45.0" prefWidth="200.0" promptText="Entry Fee" />
+      <TextArea fx:id="txtAreaEventDescription" layoutX="585.0" layoutY="208.0" prefHeight="396.0" prefWidth="522.0" promptText="Description" />
+      <Button fx:id="btnConfirm" layoutX="909.0" layoutY="628.0" mnemonicParsing="false" onAction="#onBtnConfirm" prefHeight="45.0" prefWidth="100.0" text="Confirm" textAlignment="CENTER" textFill="#0d9e31">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelEvent" layoutX="695.0" layoutY="618.0" mnemonicParsing="false" onAction="#onBtnCancelEvent" prefHeight="45.0" prefWidth="100.0" text="Cancel" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnCancelEvent" layoutX="705.0" layoutY="628.0" mnemonicParsing="false" onAction="#onBtnCancelEvent" prefHeight="45.0" prefWidth="100.0" text="Cancel" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Button>
-      <DatePicker fx:id="dpEventEndDate" layoutX="270.0" layoutY="418.0" prefHeight="45.0" prefWidth="200.0" promptText="End  Date" />
-      <DatePicker fx:id="dpEventStartDate" layoutX="270.0" layoutY="348.0" prefHeight="45.0" prefWidth="200.0" promptText="Start Date" />
+      <DatePicker fx:id="dpEventEndDate" layoutX="270.0" layoutY="378.0" prefHeight="45.0" prefWidth="200.0" promptText="End  Date" />
+      <DatePicker fx:id="dpEventStartDate" layoutX="270.0" layoutY="318.0" prefHeight="45.0" prefWidth="200.0" promptText="Start Date" />
       <Text fill="#5d53a8" layoutX="115.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="106.6708984375">
          <font>
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="115.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End date" wrappingWidth="144.67091381549835">
+      <Text fill="#5d53a8" layoutX="115.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End date" wrappingWidth="144.67091381549835">
          <font>
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="115.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="106.6708984375">
+      <Text fill="#5d53a8" layoutX="115.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="106.6708984375">
          <font>
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="115.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" wrappingWidth="106.6708984375">
+      <Text fill="#5d53a8" layoutX="115.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" wrappingWidth="106.6708984375">
          <font>
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="115.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start date" wrappingWidth="144.6708984375">
+      <Text fill="#5d53a8" layoutX="115.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start date" wrappingWidth="144.6708984375">
          <font>
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="115.0" layoutY="520.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity" wrappingWidth="135.6708984375">
+      <Text fill="#5d53a8" layoutX="115.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity" wrappingWidth="135.6708984375">
          <font>
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="115.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entry fee" wrappingWidth="153.6708984375">
+      <Text fill="#5d53a8" layoutX="115.0" layoutY="530.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entry fee" wrappingWidth="153.6708984375">
          <font>
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="585.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="190.6708984375">
+      <Text fill="#5d53a8" layoutX="585.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="190.6708984375">
          <font>
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="115.0" layoutY="660.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" wrappingWidth="153.6708984375">
+      <Text fill="#5d53a8" layoutX="115.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" wrappingWidth="153.6708984375">
          <font>
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
-      <ComboBox fx:id="comboBoxEventStatus" layoutX="270.0" layoutY="628.0" prefHeight="45.0" prefWidth="200.0" promptText="Status" />
+      <ComboBox fx:id="comboBoxEventStatus" layoutX="270.0" layoutY="558.0" prefHeight="45.0" prefWidth="200.0" promptText="Status" />
+      <TextField fx:id="txtImage" layoutX="271.0" layoutY="628.0" prefHeight="45.0" prefWidth="154.0" promptText="Image URL" />
+      <Text fill="#5d53a8" layoutX="125.0" layoutY="660.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" wrappingWidth="153.6708984375">
+         <font>
+            <Font name="Brush Script MT Italic" size="36.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnAddImage" layoutX="441.0" layoutY="638.0" mnemonicParsing="false" onAction="#onBtnAddImage" prefHeight="25.0" prefWidth="28.0" text="➕" textFill="#ff5946" />
    </children>
 </AnchorPane>

@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -33,6 +34,8 @@ public class ListFeedbackController implements Initializable {
     private List<Feedback> feedbackList;
     
     private FeedbackService fs = new FeedbackService();    
+    @FXML
+    private Button btnReturn;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try{
@@ -66,7 +69,9 @@ public class ListFeedbackController implements Initializable {
     @FXML
     private void onReturn(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -76,6 +81,5 @@ public class ListFeedbackController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }        
-    }    
-    
+    } 
 }

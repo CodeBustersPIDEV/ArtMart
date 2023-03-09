@@ -77,5 +77,18 @@
             <Font name="Brush Script MT Italic" size="36.0" />
          </font>
       </Text>
+      <TextField fx:id="txtImage" layoutX="271.0" layoutY="618.0" prefHeight="45.0" prefWidth="154.0" promptText="Image URL" />
+      <Text fill="#5d53a8" layoutX="115.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image" wrappingWidth="153.6708984375">
+         <font>
+            <Font name="Brush Script MT Italic" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="#5d53a8" layoutX="115.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" wrappingWidth="153.6708984375">
+         <font>
+            <Font name="Brush Script MT Italic" size="36.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="comboBoxEventStatus" layoutX="270.0" layoutY="558.0" prefHeight="45.0" prefWidth="200.0" promptText="Status" />
+      <Button fx:id="btnAddImage" layoutX="441.0" layoutY="628.0" mnemonicParsing="false" onAction="#onBtnAddImage" prefHeight="25.0" prefWidth="28.0" text="➕" textFill="#ff5946" />
    </children>
 </AnchorPane>
