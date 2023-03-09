@@ -49,7 +49,7 @@ public class Event {
         this.status = status;
     }
 
-    public Event(int userID, String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate) {
+    public Event(int userID, String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate, String image) {
         this.userID = userID;
         this.name = name;
         this.location = location;
@@ -58,7 +58,9 @@ public class Event {
         this.entryFee = entryFee;
         this.capacity = capacity;
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.endDate = endDate;        
+        this.image = image;
+
     }
 
     public Event(String name, String location, String type, String description, double entryFee, int capacity, Date startDate, Date endDate, String status) {

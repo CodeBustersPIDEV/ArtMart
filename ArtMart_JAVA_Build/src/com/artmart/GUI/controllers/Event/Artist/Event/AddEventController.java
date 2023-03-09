@@ -3,11 +3,21 @@ package com.artmart.GUI.controllers.Event.Artist.Event;
 import com.artmart.models.Event;
 import com.artmart.models.Session;
 import com.artmart.services.EventService;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.DateTimeException;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,14 +28,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class AddEventController implements Initializable {
-    
+
     private final EventService es = new EventService();
     private final HashMap user = (HashMap) Session.getActiveSessions();
     private final Session session = Session.getInstance();
@@ -39,12 +52,17 @@ public class AddEventController implements Initializable {
     private int capacity;
     private Date startDate;
     private Date endDate;
+    private String img;
+    private Image image;
 
-    private String typeText; 
+    private String typeText;
     private String entryFeeText;
     private String capacityText;
     private String startDateText;
     private String endDateText;
+    private final FileChooser fileChooser = new FileChooser();
+    private final String phpUrl = "http://localhost/PIDEV/upload.php";
+    String boundary = "---------------------------12345";
 
     @FXML
     private Button btnAddEvent;
@@ -75,51 +93,50 @@ public class AddEventController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         // add event types in comboBox
         this.comboBoxType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
         this.txtAreaDescription.setWrapText(true);
-    }    
+    }
 
     @FXML
-    private  void onAddEvent(ActionEvent event) {
-        
+    private void onAddEvent(ActionEvent event) {
+
         // get the values for creating a new event
         this.name = this.txtName.getText();
         this.location = this.txtLocation.getText();
         this.description = this.txtAreaDescription.getText();
-        
+
         // convert values for input check
-        this.typeText = (String) this.comboBoxType.getValue(); 
+        this.typeText = (String) this.comboBoxType.getValue();
         this.entryFeeText = this.txtEntryFee.getText();
         this.capacityText = this.txtCapacity.getText();
         this.startDateText = this.dpStartDate.getValue() != null ? String.valueOf(this.dpStartDate.getValue()) : null;
         this.endDateText = this.dpEndDate.getValue() != null ? String.valueOf(this.dpEndDate.getValue()) : null;
-        
+
         // input check
-        if(this.name.isEmpty() 
-        || this.location.isEmpty() 
-        || this.description.isEmpty() 
-        || this.typeText == null || this.typeText.isEmpty()
-        || this.entryFeeText.isEmpty()
-        || this.capacityText.isEmpty() 
-        || this.startDateText == null || this.startDateText.isEmpty()
-        || this.endDateText == null || this.endDateText.isEmpty()) 
-        {
+        if (this.name.isEmpty()
+                || this.location.isEmpty()
+                || this.description.isEmpty()
+                || this.typeText == null || this.typeText.isEmpty()
+                || this.entryFeeText.isEmpty()
+                || this.capacityText.isEmpty()
+                || this.startDateText == null || this.startDateText.isEmpty()
+                || this.endDateText == null || this.endDateText.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing information");
             alert.setHeaderText(null);
             alert.setContentText("Failed to add event! \nComplete missing information.");
-            alert.showAndWait();         
-            
-        }else {
-            
+            alert.showAndWait();
+
+        } else {
+
             this.type = (String) this.comboBoxType.getValue();
             try {
                 this.startDate = Date.valueOf(this.dpStartDate.getValue());
                 this.endDate = Date.valueOf(this.dpEndDate.getValue());
                 startDate.before(endDate);
-                if(!startDate.before(endDate)){
+                if (!startDate.before(endDate)) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Invalid dates");
                     alert.setHeaderText(null);
@@ -133,7 +150,7 @@ public class AddEventController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Invalid format for start date or end date!");
                 alert.showAndWait();
-                return;                
+                return;
             }
             try {
                 this.entryFee = Float.parseFloat(this.txtEntryFee.getText());
@@ -147,15 +164,16 @@ public class AddEventController implements Initializable {
                 return;
             }
             Event ev = new Event(
-                this.userID,
-                this.name, 
-                this.location, 
-                this.type, 
-                this.description, 
-                this.entryFee, 
-                this.capacity, 
-                this.startDate, 
-                this.endDate
+                    this.userID,
+                    this.name,
+                    this.location,
+                    this.type,
+                    this.description,
+                    this.entryFee,
+                    this.capacity,
+                    this.startDate,
+                    this.endDate,
+                    this.img
             );
 
             int result = es.createEvent(ev);
@@ -183,7 +201,7 @@ public class AddEventController implements Initializable {
         try {
             Stage stage = (Stage) btnCancelEvent.getScene().getWindow();
             stage.close();
-            stage = new Stage();            
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -192,10 +210,61 @@ public class AddEventController implements Initializable {
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
-        }        
+        }
     }
 
     @FXML
-    private void onBtnAddImage(ActionEvent event) {
+    private void onBtnAddImage(ActionEvent event) throws IOException {
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        this.fileChooser.setTitle("Select an image");
+        this.fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File file = this.fileChooser.showOpenDialog(primaryStage);
+        if (file != null) {
+//            Path sourcePath = file.toPath();
+            byte[] imageData = Files.readAllBytes(file.toPath());
+
+            URL url = new URL(phpUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+            OutputStream outputStream = connection.getOutputStream();
+            outputStream.write(("--" + boundary + "\r\n").getBytes());
+            outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n").getBytes());
+            outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+            outputStream.write(imageData);
+            outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+            outputStream.flush();
+            outputStream.close();
+
+            // Read the response from the PHP script
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+            Path destinationPath = Paths.get("C:/xampp/htdocs/PIDEV/BlogUploads/" + file.getName());
+            this.img=destinationPath.toString();
+            try {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Image Upload");
+                alert.setHeaderText(null);
+                alert.setContentText("Image uploaded successfully.");
+                alert.showAndWait();
+            } catch (Exception ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("An Error occured");
+                alert.showAndWait();
+            }
+        }
+
     }
 }
