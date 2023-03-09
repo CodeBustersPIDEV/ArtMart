@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.ImageInput?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,10 +13,16 @@
 
 <Pane fx:id="cardContainer" prefHeight="381.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogCardController">
    <children>
-      <Rectangle id="cont" fx:id="cont2" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="381.0" stroke="BLACK" strokeType="INSIDE" styleClass="cont" width="1320.0" />
+      <Rectangle id="cont" fx:id="cont2" arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="381.0" stroke="BLACK" strokeType="INSIDE" styleClass="cont" width="1320.0" />
       <Text layoutX="438.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Posted By " wrappingWidth="85.46875" />
       <Text layoutX="447.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="On " />
-      <Button id="view" fx:id="view_btn" layoutX="1169.0" layoutY="318.0" mnemonicParsing="false" onAction="#viewBlog" prefHeight="31.0" prefWidth="104.0" text="View" />
+      <Button id="view" fx:id="view_btn" layoutX="1144.0" layoutY="320.0" mnemonicParsing="false" onAction="#viewBlog" prefHeight="31.0" prefWidth="138.0" text="View" textFill="#21153d">
+         <effect>
+            <DropShadow color="#00000088" />
+         </effect>
+         <font>
+            <Font name="Dubai Bold" size="18.0" />
+         </font></Button>
       <Label fx:id="username" layoutX="509.0" layoutY="131.0" text="Username" />
       <Label fx:id="publishDate" layoutX="471.0" layoutY="163.0" text="DD/MM/YYYY" />
       <Label fx:id="blog_id" layoutX="948.0" layoutY="14.0" text="Label" visible="false" />

@@ -1,5 +1,7 @@
 package com.artmart.GUI.controllers.Blog;
 
+import com.artmart.GUI.controllers.Product.ReadyproductsListController;
+import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
@@ -14,7 +16,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +28,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -56,12 +63,16 @@ public class BlogGUIController implements Initializable {
     private ComboBox<BlogCategories> catComboBox;
     @FXML
     private Button sortBtn;
+    @FXML
+    private ChoiceBox<String> userOptions;
+
     private final BlogService blogService = new BlogService();
     private List<Blog> matchingBlogs;
     private List<BlogCategories> blogCategoriesList;
     private static final DecimalFormat df = new DecimalFormat("0.00");
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
+    SignUpController profile = new SignUpController();
 
     private void initBlogs() {
         UserDao userService = new UserDao();
@@ -102,21 +113,6 @@ public class BlogGUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.session = (Session) user.get(user.keySet().toArray()[0]);
-        File f = new File("src/com/artmart/assets/BlogAssets/3493894fa4ea036cfc6433c3e2ee63b0.png");
-        Image im = new Image(f.toURI().toString());
-        ImageView imageView = new ImageView(im);
-        imageView.setFitWidth(16);
-        imageView.setFitHeight(16);
-        this.searchBtn.setGraphic(imageView);
-
-        File f2 = new File("src/com/artmart/assets/BlogAssets/3973a31998338e76bea5d4c956c0060f.png");
-        Image im2 = new Image(f2.toURI().toString());
-        ImageView imageView2 = new ImageView(im2);
-        imageView2.setFitWidth(16);
-        imageView2.setFitHeight(16);
-        this.cancelSearchBtn.setGraphic(imageView2);
-
         UserDao userService = new UserDao();
         List<Blog> blogList = new ArrayList<>();
         blogList = this.blogService.getAllBlogs();
@@ -148,6 +144,40 @@ public class BlogGUIController implements Initializable {
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        });
+
+        Map<String, String> profileActions = new HashMap<>();
+        profileActions.put("Profile", "profile");
+        profileActions.put("Logout", "logout");
+
+        // Populate the choice box with display names
+        userOptions.getItems().addAll(profileActions.keySet());
+
+        // Add an event listener to handle the selected item's ID
+        userOptions.setOnAction(event -> {
+            String selectedItem = userOptions.getSelectionModel().getSelectedItem();
+            String selectedId = profileActions.get(selectedItem);
+            // Handle the action based on the selected ID
+            if ("profile".equals(selectedId)) {
+                if (this.session.getUserRole().equals("admin")) {
+                    profile.goToProfile(event, "ProfileAdmin");
+                } else if (this.session.getUserRole().equals("artist")) {
+                    profile.goToProfile(event, "ProfileArtist");
+                } else {
+                    profile.goToProfile(event, "ProfileClient");
+                }
+            } else if ("logout".equals(selectedId)) {
+                session.logOut("1");
+                Node source = (Node) event.getSource();
+                Stage stage = (Stage) source.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -387,4 +417,5 @@ public class BlogGUIController implements Initializable {
         });
 
     }
+
 }
