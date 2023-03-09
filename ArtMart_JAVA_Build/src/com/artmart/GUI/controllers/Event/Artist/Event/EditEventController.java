@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.artmart.GUI.controllers.Event.Artist.Event;
 
 import com.artmart.models.Event;
@@ -26,11 +22,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class EditEventController implements Initializable {
     
     private Event event = new Event();
@@ -152,7 +143,7 @@ public class EditEventController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Invalid dates");
                     alert.setHeaderText(null);
-                    alert.setContentText("Failed to add event! \nStart date must me before end date!");
+                    alert.setContentText("Failed to update event! \nStart date must me before end date!");
                     alert.showAndWait();
                     return;
                 }
@@ -193,7 +184,7 @@ public class EditEventController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Edit Event");
                 alert.setHeaderText(null);
-                alert.setContentText("A new event has been updated successfully!");
+                alert.setContentText("The event has been updated successfully!");
                 alert.showAndWait();
                 alert.close();
                 this.onBtnCancelEvent(event);
@@ -210,7 +201,9 @@ public class EditEventController implements Initializable {
     @FXML
     private void onBtnCancelEvent(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnCancelEvent.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/list_event.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);

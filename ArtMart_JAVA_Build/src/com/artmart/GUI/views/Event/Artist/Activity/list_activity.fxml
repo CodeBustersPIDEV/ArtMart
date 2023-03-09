@@ -24,7 +24,7 @@
             <Font name="Brush Script MT Italic" size="48.0" />
          </font>
       </Text>
-      <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnReturn" text="&lt;&lt; Return" textFill="#5d53a8">
+      <Button fx:id="btnReturn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnReturn" text="&lt;&lt; Return" textFill="#5d53a8">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

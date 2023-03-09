@@ -67,7 +67,9 @@ public class CardEventController implements Initializable {
     @FXML//event_home
     private void onBtnViewEvent(ActionEvent event) throws IOException {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnViewEvent.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/view_event.fxml"));
             Parent root = loader.load();
             ViewEventController controller = loader.getController();
@@ -85,7 +87,9 @@ public class CardEventController implements Initializable {
     @FXML
     private void onBtnEditEvent(ActionEvent event) throws IOException {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnEditEvent.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/edit_event.fxml"));
             Parent root = loader.load();
             EditEventController controller = loader.getController();

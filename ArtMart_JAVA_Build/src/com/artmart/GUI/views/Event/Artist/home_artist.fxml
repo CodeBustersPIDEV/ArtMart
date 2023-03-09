@@ -12,52 +12,52 @@
         <URL value="@/com/artmart/GUI/styles/event/event_home.css" />
     </stylesheets>
    <children>
-      <Button layoutX="126.0" layoutY="173.0" mnemonicParsing="false" onAction="#onBtnAddEvent" prefHeight="45.0" prefWidth="189.0" text="Add New Event" textFill="INDIGO">
+      <Button layoutX="142.0" layoutY="174.0" mnemonicParsing="false" onAction="#onBtnAddEvent" prefHeight="45.0" prefWidth="150.0" text="Add New Event" textFill="INDIGO">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font></Button>
-      <Button id="btnReturn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#returnToMain" text="&lt;&lt; Return" textFill="#5d53a8">
+      <Button id="btnReturn" fx:id="btnReturn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#returnToMain" text="&lt;&lt; Return" textFill="#5d53a8">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Label layoutX="162.0" layoutY="53.0" text="Artist Home Page" textFill="#ff5946">
+      <Label layoutX="147.0" layoutY="51.0" text="Artist Home Page" textFill="#ff5946">
          <font>
-            <Font name="Brush Script MT Italic" size="55.0" />
+            <Font name="Brush Script MT Italic" size="59.0" />
          </font>
       </Label>
-      <Button layoutX="341.0" layoutY="173.0" mnemonicParsing="false" onAction="#onBtnGetAllEvents" prefHeight="45.0" prefWidth="189.0" text="View Events" textFill="INDIGO">
+      <Button layoutX="357.0" layoutY="174.0" mnemonicParsing="false" onAction="#onBtnGetAllEvents" prefHeight="45.0" prefWidth="150.0" text="View Events" textFill="INDIGO">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="126.0" layoutY="233.0" mnemonicParsing="false" onAction="#onBtnAddActivity" prefHeight="45.0" prefWidth="189.0" text="Add New Activity" textFill="#6c3082">
+      <Button layoutX="142.0" layoutY="234.0" mnemonicParsing="false" onAction="#onBtnAddActivity" prefHeight="45.0" prefWidth="150.0" text="Add New Activity" textFill="#6c3082">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="341.0" layoutY="233.0" mnemonicParsing="false" onAction="#onBtnGetAllActivities" prefHeight="45.0" prefWidth="189.0" text="View Activities" textFill="#6c3082">
+      <Button layoutX="357.0" layoutY="234.0" mnemonicParsing="false" onAction="#onBtnGetAllActivities" prefHeight="45.0" prefWidth="150.0" text="View Activities" textFill="#6c3082">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="128.0" layoutY="297.0" mnemonicParsing="false" onAction="#onBtnAddReport" prefHeight="45.0" prefWidth="189.0" text="Add New Report" textFill="#9a4eae">
+      <Button layoutX="144.0" layoutY="298.0" mnemonicParsing="false" onAction="#onBtnAddReport" prefHeight="45.0" prefWidth="150.0" text="Add New Report" textFill="#9a4eae">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="343.0" layoutY="297.0" mnemonicParsing="false" onAction="#onBtnGetReports" prefHeight="45.0" prefWidth="189.0" text="View Reports" textFill="#9a4eae">
+      <Button layoutX="359.0" layoutY="298.0" mnemonicParsing="false" onAction="#onBtnGetReports" prefHeight="45.0" prefWidth="150.0" text="View Reports" textFill="#9a4eae">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="128.0" layoutY="361.0" mnemonicParsing="false" onAction="#onViewParticipations" prefHeight="45.0" prefWidth="189.0" text="View Participations" textFill="MEDIUMPURPLE">
+      <Button layoutX="144.0" layoutY="362.0" mnemonicParsing="false" onAction="#onViewParticipations" prefHeight="45.0" prefWidth="150.0" text="View Participations" textFill="MEDIUMPURPLE">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="342.0" layoutY="361.0" mnemonicParsing="false" onAction="#onViewFeedbacks" prefHeight="45.0" prefWidth="189.0" text="View Feedbacks" textFill="MEDIUMPURPLE">
+      <Button layoutX="358.0" layoutY="362.0" mnemonicParsing="false" onAction="#onViewFeedbacks" prefHeight="45.0" prefWidth="150.0" text="View Feedbacks" textFill="MEDIUMPURPLE">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
    </children>

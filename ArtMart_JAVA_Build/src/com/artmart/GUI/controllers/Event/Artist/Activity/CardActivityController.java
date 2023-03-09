@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.artmart.GUI.controllers.Event.Artist.Activity;
 
-
+import com.artmart.GUI.controllers.Event.Artist.Event.EditEventController;
 import com.artmart.models.Activity;
 import com.artmart.services.ActivityService;
 import com.artmart.services.EventService;
@@ -23,11 +19,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class CardActivityController implements Initializable {
     
     private final EventService es = new EventService();
@@ -47,12 +38,7 @@ public class CardActivityController implements Initializable {
     private Button btnDeleteActivity;
     @FXML
     private Button btnEditActivity;
-    @FXML
-    private Button btnViewActivity;
-    
-    /**
-     * Initializes the controller class.
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -67,23 +53,7 @@ public class CardActivityController implements Initializable {
         this.txtEvent.setText(es.getEvent(activity.getEventID()).getName());
     }   
     
-//    @FXML
-//    private void onBtnViewActivity(ActionEvent event) {
-//        try {
-//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/view_event.fxml"));
-//            Parent root = loader.load();
-//            View_eventController controller = loader.getController();
-//            controller.setUpEventData(this.activity);
-//            Scene scene = new Scene(root);
-//            stage.setResizable(false);
-//            stage.setTitle("");
-//            stage.setScene(scene);
-//            stage.show();
-//        } catch (IOException e) {
-//            System.out.print(e.getMessage());
-//        }        
-//    }
+
 //
 //    @FXML
 //    private void onBtnDeleteActivity(ActionEvent event) {
@@ -103,36 +73,29 @@ public class CardActivityController implements Initializable {
 //        }        
 //    }
 //
-//    @FXML
-//    private void onBtnEditActivity(ActionEvent event) {
-//        boolean result = this.as.deleteEvent(this.activity.getEventID());
-//            if (result) {
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("Edit Event");
-//                alert.setHeaderText(null);
-//                alert.setContentText("A new event has been updated successfully!");
-//                alert.showAndWait();
-//                alert.close();
-//            } else {
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setTitle("Update Product");
-//                alert.setHeaderText(null);
-//                alert.setContentText("Failed to update event!");
-//                alert.showAndWait();
-//            }
-//        this.listEventController.makeList();
-//    }
-
     @FXML
-    private void onBtnViewActivity(ActionEvent event) {
+    private void onBtnEditActivity(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnEditActivity.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Activity/edit_activity.fxml"));
+            Parent root = loader.load();
+            EditActivityController controller = loader.getController();
+            controller.setUpActivityData(this.activity);
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }        
     }
 
     @FXML
     private void onBtnDeleteActivity(ActionEvent event) {
     }
 
-    @FXML
-    private void onBtnEditActivity(ActionEvent event) {
-    }
     
 }

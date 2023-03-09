@@ -93,7 +93,8 @@ public class ActivityDao implements IActivityDao {
     public boolean updateActivity(int activityID, Activity activity) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE Activity SET eventID = ?, startDate = ?, title = ?, host = ? WHERE activityID = ?");
+                "UPDATE Activity SET eventID = ?, date = ?, title = ?, host = ? WHERE activityID = ?"
+            );
             statement.setInt(1, activity.getEventID());
             statement.setDate(2, activity.getDate());
             statement.setString(3, activity.getTitle());

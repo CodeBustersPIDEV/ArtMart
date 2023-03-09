@@ -44,6 +44,8 @@ public class ListEventController implements Initializable {
     private TextField txtSearch;
     @FXML
     private ComboBox comboBox = new ComboBox();
+    @FXML
+    private Button btnReturn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -202,7 +204,9 @@ public class ListEventController implements Initializable {
     @FXML
     private void returnToEventHomepage(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);

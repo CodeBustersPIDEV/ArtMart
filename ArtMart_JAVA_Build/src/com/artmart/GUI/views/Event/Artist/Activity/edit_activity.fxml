@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Event.Artist.Activity.EditActivityController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="5.0" layoutY="5.0" prefHeight="450.0" prefWidth="650.0" styleClass="mainFxmlClass">
+         <stylesheets>
+            <URL value="@/com/artmart/GUI/styles/activity/add_activity.css" />
+         </stylesheets>
+         <children>
+            <Label alignment="CENTER" layoutX="44.0" layoutY="38.0" prefHeight="65.0" prefWidth="240.0" text="Edit Activity" textFill="#ff5946">
+               <font>
+                  <Font name="Brush Script MT Italic" size="48.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtHost" layoutX="305.0" layoutY="200.0" prefHeight="40.0" prefWidth="180.0" promptText="Host" />
+            <TextField fx:id="txtTitle" layoutX="305.0" layoutY="150.0" prefHeight="40.0" prefWidth="180.0" promptText="Title" />
+            <Button fx:id="btnEditActivity" layoutX="421.0" layoutY="388.0" mnemonicParsing="false" onAction="#onBtnEditActivity" prefHeight="27.0" prefWidth="64.0" text="Confirm" textAlignment="CENTER" textFill="#0fae22">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnCancelActivity" layoutX="306.0" layoutY="388.0" mnemonicParsing="false" onAction="#onBtnCancelActivity" prefHeight="27.0" prefWidth="64.0" text="Cancel" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Button>
+            <DatePicker fx:id="dpDate" layoutX="305.0" layoutY="250.0" prefHeight="40.0" prefWidth="180.0" promptText="Date" />
+            <ComboBox fx:id="comboBoxEvent" layoutX="305.0" layoutY="300.0" prefHeight="40.0" prefWidth="180.0" promptText="Event" />
+            <Text fill="#5d53a8" layoutX="140.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date ">
+               <font>
+                  <Font name="Brush Script MT Italic" size="36.0" />
+               </font>
+            </Text>
+            <Text fill="#5d53a8" layoutX="140.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title " wrappingWidth="67.48241633176804">
+               <font>
+                  <Font name="Brush Script MT Italic" size="36.0" />
+               </font>
+            </Text>
+            <Text fill="#5d53a8" layoutX="140.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host">
+               <font>
+                  <Font name="Brush Script MT Italic" size="36.0" />
+               </font>
+            </Text>
+            <Text fill="#5d53a8" layoutX="140.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event">
+               <font>
+                  <Font name="Brush Script MT Italic" size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
