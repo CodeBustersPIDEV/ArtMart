@@ -98,7 +98,6 @@ public class OrderGUIMenuController implements Initializable {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }

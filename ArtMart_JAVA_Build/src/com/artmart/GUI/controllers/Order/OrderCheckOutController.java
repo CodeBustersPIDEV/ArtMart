@@ -45,6 +45,7 @@ public class OrderCheckOutController implements Initializable {
     private final OrderService orderService = new OrderService();
     private List<ShippingOption> shippmentList;
     private OrderGUIController orderGUIController;
+    private double totalOrdersPrice; 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -70,22 +71,20 @@ public class OrderCheckOutController implements Initializable {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
-
             String payload = "{\n"
                     + "    \"app_token\": \"b9e12676-1459-41a1-b608-48d7c2cedcb0\",\n"
                     + "    \"app_secret\": \"9947737a-ee91-4119-b773-fc3a190d13af\",\n"
                     + "    \"accept_card\": \"true\",\n"
-                    + "    \"amount\": \"100000\",\n"
+                    + "    \"amount\": \""+calculateOrdersPrice()+"\",\n"
                     + "    \"success_link\": \"http://localhost/artmart/success.html\",\n"
                     + "    \"fail_link\": \"http://localhost/artmart/fail.html\",\n"
                     + "    \"session_timeout_secs\": 1200,\n"
                     + "    \"developer_tracking_id\": \"<your_internal_tracking_id>\"\n"
                     + "}";
-
+            System.out.println(payload);
             OutputStream os = conn.getOutputStream();
             os.write(payload.getBytes());
             os.flush();
-
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
             String link = null;
             String paymentId = null;
@@ -106,7 +105,6 @@ public class OrderCheckOutController implements Initializable {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-
             conn.disconnect();
         } catch (IOException e) {
             System.out.println(e.getCause());
@@ -123,8 +121,13 @@ public class OrderCheckOutController implements Initializable {
         );
     }
 
-    public void link(OrderGUIController controller) {
+    public void link(OrderGUIController controller,double totalOrdersPrice) {
         this.orderGUIController = controller;
+        this.totalOrdersPrice = totalOrdersPrice;
     }
-
+    
+    public int calculateOrdersPrice(){
+       Double val = this.totalOrdersPrice+this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getShippingFee();
+       return val.intValue()*1000;
+    }
 }
