@@ -177,9 +177,9 @@ public class AdminBoardController implements Initializable {
         ObservableList<ReadyProduct> items = FXCollections.observableArrayList(
                 this.readyProductsList.stream().collect(Collectors.toList())
         );
-
+        
         this.productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        this.productUserColumn.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
+        this.productUserColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         this.priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         this.categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category_ID"));
 
