@@ -72,14 +72,6 @@
                 </LinearGradient>
             </stroke>
         </Line>
-        <Button fx:id="backBtn" alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBack" prefHeight="18.0" prefWidth="28.0" text="←" textAlignment="CENTER" textFill="#21153d">
-            <font>
-                <Font name="Rockwell Nova Bold" size="20.0" />
-            </font>
-            <effect>
-                <DropShadow color="#00000087" />
-            </effect>
-        </Button>
         <Text fill="#21153d" layoutX="499.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested in viewing the available products ?" textAlignment="CENTER">
             <font>
                 <Font name="Dubai Bold" size="20.0" />

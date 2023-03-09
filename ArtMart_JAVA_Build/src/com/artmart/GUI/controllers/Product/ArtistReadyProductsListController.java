@@ -205,22 +205,7 @@ public class ArtistReadyProductsListController implements Initializable {
         }
     }
 
-    public void onBack(ActionEvent event) {
-        try {
-            Stage stage = (Stage) backBtn.getScene().getWindow();
-            stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/MainView.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
+    
 
     public void onAdd(ActionEvent event) {
         try {
