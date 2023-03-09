@@ -9,24 +9,24 @@
 <AnchorPane id="AnchorPane" prefHeight="148.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.CustomProduct.ApplyCardClientController">
   <children>
       <Text fx:id="pid" layoutX="314.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8d5c4" height="167.0" stroke="#1abc9c" strokeType="INSIDE" width="408.0" />
-      <Text fx:id="Artisttxt" fill="#282d2f" layoutX="173.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
-      <Text fx:id="CPtxt" fill="#282d2f" layoutX="173.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
-      <Text fx:id="statustxt" fill="#282d2f" layoutX="173.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
-      <Button fx:id="accept" layoutX="310.0" layoutY="68.0" mnemonicParsing="false" onAction="#accept" text="accept" />
-      <Text fill="#3a98b9" layoutX="56.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="167.0" stroke="#dedce4" strokeType="INSIDE" width="643.0" />
+      <Text fx:id="Artisttxt" fill="#282d2f" layoutX="299.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
+      <Text fx:id="CPtxt" fill="#282d2f" layoutX="299.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
+      <Text fx:id="statustxt" fill="#282d2f" layoutX="299.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa" />
+      <Button fx:id="accept" layoutX="548.0" layoutY="90.0" mnemonicParsing="false" onAction="#accept" prefHeight="25.0" prefWidth="81.0" text="accept" />
+      <Text fill="#21153d" layoutX="182.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Text>
-      <Text fill="#3a98b9" layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CustomProduct">
+      <Text fill="#21153d" layoutX="140.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CustomProduct">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Text>
-      <Text fill="#3a98b9" layoutX="53.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+      <Text fill="#21153d" layoutX="179.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Text>
-      <Button fx:id="reject" layoutX="313.0" layoutY="25.0" mnemonicParsing="false" onAction="#reject" text="reject" />
+      <Button fx:id="reject" layoutX="548.0" layoutY="124.0" mnemonicParsing="false" onAction="#reject" prefHeight="25.0" prefWidth="81.0" text="reject" />
    
    </children>
 </AnchorPane>

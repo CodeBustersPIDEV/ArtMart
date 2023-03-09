@@ -348,4 +348,21 @@ public class ArtistReadyProductsListController implements Initializable {
         }
 
     }
+    private void custom(ActionEvent event) {
+        try {
+                Stage stage = (Stage) searchBtn.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
+                Parent root = FXMLLoader
+                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCustom.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Custom Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
+        }
 }
+

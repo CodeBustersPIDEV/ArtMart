@@ -41,6 +41,7 @@ import javafx.stage.Stage;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.ChoiceBox;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -91,6 +92,10 @@ public class EditCpController implements Initializable {
     @FXML
     private ImageView img;
     private Image image;
+    @FXML
+    private Label username;
+    @FXML
+    private ChoiceBox<?> profileChoiceBox;
 
     /**
      * Initializes the controller class.

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.User.ProfileClientController;
@@ -36,11 +31,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author mahou
- */
 public class ProductGUIController implements Initializable {
 
     ReadyProductDao cc = new ReadyProductDao();
@@ -206,5 +196,21 @@ public class ProductGUIController implements Initializable {
             System.out.print(e.getMessage());
         }
 
+    }
+        private void custom(ActionEvent event) throws IOException {
+           try {
+           Stage stage = (Stage) imagePreview4.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
+                Parent root = FXMLLoader
+                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Custom Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
     }
 }

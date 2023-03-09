@@ -263,7 +263,7 @@ int clientId = session.getCurrentUserId(session.getSessionId());
 
     @FXML
     private void back(ActionEvent event) throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
     Parent root = loader.load();
     Scene scene = new Scene(root);
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -271,4 +271,3 @@ int clientId = session.getCurrentUserId(session.getSessionId());
     stage.show();
     }
     }
-

@@ -168,7 +168,7 @@ public class MainViewController implements Initializable {
                 stage.close();
                 stage = new Stage();
                 Parent root = FXMLLoader
-                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/UserCustom.fxml"));
+                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
                 stage.setTitle("Custom Product Managment");
