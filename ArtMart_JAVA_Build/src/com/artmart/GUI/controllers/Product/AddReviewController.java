@@ -281,7 +281,7 @@ public class AddReviewController implements Initializable {
             Stage stage = (Stage) backBtn.getScene().getWindow();
             stage.close();
             stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/readyproductslist.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

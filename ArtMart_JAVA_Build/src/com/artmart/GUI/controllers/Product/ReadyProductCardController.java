@@ -20,12 +20,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -76,7 +81,7 @@ public class ReadyProductCardController implements Initializable {
         Categories cat = c.getCategoriesById(p.getCategoryId());
         String catName = cat.getName();
         this.category.setText(catName);
-        this.price.setText(p.getPrice()+"");
+        this.price.setText(p.getPrice() + "");
 
         // Get the rating value using the ProductId field of the ReadyProduct object
         ReadyProductService readyProductService = new ReadyProductService();
@@ -134,8 +139,28 @@ public class ReadyProductCardController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-    
+
     @FXML
-    public void onOrder(ActionEvent event){
+    public void onOrder() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Place an Order");
+        alert.setHeaderText(null);
+
+        // Create custom layout
+        Label quantityLabel = new Label("Quantity:");
+        TextField quantityTextField = new TextField();
+        VBox vbox = new VBox(quantityLabel, quantityTextField);
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(10));
+
+        // Set custom layout to dialog pane
+        alert.getDialogPane().setContent(vbox);
+
+        alert.showAndWait().ifPresent(result -> {
+            if (result == ButtonType.OK) {
+                int quantity = Integer.parseInt(quantityTextField.getText());
+                // Perform action with quantity
+            }
+        });
     }
 }

@@ -64,11 +64,6 @@ public class ArtistReadyProductsListController implements Initializable {
     private ChoiceBox<String> profileChoiceBox;
 
     @FXML
-    private Button profileButton;
-
-    @FXML
-    private Label profileLabel;
-    @FXML
     private VBox vBoxCat;
     private List<Categories> categorieslist;
     private final CategoriesService CategoriesService = new CategoriesService();
@@ -82,6 +77,10 @@ public class ArtistReadyProductsListController implements Initializable {
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
     int UserID = session.getUserID("1");
+    @FXML
+    private Button addCategory;
+    @FXML
+    private Button refresh;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -204,6 +203,7 @@ public class ArtistReadyProductsListController implements Initializable {
         }
     }
 
+    @FXML
     public void onBack(ActionEvent event) {
         try {
             Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -221,6 +221,7 @@ public class ArtistReadyProductsListController implements Initializable {
         }
     }
 
+    @FXML
     public void onAdd(ActionEvent event) {
         try {
             Stage stage = (Stage) addProduct.getScene().getWindow();
@@ -237,6 +238,7 @@ public class ArtistReadyProductsListController implements Initializable {
         }
     }
 
+    @FXML
     public void onAddCategory(ActionEvent event) {
         try {
             Stage stage = new Stage();
@@ -321,6 +323,7 @@ public class ArtistReadyProductsListController implements Initializable {
 
     }
 
+    @FXML
     public void refreshScene(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
