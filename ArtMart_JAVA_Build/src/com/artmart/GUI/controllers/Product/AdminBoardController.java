@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.CustomProduct.EditCategoryController;
+import com.artmart.GUI.controllers.User.ProfileAdminController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
@@ -12,6 +9,7 @@ import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
 import com.artmart.models.User;
+import com.artmart.services.CategoriesService;
 import com.artmart.services.DatabaseUtilsService;
 import com.artmart.services.ReadyProductService;
 import java.io.IOException;
@@ -58,11 +56,14 @@ import javafx.stage.Stage;
 public class AdminBoardController implements Initializable {
 
     private final ReadyProductService readyProductService = new ReadyProductService();
+    private final CategoriesService categoriesService = new CategoriesService();
 
     @FXML
     private TableView<ReadyProduct> readyProductsTableView;
     @FXML
     private TableView<ProductReview> productReviewsTableView;
+    @FXML
+    private TableView<Categories> categoriesTableView;
     @FXML
     private TableColumn<ReadyProduct, String> productNameColumn;
     @FXML
@@ -85,6 +86,10 @@ public class AdminBoardController implements Initializable {
     private TableColumn<ProductReview, String> dateColumn;
     @FXML
     private TableColumn<ProductReview, Void> operationColumn2;
+    @FXML
+    private TableColumn<Categories, String> catNameColumn;
+    @FXML
+    private TableColumn<Categories, Void> operationColumn3;
 //    @FXML
 //    private TextField search;
 //    @FXML
@@ -93,6 +98,8 @@ public class AdminBoardController implements Initializable {
     private Button backBtn;
     @FXML
     private Button addProduct;
+    @FXML
+    private Button addCategory;
     @FXML
     private ChoiceBox<String> profileChoiceBox;
 
@@ -110,6 +117,8 @@ public class AdminBoardController implements Initializable {
     SignUpController profile = new SignUpController();
     private List<ReadyProduct> readyProductsList;
     private List<ProductReview> productReviewsList;
+    private List<Categories> categoriesList;
+    int UserID = session.getUserID("1");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -119,19 +128,33 @@ public class AdminBoardController implements Initializable {
 
         // Create a map of display names to IDs
         Map<String, String> profileActions = new HashMap<>();
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-
         // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
-
         // Add an event listener to handle the selected item's ID
         profileChoiceBox.setOnAction(event -> {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
-                profile.goToProfile(event, "ProfileClient");
+
+                profileChoiceBox.setValue("");
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                try {
+                    Parent root = loader.load();
+
+                    ProfileAdminController controller = loader.getController();
+                    controller.setProfile(UserID);
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
                 Node source = (Node) event.getSource();
@@ -284,17 +307,100 @@ public class AdminBoardController implements Initializable {
                 }
             }
         });
+        try {
+            this.categoriesList = this.categoriesService.getAllCategories();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ObservableList<Categories> items3 = FXCollections.observableArrayList(
+                this.categoriesList.stream().collect(Collectors.toList())
+        );
+
+        this.catNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        this.categoriesTableView.setItems(items3);
+
+        this.operationColumn3.setCellFactory(param -> new TableCell<Categories, Void>() {
+            private final Button editButton3 = new Button("Edit");
+            private final Button deleteButton3 = new Button("Delete");
+
+            {
+                editButton3.setOnAction(event -> {
+                    try {
+                        Categories cat = getTableView().getItems().get(getIndex());
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/EditCategory.fxml"));
+                        Parent root = loader.load();
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        System.out.print(e.getMessage());
+                    }
+
+                });
+
+                deleteButton3.setOnAction(event -> {
+                    Categories cat = getTableView().getItems().get(getIndex());
+                    try {
+                        int isDeleted = categoriesService.deleteCategories(cat.getCategories_ID());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        categoriesList = categoriesService.getAllCategories();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ObservableList<Categories> items = FXCollections.observableArrayList(
+                            categoriesList.stream().collect(Collectors.toList())
+                    );
+                    catNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+                    categoriesTableView.setItems(items3);
+
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    HBox buttons = new HBox(editButton3, deleteButton3);
+                    buttons.setSpacing(20);
+                    buttons.setAlignment(Pos.CENTER);
+                    setGraphic(buttons);
+                }
+            }
+        });
     }
 
     public void onAdd(ActionEvent event) {
         try {
             Stage stage = (Stage) addProduct.getScene().getWindow();
-            stage.close();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AddReadyProduct.fxml"));
 
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("Add Ready Product");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+    
+    public void onAddCat(ActionEvent event) {
+        try {
+            Stage stage = (Stage) addCategory.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AddCategory.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Add Category");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -307,7 +413,7 @@ public class AdminBoardController implements Initializable {
             Stage stage = (Stage) backBtn.getScene().getWindow();
             stage.close();
             stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

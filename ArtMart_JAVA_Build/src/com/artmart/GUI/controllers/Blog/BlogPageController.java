@@ -134,8 +134,6 @@ public class BlogPageController implements Initializable {
     public void setRatingLabel(Label ratingLabel) {
         this.ratingLabel = ratingLabel;
     }
-    
-    
 
     public void setupComments(int bc_id) {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
@@ -152,7 +150,7 @@ public class BlogPageController implements Initializable {
                     controller.setCommentContent(comment.getContent());
                     controller.setUsername(username);
                     controller.setBlogID(bc_id);
-                    ComboBox<Integer> ratingEdit=this.rating;
+                    ComboBox<Integer> ratingEdit = this.rating;
                     controller.setRating(ratingEdit);
                     controller.setController(this);
                     if (comment.getAuthor() == this.session.getUserId() || this.session.getUserRole().equals("admin")) {
@@ -212,6 +210,8 @@ public class BlogPageController implements Initializable {
     @FXML
     private void goBackToMenu(ActionEvent event) {
         try {
+            Stage stage1 = (Stage) backBtn.getScene().getWindow();
+            stage1.close();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
             Scene scene = new Scene(root);
@@ -260,7 +260,5 @@ public class BlogPageController implements Initializable {
         }
 
     }
-
-
 
 }

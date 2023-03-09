@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Order;
 
 import com.artmart.dao.CategoriesDao;
@@ -41,6 +36,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class AdminOrderDetailController implements Initializable {
 
@@ -74,27 +71,25 @@ public class AdminOrderDetailController implements Initializable {
     private ComboBox<String> shippingOptionBox;
     @FXML
     private ComboBox<String> paymentOptionBox;
-
+    @FXML
+    private Button RefundButton;
+    @FXML
+    private ImageView productImage;
+    
+    
     private Order order = new Order();
-
     private final OrderService orderService = new OrderService();
-
     private final ProductService productService = new ProductService();
     private final CategoriesDao catDao = new CategoriesDao();
-
     private OrderManagmentController orderListController;
-
     private Product product = new Product();
     private String status = "";
     private ShippingOption shippingOption = new ShippingOption();
-
     private List<ShippingOption> shippingOptionsList = new ArrayList<>();
     private List<PaymentOption> paymentOptionsList = new ArrayList<>();
     private List<OrderCurrentStatus> orderOptionsList = new ArrayList<>();
     @FXML
     private Button closeButton;
-    @FXML
-    private Button RefundButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -146,6 +141,8 @@ public class AdminOrderDetailController implements Initializable {
             this.quantityField.setText(this.order.getQuantity() + "");
             this.totalCostField.setText(this.order.getTotalCost() + "");
             this.totalCostField.setText(this.order.getTotalCost() + "");
+            Image image = new Image("file:" + this.product.getImage());
+            this.productImage.setImage(image);
         } catch (SQLException ex) {
             Logger.getLogger(AdminOrderDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -2,7 +2,6 @@ package com.artmart.GUI.controllers.Order;
 
 import com.artmart.dao.ProductDao;
 import com.artmart.models.Order;
-import com.artmart.models.PaymentOption;
 import com.artmart.models.Product;
 import com.artmart.models.User;
 import com.artmart.models.Wishlist;
@@ -36,13 +35,12 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class OrderGUIController implements Initializable {
 
     @FXML
     private Button placeOrderBtn;
-    @FXML
-    private Button cancelOrderBtn;
     @FXML
     private TableView<Product> productTableView;
     @FXML
@@ -55,12 +53,9 @@ public class OrderGUIController implements Initializable {
     private TableColumn<Product, String> weight_col;
     @FXML
     private TableColumn<Product, String> mat_col;
-    @FXML
-    private Button backButton;
 
     private final OrderService orderSerivce = new OrderService();
     private final ProductDao productDao = new ProductDao();
-
     private List<Wishlist> usersWishList = new ArrayList<>();
     private List<Product> productList = new ArrayList<>();
     private User user = new User();
@@ -81,7 +76,9 @@ public class OrderGUIController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderCheckout.fxml"));
             Parent root = loader.load();
             OrderCheckOutController controller = loader.getController();
-            controller.link(this);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setTitle("Artmart");
+            controller.link(this, calculateOrdersPrice());
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -90,51 +87,44 @@ public class OrderGUIController implements Initializable {
         }
     }
 
-    @FXML
-    private void OnOrderCancel(ActionEvent event) {
-    }
-
-    @FXML
-    private void OnBackBtnl(ActionEvent event) {
-    }
-
     private void refreshlist() {
         this.usersWishList = this.orderSerivce.getWishlistsByUserId(this.user.getUser_id());
         if (this.usersWishList.isEmpty()) {
             placeOrderBtn.setDisable(true);
-        }else {
-        this.usersWishList.forEach((wishlist) -> {
-            try {
-                this.productList.add(this.productDao.getProductById(wishlist.getProductId()));
-            } catch (SQLException ex) {
-                Logger.getLogger(OrderGUIController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        ObservableList<Product> items = FXCollections.observableArrayList(
-                this.productList.stream().collect(Collectors.toList())
-        );
-        name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-        desc_col.setCellValueFactory(new PropertyValueFactory<>("description"));
-        dimension_col.setCellValueFactory(new PropertyValueFactory<>("dimensions"));
-        weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
-        mat_col.setCellValueFactory(new PropertyValueFactory<>("material"));
-        productTableView.setItems(items);
-        this.productTableView.setRowFactory(tv -> {
-            TableRow<Product> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1 && !row.isEmpty()) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Delete From Wishlist");
-                    alert.setHeaderText("Are you sure you want to delete " + row.getItem().getName() + " from your wishlist ?");
-                    alert.setContentText("This action cannot be undone.");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
-                        this.DeletWishlist(row.getItem());
-                    }
+        } else {
+            this.usersWishList.forEach((wishlist) -> {
+                try {
+                    this.productList.add(this.productDao.getProductById(wishlist.getProductId()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrderGUIController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-            return row;
-        });
+            ObservableList<Product> items = FXCollections.observableArrayList(
+                    this.productList.stream().collect(Collectors.toList())
+            );
+
+            name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+            desc_col.setCellValueFactory(new PropertyValueFactory<>("description"));
+            dimension_col.setCellValueFactory(new PropertyValueFactory<>("dimensions"));
+            weight_col.setCellValueFactory(new PropertyValueFactory<>("weight"));
+            mat_col.setCellValueFactory(new PropertyValueFactory<>("material"));
+            productTableView.setItems(items);
+            this.productTableView.setRowFactory(tv -> {
+                TableRow<Product> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 1 && !row.isEmpty()) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Delete From Wishlist");
+                        alert.setHeaderText("Are you sure you want to delete " + row.getItem().getName() + " from your wishlist ?");
+                        alert.setContentText("This action cannot be undone.");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK) {
+                            this.DeletWishlist(row.getItem());
+                        }
+                    }
+                });
+                return row;
+            });
         }
     }
 
@@ -158,5 +148,14 @@ public class OrderGUIController implements Initializable {
     private void closeUI() {
         Stage thisPage = (Stage) placeOrderBtn.getScene().getWindow();
         thisPage.close();
+    }
+
+    private double sum = 0;
+
+    public double calculateOrdersPrice() {
+        this.usersWishList.forEach((wishList) -> {
+            sum += wishList.getPrice();
+        });
+        return sum;
     }
 }

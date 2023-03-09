@@ -21,11 +21,13 @@ public class WishlistDao implements IWishlistDao {
 
     @Override
     public int createWishlist(Wishlist wishlist) {
-        String sql = "INSERT INTO wishlist (userid, productid, date) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO wishlist (userid, productid, date,quantity,price) VALUES (?, ?, ?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, wishlist.getUserId());
             stmt.setInt(2, wishlist.getProductId());
             stmt.setDate(3, new java.sql.Date(wishlist.getDate().getTime()));
+            stmt.setInt(4, wishlist.getQuantity());
+            stmt.setDouble(5, wishlist.getPrice());
             return stmt.executeUpdate();
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -35,12 +37,12 @@ public class WishlistDao implements IWishlistDao {
 
     @Override
     public Wishlist getWishlist(int id) {
-        String sql = "SELECT * FROM wishlist WHERE id = ?";
+        String sql = "SELECT * FROM wishlist WHERE wishlist_ID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new Wishlist(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("product_id"), rs.getDate("date"));
+                    return new Wishlist(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("product_id"), rs.getDate("date"),rs.getInt("quantity"),rs.getDouble("price"));
                 } else {
                     return null;
                 }
@@ -60,7 +62,7 @@ public class WishlistDao implements IWishlistDao {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                wishlists.add(new Wishlist(rs.getInt("wishlist_ID"), rs.getInt("userid"), rs.getInt("productid"), rs.getDate("date")));
+                wishlists.add(new Wishlist(rs.getInt("wishlist_ID"), rs.getInt("userid"), rs.getInt("productid"), rs.getDate("date"),rs.getInt("quantity"),rs.getDouble("price")));
             }
         } catch (SQLException e) {
             System.err.print(e.getMessage());
@@ -85,7 +87,7 @@ public class WishlistDao implements IWishlistDao {
     }
 
     @Override
-    public boolean deleteWishlist(int productId,int UserId) {
+    public boolean deleteWishlist(int productId, int UserId) {
         String sql = "DELETE FROM wishlist WHERE UserID = ? and ProductID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, UserId);

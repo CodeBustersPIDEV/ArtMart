@@ -11,7 +11,7 @@ public interface IOrderService {
     Order getOrder(int id);
 
     List<Order> getOrders();
-    
+
     List<Order> getOrdersById(int id);
 
     boolean updateOrder(Order order);
@@ -21,12 +21,12 @@ public interface IOrderService {
     int createOrderStatus(OrderStatus orderStatus);
 
     OrderStatus getOrderStatus(int id);
-    
+
     OrderStatus getOrderStatusByOrderId(int id);
 
     List<OrderStatus> getOrderStatuses();
 
-    boolean updateOrderStatus(int id,OrderCurrentStatus status);
+    boolean updateOrderStatus(int id, OrderCurrentStatus status);
 
     boolean deleteOrderStatus(int id);
 
@@ -50,7 +50,7 @@ public interface IOrderService {
 
     boolean deleteReceipt(int id);
 
-    int createWishlist(Wishlist wishlist);
+    int addToShoppingCart(Product productToOrder, int quantity, double price);
 
     Wishlist getWishlist(int id);
 
@@ -58,7 +58,7 @@ public interface IOrderService {
 
     boolean updateWishlist(Wishlist wishlist);
 
-    boolean deleteWishlist(int productId,int UserId);
+    boolean deleteWishlist(int productId, int UserId);
 
     int createOrderRefund(OrderRefund orderRefund);
 
@@ -99,4 +99,10 @@ public interface IOrderService {
     boolean updateSalesReport(SalesReport salesReport);
 
     boolean deleteSalesReport(int id);
+
+    void goToAdminOrderBoard();
+
+    void goToCheckOut();
+
+    void goToUsersOrderList();
 }

@@ -122,27 +122,31 @@ public class BlogStatController implements Initializable {
     @FXML
     private void goBackToBlogMenu(ActionEvent event) {
         if (this.session.getUserRole().equals("admin")) {
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-        }else{
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }        
+            try {
+                Stage stage1 = (Stage) goBack.getScene().getWindow();
+                stage1.close();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
+        } else {
+            try {
+                Stage stage1 = (Stage) goBack.getScene().getWindow();
+                stage1.close();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
         }
     }
 

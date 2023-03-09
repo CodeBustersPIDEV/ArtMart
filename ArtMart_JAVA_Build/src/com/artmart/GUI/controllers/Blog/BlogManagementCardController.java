@@ -10,6 +10,7 @@ import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -48,20 +49,27 @@ public class BlogManagementCardController implements Initializable {
     private Label blog_title;
     @FXML
     private ImageView imagePreview;
-
-    private final BlogService blogService = new BlogService();
-//private BlogManagementPageController controller=new BlogManagementPageController();
-//private AddBlogController controller2=new AddBlogController();
+    @FXML
+    private Label ratingLabel;
+    @FXML
+    private Label viewsLabel;
     @FXML
     private Pane cardContainer;
     @FXML
     private Rectangle cont2;
-    boolean test4 ;
+
+    private final BlogService blogService = new BlogService();
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+
+//private BlogManagementPageController controller=new BlogManagementPageController();
+//private AddBlogController controller2=new AddBlogController();
+    boolean test4;
 
 //private Blog b = new Blog();
 //private FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -87,6 +95,14 @@ public class BlogManagementCardController implements Initializable {
         this.imagePreview.setImage(blog_image);
     }
 
+    public void setRatingLabel(String rating) {
+        this.ratingLabel.setText(rating);
+    }
+
+    public void setViewsLabel(String nb_views) {
+        this.viewsLabel.setText(nb_views + " Views");
+    }
+
     @FXML
     private void deleteBlog(ActionEvent event) {
 //        this.controller = this.loader.getController();
@@ -95,14 +111,14 @@ public class BlogManagementCardController implements Initializable {
         boolean test2 = this.blogService.deleteHasTag(b_id);
         Media m = this.blogService.getOneMediaByBlogID(b_id);
         boolean test3 = this.blogService.deleteAllComments(b_id);
-        if(m !=null){
-        File file = new File(m.getFile_path());
-        if (file.delete()) {
-            System.out.println("File deleted successfully.");
-        } else {
-            System.out.println("Failed to delete the file.");
-        }
-        test4 = this.blogService.deleteMedia(b_id);
+        if (m != null) {
+            File file = new File(m.getFile_path());
+            if (file.delete()) {
+                System.out.println("File deleted successfully.");
+            } else {
+                System.out.println("Failed to delete the file.");
+            }
+            test4 = this.blogService.deleteMedia(b_id);
         }
         if ((test1 && test2 && test3 && test4) || (test1 && test2 && test3)) {
             boolean test = this.blogService.deleteBlog(b_id);

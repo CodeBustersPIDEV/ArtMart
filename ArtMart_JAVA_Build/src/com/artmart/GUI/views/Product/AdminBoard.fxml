@@ -8,7 +8,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -87,19 +86,6 @@
                 <DropShadow color="#00000087" />
             </effect>
         </Button>
-        <TextField fx:id="search" layoutX="935.0" layoutY="80.0" prefHeight="25.0" prefWidth="124.0" promptText="Product name">
-            <font>
-                <Font name="Dubai Regular" size="15.0" />
-            </font>
-        </TextField>
-        <Button fx:id="searchBtn" alignment="CENTER" layoutX="1072.0" layoutY="80.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="75.0" text="Search" textAlignment="CENTER" textFill="#21153d">
-            <font>
-                <Font name="Dubai Bold" size="15.0" />
-            </font>
-            <effect>
-                <DropShadow color="#00000087" />
-            </effect>
-        </Button>
         <Text fill="#21153d" layoutX="1142.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
             <font>
                 <Font name="Dubai Bold" size="16.0" />
@@ -117,7 +103,7 @@
         </ChoiceBox>
         <TabPane fx:id="tabPane" layoutX="223.0" layoutY="149.0" prefHeight="621.0" prefWidth="920.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
-                <Tab text="Manage Ready products">
+                <Tab text="Manage Ready Products">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -134,7 +120,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Manage product reviews">
+                <Tab text="Manage Product Reviews">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -152,6 +138,20 @@
                         </AnchorPane>
                     </content>
                 </Tab>
+            <Tab text="Manage Categories">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="categoriesTableView" prefHeight="591.0" prefWidth="920.0">
+                           <columns>
+                              <TableColumn fx:id="catNameColumn" prefWidth="182.0" text="Name" />
+                              <TableColumn fx:id="operationColumn3" prefWidth="220.0" text="Operations" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
             </tabs>
         </TabPane>
       <Line endX="354.0" layoutX="193.0" layoutY="45.0" startX="-32.0" startY="-7.62939453125E-6" strokeLineCap="ROUND" strokeWidth="7.0">
@@ -175,6 +175,14 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </Button>
+      <Button fx:id="addCategory" alignment="CENTER" layoutX="1019.0" layoutY="80.0" mnemonicParsing="false" onAction="#onAddCat" prefHeight="29.0" prefWidth="124.0" text="Add category" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
       </Button>
     </children>
 </AnchorPane>

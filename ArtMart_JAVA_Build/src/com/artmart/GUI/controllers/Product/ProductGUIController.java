@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.User.ProfileClientController;
@@ -36,11 +31,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author mahou
- */
 public class ProductGUIController implements Initializable {
 
     ReadyProductDao cc = new ReadyProductDao();
@@ -63,18 +53,15 @@ public class ProductGUIController implements Initializable {
     private ChoiceBox<String> profileChoiceBox;
 
     @FXML
-    private Button profileButton;
-
-    @FXML
-    private Label profileLabel;
-    @FXML
     private Label username;
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
-int UserID = session.getUserID("1");
+    int UserID = session.getUserID("1");
+    @FXML
+    private Button goToBlogs;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -102,19 +89,19 @@ int UserID = session.getUserID("1");
         }
         // Create a map of display names to IDs
         Map<String, String> profileActions = new HashMap<>();
+
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-
         // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
-
         // Add an event listener to handle the selected item's ID
         profileChoiceBox.setOnAction(event -> {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
-            
+                profileChoiceBox.setValue("");
                 Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
                 try {
@@ -130,21 +117,21 @@ int UserID = session.getUserID("1");
                     Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if ("logout".equals(selectedId)) {
-               session.logOut("1");
-                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
-                    stage.close();
-                    try {
+                session.logOut("1");
+                Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
+                stage.close();
+                try {
 
-                        stage = new Stage();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setTitle("User Managment");
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
+                    stage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setTitle("User Managment");
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
+                }
 
             }
         });
@@ -176,21 +163,35 @@ int UserID = session.getUserID("1");
         }
     }
 
-    public void onBack(ActionEvent event) {
+    @FXML
+    private void goToBlogs(ActionEvent event) {
         try {
-            Stage stage = (Stage) backBtn.getScene().getWindow();
-            stage.close();
-            stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
             Parent root = loader.load();
-
             Scene scene = new Scene(root);
             stage.setResizable(false);
-
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+
+    }
+    private void custom(ActionEvent event) throws IOException {
+           try {
+           Stage stage = (Stage) imagePreview4.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
+                Parent root = FXMLLoader
+                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Custom Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
     }
 }

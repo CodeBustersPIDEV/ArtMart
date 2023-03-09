@@ -117,6 +117,7 @@ public class EditReadyProductController implements Initializable {
         this.username.setText(this.connectedUser.getName());
         populateComboBox();
         Map<String, String> profileActions = new HashMap<>();
+         profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
         // Populate the choice box with display names
@@ -127,56 +128,57 @@ public class EditReadyProductController implements Initializable {
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
+                profileChoiceBox.setValue("");
 
-               User u = user_ser.getUser(UserID);
-                    if (u.getRole().equals("admin")) {
-                        Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
-                        try {
-                            Parent root = loader.load();
+                User u = user_ser.getUser(UserID);
+                if (u.getRole().equals("admin")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                    try {
+                        Parent root = loader.load();
 
-                            ProfileAdminController controller = loader.getController();
-                            controller.setProfile(UserID);
-                            Scene scene = new Scene(root);
-                            stage.setResizable(false);
-                            stage.setScene(scene);
-                            stage.show();
-                        } catch (IOException ex) {
-                            Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else if (u.getRole().equals("artist")) {
-                        Stage stage = new Stage();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
-                        try {
-                            Parent root = loader.load();
-
-                            ProfileArtistController controller = loader.getController();
-                            controller.setProfile(UserID);
-                            Scene scene = new Scene(root);
-                            stage.setResizable(false);
-                            stage.setScene(scene);
-                            stage.show();
-                        } catch (IOException ex) {
-                            Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        ProfileAdminController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                } else if (u.getRole().equals("artist")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileArtistController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
 
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
-                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
-                    stage.close();
-                    try {
+                Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
+                stage.close();
+                try {
 
-                        stage = new Stage();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setTitle("User Managment");
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
+                    stage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setTitle("User Managment");
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
+                }
 
             }
         });
@@ -198,11 +200,13 @@ public class EditReadyProductController implements Initializable {
     public void setUpData(String pid) {
         try {
             this.prodID.setText(pid);
+            System.out.println(pid);
             this.userID.setText(this.connectedUser.getName());
             this.id = Integer.parseInt(this.prodID.getText());
             ReadyProductService readyProductService = new ReadyProductService();
 
             int productId = readyProductService.getReadyProductId(id);
+            System.out.println(productId);
             if (productId == 0) {
                 throw new SQLException("Failed to get product ID from database");
             }

@@ -52,6 +52,10 @@ public class AdminBlogCardController implements Initializable {
     private ImageView imagePreview;
     @FXML
     private Label blog_title;
+    @FXML
+    private Label ratingLabel;
+    @FXML
+    private Label viewsLabel;
     private Image image;
     private final BlogService blogService = new BlogService();
     boolean test4;
@@ -105,6 +109,14 @@ public class AdminBlogCardController implements Initializable {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public void setRatingLabel(String rating) {
+        this.ratingLabel.setText(rating);
+    }
+
+    public void setViewsLabel(String nb_views) {
+        this.viewsLabel.setText(nb_views + " Views");
     }
 
     @FXML

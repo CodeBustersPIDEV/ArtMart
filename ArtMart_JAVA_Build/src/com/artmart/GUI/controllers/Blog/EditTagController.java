@@ -77,8 +77,10 @@ public class EditTagController implements Initializable {
     @FXML
     private void goBackToMenu(ActionEvent event) {
         try {
+            Stage stage1 = (Stage) goBack.getScene().getWindow();
+            stage1.close();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCategoryManagement.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/TagManagement.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setScene(scene);

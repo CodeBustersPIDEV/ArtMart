@@ -118,6 +118,7 @@ public class BlogGUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
         UserDao userService = new UserDao();
         List<Blog> blogList = new ArrayList<>();
         blogList = this.blogService.getAllBlogs();
@@ -153,19 +154,21 @@ public class BlogGUIController implements Initializable {
         });
 
         Map<String, String> profileActions = new HashMap<>();
+       
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-
         // Populate the choice box with display names
         userOptions.getItems().addAll(profileActions.keySet());
-
         // Add an event listener to handle the selected item's ID
         userOptions.setOnAction(event -> {
             String selectedItem = userOptions.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
-                if (this.session.getUserRole().equals("admin")) {
+
+               userOptions.setValue("");
+               if (this.session.getUserRole().equals("admin")) {
                     Stage stage = new Stage();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
                     try {
@@ -213,20 +216,20 @@ public class BlogGUIController implements Initializable {
                 }
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
-                    Stage stage = (Stage) userOptions.getScene().getWindow();
-                    stage.close();
-                    try {
+                Stage stage = (Stage) userOptions.getScene().getWindow();
+                stage.close();
+                try {
 
-                        stage = new Stage();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setTitle("User Managment");
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
+                    stage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setTitle("User Managment");
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
+                }
             }
         });
     }
@@ -235,7 +238,8 @@ public class BlogGUIController implements Initializable {
     private void goBackToBlogMenu(ActionEvent event) {
         if (this.session.getUserRole().equals("admin")) {
             try {
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Stage stage = (Stage) backToBlogMenu.getScene().getWindow();
+                stage.close();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);

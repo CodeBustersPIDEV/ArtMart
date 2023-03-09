@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.User.ProfileAdminController;
@@ -40,11 +35,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author rymae
- */
 public class ArtistReadyProductsListController implements Initializable {
 
     private final ReadyProductService readyProductService = new ReadyProductService();
@@ -81,6 +71,9 @@ public class ArtistReadyProductsListController implements Initializable {
     private Button addCategory;
     @FXML
     private Button refresh;
+    
+    @FXML
+    private Button goToBlogs;
     @FXML
     private Button btnGoToEvents;
 
@@ -92,22 +85,17 @@ public class ArtistReadyProductsListController implements Initializable {
             this.username.setText(this.connectedUser.getName());
             this.displayList();
             this.makeList();
-
-            // Create a map of display names to IDs
             Map<String, String> profileActions = new HashMap<>();
+            profileActions.put("", "");
             profileActions.put("Logout", "logout");
             profileActions.put("Profile", "profile");
-
-            // Populate the choice box with display names
             profileChoiceBox.getItems().addAll(profileActions.keySet());
-
-            // Add an event listener to handle the selected item's ID
             profileChoiceBox.setOnAction(event -> {
                 String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
                 String selectedId = profileActions.get(selectedItem);
-                // Handle the action based on the selected ID
-                if (selectedItem.equals("Profile")) {
+                if ("profile".equals(selectedId)) {
 
+                    profileChoiceBox.setValue("");
                     Stage stage = new Stage();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
                     try {
@@ -126,7 +114,6 @@ public class ArtistReadyProductsListController implements Initializable {
                     Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
                     stage.close();
                     try {
-
                         stage = new Stage();
                         Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
                         Scene scene = new Scene(root);
@@ -149,11 +136,9 @@ public class ArtistReadyProductsListController implements Initializable {
         this.vBox.getChildren().clear();
         this.readyProductslist = this.readyProductService.getAllReadyProducts(this.connectedUser.getUser_id());
         if (this.readyProductslist.isEmpty()) {
-            // display a message if the list is empty
             Label emptyLabel = new Label("No products found.");
             this.vBox.getChildren().add(emptyLabel);
         } else {
-            // add new items to the vBox
             this.readyProductslist.forEach(rp -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductCard.fxml"));
@@ -175,11 +160,9 @@ public class ArtistReadyProductsListController implements Initializable {
         this.vBoxCat.getChildren().clear();
         this.categorieslist = this.CategoriesService.getAllCategories();
         if (this.categorieslist.isEmpty()) {
-            // display a message if the list is empty
             Label emptyLabel = new Label("No categories found.");
             this.vBox.getChildren().add(emptyLabel);
         } else {
-            // add new items to the vBox
             this.categorieslist.forEach(category -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/CategoryCard.fxml"));
@@ -187,7 +170,6 @@ public class ArtistReadyProductsListController implements Initializable {
                     CategoryCardController controller = loader.getController();
                     controller.setCategories(category, this);
                     categoryCard.setId("" + category.getCategories_ID());
-                    // Set the event handler for the category label
                     Label categoryLabel = controller.getCategoryLabel();
                     categoryLabel.setOnMouseClicked(event -> {
                         String categoryName = controller.getCategoryName();
@@ -211,7 +193,6 @@ public class ArtistReadyProductsListController implements Initializable {
             Stage stage = (Stage) addProduct.getScene().getWindow();
             stage.close();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AddReadyProduct.fxml"));
-
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("Add Ready Product");
@@ -278,34 +259,7 @@ public class ArtistReadyProductsListController implements Initializable {
         });
     }
 
-    public void goToProfile(String profile) {
-        try {
-
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/" + profile + ".fxml"));
-            Parent root = loader.load();
-            if (profile.equals("ProfileArtist")) {
-                ProfileArtistController controller = loader.getController();
-                controller.setProfile(UserID);
-
-            } else if (profile.equals("ProfileAdmin")) {
-                ProfileAdminController controller = loader.getController();
-                controller.setProfile(UserID);
-
-            } else if (profile.equals("ProfileClient")) {
-                ProfileClientController controller = loader.getController();
-                controller.setProfile(UserID);
-
-            }
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-
-    }
+   
 
     @FXML
     public void refreshScene(ActionEvent event) {
@@ -325,7 +279,16 @@ public class ArtistReadyProductsListController implements Initializable {
     }
 
     @FXML
-    private void onBack(ActionEvent event) {
+    private void goToBlogs(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+        } catch (IOException ex) {
+            Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -342,6 +305,23 @@ public class ArtistReadyProductsListController implements Initializable {
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
-        }                
+        }
+
     }
-}
+    private void custom(ActionEvent event) {
+    try {
+        Stage stage = (Stage) searchBtn.getScene().getWindow();
+        stage.close();
+        stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCustom.fxml"));
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Custom Product Managment");
+        stage.setScene(scene);
+        stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+}    
+

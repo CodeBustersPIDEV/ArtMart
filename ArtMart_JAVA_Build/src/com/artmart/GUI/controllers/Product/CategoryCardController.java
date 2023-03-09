@@ -5,6 +5,7 @@
  */
 package com.artmart.GUI.controllers.Product;
 
+import com.artmart.GUI.controllers.CustomProduct.CustomproductslistController;
 import com.artmart.models.Categories;
 import com.artmart.services.CategoriesService;
 import java.net.URL;
@@ -28,6 +29,7 @@ public class CategoryCardController implements Initializable {
     private Categories categoryIns;
 
     private ArtistReadyProductsListController artistReadyProductsListController;
+        private CustomproductslistController CustomproductslistController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -39,7 +41,11 @@ public class CategoryCardController implements Initializable {
         this.artistReadyProductsListController = artistReadyProductsListController;
         this.category.setText(categoryIns.getName());
     }
-
+   public void setCategories1(Categories cat, CustomproductslistController CustomproductslistController) {
+        this.categoryIns = cat;
+        this.CustomproductslistController = CustomproductslistController;
+        this.category.setText(categoryIns.getName());
+    }
     public Label getCategoryLabel() {
         return category;
     }

@@ -109,6 +109,8 @@ public class AddReviewController implements Initializable {
             this.username.setText(this.connectedUser.getName());
             // Create a map of display names to IDs
             Map<String, String> profileActions = new HashMap<>();
+
+            profileActions.put("", "");
             profileActions.put("Logout", "logout");
             profileActions.put("Profile", "profile");
             // Populate the choice box with display names
@@ -119,7 +121,8 @@ public class AddReviewController implements Initializable {
                 String selectedId = profileActions.get(selectedItem);
                 // Handle the action based on the selected ID
                 if ("profile".equals(selectedId)) {
-                  
+
+                    profileChoiceBox.setValue("");
                     Stage stage = new Stage();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
                     try {
@@ -135,7 +138,7 @@ public class AddReviewController implements Initializable {
                         Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else if ("logout".equals(selectedId)) {
-                     session.logOut("1");
+                    session.logOut("1");
                     Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
                     stage.close();
                     try {
@@ -281,7 +284,7 @@ public class AddReviewController implements Initializable {
             Stage stage = (Stage) backBtn.getScene().getWindow();
             stage.close();
             stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/readyproductslist.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

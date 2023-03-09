@@ -43,7 +43,7 @@
          <effect>
             <ImageInput>
                <source>
-                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/back-arrow.png" />
+                  <Image url="@../../../assets/BlogAssets/back-arrow.png" />
                </source>
             </ImageInput>
          </effect></Button>
@@ -62,7 +62,7 @@
          <effect>
             <ImageInput>
                <source>
-                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/plus-square.png" />
+                  <Image url="@../../../assets/BlogAssets/plus-square.png" />
                </source>
             </ImageInput>
          </effect>

@@ -148,7 +148,7 @@
             <Font name="Dubai Light" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="order" alignment="CENTER" layoutX="920.0" layoutY="155.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" text="Add to wishlist" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="order" alignment="CENTER" layoutX="920.0" layoutY="155.0" mnemonicParsing="false" onAction="#onOrder" prefHeight="38.0" prefWidth="128.0" text="Add to wishlist" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>

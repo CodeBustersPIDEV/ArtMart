@@ -13,7 +13,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="742.0" style="-fx-background-color: #E9E9E9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.CustomProduct.EditCategoryController">
+
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="742.0" style="-fx-background-color: #E9E9E9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.EditCategoryController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9e9e9" height="450.0" stroke="BLACK" strokeType="INSIDE" width="742.0" />
       <Circle fill="#fa7a1e00" layoutX="679.0" layoutY="61.0" radius="39.0" strokeType="OUTSIDE" strokeWidth="7.0">

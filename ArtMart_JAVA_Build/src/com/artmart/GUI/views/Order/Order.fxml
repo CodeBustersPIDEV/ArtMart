@@ -5,23 +5,45 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="649.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.OrderGUIController">
+<AnchorPane id="AnchorPane" prefHeight="333.0" prefWidth="524.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.OrderGUIController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/ordergui.css" />
     </stylesheets>
     <children>
-      <Button fx:id="placeOrderBtn" layoutX="529.0" layoutY="377.0" mnemonicParsing="false" onAction="#OnOrderConfirm" prefHeight="25.0" prefWidth="79.0" text="Checkout" />
-      <TableView fx:id="productTableView" layoutX="14.0" layoutY="59.0" prefHeight="300.0" prefWidth="594.0">
-        <columns>
-          <TableColumn fx:id="name_col" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="desc_col" prefWidth="228.0" text="Description" />
-            <TableColumn fx:id="dimension_col" minWidth="7.0" prefWidth="97.0" text="Dimensions" />
-            <TableColumn fx:id="weight_col" prefWidth="100.0" text="Weight" />
-            <TableColumn fx:id="mat_col" prefWidth="93.0" text="Material" />
-        </columns>
-      </TableView>
-      <Text layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Shoping Cart" />
-      </children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="413.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="649.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Rectangle>
+        <Button fx:id="placeOrderBtn" layoutX="529.0" layoutY="377.0" mnemonicParsing="false" onAction="#OnOrderConfirm" prefHeight="25.0" prefWidth="79.0" text="Checkout">
+        </Button>
+        <TableView fx:id="productTableView" layoutX="14.0" layoutY="59.0" prefHeight="300.0" prefWidth="594.0">
+            <columns>
+                <TableColumn fx:id="name_col" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="desc_col" prefWidth="251.0" text="Description" />
+                <TableColumn fx:id="dimension_col" minWidth="7.0" prefWidth="93.0" text="Dimensions" />
+                <TableColumn fx:id="weight_col" prefWidth="77.0" text="Weight" />
+                <TableColumn fx:id="mat_col" prefWidth="97.0" text="Material" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <Text layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Shoping Cart">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Text>
+    </children>
 </AnchorPane>

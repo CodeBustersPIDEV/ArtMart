@@ -17,13 +17,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class OrderCardController implements Initializable {
 
     private final ProductService productDao = new ProductService();
     private final OrderService orderService = new OrderService();
     private OrderListController orderListController;
-    
+
     @FXML
     private Text productNameValue;
     @FXML
@@ -44,7 +45,7 @@ public class OrderCardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void setupData(Order order,OrderListController orderListController) {
+    public void setupData(Order order, OrderListController orderListController) {
         this.order = order;
         this.orderListController = orderListController;
         try {
@@ -65,8 +66,11 @@ public class OrderCardController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderDetail.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Artmart");
+        stage.setResizable(false);
         OrderDetailController detailController = loader.getController();
-        detailController.setupData(this.order, this.product, this.status,this.orderListController);
+        detailController.setupData(this.order, this.product, this.status, this.orderListController);
         stage.setScene(scene);
         stage.show();
     }
