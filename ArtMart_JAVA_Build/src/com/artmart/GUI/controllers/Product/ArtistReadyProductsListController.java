@@ -64,11 +64,6 @@ public class ArtistReadyProductsListController implements Initializable {
     private ChoiceBox<String> profileChoiceBox;
 
     @FXML
-    private Button profileButton;
-
-    @FXML
-    private Label profileLabel;
-    @FXML
     private VBox vBoxCat;
     private List<Categories> categorieslist;
     private final CategoriesService CategoriesService = new CategoriesService();
@@ -82,6 +77,12 @@ public class ArtistReadyProductsListController implements Initializable {
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
     int UserID = session.getUserID("1");
+    @FXML
+    private Button addCategory;
+    @FXML
+    private Button refresh;
+    @FXML
+    private Button btnGoToEvents;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -204,23 +205,7 @@ public class ArtistReadyProductsListController implements Initializable {
         }
     }
 
-    public void onBack(ActionEvent event) {
-        try {
-            Stage stage = (Stage) backBtn.getScene().getWindow();
-            stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
+    @FXML
     public void onAdd(ActionEvent event) {
         try {
             Stage stage = (Stage) addProduct.getScene().getWindow();
@@ -237,6 +222,7 @@ public class ArtistReadyProductsListController implements Initializable {
         }
     }
 
+    @FXML
     public void onAddCategory(ActionEvent event) {
         try {
             Stage stage = new Stage();
@@ -321,6 +307,7 @@ public class ArtistReadyProductsListController implements Initializable {
 
     }
 
+    @FXML
     public void refreshScene(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -335,5 +322,26 @@ public class ArtistReadyProductsListController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void onBack(ActionEvent event) {
+    }
+
+    @FXML
+    private void onGoToEvents(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnGoToEvents.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }                
     }
 }
