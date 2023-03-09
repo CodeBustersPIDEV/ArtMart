@@ -5,7 +5,7 @@
 package com.artmart.GUI.controllers.Event.User.Event;
 
 import com.artmart.GUI.controllers.Event.Artist.Event.ListEventController;
-import com.artmart.GUI.controllers.Event.User.Feedback.AddFeedbackController;
+import com.artmart.GUI.controllers.Event.User.Feedback.UserAddFeedbackController;
 import com.artmart.models.Event;
 import com.artmart.models.Participation;
 import com.artmart.models.Session;
@@ -204,7 +204,7 @@ public class UserViewEventController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/add_feedback.fxml"));
             Parent root = loader.load();
             
-            AddFeedbackController controller = loader.getController();
+            UserAddFeedbackController controller = loader.getController();
             controller.setUpEventData(this.event);
             
             Scene scene = new Scene(root);

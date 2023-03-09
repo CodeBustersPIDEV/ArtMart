@@ -5,6 +5,8 @@
 package com.artmart.GUI.controllers.Event.User.Event;
 
 import com.artmart.GUI.controllers.Event.Artist.Event.ListEventController;
+import com.artmart.GUI.controllers.Event.User.Feedback.UserCardFeedbackController;
+import com.artmart.GUI.controllers.Event.User.Feedback.UserListFeedbackController;
 import com.artmart.models.Event;
 import com.artmart.models.Participation;
 import com.artmart.models.Session;
@@ -89,10 +91,32 @@ public class UserCardEventController implements Initializable {
             UserViewEventController controller = loader.getController();
             controller.setUpEventData(this.event);
             
-            System.out.println("userID " + this.userID + " eventID " + this.event.getEventID());
+            System.out.println("connected userID " + this.userID + " eventID " + this.event.getEventID());
             System.out.println("participation = " + this.ps.getParticipationByID(this.userID, this.event.getEventID()));
             
             controller.setUpParticipationData(this.ps.getParticipationByID(this.userID, this.event.getEventID()));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }        
+    }
+
+    @FXML
+    private void onFeedback(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/list_feedback.fxml"));
+            Parent root = loader.load();
+            UserListFeedbackController controller = loader.getController();
+            controller.setUpEventData(this.event);
+            
+            System.out.println("from user card "+this.event); 
+            System.out.println("connected userID " + this.userID + " eventID " + this.event.getEventID());
+  
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");

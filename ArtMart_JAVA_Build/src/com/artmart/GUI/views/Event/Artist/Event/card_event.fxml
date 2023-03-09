@@ -7,68 +7,68 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="161.0" prefWidth="629.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.Event.CardEventController">
+<AnchorPane id="AnchorPane" prefHeight="256.0" prefWidth="1191.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.Event.CardEventController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/event/card_event.css" />
     </stylesheets>
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ddff" height="250.0" stroke="#ff5946" strokeType="INSIDE" width="1185.0" />
-      <Button fx:id="btnViewEvent" layoutX="967.0" layoutY="213.0" mnemonicParsing="false" onAction="#onBtnViewEvent" prefHeight="27.0" prefWidth="57.0" text="Details" textAlignment="CENTER" textFill="#18b878">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ddff" height="250.0" layoutX="3.0" layoutY="3.0" stroke="#ff5946" strokeType="INSIDE" width="1185.0" />
+      <Button fx:id="btnViewEvent" layoutX="970.0" layoutY="216.0" mnemonicParsing="false" onAction="#onBtnViewEvent" prefHeight="27.0" prefWidth="57.0" text="Details" textAlignment="CENTER" textFill="#18b878">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Text fx:id="txtEventTitle" fill="#5d53a8" layoutX="550.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="156.00000321865082">
+      <Text fx:id="txtEventTitle" fill="#5d53a8" layoutX="553.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="156.00000321865082">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font></Text>
-      <Text fx:id="txtEventLocation" fill="#5d53a8" layoutX="550.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+      <Text fx:id="txtEventLocation" fill="#5d53a8" layoutX="553.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font></Text>
-      <Text fx:id="txtEventStartDate" fill="#5d53a8" layoutX="550.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
+      <Text fx:id="txtEventStartDate" fill="#5d53a8" layoutX="553.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font></Text>
-      <Text fx:id="txtEventEndDate" fill="#5d53a8" layoutX="733.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
+      <Text fx:id="txtEventEndDate" fill="#5d53a8" layoutX="736.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Button fx:id="btnDeleteEvent" layoutX="1110.0" layoutY="213.0" mnemonicParsing="false" onAction="#onBtnDeleteEvent" prefHeight="27.0" prefWidth="57.0" text="Delete" textFill="#ff0400">
+      <Button fx:id="btnDeleteEvent" layoutX="1113.0" layoutY="216.0" mnemonicParsing="false" onAction="#onBtnDeleteEvent" prefHeight="27.0" prefWidth="57.0" text="Delete" textFill="#ff0400">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Text fill="#5d53a8" layoutX="375.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date ">
+      <Text fill="#5d53a8" layoutX="378.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date ">
          <font>
             <Font name="Brush Script MT Italic" size="40.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="375.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title " wrappingWidth="156.00000321865082">
+      <Text fill="#5d53a8" layoutX="378.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title " wrappingWidth="156.00000321865082">
          <font>
             <Font name="Brush Script MT Italic" size="40.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="375.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location ">
+      <Text fill="#5d53a8" layoutX="378.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location ">
          <font>
             <Font name="Brush Script MT Italic" size="40.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="703.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;">
+      <Text fill="#5d53a8" layoutX="706.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Button fx:id="btnEditEvent" layoutX="1039.0" layoutY="213.0" mnemonicParsing="false" onAction="#onBtnEditEvent" prefHeight="27.0" prefWidth="57.0" text="Edit" textAlignment="CENTER" textFill="#a19116">
+      <Button fx:id="btnEditEvent" layoutX="1042.0" layoutY="216.0" mnemonicParsing="false" onAction="#onBtnEditEvent" prefHeight="27.0" prefWidth="57.0" text="Edit" textAlignment="CENTER" textFill="#a19116">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Text fill="#5d53a8" layoutX="375.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+      <Text fill="#5d53a8" layoutX="378.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
          <font>
             <Font name="Brush Script MT Italic" size="40.0" />
          </font>
       </Text>
-      <Text fx:id="txtEventStatus" fill="#5d53a8" layoutX="550.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+      <Text fx:id="txtEventStatus" fill="#5d53a8" layoutX="553.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>

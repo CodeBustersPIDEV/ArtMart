@@ -58,7 +58,7 @@ public class CardActivityController implements Initializable {
         // TODO
     }    
 
-        public void setUpActivityData(Activity activity, ListActivityController controller){
+    public void setUpActivityData(Activity activity, ListActivityController controller){
         this.activity = activity;
         this.listActivityController = controller;
         this.txtActivityTitle.setText(activity.getTitle());

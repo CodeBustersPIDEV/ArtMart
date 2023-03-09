@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="164.0" prefWidth="634.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Event.Artist.Feedback.CardFeedbackController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ddff" height="160.0" layoutX="2.0" layoutY="2.0" stroke="#ff5946" strokeType="INSIDE" width="630.0" />
+      <Text fx:id="txtRating" fill="#5d53a8" layoutX="142.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R" wrappingWidth="20.000003218650818">
+         <font>
+            <Font name="Brush Script MT Italic" size="25.0" />
+         </font>
+      </Text>
+      <Text fill="#5d53a8" layoutX="37.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" wrappingWidth="75.91893994808197">
+         <font>
+            <Font name="Brush Script MT Italic" size="30.0" />
+         </font>
+      </Text>
+      <Text fill="#5d53a8" layoutX="37.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comment">
+         <font>
+            <Font name="Brush Script MT Italic" size="30.0" />
+         </font>
+      </Text>
+      <Text fill="#5d53a8" layoutX="13.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="on">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#5d53a8" layoutX="167.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/ 5">
+         <font>
+            <Font name="Brush Script MT Italic" size="25.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="txtAreaComment" layoutX="142.0" layoutY="93.0" prefHeight="61.0" prefWidth="465.0" />
+      <Text fill="#5d53a8" layoutX="13.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="posted by">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtUserName" fill="#5d53a8" layoutX="73.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtDatePosted" fill="#5d53a8" layoutX="33.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dd/mm/yyy">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

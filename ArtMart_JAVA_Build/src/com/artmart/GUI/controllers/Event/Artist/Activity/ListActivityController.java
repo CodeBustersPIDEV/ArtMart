@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.artmart.GUI.controllers.Event.Artist.Activity;
 
-import com.artmart.GUI.controllers.Event.Artist.Event.CardEventController;
 import com.artmart.models.Activity;
 import com.artmart.models.Event;
 import com.artmart.models.Session;
@@ -31,11 +26,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class ListActivityController implements Initializable {
     
     private final EventService es = new EventService();
@@ -45,7 +35,6 @@ public class ListActivityController implements Initializable {
     private final int userID = session.getCurrentUserId(session.getSessionId());
     
     private List<Activity> activityList;
-    private List<Event> eventList;
     
     @FXML
     private VBox vBox;
@@ -56,10 +45,6 @@ public class ListActivityController implements Initializable {
     @FXML
     private ScrollPane scrollPaneActivityList;
 
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try{
@@ -67,7 +52,7 @@ public class ListActivityController implements Initializable {
         }catch(SQLException e){}
     }    
 
-        public void makeList() throws SQLException {
+    public void makeList() throws SQLException {
         this.activityList = this.as.getAllActivitiesByID(userID);
 
         this.vBox.getChildren().clear();
