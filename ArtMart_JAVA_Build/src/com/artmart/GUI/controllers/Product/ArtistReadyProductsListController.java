@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.User.ProfileAdminController;
@@ -40,11 +35,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author rymae
- */
 public class ArtistReadyProductsListController implements Initializable {
 
     private final ReadyProductService readyProductService = new ReadyProductService();
@@ -81,6 +71,7 @@ public class ArtistReadyProductsListController implements Initializable {
     private Button addCategory;
     @FXML
     private Button refresh;
+    
     @FXML
     private Button goToBlogs;
 

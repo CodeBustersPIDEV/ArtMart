@@ -123,4 +123,23 @@ public class ArtistReadyProductCardController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
+    
+    @FXML
+    public void onReviews(ActionEvent event) throws SQLException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ReviewsList.fxml"));
+            Parent root = loader.load();
+            ReviewsListController contr = loader.getController();
+            contr.setProductId(this.p.getReadyProductId());
+            contr.setReadyProduct(this.p);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Reviews List");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
 }

@@ -17,15 +17,16 @@ import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
 import com.artmart.models.User;
+import com.artmart.services.OrderService;
 import com.artmart.services.ReadyProductService;
 import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,13 +34,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,6 +57,7 @@ import javafx.stage.Stage;
 public class ReviewsListController implements Initializable {
 
     private final ReadyProductService readyProductService = new ReadyProductService();
+    private final OrderService orderService = new OrderService();
 
     @FXML
     private VBox vBox;
@@ -80,6 +83,8 @@ public class ReviewsListController implements Initializable {
     @FXML
     private Button addReview;
     @FXML
+    private Button order;
+    @FXML
     private ImageView imagePreview;
     @FXML
     private ChoiceBox<String> profileChoiceBox;
@@ -97,6 +102,14 @@ public class ReviewsListController implements Initializable {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
         this.connectedUser = this.userService.getUser(this.session.getUserId());
         this.connUsername.setText(this.connectedUser.getName());
+
+        String role = this.connectedUser.getRole();
+        System.out.println(role);
+        if (role.equals("artist")) {
+            addReview.setVisible(false);
+            order.setVisible(false);
+        }
+
         Map<String, String> profileActions = new HashMap<>();
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
@@ -158,20 +171,20 @@ public class ReviewsListController implements Initializable {
                 }
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
-                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
-                    stage.close();
-                    try {
+                Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
+                stage.close();
+                try {
 
-                        stage = new Stage();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setTitle("User Managment");
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
+                    stage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setTitle("User Managment");
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
+                }
 
             }
         });
@@ -224,6 +237,7 @@ public class ReviewsListController implements Initializable {
         });
     }
 
+    @FXML
     public void onAdd(ActionEvent event) {
         try {
             Stage stage = (Stage) addReview.getScene().getWindow();
@@ -258,4 +272,29 @@ public class ReviewsListController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
+
+    @FXML
+    public void onOrder() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Place an Order");
+        alert.setHeaderText(null);
+
+        // Create custom layout
+        Label quantityLabel = new Label("Quantity:");
+        TextField quantityTextField = new TextField();
+        VBox vbox = new VBox(quantityLabel, quantityTextField);
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(10));
+
+        // Set custom layout to dialog pane
+        alert.getDialogPane().setContent(vbox);
+
+        alert.showAndWait().ifPresent(result -> {
+            if (result == ButtonType.OK) {
+                int quantity = Integer.parseInt(quantityTextField.getText());
+                // Perform action with quantity
+            }
+        });
+    }
+
 }

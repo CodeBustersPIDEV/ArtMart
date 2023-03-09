@@ -63,11 +63,6 @@ public class ReadyproductsListController implements Initializable {
     private ChoiceBox<String> profileChoiceBox;
 
     @FXML
-    private Button profileButton;
-
-    @FXML
-    private Label profileLabel;
-    @FXML
     private Button backBtn;
     private List<ReadyProduct> readyProductslist;
 
@@ -77,6 +72,8 @@ public class ReadyproductsListController implements Initializable {
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
     int UserID = session.getUserID("1");
+    @FXML
+    private Button refresh;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

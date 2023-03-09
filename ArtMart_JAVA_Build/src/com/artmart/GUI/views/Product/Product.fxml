@@ -80,7 +80,7 @@
                 <DropShadow color="#00000087" />
             </effect>
         </Button>
-        <Text fill="#21153d" layoutX="499.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested in viewing the available products ?" textAlignment="CENTER">
+        <Text fill="#21153d" layoutX="551.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested in buying some art ?" textAlignment="CENTER">
             <font>
                 <Font name="Dubai Bold" size="20.0" />
             </font>
@@ -118,7 +118,7 @@
                 </ImageView>
             </children>
         </GridPane>
-        <Button fx:id="consultAllReadyProducts" alignment="CENTER" layoutX="614.0" layoutY="648.0" mnemonicParsing="false" onAction="#consultAllReadyProducts" prefHeight="29.0" prefWidth="138.0" text="List all products" textAlignment="CENTER" textFill="#21153d">
+        <Button fx:id="consultAllReadyProducts" alignment="CENTER" layoutX="614.0" layoutY="648.0" mnemonicParsing="false" onAction="#consultAllReadyProducts" prefHeight="29.0" prefWidth="138.0" text="Explore" textAlignment="CENTER" textFill="#21153d">
             <font>
                 <Font name="Dubai Bold" size="15.0" />
             </font>
