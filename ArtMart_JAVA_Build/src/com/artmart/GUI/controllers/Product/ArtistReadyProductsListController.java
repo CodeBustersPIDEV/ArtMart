@@ -286,6 +286,8 @@ public class ArtistReadyProductsListController implements Initializable {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setResizable(false);
+        } catch (IOException ex) {
+            Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
