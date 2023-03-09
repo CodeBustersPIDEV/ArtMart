@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 
 public class MainViewController implements Initializable {
 
@@ -40,6 +41,8 @@ public class MainViewController implements Initializable {
     private Button blogBtn;
     @FXML
     private ChoiceBox<String> profileChoiceBox;
+    @FXML
+    private Label username;
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     private User connectedUser = new User();
@@ -50,6 +53,8 @@ public class MainViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
         this.connectedUser = this.userService.getUser(this.session.getUserId());
+        connectedUser=user_ser.getUser(UserID);
+        username.setText(connectedUser.getUsername());
         Map<String, String> profileActions = new HashMap<>();        
         
         profileActions.put("", "");

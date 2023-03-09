@@ -139,49 +139,49 @@ public class SignUpController implements Initializable {
                         alert.setContentText("Oops!!Can not create account");
                         alert.showAndWait();
                     }
-                }
 
-                nameField.setText("");
-                emailField.setText("");
-                usernameField.setText("");
-                pwdField.setText("");
-                cpwdField.setText("");
-                Phone_nbrField.setText("");
-                birthdayField.setValue(date);
-                String token = UUID.randomUUID().toString();
+                    nameField.setText("");
+                    emailField.setText("");
+                    usernameField.setText("");
+                    pwdField.setText("");
+                    cpwdField.setText("");
+                    Phone_nbrField.setText("");
+                    birthdayField.setValue(date);
+                    String token = UUID.randomUUID().toString();
 
-                user_ser.StoreToken(token, email);
-                System.out.println("test begin");
-                try {
-                    user_ser.sendEmail(email, "Account Verification", user_ser.generateVerificationEmail(username, token));
-                } catch (MessagingException ex) {
-                    Logger.getLogger(SignUpController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                System.out.println("test end");
-                try {
-                    Stage stage = (Stage) sign_up_btn.getScene().getWindow();
-                    stage.close();
-                    stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/Verification.fxml"));
-                    Pane pane = loader.load();
-                    VerificationController controller = loader.getController();
-                    controller.setEmail(email);
-                    Scene scene = new Scene(pane);
-                    stage.setTitle("User Managment");
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException e) {
-                    System.out.print(e.getMessage());
-                } catch (Exception ex) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("An Error occured");
-                    alert.showAndWait();
-                }
+                    user_ser.StoreToken(token, email);
+                    System.out.println("test begin");
+                    try {
+                        user_ser.sendEmail(email, "Account Verification", user_ser.generateVerificationEmail(username, token));
+                    } catch (MessagingException ex) {
+                        Logger.getLogger(SignUpController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("test end");
+                    try {
+                        Stage stage = (Stage) sign_up_btn.getScene().getWindow();
+                        stage.close();
+                        stage = new Stage();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/Verification.fxml"));
+                        Pane pane = loader.load();
+                        VerificationController controller = loader.getController();
+                        controller.setEmail(email);
+                        Scene scene = new Scene(pane);
+                        stage.setTitle("User Managment");
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        System.out.print(e.getMessage());
+                    } catch (Exception ex) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("An Error occured");
+                        alert.showAndWait();
+                    }
 
-            } else {
-                Warning("This email already exists");
+                } else {
+                    Warning("This email already exists");
+                }
             }
         }
     }
