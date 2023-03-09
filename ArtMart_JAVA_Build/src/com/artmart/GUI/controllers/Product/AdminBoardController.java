@@ -7,6 +7,8 @@ package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.UserDao;
+import com.artmart.models.Categories;
+import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
 import com.artmart.models.User;
@@ -22,6 +24,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,9 +41,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -53,10 +60,31 @@ public class AdminBoardController implements Initializable {
     private final ReadyProductService readyProductService = new ReadyProductService();
 
     @FXML
-    private TabPane tabPane;
-    private DatabaseUtilsService databaseUtilsService;
-//    @FXML
-//    private VBox vBox;
+    private TableView<ReadyProduct> readyProductsTableView;
+    @FXML
+    private TableView<ProductReview> productReviewsTableView;
+    @FXML
+    private TableColumn<ReadyProduct, String> productNameColumn;
+    @FXML
+    private TableColumn<ReadyProduct, Integer> productUserColumn;
+    @FXML
+    private TableColumn<ReadyProduct, Integer> priceColumn;
+    @FXML
+    private TableColumn<ReadyProduct, String> categoryColumn;
+    @FXML
+    private TableColumn<ReadyProduct, Void> operationColumn;
+    @FXML
+    private TableColumn<ProductReview, Integer> reviewUserColumn;
+    @FXML
+    private TableColumn<ProductReview, String> titleColumn;
+    @FXML
+    private TableColumn<ProductReview, String> textColumn;
+    @FXML
+    private TableColumn<ProductReview, Float> ratingColumn;
+    @FXML
+    private TableColumn<ProductReview, String> dateColumn;
+    @FXML
+    private TableColumn<ProductReview, Void> operationColumn2;
 //    @FXML
 //    private TextField search;
 //    @FXML
@@ -80,63 +108,14 @@ public class AdminBoardController implements Initializable {
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
+    private List<ReadyProduct> readyProductsList;
+    private List<ProductReview> productReviewsList;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
         this.connectedUser = this.userService.getUser(this.session.getUserId());
         this.username.setText(this.connectedUser.getName());
-
-        // Get the list of table names from the database and create a tab for each table
-        List<String> tableNames = null;
-        try {
-            tableNames = databaseUtilsService.getTableNames();
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (String tableName : tableNames) {
-            Tab tab = new Tab(tableName);
-            tabPane.getTabs().add(tab);
-
-            // Create a TableView for each table and add it to the tab
-            TableView tableView = new TableView();
-            tab.setContent(tableView);
-
-            // Get the column names for the current table and add them to the TableView
-            List<String> columnNames = null;
-            try {
-                columnNames = databaseUtilsService.getTableColumnNames(tableName);
-            } catch (SQLException ex) {
-                Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            for (String columnName : columnNames) {
-                TableColumn tableColumn = new TableColumn(columnName);
-                tableView.getColumns().add(tableColumn);
-            }
-
-            // create TableColumn objects for each column
-            List<TableColumn<List<Object>, Object>> columns = new ArrayList<>();
-            for (int i = 0; i < columnNames.size(); i++) {
-                final int columnIndex = i;
-                TableColumn<List<Object>, Object> column = new TableColumn<>(columnNames.get(i));
-                column.setCellValueFactory(cellData -> {
-                    List<Object> row = cellData.getValue();
-                    return new SimpleObjectProperty<>(row.get(columnIndex));
-                });
-                columns.add(column);
-            }
-
-            // get the table data and set it to the TableView
-            List<List<Object>> tableData = null;
-            try {
-                tableData = databaseUtilsService.getTableData(tableName);
-            } catch (SQLException ex) {
-                Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            ObservableList<List<Object>> observableData = FXCollections.observableArrayList(tableData);
-            tableView.setItems(observableData);
-            tableView.getColumns().addAll(columns);
-        }
 
         // Create a map of display names to IDs
         Map<String, String> profileActions = new HashMap<>();
@@ -163,6 +142,145 @@ public class AdminBoardController implements Initializable {
                     Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
                 } catch (IOException ex) {
                     Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        try {
+            this.readyProductsList = this.readyProductService.getAllReadyProducts();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ObservableList<ReadyProduct> items = FXCollections.observableArrayList(
+                this.readyProductsList.stream().collect(Collectors.toList())
+        );
+
+        this.productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.productUserColumn.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
+        this.priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        this.categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category_ID"));
+
+        this.readyProductsTableView.setItems(items);
+
+        this.operationColumn.setCellFactory(param -> new TableCell<ReadyProduct, Void>() {
+            private final Button editButton = new Button("Edit");
+            private final Button deleteButton = new Button("Delete");
+
+            {
+                editButton.setOnAction(event -> {
+                    try {
+                        ReadyProduct prod = getTableView().getItems().get(getIndex());
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/EditReadyProduct.fxml"));
+                        Parent root = loader.load();
+                        Scene scene = new Scene(root);
+                        EditReadyProductController controller = loader.getController();
+                        controller.setUpData(String.valueOf(prod.getReadyProductId()));
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        System.out.print(e.getMessage());
+                    }
+
+                });
+
+                deleteButton.setOnAction(event -> {
+                    ReadyProduct prod = getTableView().getItems().get(getIndex());
+                    try {
+                        int isDeleted = readyProductService.deleteReadyProduct(prod.getReadyProductId());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        readyProductsList = readyProductService.getAllReadyProducts();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ObservableList<ReadyProduct> items = FXCollections.observableArrayList(
+                            readyProductsList.stream().collect(Collectors.toList())
+                    );
+                    productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+                    productUserColumn.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
+                    priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+                    categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category_ID"));
+
+                    readyProductsTableView.setItems(items);
+
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    HBox buttons = new HBox(editButton, deleteButton);
+                    buttons.setSpacing(20);
+                    buttons.setAlignment(Pos.CENTER);
+                    setGraphic(buttons);
+                }
+            }
+        });
+
+        try {
+            this.productReviewsList = this.readyProductService.getAllProductReviews();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ObservableList<ProductReview> items2 = FXCollections.observableArrayList(
+                this.productReviewsList.stream().collect(Collectors.toList())
+        );
+
+        this.reviewUserColumn.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
+        this.titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        this.textColumn.setCellValueFactory(new PropertyValueFactory<>("text"));
+        this.ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        this.dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        this.productReviewsTableView.setItems(items2);
+
+        this.operationColumn2.setCellFactory(param -> new TableCell<ProductReview, Void>() {
+            private final Button deleteButton2 = new Button("Delete");
+
+            {
+                deleteButton2.setOnAction(event -> {
+                    ProductReview prod = getTableView().getItems().get(getIndex());
+                    try {
+                        int isDeleted = readyProductService.deleteProductReview(prod.getReviewId());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        productReviewsList = readyProductService.getAllProductReviews();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ObservableList<ProductReview> items = FXCollections.observableArrayList(
+                            productReviewsList.stream().collect(Collectors.toList())
+                    );
+                    reviewUserColumn.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
+                    titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+                    textColumn.setCellValueFactory(new PropertyValueFactory<>("text"));
+                    ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
+                    dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+                    productReviewsTableView.setItems(items2);
+
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    HBox buttons = new HBox(deleteButton2);
+                    buttons.setSpacing(20);
+                    buttons.setAlignment(Pos.CENTER);
+                    setGraphic(buttons);
                 }
             }
         });

@@ -52,6 +52,8 @@ public class ReadyProductCardController implements Initializable {
     private Button details;
     @FXML
     private Button reviews;
+    @FXML
+    private Button order;
 
     private ReadyProduct p = new ReadyProduct();
 
@@ -94,6 +96,7 @@ public class ReadyProductCardController implements Initializable {
         this.pid.setText(Integer.toString(pid));
     }
 
+    @FXML
     public void onDetails(ActionEvent event) {
         try {
             Stage stage = (Stage) details.getScene().getWindow();
@@ -130,5 +133,9 @@ public class ReadyProductCardController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+    
+    @FXML
+    public void onOrder(ActionEvent event){
     }
 }
