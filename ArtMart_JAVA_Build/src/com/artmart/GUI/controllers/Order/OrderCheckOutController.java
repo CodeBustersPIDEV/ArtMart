@@ -30,6 +30,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 
 import javafx.scene.control.TextArea;
+import javafx.stage.StageStyle;
 import org.json.JSONObject;
 
 public class OrderCheckOutController implements Initializable {
@@ -45,7 +46,7 @@ public class OrderCheckOutController implements Initializable {
     private final OrderService orderService = new OrderService();
     private List<ShippingOption> shippmentList;
     private OrderGUIController orderGUIController;
-    private double totalOrdersPrice; 
+    private double totalOrdersPrice;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,7 +76,7 @@ public class OrderCheckOutController implements Initializable {
                     + "    \"app_token\": \"b9e12676-1459-41a1-b608-48d7c2cedcb0\",\n"
                     + "    \"app_secret\": \"9947737a-ee91-4119-b773-fc3a190d13af\",\n"
                     + "    \"accept_card\": \"true\",\n"
-                    + "    \"amount\": \""+calculateOrdersPrice()+"\",\n"
+                    + "    \"amount\": \"" + calculateOrdersPrice() + "\",\n"
                     + "    \"success_link\": \"http://localhost/artmart/success.html\",\n"
                     + "    \"fail_link\": \"http://localhost/artmart/fail.html\",\n"
                     + "    \"session_timeout_secs\": 1200,\n"
@@ -102,7 +103,6 @@ public class OrderCheckOutController implements Initializable {
             Scene scene = new Scene(root);
             PaymentVerificationController controller = loader.getController();
             controller.setup(this, paymentId);
-            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
             conn.disconnect();
@@ -115,19 +115,19 @@ public class OrderCheckOutController implements Initializable {
 
     public void successfulPayment() {
         this.orderGUIController.successfulPayment(
-            this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getId(),
-            this.shippingAddress.getText(),
-            this.paymentList.get(this.paymentOptionsList.getSelectionModel().getSelectedIndex()).getId()
+                this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getId(),
+                this.shippingAddress.getText(),
+                this.paymentList.get(this.paymentOptionsList.getSelectionModel().getSelectedIndex()).getId()
         );
     }
 
-    public void link(OrderGUIController controller,double totalOrdersPrice) {
+    public void link(OrderGUIController controller, double totalOrdersPrice) {
         this.orderGUIController = controller;
         this.totalOrdersPrice = totalOrdersPrice;
     }
-    
-    public int calculateOrdersPrice(){
-       Double val = this.totalOrdersPrice+this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getShippingFee();
-       return val.intValue()*1000;
+
+    public int calculateOrdersPrice() {
+        Double val = this.totalOrdersPrice + this.shippmentList.get(this.shippingOptionsList.getSelectionModel().getSelectedIndex()).getShippingFee();
+        return val.intValue() * 1000;
     }
 }

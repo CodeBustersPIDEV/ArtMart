@@ -76,6 +76,7 @@ public class OrderGUIController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderCheckout.fxml"));
             Parent root = loader.load();
             OrderCheckOutController controller = loader.getController();
+            stage.setResizable(false);
             stage.initStyle(StageStyle.UTILITY);
             stage.setTitle("Artmart");
             controller.link(this, calculateOrdersPrice());
