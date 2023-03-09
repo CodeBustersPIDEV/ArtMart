@@ -74,7 +74,7 @@
                 <DropShadow color="#00000087" />
             </effect>
         </Button>
-        <Text fill="#21153d" layoutX="654.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage system" textAlignment="CENTER">
+        <Text fill="#21153d" layoutX="643.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Dashboard" textAlignment="CENTER">
             <font>
                 <Font name="Dubai Bold" size="20.0" />
             </font>
@@ -115,47 +115,40 @@
                 <DropShadow color="#00000087" />
             </effect>
         </ChoiceBox>
-        <TabPane fx:id="tabPane" layoutX="260.0" layoutY="149.0" prefHeight="621.0" prefWidth="920.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="tabPane" layoutX="223.0" layoutY="149.0" prefHeight="621.0" prefWidth="920.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
-                <Tab text="Table 1">
+                <Tab text="Manage Ready products">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TableView prefHeight="591.0" prefWidth="920.0">
-                                    <columns>
-                                        <TableColumn prefWidth="75.0" text="C1" />
-                                        <TableColumn prefWidth="75.0" text="C2" />
-                                    </columns>
-                                </TableView>
-                            </children>
+                     <children>
+                        <TableView fx:id="readyProductsTableView" prefHeight="591.0" prefWidth="920.0">
+                           <columns>
+                              <TableColumn fx:id="productNameColumn" prefWidth="304.0" text="Ready Product name" />
+                              <TableColumn fx:id="productUserColumn" prefWidth="108.0" text="By" />
+                              <TableColumn fx:id="priceColumn" prefWidth="89.0" text="Price" />
+                              <TableColumn fx:id="categoryColumn" prefWidth="133.0" text="Category" />
+                              <TableColumn fx:id="operationColumn" prefWidth="285.0" text="Operations" />
+                           </columns>
+                        </TableView>
+                     </children>
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Table 2">
+                <Tab text="Manage product reviews">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TableView prefHeight="591.0" prefWidth="920.0">
-                                    <columns>
-                                        <TableColumn prefWidth="75.0" text="C1" />
-                                        <TableColumn prefWidth="75.0" text="C2" />
-                                    </columns>
-                                </TableView>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Table 3">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TableView prefHeight="591.0" prefWidth="920.0">
-                                    <columns>
-                                        <TableColumn prefWidth="75.0" text="C1" />
-                                        <TableColumn prefWidth="75.0" text="C2" />
-                                    </columns>
-                                </TableView>
-                            </children>
+                     <children>
+                        <TableView fx:id="productReviewsTableView" prefHeight="591.0" prefWidth="920.0">
+                           <columns>
+                              <TableColumn fx:id="reviewUserColumn" prefWidth="89.99996948242188" text="User" />
+                              <TableColumn fx:id="titleColumn" prefWidth="183.0" text="Title" />
+                              <TableColumn fx:id="textColumn" prefWidth="287.0" text="Text" />
+                              <TableColumn fx:id="ratingColumn" minWidth="0.0" prefWidth="90.0" text="Rating /10" />
+                              <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="127.0" text="Date" />
+                              <TableColumn fx:id="operationColumn2" prefWidth="142.0" text="Operations" />
+                           </columns>
+                        </TableView>
+                     </children>
                         </AnchorPane>
                     </content>
                 </Tab>

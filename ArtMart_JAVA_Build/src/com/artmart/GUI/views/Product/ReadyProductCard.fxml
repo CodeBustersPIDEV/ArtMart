@@ -47,7 +47,7 @@
             <Font name="Dubai Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="details" alignment="CENTER" layoutX="836.0" layoutY="124.0" mnemonicParsing="false" onAction="#onDetails" prefHeight="38.0" prefWidth="71.0" text="Details" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="details" alignment="CENTER" layoutX="836.0" layoutY="123.0" mnemonicParsing="false" onAction="#onDetails" prefHeight="38.0" prefWidth="71.0" text="Details" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>
@@ -93,5 +93,13 @@
             <Font name="Dubai Bold" size="17.0" />
          </font>
       </Text>
+      <Button fx:id="order" alignment="CENTER" layoutX="592.0" layoutY="123.0" mnemonicParsing="false" onAction="#onOrder" prefHeight="38.0" prefWidth="128.0" text="Add to wishlist" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
    </children>
 </Pane>

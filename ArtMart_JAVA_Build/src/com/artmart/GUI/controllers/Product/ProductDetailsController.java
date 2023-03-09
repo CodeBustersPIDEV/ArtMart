@@ -64,14 +64,11 @@ public class ProductDetailsController implements Initializable {
     private Label price;
     @FXML
     private ImageView imagePreview;
+    @FXML
+    private Button order;
 
     @FXML
-    private Button delete;
-    @FXML
-    private Button edit;
-    @FXML
     private Button backBtn;
-    @FXML
     private ChoiceBox<String> profileChoiceBox;
 
     private ReadyProduct p = new ReadyProduct();
@@ -182,6 +179,7 @@ public class ProductDetailsController implements Initializable {
         return readyProduct;
     }
 
+    @FXML
     public void onBack(ActionEvent event) {
         try {
             Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -198,6 +196,10 @@ public class ProductDetailsController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+    
+    @FXML
+    public void onOrder(ActionEvent event) {
     }
 
 }
