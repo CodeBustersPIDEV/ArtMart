@@ -158,6 +158,8 @@ public class BlogGUIController implements Initializable {
         userOptions.setOnAction(event -> {
             String selectedItem = userOptions.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/SignUp.fxml"));
+            profile = loader.getController();
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
                 if (this.session.getUserRole().equals("admin")) {
