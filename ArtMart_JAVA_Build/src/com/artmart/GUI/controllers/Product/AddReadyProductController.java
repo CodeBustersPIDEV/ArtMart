@@ -124,18 +124,20 @@ public class AddReadyProductController implements Initializable {
             this.username.setText(this.connectedUser.getName());
             // Create a map of display names to IDs
             Map<String, String> profileActions = new HashMap<>();
+
+            profileActions.put("", "");
             profileActions.put("Logout", "logout");
             profileActions.put("Profile", "profile");
-
             // Populate the choice box with display names
             profileChoiceBox.getItems().addAll(profileActions.keySet());
-
             // Add an event listener to handle the selected item's ID
             profileChoiceBox.setOnAction(event -> {
                 String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
                 String selectedId = profileActions.get(selectedItem);
                 // Handle the action based on the selected ID
                 if ("profile".equals(selectedId)) {
+
+                    profileChoiceBox.setValue("");
                     User u = user_ser.getUser(UserID);
                     if (u.getRole().equals("admin")) {
                         Stage stage = new Stage();

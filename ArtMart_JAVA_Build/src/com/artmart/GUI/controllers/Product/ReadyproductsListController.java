@@ -85,12 +85,12 @@ public class ReadyproductsListController implements Initializable {
 
             // Create a map of display names to IDs
             Map<String, String> profileActions = new HashMap<>();
+
+            profileActions.put("", "");
             profileActions.put("Logout", "logout");
             profileActions.put("Profile", "profile");
-
             // Populate the choice box with display names
             profileChoiceBox.getItems().addAll(profileActions.keySet());
-
             // Add an event listener to handle the selected item's ID
             profileChoiceBox.setOnAction(event -> {
                 String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
@@ -98,6 +98,7 @@ public class ReadyproductsListController implements Initializable {
                 // Handle the action based on the selected ID
                 if ("profile".equals(selectedId)) {
 
+                    profileChoiceBox.setValue("");
                     Stage stage = new Stage();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
                     try {
@@ -160,6 +161,7 @@ public class ReadyproductsListController implements Initializable {
             });
         }
     }
+
     @FXML
 
     public void onBack(ActionEvent event) {
@@ -259,6 +261,7 @@ public class ReadyproductsListController implements Initializable {
             });
         }
     }
+
     @FXML
 
     public void refreshScene(ActionEvent event) {

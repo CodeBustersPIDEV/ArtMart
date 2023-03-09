@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.CustomProduct.EditCategoryController;
+import com.artmart.GUI.controllers.User.ProfileAdminController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
@@ -122,6 +118,7 @@ public class AdminBoardController implements Initializable {
     private List<ReadyProduct> readyProductsList;
     private List<ProductReview> productReviewsList;
     private List<Categories> categoriesList;
+    int UserID = session.getUserID("1");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -131,19 +128,33 @@ public class AdminBoardController implements Initializable {
 
         // Create a map of display names to IDs
         Map<String, String> profileActions = new HashMap<>();
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-
         // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
-
         // Add an event listener to handle the selected item's ID
         profileChoiceBox.setOnAction(event -> {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
-                profile.goToProfile(event, "ProfileClient");
+
+                profileChoiceBox.setValue("");
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                try {
+                    Parent root = loader.load();
+
+                    ProfileAdminController controller = loader.getController();
+                    controller.setProfile(UserID);
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
                 Node source = (Node) event.getSource();
@@ -402,7 +413,7 @@ public class AdminBoardController implements Initializable {
             Stage stage = (Stage) backBtn.getScene().getWindow();
             stage.close();
             stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

@@ -82,14 +82,6 @@
                 </VBox>
             </content>
         </ScrollPane>
-        <Button fx:id="backBtn" alignment="CENTER" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#onBack" prefHeight="18.0" prefWidth="28.0" text="←" textAlignment="CENTER" textFill="#21153d">
-            <font>
-                <Font name="Rockwell Nova Bold" size="20.0" />
-            </font>
-            <effect>
-                <DropShadow color="#00000087" />
-            </effect>
-        </Button>
         <Button fx:id="addProduct" alignment="CENTER" layoutX="1196.0" layoutY="80.0" mnemonicParsing="false" onAction="#onAdd" prefHeight="29.0" prefWidth="124.0" text="Add product" textAlignment="CENTER" textFill="#21153d">
             <font>
                 <Font name="Dubai Bold" size="15.0" />
@@ -179,7 +171,7 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <Button fx:id="refresh" alignment="CENTER" layoutX="89.0" layoutY="24.0" mnemonicParsing="false" onAction="#refreshScene" prefHeight="18.0" prefWidth="28.0" text="↺" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="refresh" alignment="CENTER" layoutX="39.0" layoutY="24.0" mnemonicParsing="false" onAction="#refreshScene" prefHeight="18.0" prefWidth="28.0" text="↺" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Rockwell Nova Bold" size="20.0" />
          </font>

@@ -78,6 +78,8 @@ public class UserListController implements Initializable {
             Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
         }
         Map<String, String> profileActions = new HashMap<>();
+       
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
         // Populate the choice box with display names
@@ -89,6 +91,7 @@ public class UserListController implements Initializable {
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
 
+               profileChoiceBox.setValue("");
                 User u = user_ser.getUser(UserID);
                 if (u.getRole().equals("admin")) {
                     Stage stage = new Stage();
@@ -217,7 +220,7 @@ public class UserListController implements Initializable {
          try {
             Stage stage = (Stage) backBtn.getScene().getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/MainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setResizable(false);

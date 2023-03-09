@@ -89,19 +89,19 @@ public class ProductGUIController implements Initializable {
         }
         // Create a map of display names to IDs
         Map<String, String> profileActions = new HashMap<>();
+
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-
         // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
-
         // Add an event listener to handle the selected item's ID
         profileChoiceBox.setOnAction(event -> {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
-
+                profileChoiceBox.setValue("");
                 Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
                 try {
@@ -164,25 +164,6 @@ public class ProductGUIController implements Initializable {
     }
 
     @FXML
-    public void onBack(ActionEvent event) {
-        try {
-            Stage stage = (Stage) backBtn.getScene().getWindow();
-            stage.close();
-            stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
-    @FXML
     private void goToBlogs(ActionEvent event) {
         try {
             Stage stage = new Stage();
@@ -197,7 +178,7 @@ public class ProductGUIController implements Initializable {
         }
 
     }
-        private void custom(ActionEvent event) throws IOException {
+    private void custom(ActionEvent event) throws IOException {
            try {
            Stage stage = (Stage) imagePreview4.getScene().getWindow();
                 stage.close();

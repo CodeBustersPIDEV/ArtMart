@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
@@ -32,11 +27,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author marwen
- */
 public class BlogMenuController implements Initializable {
 
     @FXML
@@ -72,19 +62,21 @@ public class BlogMenuController implements Initializable {
         this.connectedUser = this.userService.getUser(this.session.getUserId());
         this.connectedAdin.setText(connectedUser.getName());
         Map<String, String> profileActions = new HashMap<>();
+        
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-
         // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
-
         // Add an event listener to handle the selected item's ID
         profileChoiceBox.setOnAction(event -> {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
-                Stage stage = new Stage();
+
+               profileChoiceBox.setValue("");
+               Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
                 try {
                     Parent root = loader.load();
@@ -150,15 +142,17 @@ public class BlogMenuController implements Initializable {
 
     @FXML
     private void goBackToAppMenu(ActionEvent event) {
-        try {
-            Stage stage = new Stage();
+      try {
+            Stage stage = (Stage) back_btn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
