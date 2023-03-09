@@ -57,7 +57,6 @@ import javafx.stage.Stage;
 public class ReviewsListController implements Initializable {
 
     private final ReadyProductService readyProductService = new ReadyProductService();
-    private final OrderService orderService = new OrderService();
 
     @FXML
     private VBox vBox;
@@ -111,7 +110,7 @@ public class ReviewsListController implements Initializable {
         }
 
         Map<String, String> profileActions = new HashMap<>();
-        
+
         profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
@@ -124,7 +123,7 @@ public class ReviewsListController implements Initializable {
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
 
-               profileChoiceBox.setValue("");
+                profileChoiceBox.setValue("");
                 User u = user_ser.getUser(UserID);
                 if (u.getRole().equals("admin")) {
                     Stage stage = new Stage();
@@ -295,7 +294,8 @@ public class ReviewsListController implements Initializable {
         alert.showAndWait().ifPresent(result -> {
             if (result == ButtonType.OK) {
                 int quantity = Integer.parseInt(quantityTextField.getText());
-                // Perform action with quantity
+                OrderService orderService = new OrderService();
+                orderService.addToShoppingCart(viewProd, quantity, viewProd.getPrice());
             }
         });
     }
