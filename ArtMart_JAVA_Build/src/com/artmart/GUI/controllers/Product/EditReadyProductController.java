@@ -117,7 +117,7 @@ public class EditReadyProductController implements Initializable {
         this.username.setText(this.connectedUser.getName());
         populateComboBox();
         Map<String, String> profileActions = new HashMap<>();
-         profileActions.put("", "");
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
         // Populate the choice box with display names
@@ -225,7 +225,12 @@ public class EditReadyProductController implements Initializable {
             this.materialF.setText(this.viewProd.getMaterial());
             this.imageField.setText(this.viewProd.getImage());
             this.priceF.setText("" + price);
-            System.out.println(this.viewProd.getPrice());
+            int categoryId = this.viewProd.getCategoryId();
+            String categoryName = categoriesDao.getCategoryNameById(categoryId);
+            this.categoryF.getItems().stream()
+                    .filter(category -> category.getName().equals(categoryName))
+                    .findFirst()
+                    .ifPresent(category -> this.categoryF.getSelectionModel().select(category));
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -253,10 +258,9 @@ public class EditReadyProductController implements Initializable {
         String description = descriptionF.getText();
         String dimensions = dimensionsF.getText();
         float weight = Float.parseFloat(weightF.getText());
+        int price = Integer.parseInt(priceF.getText());
         String material = materialF.getText();
         Categories category = categoryF.getValue();
-        String categoryName = category.getName(); // get the name of the selected category
-        int price = Integer.parseInt(priceF.getText());
 
         // Get the selected image file path
         String imagePath = imageField.getText();
@@ -272,7 +276,7 @@ public class EditReadyProductController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);
-            alert.setContentText("Product updated with category: " + categoryName); // display the name of the category in the message
+            alert.setContentText("Product updated !"); // display the name of the category in the message
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
