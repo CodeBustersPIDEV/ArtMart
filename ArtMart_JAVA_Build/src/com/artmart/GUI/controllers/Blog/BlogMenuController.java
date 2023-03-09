@@ -152,12 +152,23 @@ public class BlogMenuController implements Initializable {
 
     @FXML
     private void goBackToAppMenu(ActionEvent event) {
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      try {
+            Stage stage = (Stage) back_btn.getScene().getWindow();
             stage.close();
-        } catch (Exception e) {
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    
+
     }
 
     @FXML
