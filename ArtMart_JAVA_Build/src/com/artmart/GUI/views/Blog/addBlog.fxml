@@ -5,26 +5,116 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="748.0" prefWidth="1058.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.AddBlogController">
    <children>
-      <Label fx:id="pageTitle" layoutX="60.0" layoutY="61.0" prefHeight="68.0" prefWidth="196.0" text="Add Blog">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9e9e9" height="768.0" stroke="BLACK" strokeType="INSIDE" width="1366.0" />
+      <Circle fill="#fa7a1e00" layoutX="1277.0" layoutY="103.0" radius="57.0" strokeType="OUTSIDE" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="0.6333333333333333">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.5071295967136706" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Circle>
+      <Line endX="-100.00003051757812" endY="-114.0" layoutX="190.0" layoutY="657.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="6.0" layoutX="152.0" layoutY="603.0" startX="-124.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="100.0" layoutX="683.0" layoutY="754.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="354.0" layoutX="556.0" layoutY="743.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.533949520085318" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="6.0" layoutX="143.0" layoutY="612.0" startX="-46.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="589.0" layoutX="132.0" layoutY="138.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="1102.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Rectangle>
+      <Label fx:id="pageTitle" layoutX="585.0" layoutY="57.0" prefHeight="68.0" prefWidth="196.0" text="Add Blog">
          <font>
             <Font name="Agency FB Bold" size="48.0" />
          </font>
       </Label>
-      <TextField fx:id="blog_title" layoutX="482.0" layoutY="155.0" prefHeight="34.0" prefWidth="543.0" promptText="Blog Title" />
-      <ComboBox fx:id="blog_category" layoutX="482.0" layoutY="203.0" prefHeight="31.0" prefWidth="278.0" promptText="Blog Category" />
-      <TextArea fx:id="blog_content" layoutX="482.0" layoutY="241.0" prefHeight="377.0" prefWidth="543.0" promptText="Blog Content" wrapText="true" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="423.0" layoutX="14.0" layoutY="155.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="450.0" />
-      <ImageView fx:id="blogImage_preview" fitHeight="329.0" fitWidth="421.0" layoutX="29.0" layoutY="172.0" pickOnBounds="true" />
-      <Button fx:id="add_imageBlog" layoutX="158.0" layoutY="467.0" onAction="#openFileExplorer" prefHeight="34.0" prefWidth="163.0" text="Upload Blog Image" />
-      <Button fx:id="add_blog" layoutX="720.0" layoutY="634.0" onAction="#add" prefHeight="34.0" prefWidth="104.0" text="Add" />
-      <Button fx:id="cancel_btn" layoutX="31.0" layoutY="14.0" onAction="#goBackToMenu" text="Cancel" />
-      <ComboBox fx:id="tagsInput" editable="true" layoutX="787.0" layoutY="203.0" onAction="#inc_tag" prefHeight="31.0" prefWidth="238.0" promptText="Blog Tags" />
+      <TextField fx:id="blog_title" layoutX="646.0" layoutY="185.0" prefHeight="34.0" prefWidth="543.0" promptText="Blog Title" />
+      <ComboBox fx:id="blog_category" layoutX="646.0" layoutY="233.0" prefHeight="31.0" prefWidth="278.0" promptText="Blog Category" />
+      <TextArea fx:id="blog_content" layoutX="646.0" layoutY="271.0" prefHeight="377.0" prefWidth="543.0" promptText="Blog Content" wrapText="true" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="423.0" layoutX="178.0" layoutY="185.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="450.0" />
+      <ImageView fx:id="blogImage_preview" fitHeight="329.0" fitWidth="421.0" layoutX="193.0" layoutY="202.0" pickOnBounds="true" />
+      <Button fx:id="add_imageBlog" layoutX="322.0" layoutY="497.0" onAction="#openFileExplorer" prefHeight="34.0" prefWidth="163.0" text="Upload Blog Image" />
+      <Button fx:id="add_blog" layoutX="884.0" layoutY="664.0" onAction="#add" prefHeight="34.0" prefWidth="104.0" text="Add" />
+      <Button fx:id="cancel_btn" layoutX="60.0" layoutY="42.0" onAction="#goBackToMenu" prefHeight="31.0" prefWidth="28.0" text="Cancel">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../../../assets/BlogAssets/back-arrow.png" />
+               </source>
+            </ImageInput>
+         </effect></Button>
+      <ComboBox fx:id="tagsInput" editable="true" layoutX="951.0" layoutY="233.0" onAction="#inc_tag" prefHeight="31.0" prefWidth="238.0" promptText="Blog Tags" />
    </children>
 </AnchorPane>

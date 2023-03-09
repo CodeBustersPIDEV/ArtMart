@@ -6,6 +6,8 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -34,7 +36,14 @@
       </TextArea>
       <Button fx:id="edit_imageBlog" layoutX="208.0" layoutY="574.0" mnemonicParsing="false" onAction="#editImageBlog" prefHeight="34.0" prefWidth="163.0" text="Upload Blog Image" />
       <Button fx:id="edit_blog" layoutX="809.0" layoutY="675.0" mnemonicParsing="false" onAction="#edit" prefHeight="34.0" prefWidth="104.0" text="Edit" />
-      <Button fx:id="cancel_btn" layoutX="35.0" layoutY="25.0" mnemonicParsing="false" onAction="#goBackToMenu" text="Cancel" />
+      <Button fx:id="cancel_btn" layoutX="35.0" layoutY="25.0" mnemonicParsing="false" onAction="#goBackToMenu" text="Cancel">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../../../assets/BlogAssets/back-arrow.png" />
+               </source>
+            </ImageInput>
+         </effect></Button>
       <ImageView fx:id="blogImage" fitHeight="429.0" fitWidth="516.0" layoutX="31.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="blogID" layoutX="718.0" layoutY="30.0" visible="false" />
       <ComboBox fx:id="tagsInput" editable="true" layoutX="840.0" layoutY="261.0" onAction="#inc_tag" prefHeight="31.0" prefWidth="200.0" />
