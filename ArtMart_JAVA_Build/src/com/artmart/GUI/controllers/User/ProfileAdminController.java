@@ -7,6 +7,7 @@ package com.artmart.GUI.controllers.User;
 
 import com.artmart.models.Admin;
 import com.artmart.models.Session;
+import com.artmart.models.User;
 import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
@@ -45,18 +46,16 @@ public class ProfileAdminController implements Initializable {
     private Label departmentProfile;
     @FXML
     private Label birthdayProfile;
-    @FXML
-    private Button userListBtn;
+   
     @FXML
     private Button editProfileBtn;
     @FXML
     private Button addAdBtn;
-    @FXML
-    private Button backBtn;
+    
     @FXML
     private Label phoneProfile;
     @FXML
-    private Button logoutBtn;
+    private Button logout;
 
     private Session session = new Session();
     int UserID = session.getUserID("1");
@@ -72,6 +71,12 @@ public class ProfileAdminController implements Initializable {
     }
 
     public void setProfile(int id) {
+        
+       
+        User test = user_ser.getUser(UserID);
+        if (test.getRole().equals("admin")) {
+            logout.setVisible(false);
+        }
         admin = user_ser.getAdmin(id);
         nameProfile.setText(admin.getName());
         usernameProfile.setText(admin.getUsername());
@@ -91,7 +96,7 @@ public class ProfileAdminController implements Initializable {
     @FXML
     public void OnLogOut(ActionEvent event) {
         session.logOut("1");
-        Stage stage = (Stage) logoutBtn.getScene().getWindow();
+        Stage stage = (Stage) logout.getScene().getWindow();
         stage.close();
         try {
 
@@ -111,9 +116,7 @@ public class ProfileAdminController implements Initializable {
     @FXML
     private void OnUpdateBtn(ActionEvent event) {
         try {
-            Stage stage = (Stage) editProfileBtn.getScene().getWindow();
-            stage.close();
-            stage = new Stage();
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/updateProfile.fxml"));
             Parent root = loader.load();
             UpdateProfileController controller = loader.getController();
@@ -127,40 +130,8 @@ public class ProfileAdminController implements Initializable {
         }
     }
 
-    @FXML
-    private void OnUserListBtn(ActionEvent event) {
-        try {
-            Stage stage = (Stage) userListBtn.getScene().getWindow();
-            stage.close();
-            stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/UserList.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-    }
-
-    @FXML
-
-    public void OnBack(ActionEvent event) {
-        try {
-            Stage stage = (Stage) backBtn.getScene().getWindow();
-            stage.close();
-            stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("User Managment");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(ProfileClientController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+   
+   
     @FXML
 
     private void OnAddBtn(ActionEvent event) {
