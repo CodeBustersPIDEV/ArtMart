@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.artmart.GUI.controllers.Event.Artist;
 
 import java.io.IOException;
@@ -14,32 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class HomeArtistController implements Initializable {
 
-    @FXML
-    private Button btnGetAllEvents;
-    @FXML
-    private Button btnAddEvent;
-    @FXML
-    private Button btnAddActivity;
-    @FXML
-    private Button btnGetAllActivities;
-    @FXML
-    private Button btnAddReport;
-    @FXML
-    private Button btnGetReports;
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -150,4 +124,33 @@ public class HomeArtistController implements Initializable {
         }                
     }
 
+    @FXML
+    private void onViewParticipations(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Participation/list_participation.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }                
+    }
+
+    @FXML
+    private void onViewFeedbacks(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/user_list_feedback.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }                
+    }
 }

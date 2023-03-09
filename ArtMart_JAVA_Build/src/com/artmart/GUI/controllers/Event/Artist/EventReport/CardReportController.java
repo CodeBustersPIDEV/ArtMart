@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.artmart.GUI.controllers.Event.Artist.EventReport;
 
 import com.artmart.GUI.controllers.Event.Artist.Event.ListEventController;
@@ -25,11 +21,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class CardReportController implements Initializable {
 
     private ListReportController listReportController = new ListReportController();
@@ -49,11 +40,6 @@ public class CardReportController implements Initializable {
     @FXML
     private Text txtEventLocation1;
 
-    
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

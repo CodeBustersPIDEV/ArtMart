@@ -12,7 +12,7 @@
         <URL value="@/com/artmart/GUI/styles/event/event_home.css" />
     </stylesheets>
    <children>
-      <Button fx:id="btnAddEvent" layoutX="136.0" layoutY="173.0" mnemonicParsing="false" onAction="#onBtnAddEvent" prefHeight="45.0" prefWidth="172.0" text="Add New Event" textFill="#663399">
+      <Button layoutX="126.0" layoutY="173.0" mnemonicParsing="false" onAction="#onBtnAddEvent" prefHeight="45.0" prefWidth="189.0" text="Add New Event" textFill="INDIGO">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font></Button>
@@ -25,27 +25,37 @@
             <Font name="Brush Script MT Italic" size="55.0" />
          </font>
       </Label>
-      <Button fx:id="btnGetAllEvents" layoutX="341.0" layoutY="173.0" mnemonicParsing="false" onAction="#onBtnGetAllEvents" prefHeight="45.0" prefWidth="172.0" text="View Event List" textFill="#663399">
+      <Button layoutX="341.0" layoutY="173.0" mnemonicParsing="false" onAction="#onBtnGetAllEvents" prefHeight="45.0" prefWidth="189.0" text="View Events" textFill="INDIGO">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnAddActivity" layoutX="136.0" layoutY="253.0" mnemonicParsing="false" onAction="#onBtnAddActivity" prefHeight="45.0" prefWidth="172.0" text="Add New Activity" textFill="#5d53a8">
+      <Button layoutX="126.0" layoutY="233.0" mnemonicParsing="false" onAction="#onBtnAddActivity" prefHeight="45.0" prefWidth="189.0" text="Add New Activity" textFill="#6c3082">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnGetAllActivities" layoutX="341.0" layoutY="253.0" mnemonicParsing="false" onAction="#onBtnGetAllActivities" prefHeight="45.0" prefWidth="172.0" text="View Activity List" textFill="#5d53a8">
+      <Button layoutX="341.0" layoutY="233.0" mnemonicParsing="false" onAction="#onBtnGetAllActivities" prefHeight="45.0" prefWidth="189.0" text="View Activities" textFill="#6c3082">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnAddReport" layoutX="138.0" layoutY="327.0" mnemonicParsing="false" onAction="#onBtnAddReport" prefHeight="45.0" prefWidth="172.0" text="Add New Report" textFill="MEDIUMPURPLE">
+      <Button layoutX="128.0" layoutY="297.0" mnemonicParsing="false" onAction="#onBtnAddReport" prefHeight="45.0" prefWidth="189.0" text="Add New Report" textFill="#9a4eae">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnGetReports" layoutX="343.0" layoutY="327.0" mnemonicParsing="false" onAction="#onBtnGetReports" prefHeight="45.0" prefWidth="172.0" text="View Report List" textFill="MEDIUMPURPLE">
+      <Button layoutX="343.0" layoutY="297.0" mnemonicParsing="false" onAction="#onBtnGetReports" prefHeight="45.0" prefWidth="189.0" text="View Reports" textFill="#9a4eae">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="128.0" layoutY="361.0" mnemonicParsing="false" onAction="#onViewParticipations" prefHeight="45.0" prefWidth="189.0" text="View Participations" textFill="MEDIUMPURPLE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="342.0" layoutY="361.0" mnemonicParsing="false" onAction="#onViewFeedbacks" prefHeight="45.0" prefWidth="189.0" text="View Feedbacks" textFill="MEDIUMPURPLE">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>

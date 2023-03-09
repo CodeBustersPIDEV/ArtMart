@@ -2,6 +2,7 @@ package com.artmart.dao;
 
 import com.artmart.connectors.SQLConnection;
 import com.artmart.interfaces.IFeedbackDao;
+import com.artmart.models.EventReport;
 import com.artmart.models.Feedback;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,14 +29,13 @@ public class FeedbackDao implements IFeedbackDao {
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO activity (eventID, userID, rating, comment, date) "
-                    + "VALUES (?, ?, ?, ?, ?)"
+                    "INSERT INTO feedback (eventID, userID, rating, comment) "
+                    + "VALUES (?, ?, ?, ?)"
             );
             statement.setInt(1, feedback.getEventID());
             statement.setInt(2, feedback.getUserID());
             statement.setInt(3, feedback.getRating());
             statement.setString(4, feedback.getComment());
-            statement.setDate(5, feedback.getDate());
 
             result = statement.executeUpdate();
         } catch (SQLException e) {
@@ -130,6 +130,31 @@ public class FeedbackDao implements IFeedbackDao {
             System.err.print(e.getMessage());
         }
         return false;
+    }
+    
+    
+    @Override
+    public List<Feedback> getAllFeedbacksByID(int eventID) {
+        List<Feedback> feedbacks = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Feedback WHERE eventID = ?");
+            statement.setInt(1, eventID);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                Feedback feedback = new Feedback();
+                feedback.setFeedbackID(resultSet.getInt("feedbackID"));
+                feedback.setEventID(resultSet.getInt("eventID"));
+                feedback.setEventID(resultSet.getInt("userID"));
+                feedback.setRating(resultSet.getInt("rating"));
+                feedback.setComment(resultSet.getString("comment"));
+                feedback.setDate(resultSet.getDate("date"));
+                feedbacks.add(feedback);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getCause().getMessage());
+        }
+        return feedbacks;
     }
 
 }

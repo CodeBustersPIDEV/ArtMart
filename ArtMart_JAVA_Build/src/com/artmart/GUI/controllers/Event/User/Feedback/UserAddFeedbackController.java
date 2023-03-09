@@ -4,9 +4,17 @@
  */
 package com.artmart.GUI.controllers.Event.User.Feedback;
 
+import com.artmart.models.Event;
 import com.artmart.models.Feedback;
+import com.artmart.models.Participation;
+import com.artmart.models.Session;
+import com.artmart.services.EventService;
+import com.artmart.services.FeedbackService;
+import com.artmart.services.ParticipationService;
+import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +29,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-public class AddFeedbackController implements Initializable {
+public class UserAddFeedbackController implements Initializable {
 
     @FXML
     private TextArea txtAreaComment;
@@ -30,9 +38,17 @@ public class AddFeedbackController implements Initializable {
     private String comment;
     private Integer rating;
 
-    /**
-     * Initializes the controller class.
-     */
+    private Event event = new Event();
+    
+    private final EventService es = new EventService();
+    private final FeedbackService fs = new FeedbackService();
+    private final UserService us = new UserService();
+    private final ParticipationService ps = new ParticipationService();
+
+    private final HashMap user = (HashMap) Session.getActiveSessions();
+    private final Session session = Session.getInstance();
+    private final int userID = session.getCurrentUserId(session.getSessionId()); 
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.txtAreaComment.setWrapText(true);
@@ -41,6 +57,10 @@ public class AddFeedbackController implements Initializable {
         spinnerRating.setValueFactory(valueFactory);
     }    
 
+    public void setUpEventData(Event event) {
+        this.event = event;
+    }
+    
     @FXML
     private void onPost(ActionEvent event) {
         
@@ -57,29 +77,40 @@ public class AddFeedbackController implements Initializable {
             alert.setContentText("Failed to add comment! \nComplete missing information.");
             alert.showAndWait();
         }else {
-            
-            Feedback feedback = new Feedback(
-                    0, 
-                    0, 
+            Participation p = this.ps.getParticipationByID(this.userID, this.event.getEventID());
+            System.out.println("PARRRRRR " + p);
+            if (this.event.getStatus().equals("Finished") && p != null) {
+                Feedback feedback = new Feedback(
+                    this.event.getEventID(),
+                    this.userID,
                     this.rating, 
-                    this.comment);
+                    this.comment
+                );
+                System.out.println(feedback);
+                System.out.println(us.getUser(feedback.getUserID()));
 
-            int result = 0;
-                    //as.createActivity(activity);
+                int result = fs.createFeedback(feedback);
 
-            if (result > 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Add Activity");
-                alert.setHeaderText(null);
-                alert.setContentText("A new activity has been added successfully!");
-                alert.showAndWait();
-                alert.close();
-                onCancel(event);
-            } else {
+                if (result > 0) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Add Feedback");
+                    alert.setHeaderText(null);
+                    alert.setContentText("A new feedback has been added successfully!");
+                    alert.showAndWait();
+                    alert.close();
+                    onCancel(event);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Add Event");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Failed to add feedback!");
+                    alert.showAndWait();
+                }
+            }else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Add Event");
+                alert.setTitle("Rate Event");
                 alert.setHeaderText(null);
-                alert.setContentText("Failed to add activity!");
+                alert.setContentText("Sorry, you can't rate the event.\n It's either the event is not finished yet or you did not participate in the event");
                 alert.showAndWait();
             }
         }        

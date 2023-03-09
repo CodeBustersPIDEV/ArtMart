@@ -41,5 +41,10 @@ public class FeedbackService implements IFeedbackDao{
     public boolean deleteFeedback(int feedbackID) {
         return dao.deleteFeedback(feedbackID);
     }
+
+    @Override
+    public List<Feedback> getAllFeedbacksByID(int eventID) {
+        return dao.getAllFeedbacksByID(eventID);
+    }
     
 }
