@@ -101,20 +101,20 @@ public class BlogMenuController implements Initializable {
 
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
-                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
-                    stage.close();
-                    try {
+                Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
+                stage.close();
+                try {
 
-                        stage = new Stage();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setTitle("User Managment");
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
+                    stage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setTitle("User Managment");
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
+                }
             }
         });
     }
@@ -122,7 +122,7 @@ public class BlogMenuController implements Initializable {
     @FXML
     private void goToAddBlog(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/addBlog.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -137,7 +137,7 @@ public class BlogMenuController implements Initializable {
     @FXML
     private void goToBlogList(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -151,8 +151,13 @@ public class BlogMenuController implements Initializable {
     @FXML
     private void goBackToAppMenu(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
         } catch (Exception e) {
             System.out.print(e.getMessage());
         }
@@ -161,7 +166,7 @@ public class BlogMenuController implements Initializable {
     @FXML
     private void goToBlogManagement(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/AdminBlogPage.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -175,7 +180,7 @@ public class BlogMenuController implements Initializable {
     @FXML
     private void goToCatManagement(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogCategoryManagement.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -189,7 +194,7 @@ public class BlogMenuController implements Initializable {
     @FXML
     private void goToTagManagement(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/TagManagement.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -203,7 +208,7 @@ public class BlogMenuController implements Initializable {
     @FXML
     private void goToBlogStat(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogStat.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);

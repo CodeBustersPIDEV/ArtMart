@@ -190,5 +190,13 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Button fx:id="goToBlogs" alignment="CENTER" layoutX="997.0" layoutY="12.0" mnemonicParsing="false" onAction="#goToBlogs" prefHeight="29.0" prefWidth="124.0" text="Blogs" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
     </children>
 </AnchorPane>
