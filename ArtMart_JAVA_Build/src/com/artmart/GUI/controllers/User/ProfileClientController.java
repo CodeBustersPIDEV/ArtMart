@@ -6,6 +6,7 @@
 package com.artmart.GUI.controllers.User;
 
 import com.artmart.models.Client;
+import com.artmart.models.Session;
 import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -38,7 +40,7 @@ public class ProfileClientController implements Initializable {
     @FXML
     private Label phoneProfile;
     @FXML
-    private Label usernameProfile;
+    private Text usernameProfile;
     @FXML
     private Label birthdayProfile;
     @FXML
@@ -49,12 +51,16 @@ public class ProfileClientController implements Initializable {
     private Button backBtn;
     @FXML
     private Button editProfileBtn;
+     @FXML
+    private Button logoutBtn;
     
     @FXML
     private ImageView ProfilePic;
 
     UserService user_ser = new UserService();
     private Client client = new Client();
+private Session session = new Session();
+    int UserID = session.getUserID("1");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -80,6 +86,25 @@ public class ProfileClientController implements Initializable {
         }
     }
 
+    @FXML
+    public void OnLogOut(ActionEvent event) {
+        session.logOut("1");
+                    Stage stage = (Stage) logoutBtn.getScene().getWindow();
+                    stage.close();
+                    try {
+
+                        stage = new Stage();
+                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setTitle("User Managment");
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        System.out.print(e.getMessage());
+                    }
+
+    }
     @FXML
     public void OnBack(ActionEvent event) {
        try{ Stage stage = (Stage) backBtn.getScene().getWindow();

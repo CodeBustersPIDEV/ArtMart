@@ -82,6 +82,7 @@ public class ArtistReadyProductsListController implements Initializable {
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
     int UserID = session.getUserID("1");
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -110,7 +111,6 @@ public class ArtistReadyProductsListController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
                     try {
                         Parent root = loader.load();
-
                         ProfileArtistController controller = loader.getController();
                         controller.setProfile(UserID);
                         Scene scene = new Scene(root);
@@ -122,15 +122,21 @@ public class ArtistReadyProductsListController implements Initializable {
                     }
                 } else if ("Logout".equals(selectedItem)) {
                     session.logOut("1");
-                    Node source = (Node) event.getSource();
-                    Stage stage = (Stage) source.getScene().getWindow();
+                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
                     stage.close();
-                    stage = new Stage();
                     try {
+
+                        stage = new Stage();
                         Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                    } catch (IOException ex) {
-                        Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setTitle("User Managment");
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        System.out.print(e.getMessage());
                     }
+
                 }
             });
         } catch (SQLException e) {

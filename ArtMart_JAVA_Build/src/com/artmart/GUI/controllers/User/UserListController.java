@@ -5,6 +5,8 @@
  */
 package com.artmart.GUI.controllers.User;
 
+import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
+import com.artmart.GUI.controllers.Product.ReadyproductsListController;
 import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.UserService;
@@ -12,7 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +29,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -44,6 +49,9 @@ public class UserListController implements Initializable {
     private TextField searchField;
       @FXML
     private Button backBtn;
+       @FXML
+    private ChoiceBox<String> profileChoiceBox;
+
     UserService user_ser = new UserService();
     User user = new User();
     private List<User> userlist;
@@ -64,7 +72,84 @@ public class UserListController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+       Map<String, String> profileActions = new HashMap<>();
+        profileActions.put("Logout", "logout");
+        profileActions.put("Profile", "profile");
+        // Populate the choice box with display names
+        profileChoiceBox.getItems().addAll(profileActions.keySet());
+        // Add an event listener to handle the selected item's ID
+        profileChoiceBox.setOnAction(event -> {
+            String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
+            String selectedId = profileActions.get(selectedItem);
+            // Handle the action based on the selected ID
+            if ("profile".equals(selectedId)) {
+
+                User u = user_ser.getUser(UserID);
+                if (u.getRole().equals("admin")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileAdminController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (u.getRole().equals("artist")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileArtistController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (u.getRole().equals("client")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileClientController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else if ("logout".equals(selectedId)) {
+                 session.logOut("1");
+                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
+                    stage.close();
+                    try {
+
+                        stage = new Stage();
+                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setTitle("User Managment");
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        System.out.print(e.getMessage());
+                    }
+
+            }
+        });
     }
 
     public void makeList(List<User> Users) throws SQLException {
@@ -110,7 +195,15 @@ public void Search(String searchText)
             Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
-
+public void refreshScene(String searchText)
+{ 
+userlist = this.user_ser.viewListOfUsers();
+        try {
+            this.makeList(userlist);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
 public void OnBack(ActionEvent event){
    try{ Stage stage = (Stage) backBtn.getScene().getWindow();
             stage.close();

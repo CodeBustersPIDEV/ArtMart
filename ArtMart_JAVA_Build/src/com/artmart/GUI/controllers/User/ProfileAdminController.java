@@ -6,6 +6,7 @@
 package com.artmart.GUI.controllers.User;
 
 import com.artmart.models.Admin;
+import com.artmart.models.Session;
 import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -34,7 +36,7 @@ public class ProfileAdminController implements Initializable {
     @FXML
     private ImageView ProfilePic;
     @FXML
-    private Label usernameProfile;
+    private Text usernameProfile;
     @FXML
     private Label nameProfile;
     @FXML
@@ -53,6 +55,11 @@ public class ProfileAdminController implements Initializable {
     private Button backBtn;
     @FXML
     private Label phoneProfile;
+    @FXML
+    private Button logoutBtn;
+
+    private Session session = new Session();
+    int UserID = session.getUserID("1");
     Admin admin = new Admin();
     UserService user_ser = new UserService();
 
@@ -79,6 +86,26 @@ public class ProfileAdminController implements Initializable {
         } catch (Exception e) {
             System.out.println("Error setting image: " + e.getMessage());
         }
+    }
+
+    @FXML
+    public void OnLogOut(ActionEvent event) {
+        session.logOut("1");
+        Stage stage = (Stage) logoutBtn.getScene().getWindow();
+        stage.close();
+        try {
+
+            stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("User Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+
     }
 
     @FXML
