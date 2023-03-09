@@ -1,5 +1,8 @@
 package com.artmart.services;
 
+import com.artmart.GUI.controllers.Order.OrderGUIController;
+import com.artmart.GUI.controllers.Order.OrderGUIMenuController;
+import com.artmart.GUI.controllers.Order.OrderListController;
 import com.artmart.dao.*;
 import com.artmart.interfaces.IOrderService;
 import com.artmart.models.Order;
@@ -7,17 +10,32 @@ import com.artmart.models.OrderRefund;
 import com.artmart.models.OrderStatus;
 import com.artmart.models.OrderUpdate;
 import com.artmart.models.PaymentOption;
+import com.artmart.models.Product;
 import com.artmart.models.Receipt;
 import com.artmart.models.SalesReport;
+import com.artmart.models.Session;
 import com.artmart.models.ShippingOption;
+import com.artmart.models.User;
 import com.artmart.models.Wishlist;
 import com.artmart.utils.OrderCurrentStatus;
+import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 public class OrderService implements IOrderService {
 
     private final OrderDao orderDao = new OrderDao();
+    private final UserDao userDao = new UserDao();
     private final OrderRefundDao orderRefundDao = new OrderRefundDao();
     private final OrderStatusDao orderStatusDao = new OrderStatusDao();
     private final OrderUpdateDao orderUpdateDao = new OrderUpdateDao();
@@ -26,6 +44,12 @@ public class OrderService implements IOrderService {
     private final SalesReportDao salesReportDao = new SalesReportDao();
     private final ShippingOptionDao shippingOptionDao = new ShippingOptionDao();
     private final WishlistDao wishlistDao = new WishlistDao();
+    private final Session session = new Session();
+    private User connectedUser = new User();
+
+    public OrderService() {
+        this.connectedUser = userDao.getUser(session.getUserID("1"));
+    }
 
     @Override
     public int createOrder(Order order) {
@@ -78,8 +102,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public boolean updateOrderStatus(int id,OrderCurrentStatus status) {
-        return this.orderStatusDao.updateOrderStatus(id,status);
+    public boolean updateOrderStatus(int id, OrderCurrentStatus status) {
+        return this.orderStatusDao.updateOrderStatus(id, status);
     }
 
     @Override
@@ -138,11 +162,6 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public int createWishlist(Wishlist wishlist) {
-        return this.wishlistDao.createWishlist(wishlist);
-    }
-
-    @Override
     public Wishlist getWishlist(int id) {
         return this.wishlistDao.getWishlist(id);
     }
@@ -158,8 +177,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public boolean deleteWishlist(int productId,int UserId) {
-        return this.wishlistDao.deleteWishlist(productId,UserId);
+    public boolean deleteWishlist(int productId, int UserId) {
+        return this.wishlistDao.deleteWishlist(productId, UserId);
     }
 
     @Override
@@ -262,4 +281,65 @@ public class OrderService implements IOrderService {
         return this.salesReportDao.deleteSalesReport(id);
     }
 
+    //Utils
+    @Override
+    public int addToShoppingCart(Product productToOrder, int quantity, double price) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate currentDate = LocalDate.now();
+        String formattedDate = currentDate.format(formatter);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Added To Shopping Cart");
+        alert.setHeaderText("Product Saved for your Shopping Cart");
+        alert.showAndWait();
+        return this.wishlistDao.createWishlist(new Wishlist(this.connectedUser.getUser_id(), productToOrder.getProductId(), Date.valueOf(formattedDate), quantity, price));
+    }
+
+    @Override
+    public void goToAdminOrderBoard() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderManagment.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(OrderGUIMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void goToCheckOut() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/Order.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            OrderGUIController controller = loader.getController();
+            controller.setData(connectedUser);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @Override
+    public void goToUsersOrderList() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderList.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            OrderListController controller = loader.getController();
+            controller.setUser(connectedUser);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
 }
