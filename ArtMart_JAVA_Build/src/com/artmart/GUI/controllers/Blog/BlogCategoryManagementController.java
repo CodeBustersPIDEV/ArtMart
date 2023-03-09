@@ -120,6 +120,8 @@ public class BlogCategoryManagementController implements Initializable {
     @FXML
     private void goBackToBlogMenu(ActionEvent event) {
         try {
+            Stage stage1 = (Stage) goBack.getScene().getWindow();
+            stage1.close();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
             Scene scene = new Scene(root);

@@ -3,14 +3,16 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.ImageInput?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogManagementPageController">
    <children>
-      <ScrollPane fx:id="bigCont" layoutY="53.0" pannable="true" prefHeight="681.0" prefWidth="1333.0">
+      <ScrollPane fx:id="bigCont" layoutY="60.0" pannable="true" prefHeight="674.0" prefWidth="1333.0">
          <content>
             <VBox fx:id="container" alignment="TOP_CENTER" spacing="10.0">
                <padding>
@@ -19,7 +21,7 @@
             </VBox>
          </content>
       </ScrollPane>
-      <Button fx:id="backToBlogMenu" layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToBlogMenu" prefHeight="31.0" prefWidth="36.0" text="Back">
+      <Button fx:id="backToBlogMenu" layoutX="25.0" layoutY="15.0" mnemonicParsing="false" onAction="#backToBlogMenu" prefHeight="31.0" prefWidth="36.0" text="Back">
          <effect>
             <ImageInput>
                <source>
@@ -27,6 +29,12 @@
                </source>
             </ImageInput>
          </effect></Button>
-      <Button fx:id="myStatsBtn" layoutX="1225.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToMyStats" text="My Stats" />
+      <Button fx:id="myStatsBtn" layoutX="1219.0" layoutY="8.0" mnemonicParsing="false" onAction="#goToMyStats" text="My Stats" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="18.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000088" />
+         </effect></Button>
    </children>
 </AnchorPane>
