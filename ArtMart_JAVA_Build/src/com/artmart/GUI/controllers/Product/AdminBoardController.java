@@ -5,12 +5,14 @@ import com.artmart.GUI.controllers.User.ProfileAdminController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
+import com.artmart.models.Product;
 import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.CategoriesService;
 import com.artmart.services.DatabaseUtilsService;
+import com.artmart.services.ProductService;
 import com.artmart.services.ReadyProductService;
 import java.io.IOException;
 import java.net.URL;
@@ -56,6 +58,7 @@ import javafx.stage.Stage;
 public class AdminBoardController implements Initializable {
 
     private final ReadyProductService readyProductService = new ReadyProductService();
+    private final ProductService productService = new ProductService();
     private final CategoriesService categoriesService = new CategoriesService();
 
     @FXML
@@ -116,6 +119,7 @@ public class AdminBoardController implements Initializable {
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
     private List<ReadyProduct> readyProductsList;
+    private List<Product> productsList;
     private List<ProductReview> productReviewsList;
     private List<Categories> categoriesList;
     int UserID = session.getUserID("1");
@@ -170,6 +174,7 @@ public class AdminBoardController implements Initializable {
         });
 
         try {
+//            this.productsList = this.productService.getProductById(UserID)
             this.readyProductsList = this.readyProductService.getAllReadyProducts();
         } catch (SQLException ex) {
             Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
