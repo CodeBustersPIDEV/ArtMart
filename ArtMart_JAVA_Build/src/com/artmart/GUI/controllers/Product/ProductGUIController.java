@@ -178,6 +178,7 @@ public class ProductGUIController implements Initializable {
         }
 
     }
+    @FXML
     private void custom(ActionEvent event) throws IOException {
            try {
            Stage stage = (Stage) imagePreview4.getScene().getWindow();

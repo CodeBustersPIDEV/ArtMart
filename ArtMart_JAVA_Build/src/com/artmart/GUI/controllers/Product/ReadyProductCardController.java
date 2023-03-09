@@ -104,11 +104,10 @@ public class ReadyProductCardController implements Initializable {
     @FXML
     public void onDetails(ActionEvent event) {
         try {
-            Stage stage = (Stage) details.getScene().getWindow();
-            stage.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ProductDetails.fxml"));
             Parent root = loader.load();
 
+            Stage stage = new Stage();
             Scene scene = new Scene(root);
             ProductDetailsController controller2 = loader.getController();
             controller2.setUpData(this.pid.getText());
