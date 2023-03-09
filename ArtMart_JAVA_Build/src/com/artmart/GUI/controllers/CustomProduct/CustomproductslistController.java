@@ -260,6 +260,9 @@ public class CustomproductslistController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    
+    
 
     @FXML
     private void gofb(ActionEvent event) {
