@@ -131,10 +131,13 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-         <Button layoutX="583.0" layoutY="608.0" mnemonicParsing="false" onAction="#custom" prefHeight="31.0" prefWidth="201.0" text="Consut Custom Products" textAlignment="CENTER" textFill="#21153d">
+      <Button alignment="CENTER" layoutX="571.0" layoutY="599.0" mnemonicParsing="false" onAction="#custom" prefHeight="38.0" prefWidth="224.0" text="Consut Custom Products" textAlignment="CENTER" textFill="#21153d">
          <font>
-            <Font size="15.0" />
+            <Font name="Dubai Bold" size="15.0" />
          </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
       </Button>
     </children>
 </AnchorPane>

@@ -308,7 +308,6 @@ public class ArtistReadyProductsListController implements Initializable {
         }
 
     }
-    
     @FXML
     private void custom(ActionEvent event) {
     try {

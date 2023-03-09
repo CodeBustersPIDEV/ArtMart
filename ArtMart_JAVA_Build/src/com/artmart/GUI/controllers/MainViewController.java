@@ -41,16 +41,17 @@ public class MainViewController implements Initializable {
     private Button cProductBtn;
     @FXML
     private Button blogBtn;
-    @FXML
-    private ChoiceBox<String> profileChoiceBox;
-    @FXML
-    private Label username;
+    
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
     int UserID = session.getUserID("1");
     UserService user_ser = new UserService();
+    @FXML
+    private ChoiceBox<String> profileChoiceBox;
+    @FXML
+    private Label username;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
