@@ -212,7 +212,6 @@ public class ArtistReadyProductsListController implements Initializable {
             Stage stage = (Stage) addProduct.getScene().getWindow();
             stage.close();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AddReadyProduct.fxml"));
-
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("Add Ready Product");
@@ -278,34 +277,7 @@ public class ArtistReadyProductsListController implements Initializable {
         });
     }
 
-    public void goToProfile(String profile) {
-        try {
-
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/" + profile + ".fxml"));
-            Parent root = loader.load();
-            if (profile.equals("ProfileArtist")) {
-                ProfileArtistController controller = loader.getController();
-                controller.setProfile(UserID);
-
-            } else if (profile.equals("ProfileAdmin")) {
-                ProfileAdminController controller = loader.getController();
-                controller.setProfile(UserID);
-
-            } else if (profile.equals("ProfileClient")) {
-                ProfileClientController controller = loader.getController();
-                controller.setProfile(UserID);
-
-            }
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-
-    }
+   
 
     public void refreshScene(ActionEvent event) {
         Node source = (Node) event.getSource();
