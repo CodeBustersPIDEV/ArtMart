@@ -38,7 +38,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -84,6 +86,10 @@ public class AddCustomController implements Initializable {
   private boolean testImg = false;
      private final String phpUrl = "http://localhost/PIDEV/upload.php";
     String boundary = "---------------------------12345";
+    @FXML
+    private Label username;
+    @FXML
+    private ChoiceBox<?> profileChoiceBox;
     /**
      * Initializes the controller class.
      */
