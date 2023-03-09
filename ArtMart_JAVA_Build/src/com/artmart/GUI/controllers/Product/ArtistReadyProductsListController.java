@@ -74,6 +74,8 @@ public class ArtistReadyProductsListController implements Initializable {
     
     @FXML
     private Button goToBlogs;
+    @FXML
+    private Button btnGoToEvents;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -341,6 +343,19 @@ public class ArtistReadyProductsListController implements Initializable {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setResizable(false);
+        }
+    }
+
+    @FXML
+    private void onGoToEvents(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnGoToEvents.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -349,20 +364,19 @@ public class ArtistReadyProductsListController implements Initializable {
 
     }
     private void custom(ActionEvent event) {
-        try {
-                Stage stage = (Stage) searchBtn.getScene().getWindow();
-                stage.close();
-                stage = new Stage();
-                Parent root = FXMLLoader
-                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCustom.fxml"));
-                Scene scene = new Scene(root);
-                stage.setResizable(false);
-                stage.setTitle("Custom Product Managment");
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                System.out.print(e.getMessage());
-            }
+    try {
+        Stage stage = (Stage) searchBtn.getScene().getWindow();
+        stage.close();
+        stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCustom.fxml"));
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Custom Product Managment");
+        stage.setScene(scene);
+        stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
         }
-}
+    }
+}    
 

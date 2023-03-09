@@ -19,12 +19,12 @@
             <VBox fx:id="vBox" prefHeight="550.0" prefWidth="650.0" />
          </content>
       </ScrollPane>
-      <Text fill="#ff5946" layoutX="232.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report List">
+      <Text fill="#ff5946" layoutX="265.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports">
          <font>
             <Font name="Brush Script MT Italic" size="48.0" />
          </font>
       </Text>
-      <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#returnToEventHomepage" text="&lt;&lt; Return" textFill="#5d53a8">
+      <Button fx:id="btnReturn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#returnToEventHomepage" text="&lt;&lt; Return" textFill="#5d53a8">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
@@ -40,5 +40,15 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
+      <Button fx:id="btnAddReport" layoutX="608.0" layoutY="115.0" mnemonicParsing="false" onAction="#onBtnAddReport" text="➕" textFill="#5d53a8">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Text fill="#5d53a8" layoutX="496.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Report">
+         <font>
+            <Font name="Brush Script MT Italic" size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

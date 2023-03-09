@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.artmart.GUI.controllers.Event.Artist.Event;
 
 import com.artmart.models.Event;
@@ -70,6 +66,12 @@ public class AddEventController implements Initializable {
     private DatePicker dpEndDate;
     @FXML
     private DatePicker dpStartDate;
+    @FXML
+    private TextField txtImage;
+    @FXML
+    private ComboBox<?> comboBoxEventStatus;
+    @FXML
+    private Button btnAddImage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -179,7 +181,9 @@ public class AddEventController implements Initializable {
     @FXML
     private void returnToEventHomepage(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnCancelEvent.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -189,5 +193,9 @@ public class AddEventController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }        
+    }
+
+    @FXML
+    private void onBtnAddImage(ActionEvent event) {
     }
 }

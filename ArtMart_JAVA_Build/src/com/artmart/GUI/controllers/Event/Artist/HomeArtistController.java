@@ -10,9 +10,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class HomeArtistController implements Initializable {
+
+    @FXML
+    private Button btnReturn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -22,7 +26,9 @@ public class HomeArtistController implements Initializable {
     @FXML
     private void returnToMain(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -34,10 +40,11 @@ public class HomeArtistController implements Initializable {
         }
     }    
 
-    @FXML
     private void onBtnAddEvent(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/add_event.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -52,7 +59,9 @@ public class HomeArtistController implements Initializable {
     @FXML
     private void onBtnGetAllEvents(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/list_event.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -64,10 +73,11 @@ public class HomeArtistController implements Initializable {
         }
     } 
 
-    @FXML
     private void onBtnAddActivity(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Activity/add_activity.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -82,7 +92,9 @@ public class HomeArtistController implements Initializable {
     @FXML
     private void onBtnGetAllActivities(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Activity/list_activity.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -94,10 +106,11 @@ public class HomeArtistController implements Initializable {
         }
     } 
 
-    @FXML
     private void onBtnAddReport(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/EventReport/add_report.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -112,7 +125,9 @@ public class HomeArtistController implements Initializable {
     @FXML
     private void onBtnGetReports(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/EventReport/list_report.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -127,7 +142,9 @@ public class HomeArtistController implements Initializable {
     @FXML
     private void onViewParticipations(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Participation/list_participation.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -142,8 +159,10 @@ public class HomeArtistController implements Initializable {
     @FXML
     private void onViewFeedbacks(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/user_list_feedback.fxml"));
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Feedback/list_feedback.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");

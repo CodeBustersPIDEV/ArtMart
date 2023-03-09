@@ -44,6 +44,10 @@ public class ListActivityController implements Initializable {
     private TextField txtSearch;
     @FXML
     private ScrollPane scrollPaneActivityList;
+    @FXML
+    private Button btnReturn;
+    @FXML
+    private Button btnAddActivity;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,9 +100,11 @@ public class ListActivityController implements Initializable {
     }
 
     @FXML
-    private void onBtnReturn(ActionEvent event) {
+    private void onReturn(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -137,5 +143,22 @@ public class ListActivityController implements Initializable {
         }
  
     }
+
+    @FXML
+    private void onBtnAddActivity(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnAddActivity.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Activity/add_activity.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }        
+    }  
     
 }

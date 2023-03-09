@@ -34,6 +34,8 @@ public class ListParticipationController implements Initializable {
 
     private ParticipationService ps =new ParticipationService();
     private List<Participation> participationList;
+    @FXML
+    private Button btnReturn;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,9 +80,11 @@ public class ListParticipationController implements Initializable {
     }
 
     @FXML
-    private void onBtnReturn(ActionEvent event) {
+    private void onReturn(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -90,5 +94,5 @@ public class ListParticipationController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }        
-    }    
+    } 
 }

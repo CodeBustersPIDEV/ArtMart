@@ -43,6 +43,10 @@ public class ListReportController implements Initializable {
     private Button btnSearch;
     @FXML
     private TextField txtSearch;
+    @FXML
+    private Button btnAddReport;
+    @FXML
+    private Button btnReturn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,9 +78,11 @@ public class ListReportController implements Initializable {
     }
 
     @FXML
-    private void returnToEventHomepage(ActionEvent event) {
+    private void returnToEventHomepage(ActionEvent event) {      
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnReturn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -99,5 +105,22 @@ public class ListReportController implements Initializable {
     @FXML
     private void onBtnCancel(ActionEvent event) {
     }
+
+    @FXML
+    private void onBtnAddReport(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnAddReport.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/EventReport/add_report.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }        
+    }  
     
 }

@@ -190,7 +190,8 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="goToBlogs" alignment="CENTER" layoutX="997.0" layoutY="12.0" mnemonicParsing="false" onAction="#goToBlogs" prefHeight="29.0" prefWidth="124.0" text="Blogs" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="goToBlogs" alignment="CENTER" layoutX="997.0" layoutY="12.0" mnemonicParsing="false" onAction="#goToBlogs" prefHeight="29.0" prefWidth="124.0" text="Blogs" textAlignment="CENTER" textFill="#21153d"/>
+      <Button fx:id="btnGoToEvents" alignment="CENTER" layoutX="783.0" layoutY="80.0" mnemonicParsing="false" onAction="#onGoToEvents" prefHeight="29.0" prefWidth="124.0" text="Manage events" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>

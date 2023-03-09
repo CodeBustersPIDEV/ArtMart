@@ -28,6 +28,12 @@ public class Activity {
         this.host = host;
     }
 
+    public Activity(Date date, String title, String host) {
+        this.date = date;
+        this.title = title;
+        this.host = host;
+    }
+
     public int getActivityID() {
         return activityID;
     }

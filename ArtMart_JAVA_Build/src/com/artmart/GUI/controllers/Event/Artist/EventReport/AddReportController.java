@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.artmart.GUI.controllers.Event.Artist.EventReport;
 
 import com.artmart.models.Event;
@@ -27,11 +23,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author GhassenZ
- */
 public class AddReportController implements Initializable {
 
     private final EventReportService ers = new EventReportService();
@@ -53,10 +44,6 @@ public class AddReportController implements Initializable {
     private String eventName;
     private int attendance;
 
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -127,7 +114,9 @@ public class AddReportController implements Initializable {
     @FXML
     private void onBtnCancelReport(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) btnCancelReport.getScene().getWindow();
+            stage.close();
+            stage = new Stage();            
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -136,7 +125,7 @@ public class AddReportController implements Initializable {
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
-        }           
-    }
+        }        
+    }    
     
 }
