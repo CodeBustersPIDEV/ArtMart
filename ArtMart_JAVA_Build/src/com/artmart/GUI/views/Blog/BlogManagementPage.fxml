@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -17,6 +19,14 @@
             </VBox>
          </content>
       </ScrollPane>
-      <Button fx:id="backToBlogMenu" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToBlogMenu" text="Back" />
+      <Button fx:id="backToBlogMenu" layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToBlogMenu" prefHeight="31.0" prefWidth="36.0" text="Back">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/back-arrow.png" />
+               </source>
+            </ImageInput>
+         </effect></Button>
+      <Button fx:id="myStatsBtn" layoutX="1225.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToMyStats" text="My Stats" />
    </children>
 </AnchorPane>

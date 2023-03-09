@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="578.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogStatController">
+<AnchorPane id="AnchorPane" prefHeight="627.0" prefWidth="982.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogStatController">
    <children>
-      <BarChart fx:id="blogChart" layoutX="59.0" layoutY="78.0" prefHeight="470.0" prefWidth="701.0">
+      <BarChart fx:id="blogChart" layoutX="46.0" layoutY="78.0" prefHeight="520.0" prefWidth="890.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
         <yAxis>
-          <NumberAxis autoRanging="false" side="LEFT" upperBound="150.0" />
+          <NumberAxis fx:id="yAxis" autoRanging="false" side="LEFT" upperBound="150.0" />
         </yAxis>
       </BarChart>
       <Button fx:id="goBack" layoutX="43.0" layoutY="27.0" mnemonicParsing="false" onAction="#goBackToBlogMenu" prefHeight="31.0" prefWidth="32.0" text="Back">
@@ -29,7 +29,7 @@
             </ImageInput>
          </effect>
       </Button>
-      <Label layoutX="265.0" layoutY="16.0" text="Blog Views By User">
+      <Label layoutX="339.0" layoutY="16.0" text="Blog Views Per User">
          <font>
             <Font name="Agency FB Bold" size="44.0" />
          </font>

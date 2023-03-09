@@ -5,12 +5,14 @@ import com.artmart.models.Blog;
 import com.artmart.models.BlogCategories;
 import com.artmart.models.HasCategory;
 import com.artmart.models.Media;
+import com.artmart.models.Session;
 import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -52,12 +54,14 @@ public class BlogGUIController implements Initializable {
     private MenuItem keyw;
     @FXML
     private ComboBox<BlogCategories> catComboBox;
+    @FXML
+    private Button sortBtn;
     private final BlogService blogService = new BlogService();
     private List<Blog> matchingBlogs;
     private List<BlogCategories> blogCategoriesList;
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    @FXML
-    private Button sortBtn;
+    HashMap user = (HashMap) Session.getActiveSessions();
+    private Session session = new Session();
 
     private void initBlogs() {
         UserDao userService = new UserDao();
@@ -98,6 +102,7 @@ public class BlogGUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.session = (Session) user.get(user.keySet().toArray()[0]);
         File f = new File("src/com/artmart/assets/BlogAssets/3493894fa4ea036cfc6433c3e2ee63b0.png");
         Image im = new Image(f.toURI().toString());
         ImageView imageView = new ImageView(im);
@@ -149,18 +154,21 @@ public class BlogGUIController implements Initializable {
 
     @FXML
     private void goBackToBlogMenu(ActionEvent event) {
-//        try {
-//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/MainView.fxml"));
-//            Scene scene = new Scene(root);
-//            stage.setResizable(false);
-//            stage.setScene(scene);
-//            stage.show();
-//        } catch (IOException e) {
-//            System.out.print(e.getMessage());
-//        }
-        Stage stage = (Stage) backToBlogMenu.getScene().getWindow();
-        stage.close();
+        if (this.session.getUserRole().equals("admin")) {
+            try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
+        } else {
+            Stage stage = (Stage) backToBlogMenu.getScene().getWindow();
+            stage.close();
+        }
     }
 
     @FXML
