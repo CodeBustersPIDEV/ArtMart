@@ -163,15 +163,21 @@ public class EditReadyProductController implements Initializable {
 
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
-                Node source = (Node) event.getSource();
-                Stage stage = (Stage) source.getScene().getWindow();
-                stage.close();
-                stage = new Stage();
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                } catch (IOException ex) {
-                    Logger.getLogger(ReadyproductsListController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
+                    stage.close();
+                    try {
+
+                        stage = new Stage();
+                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setTitle("User Managment");
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        System.out.print(e.getMessage());
+                    }
+
             }
         });
     }
