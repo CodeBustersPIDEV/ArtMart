@@ -14,6 +14,7 @@ import com.artmart.services.BlogService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +56,7 @@ public class AdminBlogPageController implements Initializable {
     private List<User> userOptionsList;
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     private List<Blog> blogList = new ArrayList<>();
     private AdminBlogCardController controller;
     private User connectedUser = new User();
@@ -102,6 +104,8 @@ public class AdminBlogPageController implements Initializable {
                 container.getChildren().add(pane);
                 controller.setBlogID(Integer.toString(blog.getId()));
                 controller.setUsername(username);
+                controller.setViewsLabel(Integer.toString(blog.getNb_views()));
+                controller.setRatingLabel(String.valueOf(df.format(blog.getRating())));
                 controller.setPublishDate(blog.getPublishDate().toString());
             } catch (IOException e) {
                 e.getMessage();
