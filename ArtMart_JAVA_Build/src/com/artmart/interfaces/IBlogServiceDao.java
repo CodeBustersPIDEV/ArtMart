@@ -15,6 +15,8 @@ public interface IBlogServiceDao {
 
     public List<Blog> getAllBlogsOrdered();
 
+    public List<Blog> getAllBlogsOrderedByViews();
+
     public List<Blog> getAllBlogsByUser(int user_id);
 
     public List<Blog> searchBlogsByTitle(String blog_title);

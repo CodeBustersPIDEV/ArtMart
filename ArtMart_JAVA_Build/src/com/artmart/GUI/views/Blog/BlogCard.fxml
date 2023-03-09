@@ -39,7 +39,7 @@
             </ImageInput>
          </effect>
       </Label>
-      <Label fx:id="viewsLabel" layoutX="1245.0" layoutY="100.0" text="Views">
+      <Label fx:id="viewsLabel" layoutX="1224.0" layoutY="100.0" text="Views">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
