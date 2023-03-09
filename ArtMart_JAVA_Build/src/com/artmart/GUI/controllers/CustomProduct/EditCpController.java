@@ -2,6 +2,7 @@ package com.artmart.GUI.controllers.CustomProduct;
 
 import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
 import com.artmart.GUI.controllers.User.ProfileAdminController;
+import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.CustomProductDao;
 import com.artmart.dao.ProductDao;
@@ -129,11 +130,11 @@ public class EditCpController implements Initializable {
 
                     profileChoiceBox.setValue("");
                     Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
                     try {
                         Parent root = loader.load();
 
-                        ProfileAdminController controller = loader.getController();
+                        ProfileClientController controller = loader.getController();
                         controller.setProfile(UserID);
                         Scene scene = new Scene(root);
                         stage.setResizable(false);

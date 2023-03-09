@@ -5,6 +5,7 @@ import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
 import com.artmart.GUI.controllers.Product.CategoryCardController;
 import com.artmart.GUI.controllers.Product.ReadyproductsListController;
 import com.artmart.GUI.controllers.User.ProfileAdminController;
+import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.dao.ApplyDao;
 import com.artmart.models.Apply;
 import com.artmart.models.Categories;
@@ -91,18 +92,19 @@ public class CustomproductslistController implements Initializable {
     @FXML
     private Text totalp;
     HashMap user = (HashMap) Session.getActiveSessions();
-    private Session session = new Session();
     ApplyDao x = new ApplyDao();
     @FXML
     private RadioButton def;
-    @FXML
-    private ChoiceBox<String> profileChoiceBox;
-    @FXML
-    private javafx.scene.control.Label username;
+
     private VBox vBoxCat;
     private List<Categories> categorieslist;
     private final CategoriesService CategoriesService = new CategoriesService();
     private CategoryCardController categoryCardController;
+    @FXML
+    private ChoiceBox<String> profileChoiceBox;
+    @FXML
+    private javafx.scene.control.Label username;
+    private Session session = new Session();
     int UserID = session.getUserID("1");
     UserService user_ser = new UserService();
 
@@ -127,11 +129,11 @@ public class CustomproductslistController implements Initializable {
 
                     profileChoiceBox.setValue("");
                     Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
                     try {
                         Parent root = loader.load();
 
-                        ProfileAdminController controller = loader.getController();
+                        ProfileClientController controller = loader.getController();
                         controller.setProfile(UserID);
                         Scene scene = new Scene(root);
                         stage.setResizable(false);
