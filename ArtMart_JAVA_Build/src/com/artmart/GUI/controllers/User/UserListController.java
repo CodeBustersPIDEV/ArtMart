@@ -30,6 +30,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -45,34 +46,38 @@ public class UserListController implements Initializable {
 
     @FXML
     private VBox vbox;
-     @FXML
+    @FXML
     private TextField searchField;
-      @FXML
+    @FXML
     private Button backBtn;
-       @FXML
+    @FXML
     private ChoiceBox<String> profileChoiceBox;
-
+    @FXML
+    private Label username;
     UserService user_ser = new UserService();
     User user = new User();
     private List<User> userlist;
     Session session = new Session();
     int UserID = session.getUserID("1");
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        User test = user_ser.getUser(UserID);
+        username.setText(test.getUsername());
         try {
             userlist = this.user_ser.viewListOfUsers();
             this.makeList(userlist);
-            
-             searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-        Search(newValue);
-    });
+
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                Search(newValue);
+            });
         } catch (SQLException ex) {
             Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       Map<String, String> profileActions = new HashMap<>();
+        Map<String, String> profileActions = new HashMap<>();
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
         // Populate the choice box with display names
@@ -132,28 +137,28 @@ public class UserListController implements Initializable {
                     }
                 }
             } else if ("logout".equals(selectedId)) {
-                 session.logOut("1");
-                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
-                    stage.close();
-                    try {
+                session.logOut("1");
+                Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
+                stage.close();
+                try {
 
-                        stage = new Stage();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setTitle("User Managment");
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
+                    stage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setTitle("User Managment");
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
+                }
 
             }
         });
     }
 
     public void makeList(List<User> Users) throws SQLException {
-        this.vbox.getChildren().clear();  
+        this.vbox.getChildren().clear();
         Users.forEach(u -> {
             try {
 
@@ -165,14 +170,14 @@ public class UserListController implements Initializable {
                 String username = user.getUsername();
                 String role = user.getRole();
                 if (img == null) {
-                    File file = new File("src/com/artmart/assets/user.jpg");
+                    File file = new File("http://src/com/artmart/assets/user.jpg");
                     Image image = new Image(file.toURI().toString());
                     controller.setProfilePic(image);
                 } else {
                     Image image = new Image(img);
                     controller.setProfilePic(image);
                 }
-                
+
                 controller.setUserRole(role);
                 controller.setUserUsername(username);
                 controller.setUser(user);
@@ -183,42 +188,43 @@ public class UserListController implements Initializable {
             }
         });
     }
-public void Search(String searchText)
-{    vbox.getChildren().clear();
- List<User> searchedUsers = userlist.stream()
-            .filter(u -> u.getUsername().toLowerCase().contains(searchField.getText().toLowerCase()))
-            .collect(Collectors.toList());
+
+    public void Search(String searchText) {
+        vbox.getChildren().clear();
+        List<User> searchedUsers = userlist.stream()
+                .filter(u -> u.getUsername().toLowerCase().contains(searchField.getText().toLowerCase()))
+                .collect(Collectors.toList());
         try {
             this.makeList(searchedUsers);
-          
+
         } catch (SQLException ex) {
             Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
         }
-}
-public void refreshScene(String searchText)
-{ 
-userlist = this.user_ser.viewListOfUsers();
+    }
+
+    @FXML
+    public void refreshScene(ActionEvent event) {
+        userlist = this.user_ser.viewListOfUsers();
         try {
             this.makeList(userlist);
         } catch (SQLException ex) {
             Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
         }
-}
-public void OnBack(ActionEvent event){
-   try{ Stage stage = (Stage) backBtn.getScene().getWindow();
-            stage.close();
-            stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
-            Parent root = loader.load();
-            ProfileAdminController controller = loader.getController();
-                controller.setProfile(UserID);
+    }
 
+    @FXML
+    public void OnBack(ActionEvent event) {
+         try {
+            Stage stage = (Stage) backBtn.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/MainView.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setResizable(false);
-       
-     stage.setScene(scene);
+            stage.setScene(scene);
             stage.show();
-}       catch (IOException ex) {
-            Logger.getLogger(UserListController.class.getName()).log(Level.SEVERE, null, ex);
-        }}
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
 }

@@ -131,7 +131,7 @@ public class LoginController implements Initializable {
                                     Stage stage = (Stage) LoginBtn.getScene().getWindow();
                                     stage.close();
                                     stage = new Stage();
-                                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ReadyProductsList.fxml"));
+                                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
                                     Scene scene = new Scene(root);
                                     stage.setResizable(false);
                                     stage.setTitle("User Managment");

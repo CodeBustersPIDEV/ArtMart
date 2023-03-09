@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -31,7 +32,7 @@ import javafx.scene.control.Button;
 public class UserCardController implements Initializable {
 
     @FXML
-    private Label usernameField;
+    private Text usernameField;
     @FXML
     private Label roleField;
     @FXML
@@ -60,10 +61,16 @@ public class UserCardController implements Initializable {
 
     public void setProfilePic(Image profilePic) {
         this.profilePic.setImage(profilePic);
+        
     }
 
     public void setUser(User u) {
         this.user = u;
+        
+        if(user.getRole().equals("admin"))
+        {
+            blockBtn.setVisible(false);
+        }
         if (user.getBlocked()) {
             blockBtn.setText("Unblock Account");
 

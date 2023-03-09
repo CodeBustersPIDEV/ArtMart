@@ -55,7 +55,7 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <ImageView fx:id="profilePic" fitHeight="81.0" fitWidth="93.0" layoutX="29.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="profilePic" fitHeight="81.0" fitWidth="93.0" layoutX="16.0" layoutY="16.0" pickOnBounds="true">
          <image>
             <Image url="@../../../../../../assets/user.jpeg" />
          </image>

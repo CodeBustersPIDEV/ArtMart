@@ -5,16 +5,16 @@
  */
 package com.artmart.GUI.controllers.User;
 
+import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
 import static com.artmart.dao.UserDao.hashPassword;
 import com.artmart.models.Admin;
 import com.artmart.models.Artist;
 import com.artmart.models.Client;
+import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.UserService;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,14 +24,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.Files;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,8 +47,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
 
 /**
  * FXML Controller class
@@ -84,10 +80,11 @@ public class UpdateProfileController implements Initializable {
     UserService user_ser = new UserService();
     User user = new User();
     Artist artist = new Artist();
-        private final FileChooser fileChooser = new FileChooser();
-            String boundary = "---------------------------12345";
+    private final FileChooser fileChooser = new FileChooser();
+    String boundary = "---------------------------12345";
+    private Session session = new Session();
 
-
+    int UserID = session.getUserID("1");
 
     boolean test2, test1, a;
     int userID;
@@ -125,7 +122,7 @@ public class UpdateProfileController implements Initializable {
             bioField.setVisible(true);
             Label.setText("Department");
             Admin ad = user_ser.getAdmin(user.getUser_id());
-            bioField.setText(ad.getDepartment());
+            bioField.setText(ad.getDepartment()); 
         } else {
             bioField.setVisible(false);
         }
@@ -205,19 +202,7 @@ public class UpdateProfileController implements Initializable {
                 alert.setContentText("Oops!!Can not update account");
                 alert.showAndWait();
             }
-            try {
-                Stage stage = (Stage) updateBtn.getScene().getWindow();
-                stage.close();
-                stage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
-                Scene scene = new Scene(root);
-                stage.setResizable(false);
-                stage.setTitle("User Managment");
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                System.out.print(e.getMessage());
-            }
+
         }
     }
 
@@ -250,7 +235,7 @@ public class UpdateProfileController implements Initializable {
 
         String serverUrl = "http://localhost/upload_script.php";
 
-Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         this.fileChooser.setTitle("Select an image");
         this.fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
@@ -284,17 +269,18 @@ Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 System.out.println(line);
             }
             reader.close();
-                imageUrl = "http://localhost/PIDEV/BlogUploads/" + file.getName();
-                int responseCode = connection.getResponseCode();
-                Image Image = new Image(imageUrl);
-                System.out.println(imageUrl);
-                ProfilePic.setImage(Image);
-                user.setPicture(imageUrl);
-                user_ser.updateAccountU(userID, user);
-                System.out.println("Response code: " + responseCode);
+            imageUrl = "http://localhost/PIDEV/BlogUploads/" + file.getName();
+            int responseCode = connection.getResponseCode();
+            Image Image = new Image(imageUrl);
+            System.out.println(imageUrl);
+            ProfilePic.setImage(Image);
+            user.setPicture(imageUrl);
+            user_ser.updateAccountU(userID, user);
+            System.out.println("Response code: " + responseCode);
 
         }
 
     }
 
+   
 }

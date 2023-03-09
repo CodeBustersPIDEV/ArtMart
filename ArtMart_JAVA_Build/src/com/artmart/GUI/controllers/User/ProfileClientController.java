@@ -7,6 +7,7 @@ package com.artmart.GUI.controllers.User;
 
 import com.artmart.models.Client;
 import com.artmart.models.Session;
+import com.artmart.models.User;
 import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
@@ -47,19 +48,18 @@ public class ProfileClientController implements Initializable {
     private Label nbrOrderProfile;
     @FXML
     private Label nbrCusDemProfile;
-    @FXML
-    private Button backBtn;
+   
     @FXML
     private Button editProfileBtn;
-     @FXML
-    private Button logoutBtn;
-    
+    @FXML
+    private Button logout;
+
     @FXML
     private ImageView ProfilePic;
 
     UserService user_ser = new UserService();
     private Client client = new Client();
-private Session session = new Session();
+    private Session session = new Session();
     int UserID = session.getUserID("1");
 
     @Override
@@ -68,6 +68,11 @@ private Session session = new Session();
     }
 
     public void setProfile(int id) {
+
+        User test = user_ser.getUser(UserID);
+        if (test.getRole().equals("admin")) {
+            logout.setVisible(false);
+        }
         client = user_ser.getClient(id);
         System.out.println(client);
         nameProfile.setText(client.getName());
@@ -89,42 +94,28 @@ private Session session = new Session();
     @FXML
     public void OnLogOut(ActionEvent event) {
         session.logOut("1");
-                    Stage stage = (Stage) logoutBtn.getScene().getWindow();
-                    stage.close();
-                    try {
-
-                        stage = new Stage();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setTitle("User Managment");
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
-
-    }
-    @FXML
-    public void OnBack(ActionEvent event) {
-       try{ Stage stage = (Stage) backBtn.getScene().getWindow();
+        Stage stage = (Stage) logout.getScene().getWindow();
         stage.close();
-        stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
+        try {
+
+            stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("User Managment");
             stage.setScene(scene);
             stage.show();
-    }   catch (IOException ex) {
-            Logger.getLogger(ProfileClientController.class.getName()).log(Level.SEVERE, null, ex);
-        }}
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
 
+    }
+
+   
     @FXML
     public void OnEditProfile(ActionEvent event) {
-        try { Stage stage = (Stage) editProfileBtn.getScene().getWindow();
-             stage.close();
-             stage = new Stage();
+        try {
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/updateProfile.fxml"));
             Parent root = loader.load();
             UpdateProfileController controller = loader.getController();

@@ -163,6 +163,7 @@ public class ReadyproductsListController implements Initializable {
             });
         }
     }
+    @FXML
 
     public void onBack(ActionEvent event) {
         try {
@@ -261,6 +262,7 @@ public class ReadyproductsListController implements Initializable {
             });
         }
     }
+    @FXML
 
     public void refreshScene(ActionEvent event) {
         Node source = (Node) event.getSource();

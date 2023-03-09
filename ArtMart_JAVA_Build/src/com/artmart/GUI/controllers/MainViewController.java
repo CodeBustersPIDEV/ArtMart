@@ -44,7 +44,9 @@ public class MainViewController implements Initializable {
     @FXML
     private void goToOrder(ActionEvent event) {
         try {
-            Stage stage = new Stage();
+            Stage stage = (Stage) eventBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Order/OrderGUIMenu.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -59,10 +61,10 @@ public class MainViewController implements Initializable {
     @FXML
     private void goToUser(ActionEvent event) {
         try {
-            Stage stage = (Stage) productBtn.getScene().getWindow();
+            Stage stage = (Stage) userBtn.getScene().getWindow();
             stage.close();
             stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/SignUp.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/userList.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("User Managment");
@@ -77,7 +79,9 @@ public class MainViewController implements Initializable {
     private void goToProduct(ActionEvent event) {
         if (this.connectedUser.getRole().equals("artist")) {
             try {
-                Stage stage = new Stage();
+                Stage stage = (Stage) userBtn.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
 
                 Scene scene = new Scene(root);
@@ -91,7 +95,9 @@ public class MainViewController implements Initializable {
         }
         if (this.connectedUser.getRole().equals("admin")) {
             try {
-                Stage stage = new Stage();
+                Stage stage = (Stage) userBtn.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AdminBoard.fxml"));
 
                 Scene scene = new Scene(root);
@@ -105,7 +111,9 @@ public class MainViewController implements Initializable {
         }
         if (this.connectedUser.getRole().equals("client")) {
             try {
-                Stage stage = new Stage();
+                Stage stage = (Stage) userBtn.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
 
                 Scene scene = new Scene(root);
@@ -122,7 +130,9 @@ public class MainViewController implements Initializable {
     @FXML
     private void goToEvent(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) userBtn.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -138,7 +148,9 @@ public class MainViewController implements Initializable {
     private void goToCustomProduct(ActionEvent event) {
         if (this.connectedUser.getRole().equals("admin")) {
             try {
-                Stage stage = new Stage();
+                Stage stage = (Stage) userBtn.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
                 Parent root = FXMLLoader
                         .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
                 Scene scene = new Scene(root);
@@ -152,7 +164,9 @@ public class MainViewController implements Initializable {
         }
         if (this.connectedUser.getRole().equals("client")) {
             try {
-                Stage stage = new Stage();
+                Stage stage = (Stage) userBtn.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
                 Parent root = FXMLLoader
                         .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/UserCustom.fxml"));
                 Scene scene = new Scene(root);
@@ -166,7 +180,9 @@ public class MainViewController implements Initializable {
         }
         if (this.connectedUser.getRole().equals("artist")) {
             try {
-                Stage stage = new Stage();
+                Stage stage = (Stage) userBtn.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
                 Parent root = FXMLLoader
                         .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCustom.fxml"));
                 Scene scene = new Scene(root);
@@ -184,7 +200,9 @@ public class MainViewController implements Initializable {
     private void goToBlog(ActionEvent event) {
         if (this.connectedUser.getRole().equals("admin")) {
             try {
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Stage stage = (Stage) userBtn.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
@@ -196,7 +214,9 @@ public class MainViewController implements Initializable {
             }
         } else {
             try {
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Stage stage = (Stage) userBtn.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
