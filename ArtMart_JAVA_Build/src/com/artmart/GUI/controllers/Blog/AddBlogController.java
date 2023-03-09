@@ -202,7 +202,7 @@ public class AddBlogController implements Initializable {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root;
-            if (this.connectedUser.getRole().equals("Admin")) {
+            if (this.connectedUser.getRole().equals("admin")) {
                 root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
             } else {
                 root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));

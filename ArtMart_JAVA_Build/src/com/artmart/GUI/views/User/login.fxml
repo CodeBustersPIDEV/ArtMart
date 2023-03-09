@@ -118,10 +118,6 @@
             <Font name="Dubai Regular" size="13.0" />
          </font></Hyperlink>
       <PasswordField fx:id="pwdLoginField" layoutX="249.0" layoutY="188.0" prefHeight="25.0" prefWidth="245.0" promptText="Password">
-         <font>
-            <Font name="Dubai Regular" size="14.0" />
-         </font>
-      </PasswordField>
       <Button fx:id="activateAccountBtn" alignment="CENTER" layoutX="312.0" layoutY="394.0" mnemonicParsing="false" onAction="#OnActivateAccount" prefHeight="30.0" prefWidth="118.0" text="Activate account" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="12.0" />

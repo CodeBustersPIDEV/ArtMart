@@ -184,7 +184,7 @@ public class MainViewController implements Initializable {
     private void goToBlog(ActionEvent event) {
         if (this.connectedUser.getRole().equals("admin")) {
             try {
-                Stage stage = new Stage();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
@@ -196,7 +196,7 @@ public class MainViewController implements Initializable {
             }
         } else {
             try {
-                Stage stage = new Stage();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/Blog.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
