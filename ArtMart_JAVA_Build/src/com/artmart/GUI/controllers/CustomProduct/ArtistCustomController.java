@@ -26,6 +26,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -60,6 +62,12 @@ public class ArtistCustomController implements Initializable {
     // ...
     @FXML
     private Button apply;
+    @FXML
+    private Label username;
+    @FXML
+    private ChoiceBox<?> profileChoiceBox;
+    @FXML
+    private RadioButton SDEF;
     
     public void setLoggedInArtist(Artist artist) {
         this.loggedInArtist = artist;
@@ -188,7 +196,7 @@ void calculateProduct() throws SQLException {
         @FXML
     private void onexit(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
+                getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

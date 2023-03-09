@@ -23,7 +23,7 @@
         <URL value="@/com/artmart/GUI/styles/productgui.css" />
     </stylesheets>
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9e9e9" height="768.0" stroke="BLACK" strokeType="INSIDE" width="1366.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9e9e9" height="768.0" layoutX="3.0" layoutY="-14.0" stroke="BLACK" strokeType="INSIDE" width="1366.0" />
         <Text fill="#21153d" layoutX="1142.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
             <font>
                 <Font name="Dubai Bold" size="16.0" />
@@ -131,5 +131,10 @@
                 <Font name="Dubai Bold" size="18.0" />
             </font>
         </Text>
+      <Button layoutX="583.0" layoutY="608.0" mnemonicParsing="false" onAction="#custom" prefHeight="31.0" prefWidth="201.0" text="Consut Custom Products" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

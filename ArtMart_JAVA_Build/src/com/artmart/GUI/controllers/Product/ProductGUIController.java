@@ -63,11 +63,6 @@ public class ProductGUIController implements Initializable {
     private ChoiceBox<String> profileChoiceBox;
 
     @FXML
-    private Button profileButton;
-
-    @FXML
-    private Label profileLabel;
-    @FXML
     private Label username;
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
@@ -176,6 +171,7 @@ int UserID = session.getUserID("1");
         }
     }
 
+    @FXML
     public void onBack(ActionEvent event) {
         try {
             Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -192,5 +188,23 @@ int UserID = session.getUserID("1");
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    @FXML
+    private void custom(ActionEvent event) throws IOException {
+           try {
+           Stage stage = (Stage) imagePreview4.getScene().getWindow();
+                stage.close();
+                stage = new Stage();
+                Parent root = FXMLLoader
+                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
+                Scene scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setTitle("Custom Product Managment");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+            }
     }
 }

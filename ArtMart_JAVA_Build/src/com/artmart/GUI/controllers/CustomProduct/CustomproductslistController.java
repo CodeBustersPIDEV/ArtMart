@@ -1,14 +1,22 @@
 package com.artmart.GUI.controllers.CustomProduct;
 
+import com.artmart.GUI.controllers.Product.ArtistReadyProductCardController;
+import com.artmart.GUI.controllers.Product.CategoryCardController;
+import com.artmart.GUI.controllers.Product.ReadyproductsListController;
 import com.artmart.dao.ApplyDao;
 import com.artmart.models.Apply;
+import com.artmart.models.Categories;
 import com.artmart.models.CustomProduct;
 import com.artmart.models.HasCategory;
 import com.artmart.models.HasTag;
 import com.artmart.models.Product;
+import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
+import com.artmart.models.User;
+import com.artmart.services.CategoriesService;
 import com.artmart.services.CustomProductService;
 import com.artmart.services.ProductService;
+import com.artmart.services.ReadyProductService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -44,6 +52,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import javafx.scene.control.ChoiceBox;
 
 /**
  * FXML Controller class
@@ -59,7 +68,9 @@ public class CustomproductslistController implements Initializable {
     private VBox vBox;
 
     private List<CustomProduct> customProductslist;
-
+    private List<ReadyProduct> readyProductslist;
+        private final ReadyProductService readyProductService = new ReadyProductService();
+          private User connectedUser = new User();
     @FXML
     private Button searchb;
 
@@ -80,12 +91,21 @@ public class CustomproductslistController implements Initializable {
     ApplyDao x = new ApplyDao();
     @FXML
     private RadioButton def;
+    @FXML
+    private ChoiceBox<?> profileChoiceBox;
+    @FXML
+    private javafx.scene.control.Label username;
+    private VBox vBoxCat;
+      private List<Categories> categorieslist;
+        private final CategoriesService CategoriesService = new CategoriesService();
+            private CategoryCardController categoryCardController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             // this.customProductService.createCustomProduct(new Product(1, "amir",
             // "soltani", "Test",2, "Test", "Test"));
+        
             this.makeList();
             calculateTotalWeight();
             calculateProduct();
@@ -94,6 +114,7 @@ public class CustomproductslistController implements Initializable {
         }
     }
 
+    
     void calculateTotalWeight() throws SQLException {
         float totalWeight = 0;
         for (CustomProduct customProduct : customProductslist) {
@@ -222,7 +243,7 @@ public class CustomproductslistController implements Initializable {
     @FXML
     private void onexit(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
+                getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -283,6 +304,25 @@ public class CustomproductslistController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void add(ActionEvent event) {
+          try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/addCustom.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Custom Product Managment");
+            stage.setScene(scene);
+            stage.show();
+                  Stage currentStage = (Stage) statisticb.getScene().getWindow();
+        currentStage.close();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
     
 
 

@@ -84,18 +84,18 @@ public class ApplyCardArtistController implements Initializable {
             applyDao.updateApply(apply.getApply_ID(), apply);
             statustxt.setText(apply.getStatus());
 
-//            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-//            Session session = Session.getInstance();
-//            String phoneNumber = Session.getSession(session.getSessionId()).getPhoneNumber();
-//
-//            System.out.println("+216" + phoneNumber);
-//            Message message = Message.creator(
-//                    new com.twilio.type.PhoneNumber(":+216" + phoneNumber),
-//                    new com.twilio.type.PhoneNumber("+12762888183"),
-//                    "your custom product is done !!")
-//                    .create();
-//
-//            System.out.println(message.getSid());
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            Session session = Session.getInstance();
+            String phoneNumber = Session.getSession(session.getSessionId()).getPhoneNumber();
+
+            System.out.println("+216" + phoneNumber);
+            Message message = Message.creator(
+            new com.twilio.type.PhoneNumber("whatsapp:+216"+phoneNumber),
+                   new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),
+                    "your custom product is done !!")
+                    .create();
+
+            System.out.println(message.getSid());
    
         } catch (SQLException e) {
             e.printStackTrace();
