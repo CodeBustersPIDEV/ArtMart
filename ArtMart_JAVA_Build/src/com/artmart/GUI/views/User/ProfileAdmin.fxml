@@ -1,59 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E9E9E9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.ProfileAdminController">
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.User.ProfileAdminController">
    <children>
-      <ImageView fx:id="ProfilePic" fitHeight="150.0" fitWidth="113.0" layoutX="60.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../assets/user.jpeg" />
-         </image>
-      </ImageView>
-      <Label fx:id="usernameProfile" layoutX="180.0" layoutY="52.0" text="Label" textFill="#373065">
+      <Label fx:id="pid" layoutX="550.0" layoutY="66.0" text="Id">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
-         </font></Label>
-      <Label fx:id="nameProfile" layoutX="176.0" layoutY="224.0" prefHeight="17.0" prefWidth="65.0" text="Label" textFill="#373065" />
-      <Label fx:id="emailProfile" layoutX="177.0" layoutY="261.0" text="Label" textFill="#373065" />
-      <Label layoutX="458.0" layoutY="54.0" text="Department" textFill="#373065">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Label fx:id="departmentProfile" layoutX="478.0" layoutY="80.0" text="Label" textFill="#373065">
-         <font>
-            <Font size="15.0" />
+            <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="birthdayProfile" layoutX="177.0" layoutY="295.0" text="Label" textFill="#373065" />
-      <Button fx:id="editProfileBtn" layoutX="520.0" layoutY="365.0" mnemonicParsing="false" onAction="#OnUpdateBtn" style="-fx-background-color: #BAB9CD;" text="Edit Profile" />
-      <Button fx:id="backBtn" layoutX="6.0" layoutY="11.0" mnemonicParsing="false" onAction="#OnBack" style="-fx-background-color: #BAB9CD;" text="&lt;Back" />
-      <Label fx:id="phoneProfile" layoutX="177.0" layoutY="328.0" text="Label" textFill="#373065" />
-      <Button fx:id="userListBtn" layoutX="405.0" layoutY="229.0" mnemonicParsing="false" onAction="#OnUserListBtn" style="-fx-background-color: #BAB9CD;" text="View Users List " />
-      <Button fx:id="addAdBtn" layoutX="416.0" layoutY="266.0" mnemonicParsing="false" onAction="#OnAddBtn" style="-fx-background-color: #BAB9CD;" text="Add Admin" />
-      <Label layoutX="69.0" layoutY="224.0" text="Name:" textFill="#373065">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9e9e9" height="771.0" stroke="BLACK" strokeType="INSIDE" width="1366.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="582.0" layoutX="275.0" layoutY="95.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="817.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Rectangle>
+      <Circle fill="#fa7a1e00" layoutX="1257.0" layoutY="149.0" radius="57.0" strokeType="OUTSIDE" strokeWidth="7.0">
+            <stroke>
+                <LinearGradient endX="0.5619047619047619" endY="0.6333333333333333">
+                    <stops>
+                        <Stop color="#f72f78" />
+                        <Stop color="#f72f78" offset="0.5071295967136706" />
+                        <Stop color="#fe7b1d" offset="1.0" />
+                    </stops>
+                </LinearGradient>
+            </stroke>
+        </Circle>
+      <Line endX="-100.00003051757812" endY="-114.0" layoutX="193.0" layoutY="732.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="6.0" layoutX="152.0" layoutY="675.0" startX="-124.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="100.0" layoutX="447.0" layoutY="31.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="354.0" layoutX="193.0" layoutY="45.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.533949520085318" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Button fx:id="backBtn" alignment="CENTER" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#OnBack" prefHeight="18.0" prefWidth="28.0" text="←" textAlignment="CENTER" textFill="#21153d">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Rockwell Nova Bold" size="20.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text fx:id="usernameProfile" fill="#21153d" layoutX="571.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="25.0" />
+         </font>
+      </Text>
+      <Text fill="#21153d" layoutX="572.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="nameProfile" layoutX="636.0" layoutY="331.0" text="Name" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="261.0" text="Email:" textFill="#373065">
+      <ImageView fx:id="ProfilePic" fitHeight="201.0" fitWidth="201.0" layoutX="319.0" layoutY="148.0" pickOnBounds="true" />
+      <Button fx:id="editProfileBtn" alignment="CENTER" layoutX="622.0" layoutY="615.0" mnemonicParsing="false" onAction="#OnUpdateBtn" prefHeight="29.0" prefWidth="124.0" text="Edit Profile" textAlignment="CENTER" textFill="#21153d">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
+      <Text fill="#21153d" layoutX="572.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="emailProfile" layoutX="634.0" layoutY="380.0" text="Email" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="69.0" layoutY="295.0" text="BirthDate:" textFill="#373065">
+      <Text fill="#21153d" layoutX="572.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth date:" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="birthdayProfile" layoutX="672.0" layoutY="430.0" text="Birth date" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="69.0" layoutY="328.0" text="Phone Number:" textFill="#373065">
+      <Text fill="#21153d" layoutX="572.0" layoutY="504.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number:" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="phoneProfile" layoutX="712.0" layoutY="480.0" text="Number" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
          </font>
       </Label>
+      <Button fx:id="logout" alignment="CENTER" layoutX="1209.0" layoutY="23.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="110.0" text="Logout" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
+      <Label fx:id="departmentProfile" layoutX="692.0" layoutY="534.0" text="Nb artworks" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Text fill="#21153d" layoutX="572.0" layoutY="558.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Department:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label layoutX="-74.0" layoutY="77.0" text="Label" />
+      <ImageView fx:id="QrCode" fitHeight="135.0" fitWidth="145.0" layoutX="419.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fill="#21153d" layoutX="572.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bio:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="bioProfile" layoutX="612.0" layoutY="186.0" prefHeight="144.0" prefWidth="362.0" text="Bio" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="userListBtn" alignment="CENTER" layoutX="894.0" layoutY="119.0" mnemonicParsing="false" onAction="#OnUserListBtn" prefHeight="38.0" prefWidth="161.0" text="View users list" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
+      <Button fx:id="addAdBtn" alignment="CENTER" layoutX="894.0" layoutY="168.0" mnemonicParsing="false" onAction="#OnAddBtn" prefHeight="38.0" prefWidth="161.0" text="Add admin" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

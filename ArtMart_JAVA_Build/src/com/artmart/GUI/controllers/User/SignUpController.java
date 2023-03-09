@@ -32,6 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
@@ -60,7 +61,7 @@ public class SignUpController implements Initializable {
     @FXML
     private Button sign_up_btn;
     @FXML
-    private Button log_in_btn;
+    private Hyperlink log_in_btn;
     @FXML
     private Button logOutBtn;
     @FXML
@@ -179,7 +180,7 @@ public class SignUpController implements Initializable {
                     alert.showAndWait();
                 }
 
-             } else {
+            } else {
                 Warning("This email already exists");
             }
         }
@@ -250,14 +251,26 @@ public class SignUpController implements Initializable {
             goToProfile(event, "ProfileClient");
 
         } else if (user.getRole().equals("admin")) {
-            goToProfile(event,"ProfileAdmin");
+            goToProfile(event, "ProfileAdmin");
         }
 
     }
 
     public void OnBack(ActionEvent event) {
-        Stage stage = (Stage) sign_up_btn.getScene().getWindow();
-        stage.close();
+        try {
+            Stage stage = (Stage) sign_up_btn.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
     }
 
     public void OnLogOut(ActionEvent event) {
