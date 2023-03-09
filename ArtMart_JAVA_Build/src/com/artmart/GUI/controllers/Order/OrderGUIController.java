@@ -35,6 +35,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class OrderGUIController implements Initializable {
 
@@ -75,6 +76,8 @@ public class OrderGUIController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderCheckout.fxml"));
             Parent root = loader.load();
             OrderCheckOutController controller = loader.getController();
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setTitle("Artmart");
             controller.link(this, calculateOrdersPrice());
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -147,10 +150,11 @@ public class OrderGUIController implements Initializable {
         thisPage.close();
     }
 
-    private double sum=0;
+    private double sum = 0;
+
     public double calculateOrdersPrice() {
         this.usersWishList.forEach((wishList) -> {
-            sum += wishList.getPrice(); 
+            sum += wishList.getPrice();
         });
         return sum;
     }

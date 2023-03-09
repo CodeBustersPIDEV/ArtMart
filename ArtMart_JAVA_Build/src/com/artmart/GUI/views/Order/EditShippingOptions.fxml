@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -57,8 +58,22 @@
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Text>
-      <Button fx:id="deleteBtn" layoutX="613.0" layoutY="55.0" mnemonicParsing="false" onAction="#OnDelete" prefHeight="25.0" prefWidth="92.0" text="Delete" />
-      <Button fx:id="addBtn" layoutX="21.0" layoutY="29.0" mnemonicParsing="false" onAction="#OnAddBtn" prefHeight="25.0" prefWidth="92.0" text="Add" />
+      <Button fx:id="deleteBtn" layoutX="613.0" layoutY="55.0" mnemonicParsing="false" onAction="#OnDelete" prefHeight="25.0" prefWidth="92.0" text="Delete" >
+      <effect>
+                <DropShadow color="#00000087" />
+            </effect>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+        </Button>
+      <Button fx:id="addBtn" layoutX="21.0" layoutY="29.0" mnemonicParsing="false" onAction="#OnAddBtn" prefHeight="25.0" prefWidth="92.0" text="Add" >
+      <effect>
+                <DropShadow color="#00000087" />
+            </effect>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+        </Button>
       <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="28.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../utils/icons/icons8-add-new-30.png" />

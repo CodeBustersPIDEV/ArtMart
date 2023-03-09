@@ -31,6 +31,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class OrderService implements IOrderService {
 
@@ -301,6 +302,8 @@ public class OrderService implements IOrderService {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderManagment.fxml"));
             Parent root = loader.load();
             stage.setResizable(false);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setTitle("Artmart");
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -318,6 +321,8 @@ public class OrderService implements IOrderService {
             Scene scene = new Scene(root);
             OrderGUIController controller = loader.getController();
             controller.setData(connectedUser);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setTitle("Artmart");
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
@@ -336,6 +341,8 @@ public class OrderService implements IOrderService {
             OrderListController controller = loader.getController();
             controller.setUser(connectedUser);
             stage.setResizable(false);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setTitle("Artmart");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
