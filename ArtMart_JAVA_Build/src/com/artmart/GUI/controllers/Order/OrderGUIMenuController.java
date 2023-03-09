@@ -3,6 +3,7 @@ package com.artmart.GUI.controllers.Order;
 import com.artmart.dao.ProductDao;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Product;
+import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.models.Wishlist;
 import com.artmart.services.OrderService;
@@ -35,14 +36,12 @@ public class OrderGUIMenuController implements Initializable {
 
     private final UserDao userDao = new UserDao();
     private final ProductDao productDao = new ProductDao();
-    private User connectedUser = new User();
+    private Session session = new Session();
     private Product productToOrder = new Product();
-    private List<User> userOptionsList;
     private List<Product> productOptionsList;
     private final OrderService orderSerice = new OrderService();
+    private User connectedUser = new User();
     
-    @FXML
-    private ComboBox<String> userComboBox;
     @FXML
     private Button createOrder;
     @FXML
@@ -56,17 +55,12 @@ public class OrderGUIMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.connectedUser = userDao.getUser(session.getUserID("1"));
         try {
-            userOptionsList = this.userDao.viewListOfUsers();
-            ObservableList<String> userOptions = FXCollections.observableArrayList(
-                    userOptionsList.stream().map(user -> user.getName() + " (" + user.getRole() + ")").collect(Collectors.toList())
-            );
             productOptionsList = this.productDao.getAllProduct();
             ObservableList<String> productComboBox = FXCollections.observableArrayList(
                     productOptionsList.stream().map(Product::getName).collect(Collectors.toList())
             );
-            this.userComboBox.setItems(userOptions);
-            this.userComboBox.getSelectionModel().selectFirst();
             this.productComboBox.setItems(productComboBox);
             this.productComboBox.getSelectionModel().selectFirst();
             this.productToOrder = this.productOptionsList.get(this.productComboBox.getSelectionModel().getSelectedIndex());
@@ -78,7 +72,6 @@ public class OrderGUIMenuController implements Initializable {
     @FXML
     private void OnOrderCreatePressEvent(ActionEvent event) {
         try {
-            this.SelectUserAndProduct();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/Order.fxml"));
             Parent root = loader.load();
@@ -93,16 +86,9 @@ public class OrderGUIMenuController implements Initializable {
         }
     }
 
-    private void SelectUserAndProduct() {
-        int listId = userComboBox.getSelectionModel().getSelectedIndex();
-        int selectedUserId = userOptionsList.get(listId).getUser_id();
-        this.connectedUser = this.userDao.getUser(selectedUserId);
-    }
-
     @FXML
     private void onViewList(ActionEvent event) {
         try {
-            this.SelectUserAndProduct();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderList.fxml"));
             Parent root = loader.load();
@@ -125,7 +111,6 @@ public class OrderGUIMenuController implements Initializable {
 
     @FXML
     private void OnSaveToWishList(ActionEvent event) {
-        this.SelectUserAndProduct();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate currentDate = LocalDate.now();
         String formattedDate = currentDate.format(formatter);
@@ -133,7 +118,7 @@ public class OrderGUIMenuController implements Initializable {
         alert.setTitle("Added To Wishlist");
         alert.setHeaderText("Product Saved for your wishlist");
         alert.showAndWait();
-        this.orderSerice.createWishlist(new Wishlist(this.connectedUser.getUser_id(), this.productToOrder.getProductId(), Date.valueOf(formattedDate)));
+        this.orderSerice.createWishlist(new Wishlist(this.connectedUser.getUser_id(), this.productToOrder.getProductId(), Date.valueOf(formattedDate),1,10));
     }
 
 

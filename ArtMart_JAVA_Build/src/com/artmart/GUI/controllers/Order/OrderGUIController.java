@@ -2,7 +2,6 @@ package com.artmart.GUI.controllers.Order;
 
 import com.artmart.dao.ProductDao;
 import com.artmart.models.Order;
-import com.artmart.models.PaymentOption;
 import com.artmart.models.Product;
 import com.artmart.models.User;
 import com.artmart.models.Wishlist;
@@ -42,8 +41,6 @@ public class OrderGUIController implements Initializable {
     @FXML
     private Button placeOrderBtn;
     @FXML
-    private Button cancelOrderBtn;
-    @FXML
     private TableView<Product> productTableView;
     @FXML
     private TableColumn<Product, String> name_col;
@@ -55,12 +52,9 @@ public class OrderGUIController implements Initializable {
     private TableColumn<Product, String> weight_col;
     @FXML
     private TableColumn<Product, String> mat_col;
-    @FXML
-    private Button backButton;
-
+    
     private final OrderService orderSerivce = new OrderService();
     private final ProductDao productDao = new ProductDao();
-
     private List<Wishlist> usersWishList = new ArrayList<>();
     private List<Product> productList = new ArrayList<>();
     private User user = new User();
@@ -90,13 +84,6 @@ public class OrderGUIController implements Initializable {
         }
     }
 
-    @FXML
-    private void OnOrderCancel(ActionEvent event) {
-    }
-
-    @FXML
-    private void OnBackBtnl(ActionEvent event) {
-    }
 
     private void refreshlist() {
         this.usersWishList = this.orderSerivce.getWishlistsByUserId(this.user.getUser_id());
@@ -113,6 +100,7 @@ public class OrderGUIController implements Initializable {
         ObservableList<Product> items = FXCollections.observableArrayList(
                 this.productList.stream().collect(Collectors.toList())
         );
+        
         name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
         desc_col.setCellValueFactory(new PropertyValueFactory<>("description"));
         dimension_col.setCellValueFactory(new PropertyValueFactory<>("dimensions"));
