@@ -308,6 +308,7 @@ public class ArtistReadyProductsListController implements Initializable {
         }
 
     }
+     @FXML
     private void custom(ActionEvent event) {
     try {
         Stage stage = (Stage) searchBtn.getScene().getWindow();
