@@ -35,6 +35,8 @@ public class MainViewController implements Initializable {
     private Button userBtn;
     @FXML
     private Button eventBtn;
+     @FXML
+    private Button orderBtn;
     @FXML
     private Button cProductBtn;
     @FXML
@@ -110,7 +112,7 @@ public class MainViewController implements Initializable {
     @FXML
     private void goToOrder(ActionEvent event) {
         try {
-            Stage stage = (Stage) eventBtn.getScene().getWindow();
+            Stage stage = (Stage) orderBtn.getScene().getWindow();
             stage.close();
             stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Order/OrderGUIMenu.fxml"));
