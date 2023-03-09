@@ -300,8 +300,8 @@ public class OrderService implements IOrderService {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderManagment.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
             stage.setResizable(false);
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {

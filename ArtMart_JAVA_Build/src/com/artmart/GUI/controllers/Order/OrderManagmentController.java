@@ -36,6 +36,7 @@ import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
 
 public class OrderManagmentController implements Initializable {
@@ -70,6 +71,9 @@ public class OrderManagmentController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/EditShippingOptions.fxml"));
         Parent root = loader.load();
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Artmart");
+        stage.setResizable(false);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -80,6 +84,9 @@ public class OrderManagmentController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/EditPaymentOptions.fxml"));
         Parent root = loader.load();
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Artmart");
+        stage.setResizable(false);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -105,6 +112,9 @@ public class OrderManagmentController implements Initializable {
                         Stage stage = new Stage();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/AdminOrderDetail.fxml"));
                         Parent root = loader.load();
+                        stage.setResizable(false);
+                        stage.initStyle(StageStyle.UTILITY);
+                        stage.setTitle("Artmart");
                         Scene scene = new Scene(root);
                         AdminOrderDetailController detailController = loader.getController();
                         detailController.setupData(order, this);
@@ -159,6 +169,8 @@ public class OrderManagmentController implements Initializable {
         barChart.getData().add(series);
         barChart.setTitle("Revenue per Order");
         Stage chartStage = new Stage();
+        chartStage.initStyle(StageStyle.UTILITY);
+        chartStage.setTitle("Artmart");
         chartStage.setScene(new Scene(barChart, 600, 400));
         chartStage.show();
         WritableImage image = barChart.snapshot(new SnapshotParameters(), null);
