@@ -74,7 +74,7 @@ public class ProductGUIController implements Initializable {
     private User connectedUser = new User();
     private final UserDao userService = new UserDao();
     SignUpController profile = new SignUpController();
-int UserID = session.getUserID("1");
+    int UserID = session.getUserID("1");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -102,19 +102,20 @@ int UserID = session.getUserID("1");
         }
         // Create a map of display names to IDs
         Map<String, String> profileActions = new HashMap<>();
+
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-
         // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
-
         // Add an event listener to handle the selected item's ID
         profileChoiceBox.setOnAction(event -> {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
-            
+
+                profileChoiceBox.setValue("");
                 Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
                 try {
@@ -130,21 +131,21 @@ int UserID = session.getUserID("1");
                     Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if ("logout".equals(selectedId)) {
-               session.logOut("1");
-                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
-                    stage.close();
-                    try {
+                session.logOut("1");
+                Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
+                stage.close();
+                try {
 
-                        stage = new Stage();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setTitle("User Managment");
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
+                    stage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setTitle("User Managment");
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
+                }
 
             }
         });

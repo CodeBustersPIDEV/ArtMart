@@ -98,6 +98,8 @@ public class ReviewsListController implements Initializable {
         this.connectedUser = this.userService.getUser(this.session.getUserId());
         this.connUsername.setText(this.connectedUser.getName());
         Map<String, String> profileActions = new HashMap<>();
+        
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
         // Populate the choice box with display names
@@ -109,6 +111,7 @@ public class ReviewsListController implements Initializable {
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
 
+               profileChoiceBox.setValue("");
                 User u = user_ser.getUser(UserID);
                 if (u.getRole().equals("admin")) {
                     Stage stage = new Stage();

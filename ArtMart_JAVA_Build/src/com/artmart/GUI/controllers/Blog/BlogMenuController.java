@@ -72,19 +72,21 @@ public class BlogMenuController implements Initializable {
         this.connectedUser = this.userService.getUser(this.session.getUserId());
         this.connectedAdin.setText(connectedUser.getName());
         Map<String, String> profileActions = new HashMap<>();
+        
+        profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-
         // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
-
         // Add an event listener to handle the selected item's ID
         profileChoiceBox.setOnAction(event -> {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
-                Stage stage = new Stage();
+
+               profileChoiceBox.setValue("");
+               Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
                 try {
                     Parent root = loader.load();
