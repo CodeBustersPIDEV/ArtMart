@@ -118,19 +118,9 @@
             <Font name="Dubai Bold" size="25.0" />
          </font>
       </Text>
-      <Text fill="#21153d" layoutX="344.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This product has been reviewed" textAlignment="CENTER">
+      <Text fx:id="nb" fill="#21153d" layoutX="1031.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nb" textAlignment="CENTER">
          <font>
-            <Font name="Dubai Regular" size="20.0" />
-         </font>
-      </Text>
-      <Text fill="#21153d" layoutX="627.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="times." textAlignment="CENTER">
-         <font>
-            <Font name="Dubai Regular" size="20.0" />
-         </font>
-      </Text>
-      <Text fx:id="nb" fill="#21153d" layoutX="605.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nb" textAlignment="CENTER">
-         <font>
-            <Font name="Dubai Bold" size="20.0" />
+            <Font name="Dubai Regular" size="16.0" />
          </font>
       </Text>
       <Text fill="#21153d" layoutX="343.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" textAlignment="CENTER">
@@ -143,7 +133,7 @@
             <Font name="Dubai Regular" size="15.0" />
          </font>
       </Label>
-      <Text fx:id="price" fill="#f72f78" layoutX="793.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" textAlignment="CENTER">
+      <Text fx:id="price" fill="#f72f78" layoutX="792.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" textAlignment="CENTER">
          <font>
             <Font name="Dubai Bold" size="20.0" />
          </font>
@@ -158,7 +148,7 @@
             <Font name="Dubai Light" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="order" alignment="CENTER" layoutX="921.0" layoutY="211.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" text="Add to wishlist" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="order" alignment="CENTER" layoutX="920.0" layoutY="155.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" text="Add to wishlist" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>
@@ -166,7 +156,7 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Text fill="#f72f78" layoutX="844.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TND" textAlignment="CENTER">
+      <Text fill="#f72f78" layoutX="843.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TND" textAlignment="CENTER">
          <font>
             <Font name="Dubai Bold" size="20.0" />
          </font>
@@ -195,5 +185,10 @@
                 <DropShadow color="#00000087" />
             </effect>
         </ChoiceBox>
+      <Text fill="#21153d" layoutX="969.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reviews:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Regular" size="16.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

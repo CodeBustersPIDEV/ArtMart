@@ -35,7 +35,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button LoginBtn;
     @FXML
-    private Button signUpBtn;
+    private Hyperlink signUpBtn;
     @FXML
     private Hyperlink forgotPwdLink;
 
