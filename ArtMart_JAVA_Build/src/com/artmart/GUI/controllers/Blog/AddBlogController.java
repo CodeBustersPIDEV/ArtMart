@@ -128,8 +128,8 @@ public class AddBlogController implements Initializable {
         this.blogImage_preview.setImage(image);
         this.blogImage_preview.setFitHeight(143);
         this.blogImage_preview.setFitWidth(163);
-        this.blogImage_preview.setLayoutX(158);
-        this.blogImage_preview.setLayoutY(303);
+        this.blogImage_preview.setLayoutX(316);
+        this.blogImage_preview.setLayoutY(305);
         this.session = (Session) user.get(user.keySet().toArray()[0]);
     }
 
@@ -200,6 +200,8 @@ public class AddBlogController implements Initializable {
     @FXML
     private void goBackToMenu(ActionEvent event) {
         try {
+            Stage stage1 = (Stage) cancel_btn.getScene().getWindow();
+            stage1.close();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root;
             if (this.connectedUser.getRole().equals("admin")) {

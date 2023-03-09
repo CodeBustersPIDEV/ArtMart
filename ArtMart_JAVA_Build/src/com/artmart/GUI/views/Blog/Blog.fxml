@@ -9,82 +9,104 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.ImageInput?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="795.0" prefWidth="1385.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Blog.BlogGUIController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/blog.css" />
     </stylesheets>
-   <children>
-      <ScrollPane layoutY="49.0" prefHeight="744.0" prefWidth="1385.0">
-         <content>
-            <VBox fx:id="container" alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" spacing="10.0">
-               <padding>
-                  <Insets left="35.0" />
-               </padding></VBox>
-         </content>
-      </ScrollPane>
-      <Button fx:id="backToBlogMenu" layoutX="22.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackToBlogMenu" prefHeight="31.0" prefWidth="33.0" text="Back">
+    <children>
+        <ScrollPane layoutY="63.0" prefHeight="730.0" prefWidth="1385.0">
+            <content>
+                <VBox fx:id="container" alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" spacing="10.0">
+                    <padding>
+                        <Insets left="35.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+        <Button fx:id="backToBlogMenu" layoutX="22.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackToBlogMenu" prefHeight="31.0" prefWidth="33.0" text="Back">
+            <effect>
+                <ImageInput>
+                    <source>
+                        <Image url="@../../../assets/BlogAssets/back-arrow.png" />
+                    </source>
+                </ImageInput>
+            </effect>
+        </Button>
+        <Button fx:id="goToAddBlog" layoutX="1259.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToAddBlog" prefHeight="31.0" prefWidth="33.0" text="Post New Blog">
+            <effect>
+                <ImageInput>
+                    <source>
+                        <Image url="@../../../assets/BlogAssets/plus-square.png" />
+                    </source>
+                </ImageInput>
+            </effect>
+        </Button>
+        <Button fx:id="goToMyBlogs" layoutX="1153.0" layoutY="8.0" mnemonicParsing="false" onAction="#goToMyBlogs" text="My Blogs" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="18.0" />
+         </font>
          <effect>
-            <ImageInput>
-               <source>
-                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/back-arrow.png" />
-               </source>
-            </ImageInput>
+            <DropShadow />
          </effect></Button>
-      <Button fx:id="goToAddBlog" layoutX="1259.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToAddBlog" prefHeight="31.0" prefWidth="33.0" text="Post New Blog">
+        <TextField fx:id="searchText" layoutX="560.0" layoutY="8.0" prefHeight="44.0" prefWidth="187.0" visible="false" />
+        <Button fx:id="searchBtn" layoutX="753.0" layoutY="14.0" mnemonicParsing="false" onAction="#search" prefHeight="23.0" prefWidth="33.0" visible="false">
+            <effect>
+                <ImageInput>
+                    <source>
+                        <Image url="@../../../assets/BlogAssets/search.png" />
+                    </source>
+                </ImageInput>
+            </effect>
+        </Button>
+        <Button fx:id="cancelSearchBtn" layoutX="794.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancel" prefHeight="31.0" prefWidth="33.0" visible="false">
+            <effect>
+                <ImageInput>
+                    <source>
+                        <Image url="@../../../assets/BlogAssets/cancel.png" />
+                    </source>
+                </ImageInput>
+            </effect>
+        </Button>
+        <MenuButton layoutX="427.0" layoutY="8.0" mnemonicParsing="false" text="Search By">
+            <items>
+                <MenuItem fx:id="cat" mnemonicParsing="false" onAction="#setCategoryCombobox" text="Category" />
+                <MenuItem fx:id="keyw" mnemonicParsing="false" onAction="#setKeywordsSearchField" text="Keywords" />
+            </items>
+         <font>
+            <Font name="Dubai Bold" size="18.0" />
+         </font>
          <effect>
-            <ImageInput>
-               <source>
-                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/plus-square.png" />
-               </source>
-            </ImageInput>
+            <DropShadow color="#0000008b" />
          </effect>
-      </Button>
-      <Button fx:id="goToMyBlogs" layoutX="1153.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToMyBlogs" text="My Blogs" />
-      <TextField fx:id="searchText" layoutX="558.0" layoutY="14.0" visible="false" />
-      <Button fx:id="searchBtn" layoutX="753.0" layoutY="14.0" mnemonicParsing="false" onAction="#search" prefHeight="23.0" prefWidth="33.0" visible="false">
+        </MenuButton>
+        <ComboBox fx:id="catComboBox" layoutX="676.0" layoutY="8.0" onAction="#searchByCategory" prefHeight="44.0" prefWidth="187.0" promptText="Categories" visible="false">
          <effect>
-            <ImageInput>
-               <source>
-                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/search.png" />
-               </source>
-            </ImageInput>
-         </effect></Button>
-      <Button fx:id="cancelSearchBtn" layoutX="794.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancel" prefHeight="31.0" prefWidth="33.0" visible="false">
-         <effect>
-            <ImageInput>
-               <source>
-                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/cancel.png" />
-               </source>
-            </ImageInput>
-         </effect></Button>
-      <MenuButton layoutX="432.0" layoutY="14.0" mnemonicParsing="false" text="Search By">
-        <items>
-          <MenuItem fx:id="cat" mnemonicParsing="false" onAction="#setCategoryCombobox" text="Category" />
-          <MenuItem fx:id="keyw" mnemonicParsing="false" onAction="#setKeywordsSearchField" text="Keywords" />
-        </items>
-      </MenuButton>
-      <ComboBox fx:id="catComboBox" layoutX="667.0" layoutY="14.0" onAction="#searchByCategory" prefHeight="31.0" prefWidth="187.0" promptText="Categories" visible="false" />
-      <Button fx:id="sortBtn" layoutX="361.0" layoutY="14.0" mnemonicParsing="false" onAction="#sort" prefHeight="31.0" prefWidth="41.0" text="Sort By Rating">
-         <effect>
-            <ImageInput>
-               <source>
-                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/sort.png" />
-               </source>
-            </ImageInput>
-         </effect></Button>
-      <ChoiceBox fx:id="userOptions" layoutX="1345.0" layoutY="18.0" prefHeight="18.0" prefWidth="40.0">
-         <effect>
-            <ImageInput>
-               <source>
-                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/menu.png" />
-               </source>
-            </ImageInput>
-         </effect>
-      </ChoiceBox>
-   </children>
+            <DropShadow color="#00000081" />
+         </effect></ComboBox>
+        <Button fx:id="sortBtn" layoutX="361.0" layoutY="14.0" mnemonicParsing="false" onAction="#sort" prefHeight="31.0" prefWidth="41.0" text="Sort By Rating">
+            <effect>
+                <ImageInput>
+                    <source>
+                        <Image url="@../../../assets/BlogAssets/sort.png" />
+                    </source>
+                </ImageInput>
+            </effect>
+        </Button>
+        <ChoiceBox fx:id="userOptions" layoutX="1345.0" layoutY="18.0" prefHeight="18.0" prefWidth="40.0">
+            <effect>
+                <ImageInput>
+                    <source>
+                        <Image url="@../../../assets/BlogAssets/menu.png" />
+                    </source>
+                </ImageInput>
+            </effect>
+        </ChoiceBox>
+    </children>
 </AnchorPane>

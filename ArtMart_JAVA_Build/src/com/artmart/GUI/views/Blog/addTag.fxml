@@ -3,7 +3,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -27,13 +29,22 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <TextField fx:id="tag_nameTextField" layoutX="240.0" layoutY="203.0" promptText="Tag Name" />
-      <Label layoutX="258.0" layoutY="119.0" prefHeight="68.0" prefWidth="150.0" text="Add Tag">
+      <TextField fx:id="tag_nameTextField" layoutX="241.0" layoutY="171.0" prefHeight="41.0" prefWidth="193.0" promptText="Tag Name">
+         <effect>
+            <InnerShadow color="#0000004d" />
+         </effect></TextField>
+      <Label layoutX="262.0" layoutY="79.0" prefHeight="68.0" prefWidth="150.0" text="Add Tag" textFill="#21153d">
          <font>
             <Font name="Agency FB Bold" size="55.0" />
          </font>
       </Label>
-      <Button fx:id="addtag" layoutX="309.0" layoutY="257.0" mnemonicParsing="false" onAction="#add" text="Add" />
+      <Button fx:id="addtag" layoutX="309.0" layoutY="257.0" mnemonicParsing="false" onAction="#add" text="Add" textFill="#21153d">
+         <effect>
+            <DropShadow color="#00000084" />
+         </effect>
+         <font>
+            <Font name="Dubai Bold" size="18.0" />
+         </font></Button>
       <Circle fill="#fa7a1e00" layoutX="63.0" layoutY="63.0" radius="33.0" strokeType="OUTSIDE" strokeWidth="7.0">
          <stroke>
             <LinearGradient endX="0.5619047619047619" endY="0.6333333333333333">
@@ -49,7 +60,7 @@
          <effect>
             <ImageInput>
                <source>
-                  <Image url="file:/C:/Users/marwe/OneDrive/Bureau/3A1/PIDEV/PI_Artmart/ArtMart/ArtMart_JAVA_Build/src/com/artmart/assets/BlogAssets/back-arrow.png" />
+                  <Image url="@../../../assets/BlogAssets/back-arrow.png" />
                </source>
             </ImageInput>
          </effect></Button>

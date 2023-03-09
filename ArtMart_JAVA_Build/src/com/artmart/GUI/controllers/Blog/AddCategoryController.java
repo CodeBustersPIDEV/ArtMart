@@ -84,19 +84,19 @@ public class AddCategoryController implements Initializable {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("An Error occured");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    try {
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/addCategory.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        System.out.print(e.getMessage());
-                    }
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/addCategory.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    System.out.print(e.getMessage());
                 }
+            }
 
         }
     }
@@ -104,6 +104,8 @@ public class AddCategoryController implements Initializable {
     @FXML
     private void goBackToMenu(ActionEvent event) {
         try {
+            Stage stage1 = (Stage) goBack.getScene().getWindow();
+            stage1.close();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogMenu.fxml"));
             Scene scene = new Scene(root);

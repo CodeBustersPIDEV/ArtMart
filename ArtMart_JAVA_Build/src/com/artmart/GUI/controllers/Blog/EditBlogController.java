@@ -177,7 +177,7 @@ public class EditBlogController implements Initializable {
                 String[] parts = this.tags.split("#");
                 for (String part : parts) {
                     Tag testTag = this.blogService.getOneTagByName(part);
-                    if (testTag == null ) {
+                    if (testTag == null) {
                         Tag testTag1 = new Tag(part);
                         int test = this.blogService.addTag(testTag1);
                         Tag resTag = blogService.getOneTagByName(part);
@@ -232,6 +232,8 @@ public class EditBlogController implements Initializable {
     @FXML
     private void goBackToMenu(ActionEvent event) {
         try {
+            Stage stage1 = (Stage) cancel_btn.getScene().getWindow();
+            stage1.close();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
             Scene scene = new Scene(root);
