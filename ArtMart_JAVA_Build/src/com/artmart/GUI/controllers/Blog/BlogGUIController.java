@@ -148,8 +148,8 @@ public class BlogGUIController implements Initializable {
         });
 
         Map<String, String> profileActions = new HashMap<>();
-        profileActions.put("Profile", "profile");
         profileActions.put("Logout", "logout");
+        profileActions.put("Profile", "profile");
 
         // Populate the choice box with display names
         userOptions.getItems().addAll(profileActions.keySet());
