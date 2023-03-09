@@ -68,6 +68,10 @@ public class EditEventController implements Initializable {
     @FXML
     private ComboBox comboBoxEventStatus = new ComboBox();
     private String status;
+    @FXML
+    private TextField txtImage;
+    @FXML
+    private Button btnAddImage;
 
     /**
      * Initializes the controller class.
@@ -213,6 +217,10 @@ public class EditEventController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }        
+    }
+
+    @FXML
+    private void onBtnAddImage(ActionEvent event) {
     }
     
 }

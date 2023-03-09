@@ -87,7 +87,7 @@ public class AddEventController implements Initializable {
     @FXML
     private TextField txtImage;
     @FXML
-    private ComboBox<?> comboBoxEventStatus;
+    private ComboBox comboBoxEventStatus = new ComboBox();
     @FXML
     private Button btnAddImage;
 
@@ -96,6 +96,7 @@ public class AddEventController implements Initializable {
 
         // add event types in comboBox
         this.comboBoxType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
+        this.comboBoxEventStatus.getItems().addAll("Scheduled", "Started", "Finished","Cancelled");
         this.txtAreaDescription.setWrapText(true);
     }
 
@@ -201,8 +202,8 @@ public class AddEventController implements Initializable {
         try {
             Stage stage = (Stage) btnCancelEvent.getScene().getWindow();
             stage.close();
-            stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/home_artist.fxml"));
+            stage = new Stage();            
+            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/list_event.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
             stage.setTitle("");
