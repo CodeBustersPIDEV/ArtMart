@@ -84,7 +84,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnDeleteEvent" alignment="CENTER" layoutX="845.0" layoutY="129.0" mnemonicParsing="false" onAction="#btnDeleteEvent" prefHeight="25.0" prefWidth="72.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="btnDeleteEvent" alignment="CENTER" layoutX="845.0" layoutY="129.0" mnemonicParsing="false" onAction="#onBtnDeleteEvent" prefHeight="25.0" prefWidth="72.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Rockwell Nova Bold" size="12.0" />
          </font>
