@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -170,7 +171,7 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Text fill="#21153d" layoutX="1142.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
+      <Text fill="#21153d" layoutX="1138.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
             <font>
                 <Font name="Dubai Bold" size="16.0" />
             </font>
@@ -190,5 +191,18 @@
             <Font name="Dubai Regular" size="16.0" />
          </font>
       </Text>
+      <Button fx:id="clientBtn" alignment="CENTER" layoutX="1089.0" layoutY="17.0" mnemonicParsing="false" onAction="#GoToShoppingCart" prefHeight="31.0" prefWidth="40.0" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
+      <ImageView fx:id="clientImg" fitHeight="21.0" fitWidth="25.0" layoutX="1095.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../utils/icons/icons8-buy-50.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

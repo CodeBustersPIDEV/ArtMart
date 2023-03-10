@@ -6,6 +6,7 @@ import com.artmart.dao.UserDao;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
 import com.artmart.models.User;
+import com.artmart.services.OrderService;
 import com.artmart.services.ReadyProductService;
 import java.io.IOException;
 import java.net.URL;
@@ -68,6 +69,8 @@ public class ReadyproductsListController implements Initializable {
     int UserID = session.getUserID("1");
     @FXML
     private Button refresh;
+    @FXML
+    private Button clientBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -272,5 +275,11 @@ public class ReadyproductsListController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+   private OrderService orderSerivce= new OrderService();
+    @FXML
+    private void GoToShoppingCart(ActionEvent event) {
+        this.orderSerivce.goToCheckOut();
     }
 }

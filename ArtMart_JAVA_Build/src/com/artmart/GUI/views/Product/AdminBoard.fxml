@@ -86,7 +86,7 @@
                 <DropShadow color="#00000087" />
             </effect>
         </Button>
-        <Text fill="#21153d" layoutX="1142.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
+        <Text fill="#21153d" layoutX="1138.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
             <font>
                 <Font name="Dubai Bold" size="16.0" />
             </font>

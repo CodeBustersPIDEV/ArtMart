@@ -75,7 +75,8 @@ public class ProductDao implements IProductDao {
 
     @Override
     public boolean updateProduct(int id, Product product) throws SQLException {
-
+        System.out.println(id);
+        System.out.println(product);
         String query = "UPDATE product SET category_ID = ?, name = ?, description = ?, dimensions = ?, weight = ?, material = ?, image = ? WHERE product_ID = ?";
         PreparedStatement statement = this.sqlConnection.prepareStatement(query);
         statement.setInt(1, product.getCategoryId());
@@ -88,7 +89,6 @@ public class ProductDao implements IProductDao {
         statement.setInt(8, id);
         statement.executeUpdate();
         return true;
-
     }
 
     @Override

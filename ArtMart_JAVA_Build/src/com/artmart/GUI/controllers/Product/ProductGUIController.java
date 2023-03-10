@@ -7,6 +7,7 @@ import com.artmart.dao.ReadyProductDao;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Session;
 import com.artmart.models.User;
+import com.artmart.services.OrderService;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -46,8 +47,8 @@ public class ProductGUIController implements Initializable {
     private ImageView imagePreview4;
     @FXML
     private Button consultAllReadyProducts;
-    @FXML
-    private Button backBtn;
+    
+    private OrderService orderSerivce= new OrderService();
 
     @FXML
     private ChoiceBox<String> profileChoiceBox;
@@ -194,5 +195,10 @@ public class ProductGUIController implements Initializable {
             } catch (IOException e) {
                 System.out.print(e.getMessage());
             }
+    }
+
+    @FXML
+    private void GoToShoppingCart(ActionEvent event) {
+        this.orderSerivce.goToCheckOut();
     }
 }

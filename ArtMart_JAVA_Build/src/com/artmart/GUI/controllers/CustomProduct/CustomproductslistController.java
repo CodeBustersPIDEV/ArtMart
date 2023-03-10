@@ -18,6 +18,7 @@ import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.CategoriesService;
 import com.artmart.services.CustomProductService;
+import com.artmart.services.OrderService;
 import com.artmart.services.ProductService;
 import com.artmart.services.ReadyProductService;
 import com.artmart.services.UserService;
@@ -373,6 +374,12 @@ public class CustomproductslistController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    private OrderService orderSerivce= new OrderService();
+    @FXML
+    private void GoToShoppingCart(ActionEvent event) {
+        this.orderSerivce.goToCheckOut();
     }
 
 }
