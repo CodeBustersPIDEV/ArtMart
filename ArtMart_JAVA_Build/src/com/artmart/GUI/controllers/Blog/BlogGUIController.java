@@ -98,8 +98,7 @@ public class BlogGUIController implements Initializable {
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 } else {
-                    File file = new File(img.getFile_path());
-                    Image image = new Image(file.toURI().toString());
+                    Image image = new Image(img.getFile_path());
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 }
@@ -136,8 +135,7 @@ public class BlogGUIController implements Initializable {
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 } else {
-                    File file = new File(img.getFile_path());
-                    Image image = new Image(file.toURI().toString());
+                    Image image = new Image(img.getFile_path());
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 }
@@ -154,21 +152,18 @@ public class BlogGUIController implements Initializable {
         });
 
         Map<String, String> profileActions = new HashMap<>();
-       
+
         profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-        // Populate the choice box with display names
         userOptions.getItems().addAll(profileActions.keySet());
-        // Add an event listener to handle the selected item's ID
         userOptions.setOnAction(event -> {
             String selectedItem = userOptions.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
-            // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
 
-               userOptions.setValue("");
-               if (this.session.getUserRole().equals("admin")) {
+                userOptions.setValue("");
+                if (this.session.getUserRole().equals("admin")) {
                     Stage stage = new Stage();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
                     try {
@@ -302,8 +297,7 @@ public class BlogGUIController implements Initializable {
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 } else {
-                    File file = new File(img.getFile_path());
-                    Image image = new Image(file.toURI().toString());
+                    Image image = new Image(img.getFile_path());
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 }
@@ -342,8 +336,7 @@ public class BlogGUIController implements Initializable {
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 } else {
-                    File file = new File(img.getFile_path());
-                    Image image = new Image(file.toURI().toString());
+                    Image image = new Image(img.getFile_path());
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 }
@@ -412,8 +405,7 @@ public class BlogGUIController implements Initializable {
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 } else {
-                    File file = new File(img.getFile_path());
-                    Image image = new Image(file.toURI().toString());
+                    Image image = new Image(img.getFile_path());
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 }
@@ -452,8 +444,7 @@ public class BlogGUIController implements Initializable {
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 } else {
-                    File file = new File(img.getFile_path());
-                    Image image = new Image(file.toURI().toString());
+                    Image image = new Image(img.getFile_path());
                     controller.setImage(image);
                     controller.setBlogImage(image);
                 }

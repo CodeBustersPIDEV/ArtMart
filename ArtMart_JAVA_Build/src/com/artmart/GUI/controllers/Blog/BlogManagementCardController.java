@@ -61,12 +61,6 @@ public class BlogManagementCardController implements Initializable {
     private final BlogService blogService = new BlogService();
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
-//private BlogManagementPageController controller=new BlogManagementPageController();
-//private AddBlogController controller2=new AddBlogController();
-    boolean test4;
-
-//private Blog b = new Blog();
-//private FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Blog/BlogManagementPage.fxml"));
     /**
      * Initializes the controller class.
      *
@@ -75,8 +69,6 @@ public class BlogManagementCardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
-//        this.cont2.setHeight(this.imagePreview.getFitHeight());
     }
 
     public void setBlogTitle(String title) {
@@ -105,25 +97,13 @@ public class BlogManagementCardController implements Initializable {
 
     @FXML
     private void deleteBlog(ActionEvent event) {
-//        this.controller = this.loader.getController();
         int b_id = Integer.parseInt(this.blog_id.getText());
+        boolean test4 = this.blogService.deleteMedia(b_id);
         boolean test1 = this.blogService.deleteHasCat(b_id);
         boolean test2 = this.blogService.deleteHasTag(b_id);
-        Media m = this.blogService.getOneMediaByBlogID(b_id);
         boolean test3 = this.blogService.deleteAllComments(b_id);
-        if (m != null) {
-            File file = new File(m.getFile_path());
-            if (file.delete()) {
-                System.out.println("File deleted successfully.");
-            } else {
-                System.out.println("Failed to delete the file.");
-            }
-            test4 = this.blogService.deleteMedia(b_id);
-        }
-        if ((test1 && test2 && test3 && test4) || (test1 && test2 && test3)) {
+        if (test1 && test2 && test3 && test4) {
             boolean test = this.blogService.deleteBlog(b_id);
-//       this.controller.refreshList();
-
             if (test) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Blog Deleted");

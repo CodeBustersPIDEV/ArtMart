@@ -43,8 +43,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
@@ -149,7 +147,7 @@ public class AddBlogController implements Initializable {
                     String[] parts = this.tags.split("#");
                     for (String part : parts) {
                         Tag testTag = this.blogService.getOneTagByName(part);
-                        if (testTag == null && !part.equals(" ")) {
+                        if (testTag == null ) {
                             Tag testTag1 = new Tag(part);
                             int test = this.blogService.addTag(testTag1);
                             Tag resTag = blogService.getOneTagByName(part);
@@ -172,7 +170,15 @@ public class AddBlogController implements Initializable {
                     alert.setTitle("Blog Posted");
                     alert.setHeaderText(null);
                     alert.setContentText("Your blog has been posteded.");
-                    alert.showAndWait();
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        try {
+                            Stage stage1 = (Stage) add_blog.getScene().getWindow();
+                            stage1.close();
+                        } catch (Exception e) {
+                            e.getMessage();
+                        }
+                    }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -266,11 +272,11 @@ public class AddBlogController implements Initializable {
                     try {
                         this.image = new Image(file.toURI().toString());
                         this.blogImage_preview.setImage(image);
-                        this.blogImage_preview.setLayoutX(14);
-                        this.blogImage_preview.setLayoutY(155);
+                        this.blogImage_preview.setLayoutX(178);
+                        this.blogImage_preview.setLayoutY(175);
                         this.blogImage_preview.setFitHeight(423);
                         this.blogImage_preview.setFitWidth(450);
-                        this.add_imageBlog.setLayoutX(148);
+                        this.add_imageBlog.setLayoutX(178);
                         this.add_imageBlog.setLayoutY(634);
                     } catch (Exception e) {
                         e.getMessage();
