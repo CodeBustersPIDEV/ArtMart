@@ -252,7 +252,6 @@ public class AddEventController implements Initializable {
             reader.close();
             Path destinationPath = Paths.get("C:/xampp/htdocs/PIDEV/BlogUploads/" + file.getName());
             this.img=destinationPath.toString();
-            this.txtImage.setText(this.img);
             try {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Image Upload");
