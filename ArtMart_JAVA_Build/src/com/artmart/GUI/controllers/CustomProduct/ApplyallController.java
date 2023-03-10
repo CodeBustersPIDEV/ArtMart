@@ -10,6 +10,7 @@ import com.artmart.models.Apply;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
@@ -30,6 +31,7 @@ public class ApplyallController implements Initializable {
     private Text CPtxt;
     @FXML
     private Text statustxt;
+      private ApplyalllistController controller = new ApplyalllistController();
     /**
      * Initializes the controller class.
      */
@@ -37,6 +39,9 @@ public class ApplyallController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         applyDao = new ApplyDao();
     }    
+       public void setController(ApplyalllistController controller) {
+        this.controller = controller;
+    }
      public void setApply(Apply apply) throws SQLException {
         this.apply = apply;
         String artistName = applyDao.getartisttNameById(apply.getArtist_ID());
@@ -45,5 +50,11 @@ public class ApplyallController implements Initializable {
         CPtxt.setText(cpn);
         statustxt.setText(apply.getStatus());
         pid.setText(String.valueOf(apply.getApply_ID()));
+    }
+
+    @FXML
+    private void delete(ActionEvent event) throws SQLException {
+        applyDao.deleteApply(this.apply.getApply_ID());
+        controller.displayApplies();
     }
 }

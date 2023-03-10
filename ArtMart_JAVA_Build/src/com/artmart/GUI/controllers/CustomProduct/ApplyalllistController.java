@@ -38,13 +38,14 @@ public class ApplyalllistController implements Initializable {
         applyDao = new ApplyDao();
         displayApplies();
     }    
- private void displayApplies() {
+ public void displayApplies() {
         try {
             List<Apply> applies = applyDao.getAllApplies();
             for (Apply apply : applies) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/CustomProduct/applyall.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                ApplyallController applyCardArtistController = fxmlLoader.getController();
+                applyCardArtistController.setController(this); // set the controller variable for each instance
                 applyCardArtistController.setApply(apply);
                 vBox.getChildren().add(anchorPane);
             }
