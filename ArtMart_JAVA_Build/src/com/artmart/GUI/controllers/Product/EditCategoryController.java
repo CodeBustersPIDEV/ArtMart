@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
-import com.artmart.GUI.controllers.CustomProduct.CategorieslistController;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.models.Categories;
 import java.io.IOException;
@@ -23,11 +17,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author rymae
- */
 public class EditCategoryController implements Initializable {
 
     private int categoryid;
@@ -35,9 +24,6 @@ public class EditCategoryController implements Initializable {
     private TextField name;
     private final CategoriesDao categoriesDao = new CategoriesDao();
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -60,7 +46,7 @@ public class EditCategoryController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);
-            alert.setContentText("category updated"); // display the name of the category in the message
+            alert.setContentText("category updated");
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

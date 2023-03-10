@@ -8,7 +8,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -18,13 +17,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="430.0" prefWidth="621.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.AdminOrderDetailController">
+<AnchorPane id="AnchorPane" prefHeight="430.0" prefWidth="619.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.AdminOrderDetailController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/adminorderdetail.css" />
     </stylesheets>
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9e9e930" height="485.0" stroke="BLACK" strokeType="INSIDE" width="627.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="412.0" layoutX="14.0" layoutY="17.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="290.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="487.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="630.0">
          <stroke>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -34,7 +33,7 @@
             </LinearGradient>
          </stroke>
       </Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="412.0" layoutX="324.0" layoutY="17.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="290.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="455.0" layoutX="324.0" layoutY="17.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="290.0">
          <stroke>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -44,8 +43,8 @@
             </LinearGradient>
          </stroke>
       </Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="95.0" layoutX="102.0" layoutY="55.0" stroke="BLACK" strokeType="INSIDE" width="114.0" />
-        <ImageView fx:id="productImage" fitHeight="88.0" fitWidth="107.0" layoutX="106.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="95.0" layoutX="102.0" layoutY="42.0" stroke="BLACK" strokeType="INSIDE" width="114.0" />
+        <ImageView fx:id="productImage" fitHeight="88.0" fitWidth="107.0" layoutX="105.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
         <Label layoutX="24.0" layoutY="154.0" styleClass="title" text="Order ID :" />
         <Label fx:id="orderId" layoutX="79.0" layoutY="154.0" text="Ref" />
         <Label layoutX="24.0" layoutY="179.0" text="Product Name :" />
@@ -64,7 +63,7 @@
         <Label layoutX="129.0" layoutY="225.0" />
         <Label layoutX="129.0" layoutY="253.0" />
         <Label layoutX="129.0" layoutY="281.0" />
-        <Button id="generateReceiptButton" layoutX="510.0" layoutY="439.0" onAction="#OnUpdateButtonButton" text="Update" wrapText="true">
+        <Button id="generateReceiptButton" layoutX="509.0" layoutY="427.0" onAction="#OnUpdateButtonButton" text="Update" wrapText="true">
             <effect>
                 <DropShadow color="#00000087" />
             </effect>
@@ -72,7 +71,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
         </Button>
-        <Button fx:id="closeButton" layoutX="367.0" layoutY="439.0" minWidth="55.0" onAction="#OnDeleteButton" prefHeight="25.0" prefWidth="55.0" text="Delete" wrapText="true">
+        <Button fx:id="closeButton" layoutX="367.0" layoutY="427.0" minWidth="55.0" onAction="#OnDeleteButton" prefHeight="25.0" prefWidth="55.0" text="Delete" wrapText="true">
             <effect>
                 <DropShadow color="#00000087" />
             </effect>
@@ -101,7 +100,7 @@
         <ComboBox fx:id="statusBox" layoutX="452.0" layoutY="370.0" prefHeight="25.0" prefWidth="149.0" />
         <ComboBox fx:id="shippingOptionBox" layoutX="452.0" layoutY="112.0" prefHeight="25.0" prefWidth="149.0" />
         <ComboBox fx:id="paymentOptionBox" layoutX="453.0" layoutY="149.0" prefHeight="25.0" prefWidth="149.0" />
-        <Button id="generateReceiptButton" fx:id="RefundButton" layoutX="440.0" layoutY="439.0" onAction="#OnRefundButton" text="Refund" wrapText="true">
+        <Button id="generateReceiptButton" fx:id="RefundButton" layoutX="441.0" layoutY="427.0" onAction="#OnRefundButton" text="Refund" wrapText="true">
             <effect>
                 <DropShadow color="#00000087" />
             </effect>
@@ -114,7 +113,7 @@
                 <Font name="Arial Bold" size="20.0" />
             </font>
         </Text>
-        <Text layoutX="100.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Info">
+        <Text layoutX="100.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Info">
             <font>
                 <Font name="Arial Bold" size="20.0" />
             </font>
