@@ -2,6 +2,7 @@ package com.artmart.GUI.controllers.Event.Artist.Event;
 
 import com.artmart.models.Event;
 import com.artmart.services.EventService;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -34,7 +37,6 @@ public class ViewEventController implements Initializable {
     private Button btnEditEvent;
     @FXML
     private Button btnReturn;
-    @FXML
     private Text txtEventName;
     @FXML
     private Text txtEventType;
@@ -52,6 +54,9 @@ public class ViewEventController implements Initializable {
     private TextFlow tfEventDescription;
     @FXML
     private Text txtEventStatus;
+    @FXML
+    private ImageView imageView;
+    private Image img;
  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,6 +81,22 @@ public class ViewEventController implements Initializable {
         this.txtEventCapacity.setText(String.valueOf(event.getCapacity()));
         this.txtEventEntryFee.setText(String.valueOf(event.getEntryFee()));
         this.txtEventStatus.setText(event.getStatus());
+        if (this.event.getImage() != null){
+            File file = new File(this.event.getImage());
+        //if (file.exists()) {
+            this.img = new Image(file.toURI().toString());        
+            this.imageView.setImage(this.img);
+        } else {
+            File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
+            this.img = new Image(file.toURI().toString()); 
+            this.imageView.setImage(this.img);
+        }
+//        File file = new File(this.event.getImage());
+//            this.img = new Image(file.toURI().toString());
+//        } else {
+//            File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
+//            this.img = new Image(file.toURI().toString());
+//        }
         //this.eventID = event.getUserID();
     }
 
