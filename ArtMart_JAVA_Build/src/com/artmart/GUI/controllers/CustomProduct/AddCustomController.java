@@ -322,9 +322,8 @@ public class AddCustomController implements Initializable {
                 System.out.println(line);
             }
             reader.close();
-            Path destinationPath = Paths.get("C:/xampp/htdocs/PIDEV/BlogUploads/" + file.getName());
-
-            this.imageField.setText(destinationPath.toString());
+            String destinationPath = "http://localhost/PIDEV/BlogUploads/" + file.getName();
+            this.imageField.setText(destinationPath);
 
             try {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

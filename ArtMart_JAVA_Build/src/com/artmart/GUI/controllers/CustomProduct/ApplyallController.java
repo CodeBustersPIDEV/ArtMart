@@ -15,13 +15,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 
-/**
- * FXML Controller class
- *
- * @author solta
- */
 public class ApplyallController implements Initializable {
- private Apply apply;
+
+    private Apply apply;
     private ApplyDao applyDao;
     @FXML
     private Text pid;
@@ -31,19 +27,16 @@ public class ApplyallController implements Initializable {
     private Text CPtxt;
     @FXML
     private Text statustxt;
-      private ApplyalllistController controller = new ApplyalllistController();
-    /**
-     * Initializes the controller class.
-     */
+    private ApplyalllistController controller = new ApplyalllistController();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         applyDao = new ApplyDao();
-    }    
-       public void setController(ApplyalllistController controller) {
-        this.controller = controller;
     }
-     public void setApply(Apply apply) throws SQLException {
+
+    public void setApply(Apply apply,ApplyalllistController wiw) throws SQLException {
         this.apply = apply;
+        this.controller = wiw;
         String artistName = applyDao.getartisttNameById(apply.getArtist_ID());
         String cpn = applyDao.getCustomProductNameById(apply.getCustomproduct_ID());
         Artisttxt.setText(artistName);
@@ -55,6 +48,6 @@ public class ApplyallController implements Initializable {
     @FXML
     private void delete(ActionEvent event) throws SQLException {
         applyDao.deleteApply(this.apply.getApply_ID());
-        controller.displayApplies();
+        this.controller.displayApplies();
     }
 }

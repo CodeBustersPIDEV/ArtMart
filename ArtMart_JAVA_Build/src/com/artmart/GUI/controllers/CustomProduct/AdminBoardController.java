@@ -49,6 +49,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -308,21 +309,9 @@ public class AdminBoardController implements Initializable {
             }
         });
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-      
-        
+       
 }   
-    
-    
+   
     public void onAdd(ActionEvent event) {
         
     }
@@ -417,5 +406,9 @@ public class AdminBoardController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    @FXML
+    private void GoToShoppingCart(ActionEvent event) {
     }
 }
