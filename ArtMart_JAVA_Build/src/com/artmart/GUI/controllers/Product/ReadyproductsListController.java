@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
-import com.artmart.GUI.controllers.User.ProfileArtistController;
 import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.UserDao;

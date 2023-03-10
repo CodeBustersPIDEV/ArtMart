@@ -165,7 +165,7 @@ public class ProductDetailsController implements Initializable {
             String catName = cat.getName();
             this.category.setText(catName);
             // Load the image from the file path stored in ReadyProduct object's image field
-            Image image = new Image("file:" + this.viewProd.getImage());
+            Image image = new Image(this.viewProd.getImage());
             this.imagePreview.setImage(image);
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

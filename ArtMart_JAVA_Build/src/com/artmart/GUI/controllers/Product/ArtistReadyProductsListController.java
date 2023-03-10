@@ -1,8 +1,6 @@
 package com.artmart.GUI.controllers.Product;
 
-import com.artmart.GUI.controllers.User.ProfileAdminController;
 import com.artmart.GUI.controllers.User.ProfileArtistController;
-import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
@@ -11,7 +9,6 @@ import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.CategoriesService;
 import com.artmart.services.ReadyProductService;
-import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

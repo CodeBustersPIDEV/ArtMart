@@ -7,28 +7,16 @@ package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.GUI.controllers.User.SignUpController;
-import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.ReadyProductDao;
 import com.artmart.dao.UserDao;
-import com.artmart.models.Categories;
-import com.artmart.models.Product;
 import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
 import com.artmart.models.User;
 import com.artmart.services.ReadyProductService;
 import com.artmart.services.UserService;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,7 +31,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -55,17 +42,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javax.mail.MessagingException;
 
-/**
- * FXML Controller class
- *
- * @author rymae
- */
 public class AddReviewController implements Initializable {
 
     @FXML
@@ -107,27 +88,21 @@ public class AddReviewController implements Initializable {
             this.session = (Session) user.get(user.keySet().toArray()[0]);
             this.connectedUser = this.userService.getUser(this.session.getUserId());
             this.username.setText(this.connectedUser.getName());
-            // Create a map of display names to IDs
             Map<String, String> profileActions = new HashMap<>();
 
             profileActions.put("", "");
             profileActions.put("Logout", "logout");
             profileActions.put("Profile", "profile");
-            // Populate the choice box with display names
             profileChoiceBox.getItems().addAll(profileActions.keySet());
-            // Add an event listener to handle the selected item's ID
             profileChoiceBox.setOnAction(event -> {
                 String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
                 String selectedId = profileActions.get(selectedItem);
-                // Handle the action based on the selected ID
                 if ("profile".equals(selectedId)) {
-
                     profileChoiceBox.setValue("");
                     Stage stage = new Stage();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
                     try {
                         Parent root = loader.load();
-
                         ProfileClientController controller = loader.getController();
                         controller.setProfile(UserID);
                         Scene scene = new Scene(root);

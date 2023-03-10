@@ -303,6 +303,8 @@ public class AddReadyProductController implements Initializable {
 
     @FXML
     private void onUpload(ActionEvent event) throws IOException {
+        String serverUrl = "http://localhost/upload_script.php";
+
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         this.fileChooser.setTitle("Select an image");
         this.fileChooser.getExtensionFilters().addAll(
@@ -311,11 +313,10 @@ public class AddReadyProductController implements Initializable {
 
         File file = this.fileChooser.showOpenDialog(primaryStage);
         if (file != null) {
-            this.testImg = true;
 //            Path sourcePath = file.toPath();
             byte[] imageData = Files.readAllBytes(file.toPath());
 
-            URL url = new URL(phpUrl);
+            URL url = new URL(serverUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
@@ -330,7 +331,6 @@ public class AddReadyProductController implements Initializable {
             outputStream.flush();
             outputStream.close();
 
-            // Read the response from the PHP script
             InputStream inputStream = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
@@ -338,9 +338,9 @@ public class AddReadyProductController implements Initializable {
                 System.out.println(line);
             }
             reader.close();
-            Path destinationPath = Paths.get("C:\\xampp\\htdocs\\PIDEV\\BlogUploads\\" + file.getName());
+            String imageUrl = "http://localhost/PIDEV/BlogUploads/" + file.getName();
 
-            this.imageField.setText(destinationPath.toString());
+            this.imageField.setText(imageUrl);
 
             try {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

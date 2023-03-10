@@ -27,6 +27,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -72,6 +74,8 @@ public class OrderDetailController implements Initializable {
     private final CategoriesDao catDao = new CategoriesDao();
     @FXML
     private Label estimatedTime;
+    @FXML
+    private ImageView imageOfProduct;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -125,6 +129,8 @@ public class OrderDetailController implements Initializable {
             this.orderQuantity.setText(this.order.getQuantity() + "");
             this.orderCost.setText("" + this.order.getTotalCost());
             this.estimatedTime.setText(getFormattedEstimatedDeliveryDate());
+            Image image = new Image(this.product.getImage());
+            this.imageOfProduct.setImage(image);
             switch (OrderCurrentStatus.valueOf(this.status)) {
                 case PENDING:
                     this.closeButton.setDisable(false);

@@ -1,13 +1,16 @@
 package com.artmart.GUI.controllers.Order;
 
 import com.artmart.models.Order;
+import com.artmart.models.OrderRefund;
 import com.artmart.services.OrderService;
+import com.artmart.utils.OrderCurrentStatus;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
@@ -49,10 +53,6 @@ public class OrderManagmentController implements Initializable {
     private TableView<Order> orderTableView;
     @FXML
     private TableColumn<Order, String> orderID_Col;
-    @FXML
-    private TableColumn<Order, String> user_Col;
-    @FXML
-    private TableColumn<Order, String> product_Col;
     @FXML
     private TableColumn<Order, String> orderDate_Col;
     @FXML
@@ -98,8 +98,6 @@ public class OrderManagmentController implements Initializable {
                 this.orderList.stream().collect(Collectors.toList())
         );
         orderID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
-        user_Col.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        product_Col.setCellValueFactory(new PropertyValueFactory<>("productId"));
         shippingAdd_Col.setCellValueFactory(new PropertyValueFactory<>("shippingAddress"));
         orderDate_Col.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
         this.orderTableView.setItems(items);
@@ -179,6 +177,42 @@ public class OrderManagmentController implements Initializable {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", chartFile);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void OnOpenBtn(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Open Order Detail Manager");
+        dialog.setHeaderText("Enter The Order ID");
+        dialog.setContentText("Order ID :");
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            try {
+                Order order = this.orderService.getOrder(Integer.valueOf(result.get()));
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/AdminOrderDetail.fxml"));
+                Parent root = loader.load();
+                stage.setResizable(false);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.setTitle("Artmart");
+                Scene scene = new Scene(root);
+                AdminOrderDetailController detailController = loader.getController();
+                detailController.setupData(order, this);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException | NumberFormatException | SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error In Field Format");
+                alert.setHeaderText("Error In Field Format");
+                alert.showAndWait();
+            } catch (NullPointerException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Order Not Exist");
+                alert.setHeaderText("The Order Doesn't Exist Check The ID");
+                alert.showAndWait();
+            }
         }
     }
 

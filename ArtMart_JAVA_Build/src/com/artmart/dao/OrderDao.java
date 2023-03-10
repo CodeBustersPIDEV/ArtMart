@@ -64,9 +64,7 @@ public class OrderDao implements IOrderServiceDao {
     public Order readOrder(int id) {
         Order order = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM Order WHERE order_ID = ?"
-            );
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM `order` WHERE order_ID = ?");
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -94,7 +92,7 @@ public class OrderDao implements IOrderServiceDao {
         List<Order> orders = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `Order`");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `order`");
             while (resultSet.next()) {
                 Order order = new Order();
                 order.setId(resultSet.getInt("order_ID"));
@@ -121,7 +119,7 @@ public class OrderDao implements IOrderServiceDao {
         List<Order> orders = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM `Order` WHERE UserID = ?"
+                    "SELECT * FROM `order` WHERE UserID = ?"
             );
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -150,7 +148,7 @@ public class OrderDao implements IOrderServiceDao {
     public boolean updateOrder(Order order) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE `Order` SET UserID = ?, ProductID = ?, Quantity = ?, ShippingMethod = ?, ShippingAddress = ?, PaymentMethod = ?, OrderDate = ?, TotalCost = ? WHERE order_ID = ?");
+                    "UPDATE `order` SET UserID = ?, ProductID = ?, Quantity = ?, ShippingMethod = ?, ShippingAddress = ?, PaymentMethod = ?, OrderDate = ?, TotalCost = ? WHERE order_ID = ?");
             statement.setInt(1, order.getUserId());
             statement.setInt(2, order.getProductId());
             statement.setInt(3, order.getQuantity());
@@ -173,7 +171,7 @@ public class OrderDao implements IOrderServiceDao {
     @Override
     public boolean deleteOrder(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM `Order` WHERE order_ID = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM `order` WHERE order_ID = ?");
             statement.setInt(1, id);
             this.orderStatusDao.deleteOrderStatus(id);
             boolean result = statement.executeUpdate() > 0;

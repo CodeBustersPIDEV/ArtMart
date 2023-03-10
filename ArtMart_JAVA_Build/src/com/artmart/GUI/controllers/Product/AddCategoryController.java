@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.artmart.GUI.controllers.Product;
-
 import com.artmart.models.Categories;
 import com.artmart.services.CategoriesService;
 import java.io.IOException;
@@ -19,16 +18,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author rymae
- */
 public class AddCategoryController implements Initializable {
 
     @FXML
@@ -38,7 +31,6 @@ public class AddCategoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     @FXML
@@ -50,7 +42,7 @@ public class AddCategoryController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Please enter a category name");
             alert.showAndWait();
-            return; // exit the method if the name is empty
+            return;
         }
         Categories x = new Categories(name);
         CategoriesService CategoriesService = new CategoriesService();
