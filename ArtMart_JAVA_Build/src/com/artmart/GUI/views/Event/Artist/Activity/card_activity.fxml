@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -12,7 +14,7 @@
         <URL value="@/com/artmart/GUI/styles/activity/card_activity.css" />
     </stylesheets>
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ddff" height="162.0" layoutX="2.0" layoutY="2.0" stroke="#ff5946" strokeType="INSIDE" width="635.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d8d7dd" height="170.0" layoutX="2.0" layoutY="2.0" stroke="#ff5946" strokeType="INSIDE" width="931.0" />
       <Text fx:id="txtActivityTitle" fill="#5d53a8" layoutX="162.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="156.00000321865082">
          <font>
             <Font name="Brush Script MT Italic" size="25.0" />
@@ -33,11 +35,6 @@
             <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Button fx:id="btnDeleteActivity" layoutX="568.0" layoutY="126.0" mnemonicParsing="false" onAction="#onBtnDeleteActivity" prefHeight="27.0" prefWidth="57.0" text="Delete" textFill="#ff0400">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Button>
       <Text fill="#5d53a8" layoutX="27.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date ">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
@@ -53,15 +50,32 @@
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Button fx:id="btnEditActivity" layoutX="504.0" layoutY="126.0" mnemonicParsing="false" onAction="#onBtnEditActivity" prefHeight="27.0" prefWidth="57.0" text="Edit" textAlignment="CENTER" textFill="#18b878">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Button>
       <Text fill="#5d53a8" layoutX="27.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
+      <Button fx:id="btnEditActivity" alignment="CENTER" layoutX="619.0" layoutY="130.0" mnemonicParsing="false" onAction="#onBtnEditActivity" prefHeight="25.0" prefWidth="137.0" text="Edit" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btnDeleteActivity" alignment="CENTER" layoutX="789.0" layoutY="130.0" mnemonicParsing="false" onAction="#onBtnDeleteActivity" prefHeight="25.0" prefWidth="116.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
