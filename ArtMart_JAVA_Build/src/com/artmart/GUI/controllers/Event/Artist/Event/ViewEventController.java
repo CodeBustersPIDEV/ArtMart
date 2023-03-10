@@ -37,6 +37,7 @@ public class ViewEventController implements Initializable {
     private Button btnEditEvent;
     @FXML
     private Button btnReturn;
+    @FXML
     private Text txtEventName;
     @FXML
     private Text txtEventType;
