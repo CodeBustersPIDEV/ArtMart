@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.models.Tag;
@@ -24,11 +19,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author marwen
- */
 public class AddTagController implements Initializable {
 
     @FXML
@@ -40,9 +30,6 @@ public class AddTagController implements Initializable {
     private final BlogService blogService = new BlogService();
     private int test1;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

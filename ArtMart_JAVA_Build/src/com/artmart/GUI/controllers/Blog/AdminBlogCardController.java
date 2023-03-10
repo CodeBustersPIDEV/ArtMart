@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Blog;
 
-import com.artmart.models.Media;
 import com.artmart.services.BlogService;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -29,11 +22,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author marwen
- */
 public class AdminBlogCardController implements Initializable {
 
     @FXML
@@ -59,9 +47,6 @@ public class AdminBlogCardController implements Initializable {
     private Image image;
     private final BlogService blogService = new BlogService();
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
@@ -113,7 +98,7 @@ public class AdminBlogCardController implements Initializable {
         boolean test1 = this.blogService.deleteHasCat(b_id);
         boolean test2 = this.blogService.deleteHasTag(b_id);
         boolean test3 = this.blogService.deleteAllComments(b_id);
-        if (test1 && test2 && test3 && test4)  {
+        if (test1 && test2 && test3 && test4) {
             boolean test = this.blogService.deleteBlog(b_id);
             if (test) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

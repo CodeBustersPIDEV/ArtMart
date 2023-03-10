@@ -32,13 +32,13 @@ public class MainViewController implements Initializable {
     private Button userBtn;
     @FXML
     private Button eventBtn;
-     @FXML
+    @FXML
     private Button orderBtn;
     @FXML
     private Button cProductBtn;
     @FXML
     private Button blogBtn;
-    
+
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     private User connectedUser = new User();
@@ -49,13 +49,14 @@ public class MainViewController implements Initializable {
     private ChoiceBox<String> profileChoiceBox;
     @FXML
     private Label username;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
         this.connectedUser = this.userService.getUser(this.session.getUserId());
-        connectedUser=user_ser.getUser(UserID);
+        connectedUser = user_ser.getUser(UserID);
         username.setText(connectedUser.getUsername());
-        Map<String, String> profileActions = new HashMap<>();        
+        Map<String, String> profileActions = new HashMap<>();
         profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
@@ -64,28 +65,26 @@ public class MainViewController implements Initializable {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
             if ("profile".equals(selectedId)) {
+                profileChoiceBox.setValue("");
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                try {
+                    Parent root = loader.load();
 
-               profileChoiceBox.setValue("");
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
-                    try {
-                        Parent root = loader.load();
-
-                        ProfileAdminController controller = loader.getController();
-                        controller.setProfile(UserID);
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException ex) {
-                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    ProfileAdminController controller = loader.getController();
+                    controller.setProfile(UserID);
+                    Scene scene = new Scene(root);
+                    stage.setResizable(false);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
                 Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
                 stage.close();
                 try {
-
                     stage = new Stage();
                     Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
                     Scene scene = new Scene(root);
@@ -141,7 +140,6 @@ public class MainViewController implements Initializable {
                 stage.close();
                 stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
-
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
                 stage.setTitle("Product Managment");
@@ -157,7 +155,6 @@ public class MainViewController implements Initializable {
                 stage.close();
                 stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/AdminBoard.fxml"));
-
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
                 stage.setTitle("Product Managment");
@@ -173,7 +170,6 @@ public class MainViewController implements Initializable {
                 stage.close();
                 stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Product/Product.fxml"));
-
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
                 stage.setTitle("Product Managment");
@@ -209,8 +205,7 @@ public class MainViewController implements Initializable {
                 Stage stage = (Stage) userBtn.getScene().getWindow();
                 stage.close();
                 stage = new Stage();
-                Parent root = FXMLLoader
-                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/AdminBoard.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/AdminBoard.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
                 stage.setTitle("Custom Product Managment");
@@ -225,8 +220,7 @@ public class MainViewController implements Initializable {
                 Stage stage = (Stage) userBtn.getScene().getWindow();
                 stage.close();
                 stage = new Stage();
-                Parent root = FXMLLoader
-                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
                 stage.setTitle("Custom Product Managment");
@@ -241,8 +235,7 @@ public class MainViewController implements Initializable {
                 Stage stage = (Stage) userBtn.getScene().getWindow();
                 stage.close();
                 stage = new Stage();
-                Parent root = FXMLLoader
-                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCustom.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/ArtistCustom.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
                 stage.setTitle("Custom Product Managment");

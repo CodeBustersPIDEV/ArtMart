@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.dao.UserDao;
@@ -55,11 +50,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-/**
- * FXML Controller class
- *
- * @author marwen
- */
 public class AddBlogController implements Initializable {
 
     @FXML
@@ -147,7 +137,7 @@ public class AddBlogController implements Initializable {
                     String[] parts = this.tags.split("#");
                     for (String part : parts) {
                         Tag testTag = this.blogService.getOneTagByName(part);
-                        if (testTag == null ) {
+                        if (testTag == null) {
                             Tag testTag1 = new Tag(part);
                             int test = this.blogService.addTag(testTag1);
                             Tag resTag = blogService.getOneTagByName(part);

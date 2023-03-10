@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Blog;
 
 import com.artmart.models.User;
@@ -25,11 +20,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author marwen
- */
 public class BlogCardController implements Initializable {
 
     @FXML
@@ -102,8 +92,6 @@ public class BlogCardController implements Initializable {
     public void setViewsLabel(String nb_views) {
         this.viewsLabel.setText(nb_views + " Views");
     }
-    
-    
 
     @FXML
     private void viewBlog(ActionEvent event) {
