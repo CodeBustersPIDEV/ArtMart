@@ -78,7 +78,7 @@ public class ReadyProductService implements IReadyProductDao, IProductReviewDao 
                 + "<body>"
                 + "<h1>Your products list has been updated</h1>"
                 + "<p>Dear " + recipientEmail + ",</p>"
-                + "<p>The admin has added a new product for you with the name: "+ verificationName +" please check your list.</p>"
+                + "<p>You added a product with the name: "+ verificationName +" please check your list.</p>"
                 + "</body>"
                 + "</html>";
         return emailContent;
