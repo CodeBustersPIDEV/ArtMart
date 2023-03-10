@@ -1,0 +1,7 @@
+.mainFxmlClass {
+    #deleteBtn {
+    -fx-background-color: #ff1f1f;
+    -fx-text-fill: #ffffff;
+}
+
+}

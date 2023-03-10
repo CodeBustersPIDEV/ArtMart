@@ -61,7 +61,6 @@ public class CardEventController implements Initializable {
         this.txtEventStartDate.setText(event.getStartDate().toString());
         this.txtEventEndDate.setText(event.getEndDate().toString());
         this.txtEventStatus.setText(event.getStatus());
-        
 //        this.eventID = event.getUserID();
     }   
 

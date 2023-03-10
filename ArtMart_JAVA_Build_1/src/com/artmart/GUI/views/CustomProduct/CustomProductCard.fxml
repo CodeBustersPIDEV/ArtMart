@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="249.0" prefWidth="777.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.CustomProduct.CustomProductCardController">
+    <stylesheets>
+        <URL value="@/com/artmart/GUI/styles/customproductcard.css" />
+    </stylesheets>
+   <children>
+      <Text fx:id="pid" layoutX="34.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PID" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="379.0" layoutY="-10.0" stroke="#1abc9c" strokeType="INSIDE" width="1339.0" />
+      <Text fx:id="nameTxt" fill="#282d2f" layoutX="898.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa">
+         <font>
+            <Font size="15.0" />
+         </font></Text>
+      <Text fx:id="descTxt" fill="#282d2f" layoutX="898.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa">
+         <font>
+            <Font size="15.0" />
+         </font></Text>
+      <Text fx:id="WaightTxt" fill="#282d2f" layoutX="898.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa">
+         <font>
+            <Font size="15.0" />
+         </font></Text>
+      <Text fx:id="CID" fill="#282d2f" layoutX="1288.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa">
+         <font>
+            <Font size="15.0" />
+         </font></Text>
+      <Text fx:id="dim" fill="#282d2f" layoutX="901.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa">
+         <font>
+            <Font size="15.0" />
+         </font></Text>
+      <Text fx:id="mat" fill="#282d2f" layoutX="898.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaa">
+         <font>
+            <Font size="15.0" />
+         </font></Text>
+      <ImageView fx:id="img" fitHeight="283.0" fitWidth="637.0" layoutX="34.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fill="#21153d" fontSmoothingType="LCD" layoutX="745.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAME:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font></Text>
+      <Text fill="#21153d" fontSmoothingType="LCD" layoutX="722.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font></Text>
+      <Text fill="#21153d" fontSmoothingType="LCD" layoutX="732.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MATERIAL:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font></Text>
+      <Text fill="#21153d" fontSmoothingType="LCD" layoutX="740.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WEIGHT:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font></Text>
+      <Text fill="#21153d" fontSmoothingType="LCD" layoutX="721.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIMENSIONS:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font></Text>
+      <Text fill="#21153d" fontSmoothingType="LCD" layoutX="1175.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORY:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font></Text>
+      <Button alignment="CENTER" layoutX="1104.0" layoutY="325.0" mnemonicParsing="false" onAction="#goupdate" prefHeight="25.0" prefWidth="100.0" text="Update" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="deleteBtn" alignment="CENTER" layoutX="1225.0" layoutY="325.0" mnemonicParsing="false" onAction="#OnDelete" prefHeight="25.0" prefWidth="100.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   
+   </children>
+</AnchorPane>
