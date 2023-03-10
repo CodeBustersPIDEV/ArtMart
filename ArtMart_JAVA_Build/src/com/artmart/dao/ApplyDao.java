@@ -145,10 +145,10 @@ public class ApplyDao {
         return null;
     }
 }
- public String getartisttNameById(int customProductId) throws SQLException {
-    String query = "SELECT p.name FROM user p INNER JOIN artist cp ON p.user_ID = cp.user_ID WHERE cp.artist_ID = ?";
+public String getartisttNameById(int artistId) throws SQLException {
+    String query = "SELECT u.name FROM user u INNER JOIN apply a ON u.user_ID = a.artist_ID WHERE a.artist_ID = ?";
     PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
-    statement.setInt(1, customProductId);
+    statement.setInt(1, artistId);
     ResultSet result = statement.executeQuery();
     if (result.next()) {
         return result.getString("name");
