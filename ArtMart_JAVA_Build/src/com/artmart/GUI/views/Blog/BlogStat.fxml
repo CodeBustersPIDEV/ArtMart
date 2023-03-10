@@ -17,7 +17,7 @@
           <CategoryAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="yAxis" autoRanging="false" side="LEFT" upperBound="150.0" />
+          <NumberAxis fx:id="yAxis" autoRanging="false" side="LEFT" upperBound="50.0" />
         </yAxis>
       </BarChart>
       <Button fx:id="goBack" layoutX="43.0" layoutY="27.0" mnemonicParsing="false" onAction="#goBackToBlogMenu" prefHeight="31.0" prefWidth="32.0" text="Back">

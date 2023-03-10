@@ -71,15 +71,19 @@ public class BlogStatController implements Initializable {
 
     public void adminStats() {
         List<Blog> blogList = new ArrayList<>();
-        blogList = this.blogService.getAllBlogsOrderedByViews();
+        blogList = this.blogService.getAllBlogs();
         Map<String, Integer> blogViewsPerUser = new HashMap<>();
         blogList.forEach(blog -> {
             blogViewsPerUser.put(this.userService.getUser(blog.getAuthor()).getName(), blog.getNb_views());
         });
-
+        int maxViews = blogList.stream()
+                .mapToInt(Blog::getNb_views)
+                .max()
+                .orElse(0);
         //Define the axes
         this.xAxis.setLabel("User");
         this.yAxis.setLabel("Views");
+        this.yAxis.setUpperBound(maxViews + 10);
 
         // Create the chart series
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
@@ -101,10 +105,14 @@ public class BlogStatController implements Initializable {
         blogListPerUser.forEach(blog -> {
             blogViewsPerUser.put(blog.getTitle(), blog.getNb_views());
         });
-
+        int maxViews = blogListPerUser.stream()
+                .mapToInt(Blog::getNb_views)
+                .max()
+                .orElse(0);
         //Define the axes
         this.xAxis.setLabel("Blog");
         this.yAxis.setLabel("Views");
+        this.yAxis.setUpperBound(maxViews + 10);
 
         // Create the chart series
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
