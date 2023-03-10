@@ -25,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
 import java.util.Random;
+import javafx.scene.control.Hyperlink;
 
 public class VerificationController implements Initializable {
 
@@ -41,6 +42,12 @@ public class VerificationController implements Initializable {
     User user = new User();
     public static final String ACCOUNT_SID = "AC9ad52df77c9b65dea27224d348cc4d35";
     public static final String AUTH_TOKEN = "10868b44a74157a9c56f27ffa39c0240";
+    @FXML
+    private Label loginMsg;
+    @FXML
+    private Hyperlink smsLink;
+    @FXML
+    private Hyperlink resendLink;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,6 +59,7 @@ public class VerificationController implements Initializable {
         System.out.println(email);
     }
 
+    @FXML
     public void OnSubmit(ActionEvent event) {
         String token = verificationField.getText();
         int UserId = user_ser.getUserIdByEmail(vEmail);
@@ -112,6 +120,7 @@ public class VerificationController implements Initializable {
 
     }
 
+    @FXML
     public void OnResend(ActionEvent event) {
         String token = UUID.randomUUID().toString();
         int userID = user_ser.getUserIdByEmail(vEmail);
@@ -143,6 +152,7 @@ public class VerificationController implements Initializable {
         }
     }
 
+    @FXML
     public void OnSms(ActionEvent event) {
         int UserId = user_ser.getUserIdByEmail(vEmail);
         user = user_ser.getUser(UserId);
@@ -161,5 +171,9 @@ public class VerificationController implements Initializable {
         } else {
             System.out.println("Message failed with error: " + response.getMessages().get(0).getErrorText());
         }
+    }
+
+    @FXML
+    private void onBack(ActionEvent event) {
     }
 }
