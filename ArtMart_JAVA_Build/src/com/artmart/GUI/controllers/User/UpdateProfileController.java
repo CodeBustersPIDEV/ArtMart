@@ -261,7 +261,6 @@ public class UpdateProfileController implements Initializable {
             outputStream.flush();
             outputStream.close();
 
-            // Read the response from the PHP script
             InputStream inputStream = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
@@ -277,7 +276,6 @@ public class UpdateProfileController implements Initializable {
             user.setPicture(imageUrl);
             user_ser.updateAccountU(userID, user);
             System.out.println("Response code: " + responseCode);
-
         }
 
     }

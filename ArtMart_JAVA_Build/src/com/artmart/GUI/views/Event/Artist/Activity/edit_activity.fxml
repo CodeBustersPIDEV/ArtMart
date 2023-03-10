@@ -1,63 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Event.Artist.Activity.EditActivityController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.Activity.EditActivityController">
    <children>
-      <AnchorPane id="AnchorPane" layoutX="5.0" layoutY="5.0" prefHeight="450.0" prefWidth="650.0" styleClass="mainFxmlClass">
+      <AnchorPane id="AnchorPane" layoutX="5.0" layoutY="5.0" prefHeight="770.0" prefWidth="1366.0" styleClass="mainFxmlClass">
          <stylesheets>
             <URL value="@/com/artmart/GUI/styles/activity/add_activity.css" />
          </stylesheets>
          <children>
-            <Label alignment="CENTER" layoutX="44.0" layoutY="38.0" prefHeight="65.0" prefWidth="240.0" text="Edit Activity" textFill="#ff5946">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="423.0" layoutX="359.0" layoutY="169.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="692.0">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#f72f78" />
+                        <Stop color="#fe7b1d" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Rectangle>
+            <TextField fx:id="txtHost" layoutX="659.0" layoutY="298.0" prefHeight="40.0" prefWidth="180.0" promptText="Host" />
+            <TextField fx:id="txtTitle" layoutX="659.0" layoutY="248.0" prefHeight="40.0" prefWidth="180.0" promptText="Title" />
+            <DatePicker fx:id="dpDate" layoutX="659.0" layoutY="348.0" prefHeight="40.0" prefWidth="180.0" promptText="Date" />
+            <ComboBox fx:id="comboBoxEvent" layoutX="659.0" layoutY="398.0" prefHeight="40.0" prefWidth="180.0" promptText="Event" />
+            <Text fill="#5d53a8" layoutX="494.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date ">
                <font>
-                  <Font name="Brush Script MT Italic" size="48.0" />
+                  <Font name="Brush Script MT Italic" size="36.0" />
                </font>
-            </Label>
-            <TextField fx:id="txtHost" layoutX="305.0" layoutY="200.0" prefHeight="40.0" prefWidth="180.0" promptText="Host" />
-            <TextField fx:id="txtTitle" layoutX="305.0" layoutY="150.0" prefHeight="40.0" prefWidth="180.0" promptText="Title" />
-            <Button fx:id="btnEditActivity" layoutX="421.0" layoutY="388.0" mnemonicParsing="false" onAction="#onBtnEditActivity" prefHeight="27.0" prefWidth="64.0" text="Confirm" textAlignment="CENTER" textFill="#0fae22">
+            </Text>
+            <Text fill="#5d53a8" layoutX="494.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title " wrappingWidth="67.48241633176804">
                <font>
-                  <Font name="System Bold Italic" size="12.0" />
+                  <Font name="Brush Script MT Italic" size="36.0" />
                </font>
+            </Text>
+            <Text fill="#5d53a8" layoutX="494.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host">
+               <font>
+                  <Font name="Brush Script MT Italic" size="36.0" />
+               </font>
+            </Text>
+            <Text fill="#5d53a8" layoutX="494.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event">
+               <font>
+                  <Font name="Brush Script MT Italic" size="36.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnCancelActivity" alignment="CENTER" layoutX="663.0" layoutY="487.0" mnemonicParsing="false" onAction="#onBtnCancelActivity" prefHeight="25.0" prefWidth="84.0" text="Cancel" textAlignment="CENTER" textFill="#21153d">
+               <font>
+                  <Font name="Rockwell Nova Bold" size="12.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000087" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="btnCancelActivity" layoutX="306.0" layoutY="388.0" mnemonicParsing="false" onAction="#onBtnCancelActivity" prefHeight="27.0" prefWidth="64.0" text="Cancel" textAlignment="CENTER" textFill="RED">
+            <Button fx:id="btnEditActivity" alignment="CENTER" layoutX="767.0" layoutY="487.0" mnemonicParsing="false" onAction="#onBtnEditActivity" prefHeight="25.0" prefWidth="76.0" text="Confirm" textAlignment="CENTER" textFill="#21153d">
                <font>
-                  <Font name="System Bold Italic" size="12.0" />
+                  <Font name="Rockwell Nova Bold" size="12.0" />
                </font>
+               <effect>
+                  <DropShadow color="#00000087" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <DatePicker fx:id="dpDate" layoutX="305.0" layoutY="250.0" prefHeight="40.0" prefWidth="180.0" promptText="Date" />
-            <ComboBox fx:id="comboBoxEvent" layoutX="305.0" layoutY="300.0" prefHeight="40.0" prefWidth="180.0" promptText="Event" />
-            <Text fill="#5d53a8" layoutX="140.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date ">
+            <Text fill="#21153d" layoutX="653.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Activity" textAlignment="CENTER">
                <font>
-                  <Font name="Brush Script MT Italic" size="36.0" />
-               </font>
-            </Text>
-            <Text fill="#5d53a8" layoutX="140.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title " wrappingWidth="67.48241633176804">
-               <font>
-                  <Font name="Brush Script MT Italic" size="36.0" />
-               </font>
-            </Text>
-            <Text fill="#5d53a8" layoutX="140.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host">
-               <font>
-                  <Font name="Brush Script MT Italic" size="36.0" />
-               </font>
-            </Text>
-            <Text fill="#5d53a8" layoutX="140.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event">
-               <font>
-                  <Font name="Brush Script MT Italic" size="36.0" />
+                  <Font name="Dubai Bold" size="20.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
+      <Circle fill="#fa7a1e00" layoutX="1267.0" layoutY="159.0" radius="57.0" strokeType="OUTSIDE" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="0.6333333333333333">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.5071295967136706" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Circle>
+      <Line endX="-100.00003051757812" endY="-114.0" layoutX="203.0" layoutY="742.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="6.0" layoutX="162.0" layoutY="685.0" startX="-124.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="100.0" layoutX="457.0" layoutY="41.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="354.0" layoutX="203.0" layoutY="55.0" startX="-32.0" startY="-7.62939453125E-6" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.533949520085318" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
    </children>
 </AnchorPane>

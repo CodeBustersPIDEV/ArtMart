@@ -7,6 +7,7 @@ package com.artmart.GUI.controllers.CustomProduct;
 
 import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
 import com.artmart.GUI.controllers.User.ProfileAdminController;
+import com.artmart.GUI.controllers.User.ProfileArtistController;
 import com.artmart.models.Artist;
 import com.artmart.models.CustomProduct;
 import com.artmart.models.Session;
@@ -106,11 +107,11 @@ public class ArtistCustomController implements Initializable {
 
                 profileChoiceBox.setValue("");
                 Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
                 try {
                     Parent root = loader.load();
 
-                    ProfileAdminController controller = loader.getController();
+                    ProfileArtistController controller = loader.getController();
                     controller.setProfile(UserID);
                     Scene scene = new Scene(root);
                     stage.setResizable(false);

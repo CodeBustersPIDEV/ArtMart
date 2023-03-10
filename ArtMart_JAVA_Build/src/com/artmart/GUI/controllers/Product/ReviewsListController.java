@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.User.ProfileAdminController;
@@ -26,7 +21,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,11 +43,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author rymae
- */
 public class ReviewsListController implements Initializable {
 
     private final ReadyProductService readyProductService = new ReadyProductService();
@@ -216,7 +205,7 @@ public class ReviewsListController implements Initializable {
         this.username.setText("" + userN);
 
         // Load the image from the file path stored in ReadyProduct object's image field
-        Image image = new Image("file:" + this.viewProd.getImage());
+        Image image = new Image(this.viewProd.getImage());
         this.imagePreview.setImage(image);
 
         this.name.setText(viewProd.getName());

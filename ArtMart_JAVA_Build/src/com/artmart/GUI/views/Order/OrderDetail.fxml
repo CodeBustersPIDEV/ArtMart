@@ -6,21 +6,44 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.OrderDetailController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/orderdetail.css" />
     </stylesheets>
     <children>
-        <Label layoutX="25.0" layoutY="14.0" styleClass="title" text="Order Details :" />
-        <Label fx:id="orderId" layoutX="108.0" layoutY="14.0" text="Ref" />
-        <Label layoutX="14.0" layoutY="77.0" text="Product Name :" />
-        <Label layoutX="420.0" layoutY="273.0" text="Quantity:" />
-        <Label layoutX="297.0" layoutY="77.0" text="Shipping Option:" />
-        <Label layoutX="295.0" layoutY="122.0" text="Payment Method:" />
-        <Label layoutX="294.0" layoutY="169.0" text="Shipping Address:" />
-        <Label layoutX="420.0" layoutY="14.0" text="Order Date:" />
-        <Label layoutX="417.0" layoutY="312.0" text="Total Cost:" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="405.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="644.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="364.0" layoutX="239.0" layoutY="15.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="394.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Rectangle>
+        <Label layoutX="13.0" layoutY="24.0" styleClass="title" text="Order Details :" />
+        <Label fx:id="orderId" layoutX="102.0" layoutY="24.0" text="Ref" />
+        <Label layoutX="13.0" layoutY="57.0" text="Product Name :" />
+        <Label layoutX="425.0" layoutY="219.0" text="Quantity:" />
+        <Label layoutX="259.0" layoutY="57.0" text="Shipping Option:" />
+        <Label layoutX="257.0" layoutY="85.0" prefWidth="107.0" text="Payment Method:" />
+        <Label layoutX="256.0" layoutY="140.0" text="Shipping Address:" />
+        <Label layoutX="256.0" layoutY="265.0" text="Order Date:" />
+        <Label layoutX="422.0" layoutY="245.0" text="Total Cost:" />
         <Label layoutX="129.0" layoutY="57.0" />
         <Label layoutX="129.0" layoutY="85.0" />
         <Label layoutX="129.0" layoutY="113.0" />
@@ -30,30 +53,31 @@
         <Label layoutX="129.0" layoutY="225.0" />
         <Label layoutX="129.0" layoutY="253.0" />
         <Label layoutX="129.0" layoutY="281.0" />
-        <Button id="generateReceiptButton" layoutX="150.0" layoutY="361.0" onAction="#handleGenerateReceiptButton" text="Generate Receipt" />
+        <Button id="generateReceiptButton" layoutX="440.0" layoutY="336.0" onAction="#handleGenerateReceiptButton" text="Generate Receipt" />
 
-        <Button fx:id="closeButton" layoutX="59.0" layoutY="361.0" minWidth="60.0" onAction="#OnCancelOrder" text="Cancel Order" />
-        <Label layoutX="255.0" layoutY="14.0" text="Status :" />
-        <Label layoutX="12.0" layoutY="105.0" text="Category :" />
+        <Button fx:id="closeButton" layoutX="340.0" layoutY="336.0" minWidth="60.0" onAction="#OnCancelOrder" text="Cancel Order" />
+        <Label layoutX="258.0" layoutY="24.0" text="Status :" />
+        <Label layoutX="13.0" layoutY="94.0" text="Category :" />
         <Label layoutX="14.0" layoutY="133.0" text="Description :" />
         <Label layoutX="15.0" layoutY="245.0" text="Dimensions :" />
-        <Label layoutX="15.0" layoutY="273.0" text="weight :" />
-        <Label layoutX="15.0" layoutY="301.0" text="material :" />
-        <TextArea fx:id="ShpiingAddress" editable="false" layoutX="407.0" layoutY="168.0" prefHeight="76.0" prefWidth="150.0" wrapText="true" />
-        <Label fx:id="orderStatus" layoutX="300.0" layoutY="14.0" text="Ref" />
-        <Label fx:id="orderDate" layoutX="489.0" layoutY="14.0" text="Ref" />
-        <Label fx:id="productName" layoutX="100.0" layoutY="77.0" text="Ref" />
-        <Label fx:id="productCategory" layoutX="72.0" layoutY="105.0" text="Ref" />
+        <Label layoutX="15.0" layoutY="273.0" text="Weight :" />
+        <Label layoutX="15.0" layoutY="301.0" text="Material :" />
+        <TextArea fx:id="ShpiingAddress" editable="false" layoutX="255.0" layoutY="158.0" prefHeight="102.0" prefWidth="152.0" wrapText="true" />
+        <Label fx:id="orderStatus" layoutX="304.0" layoutY="24.0" text="Ref" />
+        <Label fx:id="orderDate" layoutX="331.0" layoutY="265.0" text="Ref" />
+        <Label fx:id="productName" layoutX="102.0" layoutY="57.0" text="Ref" />
+        <Label fx:id="productCategory" layoutX="82.0" layoutY="94.0" text="Ref" />
         <Label fx:id="productDimension" layoutX="93.0" layoutY="245.0" text="Ref" />
         <Label fx:id="productWeight" layoutX="64.0" layoutY="276.0" text="Ref" />
         <Label fx:id="productMat" layoutX="73.0" layoutY="301.0" text="Ref" />
-        <ImageView fitHeight="102.0" fitWidth="174.0" layoutX="29.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true" />
-        <Label fx:id="paymentMethod" layoutX="408.0" layoutY="122.0" text="Ref" />
-        <Label fx:id="orderQuantity" layoutX="480.0" layoutY="273.0" text="Ref" />
-        <Label fx:id="orderCost" layoutX="480.0" layoutY="312.0" text="Ref" />
-        <TextArea fx:id="descriptionField" editable="false" layoutX="16.0" layoutY="159.0" prefHeight="76.0" prefWidth="163.0" wrapText="true" />
-      <Label fx:id="shippingMethod" layoutX="408.0" layoutY="77.0" text="Ref" />
-      <Label layoutX="282.0" layoutY="365.0" text="Estimated Time :" />
-      <Label fx:id="estimatedTime" layoutX="379.0" layoutY="365.0" text="Min" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="102.0" layoutX="436.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" width="174.0" />
+        <ImageView fx:id="imageOfProduct" fitHeight="95.0" fitWidth="165.0" layoutX="440.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="paymentMethod" layoutX="361.0" layoutY="86.0" text="Ref" />
+        <Label fx:id="orderQuantity" layoutX="485.0" layoutY="219.0" text="Ref" />
+        <Label fx:id="orderCost" layoutX="485.0" layoutY="245.0" text="Ref" />
+        <TextArea fx:id="descriptionField" editable="false" layoutX="15.0" layoutY="156.0" prefHeight="79.0" prefWidth="174.0" wrapText="true" />
+      <Label fx:id="shippingMethod" layoutX="352.0" layoutY="57.0" text="Ref" />
+      <Label layoutX="417.0" layoutY="23.0" text="Estimated Time :" />
+      <Label fx:id="estimatedTime" layoutX="547.0" layoutY="23.0" text="Min" />
     </children>
 </AnchorPane>
