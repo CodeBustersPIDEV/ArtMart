@@ -51,7 +51,7 @@ public class ProfileArtistController implements Initializable {
     private Label birthdayProfile;
     @FXML
     private Button editProfileBtn;
-   
+
     @FXML
     private Label phoneProfile;
     @FXML
@@ -71,7 +71,7 @@ public class ProfileArtistController implements Initializable {
     }
 
     public void setProfile(int id) {
-       
+
         User test = user_ser.getUser(UserID);
         if (test.getRole().equals("admin")) {
             logout.setVisible(false);
@@ -113,8 +113,6 @@ public class ProfileArtistController implements Initializable {
 
     }
 
-    
-
     @FXML
 
     public void OnUpdateBtn(ActionEvent event) {
@@ -135,19 +133,15 @@ public class ProfileArtistController implements Initializable {
 
     @FXML
     public void OnQrCode(ActionEvent event) throws IOException, WriterException {
-        //data that we want to store in the QR code  
         String str = String.valueOf(artist.getArtist_id());
-//path where we want to get QR Code  
-        String path = "C:\\Users\\21697\\OneDrive\\Documents\\GitHub\\ArtMart\\QRCode\\Quote" + artist.getArtist_id() + ".png";
+        String path = "@../../../../../../../QRCode" + artist.getArtist_id() + ".png";
         String charset = "UTF-8";
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
-//generates QR code with Low level(L) error correction capability  
         hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-//invoking the user-defined method that creates the QR code  
         generateQRcode(str, path, charset, hashMap, 200, 200);
         System.out.println("QR Code created successfully.");
         try {
-            Image newImage = new Image("file:/C:/Users/21697/OneDrive/Documents/GitHub/ArtMart/QRCode/Quote" + artist.getArtist_id() + ".png");
+            Image newImage = new Image("file:@../../../../../../../QRCode" + artist.getArtist_id() + ".png");
             //   System.out.println(artist.getPicture());
             QrCode.setImage(newImage);
         } catch (Exception e) {

@@ -120,8 +120,7 @@ public class EditBlogController implements Initializable {
         HasTag ht = blogService.getTagbyBlog(id);
         this.img = this.blogService.getOneMediaByBlogID(id);
         if (!(img == null)) {
-            File file = new File(img.getFile_path());
-            this.image = new Image(file.toURI().toString());
+            this.image = new Image(img.getFile_path());
         } else {
             File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
             this.image = new Image(file.toURI().toString());
@@ -205,7 +204,15 @@ public class EditBlogController implements Initializable {
                 alert.setTitle("Blog Updated");
                 alert.setHeaderText(null);
                 alert.setContentText("Your blog has been updated succesfully.");
-                alert.showAndWait();
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        Stage stage1 = (Stage) edit_blog.getScene().getWindow();
+                        stage1.close();
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");

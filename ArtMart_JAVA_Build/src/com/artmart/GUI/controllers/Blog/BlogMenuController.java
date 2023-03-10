@@ -61,8 +61,8 @@ public class BlogMenuController implements Initializable {
         this.session = (Session) user.get(user.keySet().toArray()[0]);
         this.connectedUser = this.userService.getUser(this.session.getUserId());
         this.connectedAdin.setText(connectedUser.getName());
-        Map<String, String> profileActions = new HashMap<>();
-        
+      Map<String, String> profileActions = new HashMap<>();
+
         profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
@@ -75,20 +75,53 @@ public class BlogMenuController implements Initializable {
             // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
 
-               profileChoiceBox.setValue("");
-               Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
-                try {
-                    Parent root = loader.load();
+                profileChoiceBox.setValue("");
+                User u = userService.getUser(UserID);
+                if (u.getRole().equals("admin")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
+                    try {
+                        Parent root = loader.load();
 
-                    ProfileAdminController controller = loader.getController();
-                    controller.setProfile(UserID);
-                    Scene scene = new Scene(root);
-                    stage.setResizable(false);
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                        ProfileAdminController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (u.getRole().equals("artist")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileArtistController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (u.getRole().equals("client")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileClientController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
 
             } else if ("logout".equals(selectedId)) {
@@ -107,6 +140,7 @@ public class BlogMenuController implements Initializable {
                 } catch (IOException e) {
                     System.out.print(e.getMessage());
                 }
+
             }
         });
     }

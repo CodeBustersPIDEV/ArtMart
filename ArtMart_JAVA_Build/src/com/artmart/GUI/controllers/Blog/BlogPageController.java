@@ -176,8 +176,7 @@ public class BlogPageController implements Initializable {
         this.ratingLabel.setText(String.valueOf(df.format(viewBlog.getRating())));
         this.img = this.blogService.getOneMediaByBlogID(id);
         if (!(img == null)) {
-            File file = new File(img.getFile_path());
-            this.image = new Image(file.toURI().toString());
+            this.image = new Image(img.getFile_path());
         } else {
             File file = new File("src/com/artmart/assets/BlogAssets/default-product.png");
             this.image = new Image(file.toURI().toString());

@@ -146,8 +146,7 @@ public class MediaDao implements IMediaDao {
         @Override
     public boolean deleteMedia(int media_ID) {
         try {
-            String sql = "DELETE FROM media WHERE media_ID = ?";
-            PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement("DELETE FROM media WHERE media_ID = ?");
             st.setInt(1, media_ID);
             st.executeUpdate();
             return true;

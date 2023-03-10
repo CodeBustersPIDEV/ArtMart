@@ -96,8 +96,7 @@ public class AdminBlogPageController implements Initializable {
                     Image image = new Image(file.toURI().toString());
                     this.controller.setBlogImage(image);
                 } else {
-                    File file = new File(img.getFile_path());
-                    Image image = new Image(file.toURI().toString());
+                    Image image = new Image(img.getFile_path());
                     this.controller.setBlogImage(image);
                 }
                 controller.setBlogTitle(blog.getTitle());
