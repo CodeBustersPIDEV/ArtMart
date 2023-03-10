@@ -16,6 +16,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
@@ -32,125 +34,31 @@ public class UserListFeedbackController implements Initializable {
     private VBox vBox;
     @FXML
     private Text txtEventName;
-      private final Session session = Session.getInstance();
-    private final int userID = session.getCurrentUserId(session.getSessionId());    
+    private final Session session = Session.getInstance();
+    private final int userID = session.getCurrentUserId(session.getSessionId());
     private Event event = new Event();
     private List<Feedback> feedbackList;
-    
+
     private FeedbackService fs = new FeedbackService();
 
-   /* @FXML
+    /* @FXML
     private ChoiceBox<String> profileChoiceBox;
     @FXML
     private javafx.scene.control.Label username;
     UserService user_ser = new UserService();
-    */
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try{
-            this.makeList();
-        }catch(SQLException e){}
-        
-        /*
-        User connectedUser = user_ser.getUser(userID);
-        username.setText(connectedUser.getUsername());
-        Map<String, String> profileActions = new HashMap<>();
 
-        profileActions.put("", "");
-        profileActions.put("Logout", "logout");
-        profileActions.put("Profile", "profile");
-        // Populate the choice box with display names
-        profileChoiceBox.getItems().addAll(profileActions.keySet());
-        // Add an event listener to handle the selected item's ID
-        profileChoiceBox.setOnAction(event -> {
-            String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
-            String selectedId = profileActions.get(selectedItem);
-            // Handle the action based on the selected ID
-            if ("profile".equals(selectedId)) {
-
-                profileChoiceBox.setValue("");
-                User u = user_ser.getUser(userID);
-                if (u.getRole().equals("admin")) {
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
-                    try {
-                        Parent root = loader.load();
-
-                        ProfileAdminController controller = loader.getController();
-                        controller.setProfile(userID);
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException ex) {
-                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (u.getRole().equals("artist")) {
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
-                    try {
-                        Parent root = loader.load();
-
-                        ProfileArtistController controller = loader.getController();
-                        controller.setProfile(userID);
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException ex) {
-                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (u.getRole().equals("client")) {
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
-                    try {
-                        Parent root = loader.load();
-
-                        ProfileClientController controller = loader.getController();
-                        controller.setProfile(userID);
-                        Scene scene = new Scene(root);
-                        stage.setResizable(false);
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException ex) {
-                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
-            } else if ("logout".equals(selectedId)) {
-                session.logOut("1");
-                Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
-                stage.close();
-                try {
-
-                    stage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setResizable(false);
-                    stage.setTitle("User Managment");
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException e) {
-                    System.out.print(e.getMessage());
-                }
-
-            }
-        });
-        
-        */
-    }     
-
-    public void setUpEventData(Event event) {
-        this.event = event;
-        System.out.println(" YOOOO"+this.event);
     }
-    
+
+    public void setUpEventData(Event event) throws SQLException {
+        this.event = event;
+        this.makeList();
+    }
+
     public void makeList() throws SQLException {
-        this.setUpEventData(this.event);
-        System.out.println("HEYYY " + this.event);
         this.feedbackList = this.fs.getAllFeedbacksByID(this.event.getEventID());
-        System.out.println(feedbackList);
-        
         this.vBox.getChildren().clear();
         this.feedbackList.forEach(feedback -> {
             try {
@@ -158,18 +66,17 @@ public class UserListFeedbackController implements Initializable {
                 Parent root = loader.load();
                 UserCardFeedbackController controller = loader.getController();
                 controller.setUpEventData(feedback, this);
-                root.setId(""+feedback.getEventID());
+                root.setId("" + feedback.getEventID());
                 this.vBox.getChildren().add(root);
             } catch (IOException e) {
                 System.out.print(e.getCause());
             }
         });
-        // Wrap the VBox in a ScrollPane to make it scrollable
         this.scrollPaneFeedbackList = new ScrollPane(this.vBox);
         this.scrollPaneFeedbackList.setFitToWidth(true);
         this.scrollPaneFeedbackList.setFitToHeight(true);
         this.scrollPaneFeedbackList.setContent(this.vBox);
-    }   
+    }
 
     @FXML
     private void onReturn(ActionEvent event) {
@@ -183,8 +90,6 @@ public class UserListFeedbackController implements Initializable {
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
-        }        
-    }  
-}   
-
-    
+        }
+    }
+}

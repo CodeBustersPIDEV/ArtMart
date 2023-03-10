@@ -40,13 +40,7 @@ public class ViewReportController implements Initializable {
     EventReport report = new EventReport();
     private Event event = new Event();
     private final EventService es = new EventService();
-    
-    @FXML
-    private Button btnDeleteEvent;
-    @FXML
-    private Button btnPdf;
-    @FXML
-    private Button btnReturn;
+
     @FXML
     private Text txtEventName;
     @FXML
@@ -74,14 +68,27 @@ public class ViewReportController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     public void setUpEventData(EventReport report) {
         this.report = report;
+        this.event = this.es.getEvent(report.getEventID());
+        
         this.txtAtt.setText(String.valueOf(report.getAttendance()));
         this.txtEventID.setText(String.valueOf(report.getEventID()));
-        //this.eventID = event.getUserID();
-    }    
+        this.txtEventName.setText(event.getName());
+        this.txtEventName.setTextAlignment(TextAlignment.CENTER);
+        this.txtEventLocation.setText(event.getLocation());
+        this.txtEventStartDate.setText(event.getStartDate().toString());
+        this.txtEventEndDate.setText(event.getEndDate().toString());
+        this.txtEventType.setText(event.getType());
+        this.txtEventCapacity.setText(String.valueOf(event.getCapacity()));
+        this.txtEventEntryFee.setText(String.valueOf(event.getEntryFee()));
+        Text description = new Text(event.getDescription());
+        description.setFill(Color.web("#5d53a8"));
+        description.setStyle("-fx-font-family: 'System'; -fx-font-weight: bold; -fx-font-size: 14px;");
+        this.tfEventDescription.getChildren().add(description);
+    }
 
     @FXML
     private void onBtnDeleteEvent(ActionEvent event) {
@@ -92,10 +99,10 @@ public class ViewReportController implements Initializable {
 
         Event ev = es.getEvent(report.getEventID());
         PdfService pdf = new PdfService();
-        
-        try{
-            pdf.generatePdf(""+ev.getName()+"", ev, ev.getEventID());
-            Alert alert= new Alert(Alert.AlertType.INFORMATION);
+
+        try {
+            pdf.generatePdf("" + ev.getName() + "", ev, ev.getEventID());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("PDF");
             alert.setHeaderText(null);
             alert.setContentText("!!!PDF exported!!!");
@@ -103,13 +110,13 @@ public class ViewReportController implements Initializable {
             System.out.println("impression done");
         } catch (Exception ex) {
             Logger.getLogger(EventService.class.getName()).log(Level.SEVERE, null, ex);
-            Alert alert= new Alert(Alert.AlertType.WARNING);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Alert");
             alert.setHeaderText(null);
             alert.setContentText("!!!Choose an event!!!");
             alert.showAndWait();
         }
-    }      
+    }
 
     @FXML
     private void onBtnReturn(ActionEvent event) {
@@ -123,7 +130,7 @@ public class ViewReportController implements Initializable {
             stage.show();
         } catch (IOException e) {
             System.out.print(e.getMessage());
-        }        
+        }
     }
-    
+
 }

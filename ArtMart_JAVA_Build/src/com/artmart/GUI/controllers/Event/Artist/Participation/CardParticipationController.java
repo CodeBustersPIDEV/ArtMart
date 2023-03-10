@@ -42,7 +42,4 @@ public class CardParticipationController implements Initializable {
         this.txtEvent.setText(es.getEvent(participation.getEventlD()).getName());
     }  
 
-    @FXML
-    private void onView(ActionEvent event) {
-    }
 }

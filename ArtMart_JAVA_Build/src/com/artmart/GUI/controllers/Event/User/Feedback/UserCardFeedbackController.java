@@ -34,7 +34,7 @@ public class UserCardFeedbackController implements Initializable {
     void setUpEventData(Feedback feedback, UserListFeedbackController controller) {
         this.feedback = feedback;
         this.listFeedbackController = controller;
-        this.txtUserName.setText(us.getUser(feedback.getUserID()).getUsername());
+        this.txtUserName.setText(this.us.getUser(feedback.getUserID()).getUsername());
         this.txtDatePosted.setText(String.valueOf(feedback.getDate()));
         this.txtRating.setText(String.valueOf(feedback.getRating()));
         this.txtAreaComment.setText(feedback.getComment());

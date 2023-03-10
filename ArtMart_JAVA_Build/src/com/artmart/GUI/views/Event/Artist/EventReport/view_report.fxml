@@ -168,9 +168,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Text fill="#21153d" layoutX="653.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
+      <Text fx:id="txtEventName" fill="#21153d" layoutX="629.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
          <font>
-            <Font name="Dubai Bold" size="20.0" />
+            <Font name="Dubai Bold" size="43.0" />
          </font>
       </Text>
       <Button fx:id="btnDeleteEvent" alignment="CENTER" layoutX="968.0" layoutY="625.0" mnemonicParsing="false" onAction="#onBtnDeleteEvent" prefHeight="25.0" prefWidth="72.0" text="Delete" textAlignment="CENTER" textFill="#21153d">

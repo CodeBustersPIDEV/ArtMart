@@ -35,7 +35,7 @@
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Button fx:id="btnViewReport" alignment="CENTER" layoutX="653.0" layoutY="137.0" mnemonicParsing="false" onAction="#onBtnViewReport" prefHeight="25.0" prefWidth="72.0" text="Details" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="btnViewReport" alignment="CENTER" layoutX="748.0" layoutY="137.0" mnemonicParsing="false" onAction="#onBtnViewReport" prefHeight="25.0" prefWidth="72.0" text="Details" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Rockwell Nova Bold" size="12.0" />
          </font>
@@ -46,18 +46,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnDeleteReport" alignment="CENTER" layoutX="752.0" layoutY="137.0" mnemonicParsing="false" onAction="#onBtnDeleteReport" prefHeight="25.0" prefWidth="72.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
-         <font>
-            <Font name="Rockwell Nova Bold" size="12.0" />
-         </font>
-         <effect>
-            <DropShadow color="#00000087" />
-         </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button fx:id="btnPdf" alignment="CENTER" layoutX="845.0" layoutY="137.0" mnemonicParsing="false" onAction="#onBtnPdf" prefHeight="25.0" prefWidth="72.0" text="PDF" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="btnDeleteReport" alignment="CENTER" layoutX="836.0" layoutY="137.0" mnemonicParsing="false" onAction="#onBtnDeleteReport" prefHeight="25.0" prefWidth="72.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Rockwell Nova Bold" size="12.0" />
          </font>

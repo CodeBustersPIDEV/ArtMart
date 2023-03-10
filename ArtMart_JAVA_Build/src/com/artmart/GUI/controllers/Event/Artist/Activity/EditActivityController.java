@@ -111,16 +111,14 @@ public class EditActivityController implements Initializable {
                 alert.showAndWait();
                 return;                
             }
-            
             Activity act = new Activity(
-                this.eventID,
+                this.as.getActivity(activityID).getEventID(),
                 this.date, 
                 this.title, 
                 this.host
             );
-            
             boolean result = this.as.updateActivity(this.activityID, act);
-            System.out.println(result);
+            
             if (result) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Update Activity");

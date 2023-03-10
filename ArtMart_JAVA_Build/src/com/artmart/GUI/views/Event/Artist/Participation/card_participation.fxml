@@ -1,66 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="177.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.Participation.CardParticipationController">
+<AnchorPane id="AnchorPane" prefHeight="177.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.Participation.CardParticipationController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9d8e1" height="172.0" layoutX="2.0" layoutY="2.0" stroke="#ff5946" strokeType="INSIDE" width="928.0" />
-      <Text fx:id="txtUsername" fill="#5d53a8" layoutX="182.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.00000321865082">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9d8e1" height="172.0" layoutX="2.0" layoutY="2.0" stroke="#ff5946" strokeType="INSIDE" width="605.0" />
+      <Text fx:id="txtUsername" fill="#5d53a8" layoutX="332.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.00000321865082">
          <font>
             <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="txtRole" fill="#5d53a8" layoutX="182.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role">
+      <Text fx:id="txtRole" fill="#5d53a8" layoutX="332.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role">
          <font>
             <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="txtRegDate" fill="#5d53a8" layoutX="182.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RegDate">
+      <Text fx:id="txtRegDate" fill="#5d53a8" layoutX="332.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RegDate">
          <font>
             <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="txtEvent" fill="#5d53a8" layoutX="182.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event">
+      <Text fx:id="txtEvent" fill="#5d53a8" layoutX="332.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event">
          <font>
             <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="27.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registered on">
+      <Text fill="#5d53a8" layoutX="127.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registered on">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="27.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.00000321865082">
+      <Text fill="#5d53a8" layoutX="127.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.00000321865082">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="27.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role">
+      <Text fill="#5d53a8" layoutX="127.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Text fill="#5d53a8" layoutX="27.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event">
+      <Text fill="#5d53a8" layoutX="127.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event">
          <font>
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
-      <Button alignment="CENTER" layoutX="726.0" layoutY="70.0" mnemonicParsing="false" onAction="#onView" prefHeight="25.0" prefWidth="156.0" text="View" textAlignment="CENTER" textFill="#21153d">
-         <font>
-            <Font name="Rockwell Nova Bold" size="12.0" />
-         </font>
-         <effect>
-            <DropShadow color="#00000087" />
-         </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
    </children>
 </AnchorPane>

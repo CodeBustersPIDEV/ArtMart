@@ -6,6 +6,7 @@ import com.artmart.services.ActivityService;
 import com.artmart.services.EventService;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,7 +55,7 @@ public class CardActivityController implements Initializable {
     }   
     
 
-//
+
 //    @FXML
 //    private void onBtnDeleteActivity(ActionEvent event) {
 //        try {
@@ -94,7 +95,9 @@ public class CardActivityController implements Initializable {
     }
 
     @FXML
-    private void onBtnDeleteActivity(ActionEvent event) {
+    private void onBtnDeleteActivity(ActionEvent event) throws SQLException {
+        this.as.deleteActivity(this.activity.getActivityID());
+        this.listActivityController.makeList();
     }
 
     

@@ -145,7 +145,7 @@ public class FeedbackDao implements IFeedbackDao {
                 Feedback feedback = new Feedback();
                 feedback.setFeedbackID(resultSet.getInt("feedbackID"));
                 feedback.setEventID(resultSet.getInt("eventID"));
-                feedback.setEventID(resultSet.getInt("userID"));
+                feedback.setUserID(resultSet.getInt("userID"));
                 feedback.setRating(resultSet.getInt("rating"));
                 feedback.setComment(resultSet.getString("comment"));
                 feedback.setDate(resultSet.getDate("date"));

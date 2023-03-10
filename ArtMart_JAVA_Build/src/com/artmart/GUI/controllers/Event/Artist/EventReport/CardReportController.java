@@ -4,6 +4,7 @@ import com.artmart.GUI.controllers.Event.Artist.Event.ListEventController;
 import com.artmart.GUI.controllers.Event.Artist.Event.ViewEventController;
 import com.artmart.models.Event;
 import com.artmart.models.EventReport;
+import com.artmart.services.EventReportService;
 import com.artmart.services.EventService;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -25,14 +26,13 @@ public class CardReportController implements Initializable {
 
     private ListReportController listReportController = new ListReportController();
     private EventService es = new EventService();
+    private EventReportService rs = new EventReportService();
     private EventReport report = new EventReport();
 
     @FXML
     private Button btnViewReport;
     @FXML
     private Button btnDeleteReport;
-    @FXML
-    private Button btnPdf;
     @FXML
     private Text txtEventTitle;
     @FXML
@@ -74,33 +74,8 @@ public class CardReportController implements Initializable {
     }
 
     @FXML
-    private void onBtnDeleteReport(ActionEvent event) {
+    private void onBtnDeleteReport(ActionEvent event) throws SQLException {
+        this.rs.deleteEventReport(report.getEventReportID());
+        this.listReportController.makeList();
     }
-
-    @FXML
-    private void onBtnPdf(ActionEvent event) throws IOException, NoSuchMethodException, InstantiationException, InvocationTargetException, IllegalAccessException, SQLException {
-
- //       Event ev = 
-//                  voyage voy = TableVoyage.getSelectionModel().getSelectedItem();
-//
-//        Pdf pd=new Pdf();
-//        try{
-//                    pd.GeneratePdf(""+voy.getNom_voyage()+"",voy,voy.getID());
-//                    Alert alert= new Alert(Alert.AlertType.INFORMATION);
-//                    alert.setTitle("PDF");
-//                    alert.setHeaderText(null);
-//                    alert.setContentText("!!!PDF exported!!!");
-//                    alert.showAndWait();
-//            System.out.println("impression done");
-//        } catch (Exception ex) {
-//            Logger.getLogger(ServiceVoyage.class.getName()).log(Level.SEVERE, null, ex);
-//            Alert alert= new Alert(Alert.AlertType.WARNING);
-//                    alert.setTitle("Alert");
-//                    alert.setHeaderText(null);
-//                    alert.setContentText("!!!Selectioner une Voyage!!!");
-//                    alert.showAndWait();
-//            }
-//        }        
-    }
-    
 }

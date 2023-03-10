@@ -6,8 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="160.0" prefWidth="630.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Event.User.Feedback.UserCardFeedbackController">
+<AnchorPane id="AnchorPane" prefHeight="160.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.User.Feedback.UserCardFeedbackController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ddff" height="160.0" stroke="#ff5946" strokeType="INSIDE" width="630.0" />
       <Text fx:id="txtRating" fill="#5d53a8" layoutX="140.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R" wrappingWidth="20.000003218650818">
@@ -35,7 +34,7 @@
             <Font name="Brush Script MT Italic" size="25.0" />
          </font>
       </Text>
-      <TextArea fx:id="txtAreaComment" layoutX="140.0" layoutY="91.0" prefHeight="61.0" prefWidth="465.0" />
+      <TextArea fx:id="txtAreaComment" editable="false" layoutX="140.0" layoutY="91.0" prefHeight="61.0" prefWidth="465.0" />
       <Text fill="#5d53a8" layoutX="11.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="posted by">
          <font>
             <Font name="System Bold Italic" size="12.0" />

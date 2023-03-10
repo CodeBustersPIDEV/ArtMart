@@ -159,7 +159,6 @@ public class ListActivityController implements Initializable {
 
     public void makeList() throws SQLException {
         this.activityList = this.as.getAllActivitiesByID(userID);
-
         this.vBox.getChildren().clear();
         this.activityList.forEach(activity -> {
             try {
