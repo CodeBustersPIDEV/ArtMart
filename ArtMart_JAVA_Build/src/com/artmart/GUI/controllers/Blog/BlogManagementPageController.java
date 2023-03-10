@@ -47,7 +47,8 @@ public class BlogManagementPageController implements Initializable {
     private Button backToBlogMenu;
     @FXML
     private ScrollPane bigCont;
-//    public ComboBox<String> userComboBox;
+    @FXML
+    private Button myStatsBtn;
     private List<User> userOptionsList;
     private final BlogService blogService = new BlogService();
     private final UserDao userService = new UserDao();
@@ -57,8 +58,6 @@ public class BlogManagementPageController implements Initializable {
     private User connectedUser = new User();
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
-    @FXML
-    private Button myStatsBtn;
 
     /**
      * Initializes the controller class.
@@ -68,12 +67,7 @@ public class BlogManagementPageController implements Initializable {
         this.container.setAlignment(Pos.CENTER);
         this.container.setSpacing(5);
         userOptionsList = this.userService.viewListOfUsers();
-//        ObservableList<String> userOptions = FXCollections.observableArrayList(
-//                userOptionsList.stream().map(User::getName).collect(Collectors.toList())
-//        );
-//        this.userComboBox.setItems(userOptions);
         this.session = (Session) user.get(user.keySet().toArray()[0]);
-//        this.connectedUser = userService.getUser(session.getUserId());
         refreshList();
     }
 
@@ -93,7 +87,7 @@ public class BlogManagementPageController implements Initializable {
                     this.controller.setBlogImage(image);
                 } else {
                     File file = new File(img.getFile_path());
-                    Image image = new Image(file.toURI().toString());
+                    Image image = new Image(img.getFile_path());
                     this.controller.setBlogImage(image);
                 }
                 controller.setBlogTitle(blog.getTitle());

@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.GUI.controllers.User.ProfileAdminController;
 import com.artmart.GUI.controllers.User.ProfileArtistController;
-import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.GUI.controllers.User.SignUpController;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.UserDao;
@@ -16,6 +10,7 @@ import com.artmart.models.Product;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
 import com.artmart.models.User;
+import com.artmart.services.OrderService;
 import com.artmart.services.ReadyProductService;
 import com.artmart.services.UserService;
 import java.io.BufferedReader;
@@ -128,15 +123,11 @@ public class AddReadyProductController implements Initializable {
             profileActions.put("", "");
             profileActions.put("Logout", "logout");
             profileActions.put("Profile", "profile");
-            // Populate the choice box with display names
             profileChoiceBox.getItems().addAll(profileActions.keySet());
-            // Add an event listener to handle the selected item's ID
             profileChoiceBox.setOnAction(event -> {
                 String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
                 String selectedId = profileActions.get(selectedItem);
-                // Handle the action based on the selected ID
                 if ("profile".equals(selectedId)) {
-
                     profileChoiceBox.setValue("");
                     User u = user_ser.getUser(UserID);
                     if (u.getRole().equals("admin")) {
@@ -144,7 +135,6 @@ public class AddReadyProductController implements Initializable {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
                         try {
                             Parent root = loader.load();
-
                             ProfileAdminController controller = loader.getController();
                             controller.setProfile(UserID);
                             Scene scene = new Scene(root);
@@ -176,7 +166,6 @@ public class AddReadyProductController implements Initializable {
                     Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
                     stage.close();
                     try {
-
                         stage = new Stage();
                         Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
                         Scene scene = new Scene(root);
@@ -187,7 +176,6 @@ public class AddReadyProductController implements Initializable {
                     } catch (IOException e) {
                         System.out.print(e.getMessage());
                     }
-
                 }
             });
             // Get all categories from the database
@@ -214,7 +202,6 @@ public class AddReadyProductController implements Initializable {
                 }
             });
 
-            // Set the ComboBox to use the category name as the selected value
             categoryF.setConverter(new StringConverter<Categories>() {
                 @Override
                 public String toString(Categories category) {

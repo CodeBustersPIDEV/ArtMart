@@ -6,6 +6,7 @@ import com.artmart.dao.UserDao;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
 import com.artmart.models.User;
+import com.artmart.services.OrderService;
 import com.artmart.services.ReadyProductService;
 import java.io.IOException;
 import java.net.URL;
@@ -68,6 +69,10 @@ public class ReadyproductsListController implements Initializable {
     int UserID = session.getUserID("1");
     @FXML
     private Button refresh;
+    @FXML
+    private Button clientBtn;
+    
+    private final OrderService orderService = new OrderService();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,20 +81,16 @@ public class ReadyproductsListController implements Initializable {
             this.connectedUser = this.userService.getUser(this.session.getUserId());
             this.username.setText(this.connectedUser.getName());
             this.displayList();
-
-            // Create a map of display names to IDs
             Map<String, String> profileActions = new HashMap<>();
 
             profileActions.put("", "");
             profileActions.put("Logout", "logout");
             profileActions.put("Profile", "profile");
-            // Populate the choice box with display names
+            profileActions.put("My Orders", "My Orders");
             profileChoiceBox.getItems().addAll(profileActions.keySet());
-            // Add an event listener to handle the selected item's ID
             profileChoiceBox.setOnAction(event -> {
                 String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
                 String selectedId = profileActions.get(selectedItem);
-                // Handle the action based on the selected ID
                 if ("profile".equals(selectedId)) {
 
                     profileChoiceBox.setValue("");
@@ -122,7 +123,8 @@ public class ReadyproductsListController implements Initializable {
                     } catch (IOException e) {
                         System.out.print(e.getMessage());
                     }
-
+                }else if ("My Orders".equals(selectedId)) {
+                    this.orderService.goToUsersOrderList();
                 }
             });
         } catch (SQLException e) {
@@ -272,5 +274,11 @@ public class ReadyproductsListController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+   private OrderService orderSerivce= new OrderService();
+    @FXML
+    private void GoToShoppingCart(ActionEvent event) {
+        this.orderSerivce.goToCheckOut();
     }
 }

@@ -77,7 +77,6 @@ public class OrderGUIController implements Initializable {
             Parent root = loader.load();
             OrderCheckOutController controller = loader.getController();
             stage.setResizable(false);
-            stage.initStyle(StageStyle.UTILITY);
             stage.setTitle("Artmart");
             controller.link(this, calculateOrdersPrice());
             Scene scene = new Scene(root);

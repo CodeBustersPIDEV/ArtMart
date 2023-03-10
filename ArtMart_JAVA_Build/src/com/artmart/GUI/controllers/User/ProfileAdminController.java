@@ -34,12 +34,12 @@ public class ProfileAdminController implements Initializable {
     private Label departmentProfile;
     @FXML
     private Label birthdayProfile;
-   
+
     @FXML
     private Button editProfileBtn;
     @FXML
     private Button addAdBtn;
-    
+
     @FXML
     private Label phoneProfile;
     @FXML
@@ -59,11 +59,11 @@ public class ProfileAdminController implements Initializable {
     }
 
     public void setProfile(int id) {
-        
-       
+
         User test = user_ser.getUser(UserID);
-        if (test.getRole().equals("admin")) {
+        if (test.getRole().equals("admin") ) {
             logout.setVisible(false);
+          //  editProfileBtn.setVisible(false);
         }
         admin = user_ser.getAdmin(id);
         nameProfile.setText(admin.getName());
@@ -104,6 +104,8 @@ public class ProfileAdminController implements Initializable {
     @FXML
     private void OnUpdateBtn(ActionEvent event) {
         try {
+            Stage stageToClose = (Stage)editProfileBtn.getScene().getWindow();
+            stageToClose.close();
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/updateProfile.fxml"));
             Parent root = loader.load();
@@ -118,10 +120,7 @@ public class ProfileAdminController implements Initializable {
         }
     }
 
-   
-   
     @FXML
-
     private void OnAddBtn(ActionEvent event) {
         try {
             Stage stage = (Stage) addAdBtn.getScene().getWindow();

@@ -1,33 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="160.0" prefWidth="630.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.artmart.GUI.controllers.Event.Artist.EventReport.CardReportController">
+<AnchorPane id="AnchorPane" prefHeight="177.0" prefWidth="931.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.EventReport.CardReportController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/eventReport/card_report.css" />
     </stylesheets>
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1ddff" height="160.0" stroke="#ff5946" strokeType="INSIDE" width="630.0" />
-      <Button fx:id="btnViewReport" layoutX="496.0" layoutY="122.0" mnemonicParsing="false" onAction="#onBtnViewReport" prefHeight="27.0" prefWidth="57.0" text="Details" textAlignment="CENTER" textFill="#18b878">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnDeleteReport" layoutX="562.0" layoutY="122.0" mnemonicParsing="false" onAction="#onBtnDeleteReport" prefHeight="27.0" prefWidth="57.0" text="Delete" textFill="#ff0400">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnPdf" layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#onBtnPdf" prefHeight="27.0" prefWidth="57.0" text="PDF" textAlignment="CENTER" textFill="#a19116">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1e0eb" height="172.0" layoutX="1.0" layoutY="2.0" stroke="#ff5946" strokeType="INSIDE" width="929.0" />
       <Text fx:id="txtEventTitle" fill="#5d53a8" layoutX="180.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event" wrappingWidth="156.00000321865082">
          <font>
             <Font name="Brush Script MT Italic" size="25.0" />
@@ -48,5 +35,38 @@
             <Font name="Brush Script MT Italic" size="30.0" />
          </font>
       </Text>
+      <Button fx:id="btnViewReport" alignment="CENTER" layoutX="653.0" layoutY="137.0" mnemonicParsing="false" onAction="#onBtnViewReport" prefHeight="25.0" prefWidth="72.0" text="Details" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btnDeleteReport" alignment="CENTER" layoutX="752.0" layoutY="137.0" mnemonicParsing="false" onAction="#onBtnDeleteReport" prefHeight="25.0" prefWidth="72.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btnPdf" alignment="CENTER" layoutX="845.0" layoutY="137.0" mnemonicParsing="false" onAction="#onBtnPdf" prefHeight="25.0" prefWidth="72.0" text="PDF" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

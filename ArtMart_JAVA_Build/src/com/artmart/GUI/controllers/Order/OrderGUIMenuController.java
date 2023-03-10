@@ -27,6 +27,6 @@ public class OrderGUIMenuController implements Initializable {
 
     @FXML
     private void OnAdminViewList(ActionEvent event) {
-        this.orderService.goToAdminOrderBoard();
+        
     }
 }

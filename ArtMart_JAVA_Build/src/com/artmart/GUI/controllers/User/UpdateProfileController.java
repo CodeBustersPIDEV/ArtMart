@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.User;
 
-import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
 import static com.artmart.dao.UserDao.hashPassword;
 import com.artmart.models.Admin;
 import com.artmart.models.Artist;
@@ -28,8 +22,6 @@ import java.nio.file.Files;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,11 +40,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author 21697
- */
 public class UpdateProfileController implements Initializable {
 
     @FXML
@@ -122,7 +109,7 @@ public class UpdateProfileController implements Initializable {
             bioField.setVisible(true);
             Label.setText("Department");
             Admin ad = user_ser.getAdmin(user.getUser_id());
-            bioField.setText(ad.getDepartment()); 
+            bioField.setText(ad.getDepartment());
         } else {
             bioField.setVisible(false);
         }
@@ -161,7 +148,6 @@ public class UpdateProfileController implements Initializable {
         if (imageUrl.equals("")) {
             picture = user.getPicture();
             System.out.println(picture);
-            //out.println(picture);
         } else {
             picture = imageUrl;
         }
@@ -185,7 +171,6 @@ public class UpdateProfileController implements Initializable {
                 admin.setDepartment(bio);
                 a = user_ser.updateAccountA(userID, admin);
             } else if (user.getRole().equals("client")) {
-                //System.out.println(u.getPicture());
                 Client client = new Client(u);
                 a = user_ser.updateAccountC(userID, client);
             }
@@ -195,6 +180,22 @@ public class UpdateProfileController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Account updated");
                 alert.showAndWait();
+                if (user.getRole().equals("artist")) {
+                   
+                        Stage stage = (Stage) updateBtn.getScene().getWindow();
+                        stage.close();
+                        
+                } else if (user.getRole().equals("admin")) {
+                  
+                        Stage stage = (Stage) updateBtn.getScene().getWindow();
+                        stage.close();
+                       
+                } else if (user.getRole().equals("client")) {
+                
+                        Stage stage = (Stage) updateBtn.getScene().getWindow();
+                        stage.close();
+                        
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -234,7 +235,6 @@ public class UpdateProfileController implements Initializable {
     public void OnUpload(ActionEvent event) throws MalformedURLException, ProtocolException, UnsupportedEncodingException, UnsupportedEncodingException, IOException {
 
         String serverUrl = "http://localhost/upload_script.php";
-
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         this.fileChooser.setTitle("Select an image");
         this.fileChooser.getExtensionFilters().addAll(
@@ -280,5 +280,4 @@ public class UpdateProfileController implements Initializable {
 
     }
 
-   
 }

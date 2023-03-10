@@ -2,8 +2,6 @@ package com.artmart.GUI.controllers;
 
 import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
 import com.artmart.GUI.controllers.User.ProfileAdminController;
-import com.artmart.GUI.controllers.User.ProfileArtistController;
-import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Session;
 import com.artmart.models.User;
@@ -22,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -59,17 +56,13 @@ public class MainViewController implements Initializable {
         connectedUser=user_ser.getUser(UserID);
         username.setText(connectedUser.getUsername());
         Map<String, String> profileActions = new HashMap<>();        
-        
         profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-        // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
-        // Add an event listener to handle the selected item's ID
         profileChoiceBox.setOnAction(event -> {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
-            // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
 
                profileChoiceBox.setValue("");
@@ -87,7 +80,6 @@ public class MainViewController implements Initializable {
                     } catch (IOException ex) {
                         Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-              
             } else if ("logout".equals(selectedId)) {
                 session.logOut("1");
                 Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
@@ -104,22 +96,19 @@ public class MainViewController implements Initializable {
                 } catch (IOException e) {
                     System.out.print(e.getMessage());
                 }
-
             }
         });
-        
     }
 
     @FXML
     private void goToOrder(ActionEvent event) {
         try {
-            Stage stage = (Stage) orderBtn.getScene().getWindow();
-            stage.close();
-            stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Order/OrderGUIMenu.fxml"));
-            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderManagment.fxml"));
+            Parent root = loader.load();
             stage.setResizable(false);
-            stage.setTitle("Order Managment");
+            stage.setTitle("Artmart");
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -221,7 +210,7 @@ public class MainViewController implements Initializable {
                 stage.close();
                 stage = new Stage();
                 Parent root = FXMLLoader
-                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Custom Product.fxml"));
+                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/AdminBoard.fxml"));
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
                 stage.setTitle("Custom Product Managment");

@@ -66,7 +66,6 @@ public class OrderCardController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderDetail.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Artmart");
         stage.setResizable(false);
         OrderDetailController detailController = loader.getController();

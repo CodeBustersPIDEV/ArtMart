@@ -1,9 +1,7 @@
 package com.artmart.GUI.controllers.Order;
 
 import com.artmart.models.Order;
-import com.artmart.models.OrderRefund;
 import com.artmart.services.OrderService;
-import com.artmart.utils.OrderCurrentStatus;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -71,7 +69,6 @@ public class OrderManagmentController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/EditShippingOptions.fxml"));
         Parent root = loader.load();
-        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Artmart");
         stage.setResizable(false);
         Scene scene = new Scene(root);
@@ -84,7 +81,6 @@ public class OrderManagmentController implements Initializable {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/EditPaymentOptions.fxml"));
         Parent root = loader.load();
-        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Artmart");
         stage.setResizable(false);
         Scene scene = new Scene(root);
@@ -111,7 +107,6 @@ public class OrderManagmentController implements Initializable {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/AdminOrderDetail.fxml"));
                         Parent root = loader.load();
                         stage.setResizable(false);
-                        stage.initStyle(StageStyle.UTILITY);
                         stage.setTitle("Artmart");
                         Scene scene = new Scene(root);
                         AdminOrderDetailController detailController = loader.getController();
@@ -195,7 +190,6 @@ public class OrderManagmentController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/AdminOrderDetail.fxml"));
                 Parent root = loader.load();
                 stage.setResizable(false);
-                stage.initStyle(StageStyle.UTILITY);
                 stage.setTitle("Artmart");
                 Scene scene = new Scene(root);
                 AdminOrderDetailController detailController = loader.getController();

@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.artmart.GUI.controllers.Product;
 
 import com.artmart.dao.CategoriesDao;
-import com.artmart.dao.ProductReviewDao;
 import com.artmart.dao.ReadyProductDao;
 import com.artmart.models.Categories;
-import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
 import com.artmart.services.OrderService;
 import com.artmart.services.ReadyProductService;
@@ -35,11 +28,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author rymae
- */
 public class ReadyProductCardController implements Initializable {
 
     @FXML
@@ -83,18 +71,11 @@ public class ReadyProductCardController implements Initializable {
         String catName = cat.getName();
         this.category.setText(catName);
         this.price.setText(p.getPrice() + "");
-
-        // Get the rating value using the ProductId field of the ReadyProduct object
         ReadyProductService readyProductService = new ReadyProductService();
         float rating = readyProductService.getRatingByProductId(p.getProductId());
-
-        // Set the rating value in the rating label
         this.rating.setText(Float.toString(rating));
-
-        // Load the image from the file path stored in ReadyProduct object's image field
         Image image = new Image(p.getImage());
         this.imagePreview.setImage(image);
-
         this.name.setText(p.getName());
     }
 
@@ -107,11 +88,10 @@ public class ReadyProductCardController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ProductDetails.fxml"));
             Parent root = loader.load();
-
             Stage stage = new Stage();
+            ProductDetailsController controller = loader.getController();
+            controller.setUpData(this.pid.getText());
             Scene scene = new Scene(root);
-            ProductDetailsController controller2 = loader.getController();
-            controller2.setUpData(this.pid.getText());
             stage.setResizable(false);
             stage.setTitle("Ready Product details");
             stage.setScene(scene);

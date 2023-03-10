@@ -89,51 +89,6 @@ public class ProductDetailsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Map<String, String> profileActions = new HashMap<>();
-        profileActions.put("Logout", "logout");
-        profileActions.put("Profile", "profile");
-        // Populate the choice box with display names
-        profileChoiceBox.getItems().addAll(profileActions.keySet());
-        // Add an event listener to handle the selected item's ID
-        profileChoiceBox.setOnAction(event -> {
-            String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
-            String selectedId = profileActions.get(selectedItem);
-            // Handle the action based on the selected ID
-            if ("profile".equals(selectedId)) {
-
-                Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
-                try {
-                    Parent root = loader.load();
-
-                    ProfileClientController controller = loader.getController();
-                    controller.setProfile(UserID);
-                    Scene scene = new Scene(root);
-                    stage.setResizable(false);
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if ("logout".equals(selectedId)) {
-                session.logOut("1");
-                Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
-                stage.close();
-                try {
-
-                    stage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setResizable(false);
-                    stage.setTitle("User Managment");
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException e) {
-                    System.out.print(e.getMessage());
-                }
-
-            }
-        });
     }
 
     public void setUpData(String pid) {
@@ -160,12 +115,10 @@ public class ProductDetailsController implements Initializable {
             int pr = this.viewProd.getPrice();
             this.price.setText("" + pr);
             this.material.setText(this.viewProd.getMaterial());
-
             CategoriesDao c = new CategoriesDao();
             Categories cat = c.getCategoriesById(this.viewProd.getCategoryId());
             String catName = cat.getName();
             this.category.setText(catName);
-            // Load the image from the file path stored in ReadyProduct object's image field
             Image image = new Image(this.viewProd.getImage());
             this.imagePreview.setImage(image);
         } catch (SQLException ex) {
@@ -214,17 +167,12 @@ public class ProductDetailsController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Place an Order");
         alert.setHeaderText(null);
-
-        // Create custom layout
         Label quantityLabel = new Label("Quantity:");
         TextField quantityTextField = new TextField();
         VBox vbox = new VBox(quantityLabel, quantityTextField);
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(10));
-
-        // Set custom layout to dialog pane
         alert.getDialogPane().setContent(vbox);
-
         alert.showAndWait().ifPresent(result -> {
             if (result == ButtonType.OK) {
                 int quantity = Integer.parseInt(quantityTextField.getText());
@@ -232,5 +180,11 @@ public class ProductDetailsController implements Initializable {
                 orderService.addToShoppingCart(p, quantity, p.getPrice());
             }
         });
+    }
+
+    private OrderService orderSerivce= new OrderService();
+    @FXML
+    private void GoToShoppingCart(ActionEvent event) {
+        this.orderSerivce.goToCheckOut();
     }
 }

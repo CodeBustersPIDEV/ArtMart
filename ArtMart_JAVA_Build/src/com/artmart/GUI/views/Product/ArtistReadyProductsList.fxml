@@ -103,7 +103,7 @@
                 <DropShadow color="#00000087" />
             </effect>
         </Button>
-        <Text fill="#21153d" layoutX="1142.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
+        <Text fill="#21153d" layoutX="1140.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
             <font>
                 <Font name="Dubai Bold" size="16.0" />
             </font>
@@ -138,14 +138,10 @@
                             </stroke>
                         </Rectangle>
                     </children>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
+                    
                 </VBox>
             </content>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
+           
         </ScrollPane>
         <Text fill="#21153d" layoutX="135.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories" textAlignment="CENTER">
             <font>
@@ -178,9 +174,7 @@
          <effect>
             <DropShadow color="#00000087" />
          </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
+        
       </Button>
       <Button fx:id="btnGoToEvents" alignment="CENTER" layoutX="783.0" layoutY="80.0" mnemonicParsing="false" onAction="#onGoToEvents" prefHeight="29.0" prefWidth="124.0" text="Manage events" textAlignment="CENTER" textFill="#21153d">
          <font>
@@ -190,7 +184,7 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Button alignment="CENTER" layoutX="506.0" layoutY="80.0" mnemonicParsing="false" onAction="#custom" prefHeight="38.0" prefWidth="257.0" text="Consult Custom Product Demands" textAlignment="CENTER" textFill="#21153d">
+      <Button alignment="CENTER" layoutX="518.0" layoutY="80.0" mnemonicParsing="false" onAction="#custom" prefHeight="31.0" prefWidth="249.0" text="Consult Custom Product Demands" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>
@@ -198,7 +192,7 @@
             <DropShadow color="#00000087" />
          </effect>
       </Button>
-      <Button fx:id="goToBlogs" alignment="CENTER" layoutX="1010.0" layoutY="12.0" mnemonicParsing="false" onAction="#goToBlogs" prefHeight="29.0" prefWidth="124.0" text="Blog" textAlignment="CENTER" textFill="#21153d">
+      <Button fx:id="goToBlogs" alignment="CENTER" layoutX="356.0" layoutY="80.0" mnemonicParsing="false" onAction="#goToBlogs" prefHeight="31.0" prefWidth="145.0" text="Blog" textAlignment="CENTER" textFill="#21153d">
          <font>
             <Font name="Dubai Bold" size="15.0" />
          </font>

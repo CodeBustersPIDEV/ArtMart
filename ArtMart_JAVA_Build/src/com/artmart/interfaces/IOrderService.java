@@ -100,8 +100,6 @@ public interface IOrderService {
 
     boolean deleteSalesReport(int id);
 
-    void goToAdminOrderBoard();
-
     void goToCheckOut();
 
     void goToUsersOrderList();

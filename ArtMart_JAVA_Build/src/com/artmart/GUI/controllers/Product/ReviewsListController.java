@@ -84,6 +84,10 @@ public class ReviewsListController implements Initializable {
     SignUpController profile = new SignUpController();
     int UserID = session.getUserID("1");
     UserService user_ser = new UserService();
+    @FXML
+    private Button clientBtn;
+    @FXML
+    private ImageView clientImg;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,6 +100,8 @@ public class ReviewsListController implements Initializable {
         if (role.equals("artist")) {
             addReview.setVisible(false);
             order.setVisible(false);
+            clientBtn.setVisible(false);
+            clientImg.setVisible(false);
         }
 
         Map<String, String> profileActions = new HashMap<>();
@@ -269,15 +275,11 @@ public class ReviewsListController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Place an Order");
         alert.setHeaderText(null);
-
-        // Create custom layout
         Label quantityLabel = new Label("Quantity:");
         TextField quantityTextField = new TextField();
         VBox vbox = new VBox(quantityLabel, quantityTextField);
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(10));
-
-        // Set custom layout to dialog pane
         alert.getDialogPane().setContent(vbox);
 
         alert.showAndWait().ifPresent(result -> {
@@ -289,4 +291,9 @@ public class ReviewsListController implements Initializable {
         });
     }
 
+    private OrderService orderSerivce= new OrderService();
+    @FXML
+    private void GoToShoppingCart(ActionEvent event) {
+        this.orderSerivce.goToCheckOut();
+    }
 }

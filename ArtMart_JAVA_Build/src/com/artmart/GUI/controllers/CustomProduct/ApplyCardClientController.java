@@ -1,38 +1,25 @@
 package com.artmart.GUI.controllers.CustomProduct;
 
-import static com.artmart.GUI.controllers.CustomProduct.ApplyCardArtistController.ACCOUNT_SID;
-import static com.artmart.GUI.controllers.CustomProduct.ApplyCardArtistController.AUTH_TOKEN;
 import com.artmart.dao.ApplyDao;
 import com.artmart.models.Apply;
-import com.artmart.models.Product;
 import com.artmart.models.Session;
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
 import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
 
 import com.twilio.Twilio;
-import com.twilio.converter.Promoter;
 import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
 import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 
-import java.net.URI;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
 public class ApplyCardClientController implements Initializable {
     @FXML

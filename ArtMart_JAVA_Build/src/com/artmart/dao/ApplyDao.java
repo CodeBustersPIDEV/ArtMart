@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApplyDao {
+       private CustomProductDao productDAO = new CustomProductDao();
     private final SQLConnection sqlConnection = SQLConnection.getInstance();
 
     // Create a new application
@@ -39,9 +40,22 @@ public class ApplyDao {
         String query = "DELETE FROM Apply WHERE apply_ID = ?";
         PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
         statement.setInt(1, applyId);
-        return statement.executeUpdate();
+      statement.executeUpdate();
+     
+             this.productDAO.deleteCustomProduct(this.getApplyId(applyId));
+               return 1;
     }
 
+    public int getApplyId(int id) throws SQLException {
+        String query = "SELECT customproduct_ID FROM apply WHERE apply_ID = ?";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("customproduct_ID");
+        } else {
+            return 0;
+        }}
     // Get an application by ID
     public Apply getApplyById(int applyId) throws SQLException {
         String query = "SELECT customproduct_ID, artist_ID, status FROM Apply WHERE apply_ID = ?";
@@ -104,6 +118,22 @@ public class ApplyDao {
         }
         return applies;
     }
+         
+          public List<Apply> getAllApplies3() throws SQLException {
+        List<Apply> applies = new ArrayList<>();
+        String query = "SELECT apply_ID, customproduct_ID, artist_ID, status FROM Apply WHERE status IN ('done')";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        ResultSet result = statement.executeQuery();
+        while (result.next()) {
+            int applyId = result.getInt("apply_ID");
+            int customProductId = result.getInt("customproduct_ID");
+            int artistId = result.getInt("artist_ID");
+            String status = result.getString("status");
+            Apply x = new Apply(applyId, customProductId, artistId, status);
+            applies.add(x);
+        }
+        return applies;
+    }
  public String getCustomProductNameById(int customProductId) throws SQLException {
     String query = "SELECT p.name FROM product p INNER JOIN customProduct cp ON p.product_ID = cp.product_ID WHERE cp.custom_product_ID = ?";
     PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
@@ -115,10 +145,10 @@ public class ApplyDao {
         return null;
     }
 }
- public String getartisttNameById(int customProductId) throws SQLException {
-    String query = "SELECT p.name FROM user p INNER JOIN artist cp ON p.user_ID = cp.user_ID WHERE cp.artist_ID = ?";
+public String getartisttNameById(int artistId) throws SQLException {
+    String query = "SELECT u.name FROM user u INNER JOIN apply a ON u.user_ID = a.artist_ID WHERE a.artist_ID = ?";
     PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
-    statement.setInt(1, customProductId);
+    statement.setInt(1, artistId);
     ResultSet result = statement.executeQuery();
     if (result.next()) {
         return result.getString("name");

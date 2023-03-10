@@ -17,6 +17,13 @@ public class ReadyProduct extends Product {
         this.readyProductId = readyProductId;
         this.price = price;
     }
+
+    public ReadyProduct(int readyProductId, int userId, int price, int productId, int categoryId, String name, String description, String dimensions, float weight, String material, String image) {
+        super(productId, categoryId, name, description, dimensions, weight, material, image);
+        this.readyProductId = readyProductId;
+        this.userId = userId;
+        this.price = price;
+    }
     
     
     public ReadyProduct(int readyProductId, int productId, Product p, int price) {
@@ -71,6 +78,11 @@ public class ReadyProduct extends Product {
         super(categoryId, name, description, dimensions, weight, material, image);
         this.price = price;
     }
+    
+    public ReadyProduct(int product_Id,int categoryId, String name, String description, String dimensions, float weight, String material, String image, int price) {
+        super(product_Id,categoryId, name, description, dimensions, weight, material, image);
+        this.price = price;
+    }
 
     public int getReadyProductId() {
         return readyProductId;
@@ -98,7 +110,9 @@ public class ReadyProduct extends Product {
 
     @Override
     public String toString() {
-        return "ReadyProduct{" + "readyProductId=" + readyProductId + ", price=" + price + ", userId=" + userId + '}';
+        return super.toString()+"ReadyProduct{" + "readyProductId=" + readyProductId + ", userId=" + userId + ", price=" + price + '}';
     }
+    
+    
 
 }

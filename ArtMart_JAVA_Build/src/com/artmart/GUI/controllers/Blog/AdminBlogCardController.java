@@ -58,23 +58,12 @@ public class AdminBlogCardController implements Initializable {
     private Label viewsLabel;
     private Image image;
     private final BlogService blogService = new BlogService();
-    boolean test4;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //        if (this.imagePreview.getImage() != null) {
-//            h = this.imagePreview.getImage().getHeight();
-//        }
-//        System.out.println(image);
-//        this.imagePreview.setFitWidth(this.image.getWidth());
-//        this.imagePreview.setFitHeight(this.image.getHeight());
-
-//        this.imagePreview.fitWidthProperty().bind(cardContainer.widthProperty());
-//        this.cardContainer.setMaxHeight(this.imagePreview.getFitHeight());
-//        this.cont2.setHeight(this.imagePreview.getFitHeight());
     }
 
     public void setBlogTitle(String title) {
@@ -83,12 +72,10 @@ public class AdminBlogCardController implements Initializable {
 
     public void setCardCont1(double h) {
         this.cardContainer.setMaxHeight(h);
-        System.out.println("cardContainer" + this.cardContainer.getHeight());
     }
 
     public void setCardCont2(double h) {
         this.cont2.setHeight(h);
-        System.out.println("cont2" + this.cont2.getHeight());
     }
 
     public void setPublishDate(String date) {
@@ -121,25 +108,13 @@ public class AdminBlogCardController implements Initializable {
 
     @FXML
     private void delete(ActionEvent event) {
-        //        this.controller = this.loader.getController();
         int b_id = Integer.parseInt(this.blog_id.getText());
+        boolean test4 = this.blogService.deleteMedia(b_id);
         boolean test1 = this.blogService.deleteHasCat(b_id);
         boolean test2 = this.blogService.deleteHasTag(b_id);
-        Media m = this.blogService.getOneMediaByBlogID(b_id);
         boolean test3 = this.blogService.deleteAllComments(b_id);
-        if (m != null) {
-            File file = new File(m.getFile_path());
-            if (file.delete()) {
-                System.out.println("File deleted successfully.");
-            } else {
-                System.out.println("Failed to delete the file.");
-            }
-            this.test4 = this.blogService.deleteMedia(b_id);
-        }
-        if ((test1 && test2 && test3 && this.test4) || (test1 && test2 && test3)) {
+        if (test1 && test2 && test3 && test4)  {
             boolean test = this.blogService.deleteBlog(b_id);
-//       this.controller.refreshList();
-
             if (test) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Blog Deleted");

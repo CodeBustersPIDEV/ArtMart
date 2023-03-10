@@ -77,17 +77,6 @@ public class EditReadyProductController implements Initializable {
     private TextField imageField;
     @FXML
     private Button edit;
-
-    private ReadyproductsListController controller = new ReadyproductsListController();
-
-    private final ProductDao productDao = new ProductDao();
-
-    private final ReadyProductDao rp = new ReadyProductDao();
-
-    private final CategoriesDao categoriesDao = new CategoriesDao();
-
-    // variable to hold the ID of the ready product
-    private int readyProductId;
     @FXML
     private Button backBtn;
     @FXML
@@ -98,11 +87,14 @@ public class EditReadyProductController implements Initializable {
     private ChoiceBox<String> profileChoiceBox;
 
     private File selectedImageFile;
-
+    private ReadyproductsListController controller = new ReadyproductsListController();
+    private final ProductDao productDao = new ProductDao();
+    private final ReadyProductDao rp = new ReadyProductDao();
+    private final CategoriesDao categoriesDao = new CategoriesDao();
+    private int readyProductId;
     private ReadyProduct viewProd = new ReadyProduct();
     private int id;
     UserService user_ser = new UserService();
-
     HashMap user = (HashMap) Session.getActiveSessions();
     private Session session = new Session();
     private User connectedUser = new User();
@@ -120,13 +112,10 @@ public class EditReadyProductController implements Initializable {
         profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
-        // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
-        // Add an event listener to handle the selected item's ID
         profileChoiceBox.setOnAction(event -> {
             String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
             String selectedId = profileActions.get(selectedItem);
-            // Handle the action based on the selected ID
             if ("profile".equals(selectedId)) {
                 profileChoiceBox.setValue("");
 
@@ -200,24 +189,19 @@ public class EditReadyProductController implements Initializable {
     public void setUpData(String pid) {
         try {
             this.prodID.setText(pid);
-            System.out.println(pid);
+            this.readyProductId = Integer.valueOf(pid);
             this.userID.setText(this.connectedUser.getName());
             this.id = Integer.parseInt(this.prodID.getText());
             ReadyProductService readyProductService = new ReadyProductService();
-
             int productId = readyProductService.getReadyProductId(id);
-            System.out.println(productId);
             if (productId == 0) {
                 throw new SQLException("Failed to get product ID from database");
             }
             ProductService productService = new ProductService();
             Product product = productService.getProductById(productId);
-
             this.viewProd = rp.getReadyProductById(productId);
             int price = this.viewProd.getPrice();
-
             this.viewProd = convertToReadyProduct(product);
-
             this.nameF.setText(this.viewProd.getName());
             this.descriptionF.setText(this.viewProd.getDescription());
             this.dimensionsF.setText(this.viewProd.getDimensions());
@@ -226,11 +210,8 @@ public class EditReadyProductController implements Initializable {
             this.imageField.setText(this.viewProd.getImage());
             this.priceF.setText("" + price);
             int categoryId = this.viewProd.getCategoryId();
-            String categoryName = categoriesDao.getCategoryNameById(categoryId);
-            this.categoryF.getItems().stream()
-                    .filter(category -> category.getName().equals(categoryName))
-                    .findFirst()
-                    .ifPresent(category -> this.categoryF.getSelectionModel().select(category));
+            System.out.println(this.viewProd);
+            this.categoryF.getSelectionModel().select(categoriesDao.getCategoriesById(categoryId));
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -247,6 +228,7 @@ public class EditReadyProductController implements Initializable {
         readyProduct.setDescription(product.getDescription());
         readyProduct.setDimensions(product.getDimensions());
         readyProduct.setWeight(product.getWeight());
+        readyProduct.setCategoryId(product.getCategoryId());
         readyProduct.setMaterial(product.getMaterial());
         readyProduct.setImage(product.getImage());
         return readyProduct;
@@ -261,22 +243,18 @@ public class EditReadyProductController implements Initializable {
         int price = Integer.parseInt(priceF.getText());
         String material = materialF.getText();
         Categories category = categoryF.getValue();
-
-        // Get the selected image file path
         String imagePath = imageField.getText();
         if (selectedImageFile != null) {
             imagePath = selectedImageFile.getAbsolutePath();
         }
-
-        // create a new product object with the updated values
-        ReadyProduct u = new ReadyProduct(category.getCategories_ID(), name, description, dimensions, weight, material, imagePath, price);
-        // update the product using the ID of the custom product
-        boolean a = productDao.updateProduct(this.readyProductId, u);
+        ReadyProduct u = new ReadyProduct(this.viewProd.getProductId(),category.getCategories_ID(), name, description, dimensions, weight, material, imagePath, price);
+        boolean a = productDao.updateProduct(u.getProductId(), u);
+        boolean b = this.readyProductDao.updateReadyProduct(readyProductId, u);
         if (a) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);
-            alert.setContentText("Product updated !"); // display the name of the category in the message
+            alert.setContentText("Product updated !");
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -292,7 +270,6 @@ public class EditReadyProductController implements Initializable {
 
     public void setProductId(int productId) throws SQLException {
         this.readyProductId = productId;
-        // Fetch the product from the database using the product ID
         this.pr = readyProductDao.getReadyProductById(productId);
     }
 
@@ -316,10 +293,8 @@ public class EditReadyProductController implements Initializable {
             stage.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Product/ArtistReadyProductsList.fxml"));
             Parent root = loader.load();
-
             Scene scene = new Scene(root);
             stage.setResizable(false);
-
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

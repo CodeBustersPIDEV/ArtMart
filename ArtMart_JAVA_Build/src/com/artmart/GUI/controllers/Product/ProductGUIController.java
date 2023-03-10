@@ -7,6 +7,7 @@ import com.artmart.dao.ReadyProductDao;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Session;
 import com.artmart.models.User;
+import com.artmart.services.OrderService;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -46,8 +47,8 @@ public class ProductGUIController implements Initializable {
     private ImageView imagePreview4;
     @FXML
     private Button consultAllReadyProducts;
-    @FXML
-    private Button backBtn;
+
+    private OrderService orderSerivce = new OrderService();
 
     @FXML
     private ChoiceBox<String> profileChoiceBox;
@@ -62,6 +63,8 @@ public class ProductGUIController implements Initializable {
     int UserID = session.getUserID("1");
     @FXML
     private Button goToBlogs;
+    
+    private final OrderService orderService = new OrderService();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -93,6 +96,7 @@ public class ProductGUIController implements Initializable {
         profileActions.put("", "");
         profileActions.put("Logout", "logout");
         profileActions.put("Profile", "profile");
+        profileActions.put("My Orders", "My Orders");
         // Populate the choice box with display names
         profileChoiceBox.getItems().addAll(profileActions.keySet());
         // Add an event listener to handle the selected item's ID
@@ -132,7 +136,8 @@ public class ProductGUIController implements Initializable {
                 } catch (IOException e) {
                     System.out.print(e.getMessage());
                 }
-
+            } else if ("My Orders".equals(selectedId)) {
+                this.orderService.goToUsersOrderList();
             }
         });
     }
@@ -178,21 +183,27 @@ public class ProductGUIController implements Initializable {
         }
 
     }
+
     @FXML
     private void custom(ActionEvent event) throws IOException {
-           try {
-           Stage stage = (Stage) imagePreview4.getScene().getWindow();
-                stage.close();
-                stage = new Stage();
-                Parent root = FXMLLoader
-                        .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
-                Scene scene = new Scene(root);
-                stage.setResizable(false);
-                stage.setTitle("Custom Product Managment");
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                System.out.print(e.getMessage());
-            }
+        try {
+            Stage stage = (Stage) imagePreview4.getScene().getWindow();
+            stage.close();
+            stage = new Stage();
+            Parent root = FXMLLoader
+                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/Customproductslist.fxml"));
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Custom Product Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void GoToShoppingCart(ActionEvent event) {
+        this.orderSerivce.goToCheckOut();
     }
 }
