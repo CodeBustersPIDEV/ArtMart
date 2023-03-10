@@ -75,6 +75,7 @@ public class ProfileArtistController implements Initializable {
         User test = user_ser.getUser(UserID);
         if (test.getRole().equals("admin")) {
             logout.setVisible(false);
+            editProfileBtn.setVisible(false);
         }
         artist = user_ser.getArtist(id);
         nameProfile.setText(artist.getName());
