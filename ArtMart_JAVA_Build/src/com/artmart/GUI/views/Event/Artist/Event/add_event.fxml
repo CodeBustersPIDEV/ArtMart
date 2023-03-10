@@ -187,11 +187,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Text fill="#5d53a8" layoutX="646.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="🗺">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <Button fx:id="btnMap" layoutX="704.0" layoutY="302.0" mnemonicParsing="false" onAction="#onBtnMap" text="Button" />
+      <Button fx:id="btnMap" layoutX="646.0" layoutY="302.0" mnemonicParsing="false" onAction="#onBtnMap" text="Open map" />
    </children>
 </AnchorPane>

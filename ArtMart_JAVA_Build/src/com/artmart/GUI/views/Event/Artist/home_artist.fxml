@@ -103,27 +103,22 @@
             <Font name="Brush Script MT Italic" size="59.0" />
          </font>
       </Label>
-      <Button layoutX="620.0" layoutY="236.0" mnemonicParsing="false" onAction="#onBtnGetAllEvents" prefHeight="45.0" prefWidth="150.0" text="Manage Events" textFill="INDIGO">
+      <Button layoutX="524.0" layoutY="330.0" mnemonicParsing="false" onAction="#onBtnGetAllEvents" prefHeight="45.0" prefWidth="150.0" text="Manage Events" textFill="INDIGO">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="620.0" layoutY="296.0" mnemonicParsing="false" onAction="#onBtnGetAllActivities" prefHeight="45.0" prefWidth="150.0" text="Manage Activities" textFill="#6c3082">
+      <Button layoutX="719.0" layoutY="330.0" mnemonicParsing="false" onAction="#onBtnGetAllActivities" prefHeight="45.0" prefWidth="150.0" text="Manage Activities" textFill="#6c3082">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="620.0" layoutY="360.0" mnemonicParsing="false" onAction="#onBtnGetReports" prefHeight="45.0" prefWidth="150.0" text="View Reports" textFill="#9a4eae">
+      <Button layoutX="524.0" layoutY="397.0" mnemonicParsing="false" onAction="#onBtnGetReports" prefHeight="45.0" prefWidth="150.0" text="View Reports" textFill="#9a4eae">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="620.0" layoutY="424.0" mnemonicParsing="false" onAction="#onViewParticipations" prefHeight="45.0" prefWidth="150.0" text="View Participations" textFill="MEDIUMPURPLE">
-         <font>
-            <Font name="System Bold Italic" size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="620.0" layoutY="484.0" mnemonicParsing="false" onAction="#onViewFeedbacks" prefHeight="45.0" prefWidth="150.0" text="View Feedbacks" textFill="MEDIUMPURPLE">
+      <Button layoutX="721.0" layoutY="397.0" mnemonicParsing="false" onAction="#onViewParticipations" prefHeight="45.0" prefWidth="150.0" text="View Participations" textFill="MEDIUMPURPLE">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
