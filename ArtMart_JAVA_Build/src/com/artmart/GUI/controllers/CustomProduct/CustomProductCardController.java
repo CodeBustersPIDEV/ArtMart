@@ -52,13 +52,6 @@ public class CustomProductCardController implements Initializable {
     private Text descTxt;
     @FXML
     private Text WaightTxt;
-    @FXML
-    private ChoiceBox<String> profileChoiceBox;
-    private Session session = new Session();
-    int UserID = session.getUserID("1");
-    UserService user_ser = new UserService();
-    @FXML
-    private Label username;
     private CustomProduct p = new CustomProduct();
     private CategoriesDao s = new CategoriesDao();
     private CustomProductDao cPDao = new CustomProductDao();
@@ -81,7 +74,7 @@ public class CustomProductCardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
     public void setCustomProduct(CustomProduct param, CustomproductslistController controller) throws SQLException {

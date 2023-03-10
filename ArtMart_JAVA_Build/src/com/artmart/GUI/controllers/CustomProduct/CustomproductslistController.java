@@ -1,8 +1,11 @@
 package com.artmart.GUI.controllers.CustomProduct;
 
 import com.artmart.GUI.controllers.Product.ArtistReadyProductCardController;
+import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
 import com.artmart.GUI.controllers.Product.CategoryCardController;
 import com.artmart.GUI.controllers.Product.ReadyproductsListController;
+import com.artmart.GUI.controllers.User.ProfileAdminController;
+import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.dao.ApplyDao;
 import com.artmart.models.Apply;
 import com.artmart.models.Categories;
@@ -17,6 +20,7 @@ import com.artmart.services.CategoriesService;
 import com.artmart.services.CustomProductService;
 import com.artmart.services.ProductService;
 import com.artmart.services.ReadyProductService;
+import com.artmart.services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -52,6 +56,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 import javafx.scene.control.ChoiceBox;
 
 /**
@@ -69,8 +74,8 @@ public class CustomproductslistController implements Initializable {
 
     private List<CustomProduct> customProductslist;
     private List<ReadyProduct> readyProductslist;
-        private final ReadyProductService readyProductService = new ReadyProductService();
-          private User connectedUser = new User();
+    private final ReadyProductService readyProductService = new ReadyProductService();
+    private User connectedUser = new User();
     @FXML
     private Button searchb;
 
@@ -87,25 +92,76 @@ public class CustomproductslistController implements Initializable {
     @FXML
     private Text totalp;
     HashMap user = (HashMap) Session.getActiveSessions();
-    private Session session = new Session();
     ApplyDao x = new ApplyDao();
     @FXML
     private RadioButton def;
+
+    private VBox vBoxCat;
+    private List<Categories> categorieslist;
+    private final CategoriesService CategoriesService = new CategoriesService();
+    private CategoryCardController categoryCardController;
     @FXML
-    private ChoiceBox<?> profileChoiceBox;
+    private ChoiceBox<String> profileChoiceBox;
     @FXML
     private javafx.scene.control.Label username;
-    private VBox vBoxCat;
-      private List<Categories> categorieslist;
-        private final CategoriesService CategoriesService = new CategoriesService();
-            private CategoryCardController categoryCardController;
+    private Session session = new Session();
+    int UserID = session.getUserID("1");
+    UserService user_ser = new UserService();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            // this.customProductService.createCustomProduct(new Product(1, "amir",
-            // "soltani", "Test",2, "Test", "Test"));
-        
+            User connectedUser = user_ser.getUser(UserID);
+            username.setText(connectedUser.getUsername());
+            Map<String, String> profileActions = new HashMap<>();
+
+            profileActions.put("", "");
+            profileActions.put("Logout", "logout");
+            profileActions.put("Profile", "profile");
+            // Populate the choice box with display names
+            profileChoiceBox.getItems().addAll(profileActions.keySet());
+            // Add an event listener to handle the selected item's ID
+            profileChoiceBox.setOnAction(event -> {
+                String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
+                String selectedId = profileActions.get(selectedItem);
+                // Handle the action based on the selected ID
+                if ("profile".equals(selectedId)) {
+
+                    profileChoiceBox.setValue("");
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileClientController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } else if ("logout".equals(selectedId)) {
+                    session.logOut("1");
+                    Stage stage = (Stage) profileChoiceBox.getScene().getWindow();
+                    stage.close();
+                    try {
+
+                        stage = new Stage();
+                        Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/User/login.fxml"));
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setTitle("User Managment");
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        System.out.print(e.getMessage());
+                    }
+
+                }
+            });
             this.makeList();
             calculateTotalWeight();
             calculateProduct();
@@ -114,7 +170,6 @@ public class CustomproductslistController implements Initializable {
         }
     }
 
-    
     void calculateTotalWeight() throws SQLException {
         float totalWeight = 0;
         for (CustomProduct customProduct : customProductslist) {
@@ -177,7 +232,7 @@ public class CustomproductslistController implements Initializable {
 
         this.sname.setSelected(false);
         this.sweight.setSelected(true);
-                 this.def.setSelected(false);
+        this.def.setSelected(false);
         this.vBox.getChildren().clear();
         this.customProductslist.sort(Comparator.comparing(CustomProduct::getWeight));
         this.customProductslist.forEach(CProduct -> {
@@ -202,7 +257,7 @@ public class CustomproductslistController implements Initializable {
 
         this.sname.setSelected(true);
         this.sweight.setSelected(false);
-            this.def.setSelected(false);
+        this.def.setSelected(false);
         this.vBox.getChildren().clear();
         this.customProductslist.sort(Comparator.comparing(CustomProduct::getName));
         this.customProductslist.forEach(CProduct -> {
@@ -281,9 +336,6 @@ public class CustomproductslistController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    
-    
 
     @FXML
     private void gofb(ActionEvent event) {
@@ -307,7 +359,7 @@ public class CustomproductslistController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-          try {
+        try {
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/addCustom.fxml"));
 
@@ -316,12 +368,13 @@ public class CustomproductslistController implements Initializable {
             stage.setTitle("Custom Product Managment");
             stage.setScene(scene);
             stage.show();
-                  Stage currentStage = (Stage) statisticb.getScene().getWindow();
-        currentStage.close();
+            Stage currentStage = (Stage) statisticb.getScene().getWindow();
+            currentStage.close();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
+
 
     @FXML
     private void finish(ActionEvent event) {
@@ -341,6 +394,7 @@ public class CustomproductslistController implements Initializable {
     }
 
     
+
 
 
 }

@@ -88,8 +88,7 @@ public class ArtistReadyProductCardController implements Initializable {
         this.description.setText(p.getDescription());
         this.material.setText(p.getMaterial());
 
-        // Load the image from the file path stored in ReadyProduct object's image field
-        Image image = new Image("file:" + p.getImage());
+        Image image = new Image(p.getImage());
         this.imagePreview.setImage(image);
 
         this.name.setText(p.getName());

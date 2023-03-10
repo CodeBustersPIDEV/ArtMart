@@ -141,7 +141,7 @@ public class AdminOrderDetailController implements Initializable {
             this.quantityField.setText(this.order.getQuantity() + "");
             this.totalCostField.setText(this.order.getTotalCost() + "");
             this.totalCostField.setText(this.order.getTotalCost() + "");
-            Image image = new Image("file:" + this.product.getImage());
+            Image image = new Image(this.product.getImage());
             this.productImage.setImage(image);
         } catch (SQLException ex) {
             Logger.getLogger(AdminOrderDetailController.class.getName()).log(Level.SEVERE, null, ex);

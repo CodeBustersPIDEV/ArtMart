@@ -11,6 +11,7 @@ import com.artmart.dao.ReadyProductDao;
 import com.artmart.models.Categories;
 import com.artmart.models.ProductReview;
 import com.artmart.models.ReadyProduct;
+import com.artmart.services.OrderService;
 import com.artmart.services.ReadyProductService;
 import java.io.IOException;
 import java.net.URL;
@@ -91,7 +92,7 @@ public class ReadyProductCardController implements Initializable {
         this.rating.setText(Float.toString(rating));
 
         // Load the image from the file path stored in ReadyProduct object's image field
-        Image image = new Image("file:" + p.getImage());
+        Image image = new Image(p.getImage());
         this.imagePreview.setImage(image);
 
         this.name.setText(p.getName());
@@ -158,7 +159,8 @@ public class ReadyProductCardController implements Initializable {
         alert.showAndWait().ifPresent(result -> {
             if (result == ButtonType.OK) {
                 int quantity = Integer.parseInt(quantityTextField.getText());
-                // Perform action with quantity
+                OrderService orderService = new OrderService();
+                orderService.addToShoppingCart(p, quantity, p.getPrice());
             }
         });
     }

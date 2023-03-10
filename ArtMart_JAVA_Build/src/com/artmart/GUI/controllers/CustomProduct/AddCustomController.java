@@ -7,6 +7,8 @@ package com.artmart.GUI.controllers.CustomProduct;
 
 import com.artmart.GUI.controllers.Product.ArtistReadyProductsListController;
 import com.artmart.GUI.controllers.User.ProfileAdminController;
+import com.artmart.GUI.controllers.User.ProfileArtistController;
+import com.artmart.GUI.controllers.User.ProfileClientController;
 import com.artmart.dao.CategoriesDao;
 import com.artmart.dao.UserDao;
 import com.artmart.models.Categories;
@@ -133,6 +135,7 @@ public class AddCustomController implements Initializable {
                     };
                 }
             });
+            
             User connectedUser = user_ser.getUser(UserID);
             username.setText(connectedUser.getUsername());
             Map<String, String> profileActions = new HashMap<>();
@@ -147,9 +150,11 @@ public class AddCustomController implements Initializable {
                 String selectedItem = profileChoiceBox.getSelectionModel().getSelectedItem();
                 String selectedId = profileActions.get(selectedItem);
                 // Handle the action based on the selected ID
-                if ("profile".equals(selectedId)) {
+                 if ("profile".equals(selectedId)) {
 
-                    profileChoiceBox.setValue("");
+               profileChoiceBox.setValue("");
+                User u = user_ser.getUser(UserID);
+                if (u.getRole().equals("admin")) {
                     Stage stage = new Stage();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileAdmin.fxml"));
                     try {
@@ -164,6 +169,37 @@ public class AddCustomController implements Initializable {
                     } catch (IOException ex) {
                         Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                } else if (u.getRole().equals("artist")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileArtist.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileArtistController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (u.getRole().equals("client")) {
+                    Stage stage = new Stage();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/ProfileClient.fxml"));
+                    try {
+                        Parent root = loader.load();
+
+                        ProfileClientController controller = loader.getController();
+                        controller.setProfile(UserID);
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistReadyProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
 
                 } else if ("logout".equals(selectedId)) {
                     session.logOut("1");
@@ -184,23 +220,6 @@ public class AddCustomController implements Initializable {
 
                 }
             });
-
-            // Set the ComboBox to use the category name as the selected value
-            categoryComboBox2.setConverter(new StringConverter<Categories>() {
-                @Override
-                public String toString(Categories category) {
-                    return category == null ? null : category.getName();
-                }
-
-                @Override
-                public Categories fromString(String categoryName) {
-                    return categories.stream()
-                            .filter(category -> category.getName().equals(categoryName))
-                            .findFirst()
-                            .orElse(null);
-                }
-            });
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

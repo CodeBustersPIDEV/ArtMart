@@ -229,7 +229,6 @@ public class AddBlogController implements Initializable {
         File file = this.fileChooser.showOpenDialog(primaryStage);
         if (file != null) {
             this.testImg = true;
-//            Path sourcePath = file.toPath();
             byte[] imageData = Files.readAllBytes(file.toPath());
 
             URL url = new URL(phpUrl);
@@ -247,7 +246,6 @@ public class AddBlogController implements Initializable {
             outputStream.flush();
             outputStream.close();
 
-            // Read the response from the PHP script
             InputStream inputStream = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
@@ -255,9 +253,8 @@ public class AddBlogController implements Initializable {
                 System.out.println(line);
             }
             reader.close();
-            Path destinationPath = Paths.get("C:/xampp/htdocs/PIDEV/BlogUploads/" + file.getName());
-
-            setupMediaInfo(file, destinationPath.toString());
+            String destinationPath = "http://localhost/PIDEV/BlogUploads/" + file.getName();
+            setupMediaInfo(file, destinationPath);
 
             try {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
