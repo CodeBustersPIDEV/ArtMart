@@ -1,5 +1,7 @@
 package com.artmart.GUI.controllers.Event.Artist.Event;
 
+import com.artmart.GUI.controllers.Event.Map.AddMapController;
+import com.artmart.GUI.controllers.Event.User.Event.UserViewEventController;
 import com.artmart.models.Event;
 import com.artmart.models.Session;
 import com.artmart.services.EventService;
@@ -19,6 +21,7 @@ import java.time.DateTimeException;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,8 +37,15 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class AddEventController implements Initializable {
 
@@ -90,14 +100,17 @@ public class AddEventController implements Initializable {
     private ComboBox comboBoxEventStatus = new ComboBox();
     @FXML
     private Button btnAddImage;
+    @FXML
+    private Button btnMap;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         // add event types in comboBox
         this.comboBoxType.getItems().addAll("Auction", "Art fair", "Open Gallery", "Exhibition");
-        this.comboBoxEventStatus.getItems().addAll("Scheduled", "Started", "Finished","Cancelled");
+        this.comboBoxEventStatus.getItems().addAll("Scheduled", "Started", "Finished", "Cancelled");
         this.txtAreaDescription.setWrapText(true);
+
     }
 
     @FXML
@@ -202,7 +215,7 @@ public class AddEventController implements Initializable {
         try {
             Stage stage = (Stage) btnCancelEvent.getScene().getWindow();
             stage.close();
-            stage = new Stage();            
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Artist/Event/list_event.fxml"));
             Scene scene = new Scene(root);
             stage.setResizable(false);
@@ -251,7 +264,7 @@ public class AddEventController implements Initializable {
             }
             reader.close();
             Path destinationPath = Paths.get("C:/xampp/htdocs/PIDEV/BlogUploads/" + file.getName());
-            this.img=destinationPath.toString();
+            this.img = destinationPath.toString();
             this.txtImage.setText(this.img);
             try {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -269,4 +282,49 @@ public class AddEventController implements Initializable {
         }
 
     }
+
+//    private void onMap(MouseEvent event) {
+//        
+//        try {
+//            Parent parent = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/Map/add_map.fxml"));//com/artmart/GUI/views/Event/Map/add_map.fxml
+//            Scene scene = new Scene(parent);
+//            Stage stage = new Stage();
+//            stage.setScene(scene);
+//            stage.initStyle(StageStyle.UTILITY);
+//            stage.show();
+//        } catch (IOException ex) {
+//            System.err.println(ex.getMessage());
+//        }
+//    }   
+    @FXML
+    private void onBtnMap(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/Map/add_map.fxml"));
+            Parent parent = loader.load();
+            AddMapController controller = loader.getController();
+            controller.setupController(this);
+            Scene scene = new Scene(parent);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    public void setCords(String x, String z) {
+        txtLocation.setText(z+" "+x);
+    }
 }
+/*
+            try {
+                    Parent parent = FXMLLoader.load(getClass().getResource("/Gui/testMap.fxml"));
+                    Scene scene = new Scene(parent);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.initStyle(StageStyle.UTILITY);
+                    stage.show();
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+ */

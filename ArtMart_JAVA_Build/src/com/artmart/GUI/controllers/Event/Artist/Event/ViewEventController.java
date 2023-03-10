@@ -68,6 +68,7 @@ public class ViewEventController implements Initializable {
     
     public void setUpEventData(Event event) {
         this.event = event;
+        System.out.println(event);
         this.txtEventName.setText(event.getName());
         this.txtEventName.setTextAlignment(TextAlignment.CENTER);
         this.txtEventLocation.setText(event.getLocation());

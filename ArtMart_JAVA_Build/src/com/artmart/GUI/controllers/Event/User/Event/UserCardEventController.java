@@ -109,7 +109,7 @@ public class UserCardEventController implements Initializable {
     private void onFeedback(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/list_feedback.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/user_list_feedback.fxml"));
             Parent root = loader.load();
             UserListFeedbackController controller = loader.getController();
             controller.setUpEventData(this.event);

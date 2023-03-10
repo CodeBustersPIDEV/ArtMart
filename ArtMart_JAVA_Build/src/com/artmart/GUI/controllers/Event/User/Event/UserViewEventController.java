@@ -201,7 +201,7 @@ public class UserViewEventController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             //Parent root = FXMLLoader.load(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/add_feedback.fxml"));
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/add_feedback.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/user_add_feedback.fxml"));
             Parent root = loader.load();
             
             UserAddFeedbackController controller = loader.getController();

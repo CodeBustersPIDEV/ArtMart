@@ -99,7 +99,7 @@
             </LinearGradient>
          </stroke>
       </Rectangle>
-      <TextField fx:id="txtLocation" layoutX="530.0" layoutY="297.0" prefHeight="35.0" prefWidth="150.0" promptText="Location" />
+      <TextField fx:id="txtLocation" layoutX="530.0" layoutY="297.0" prefHeight="35.0" prefWidth="107.0" promptText="Location" />
       <TextField fx:id="txtName" layoutX="530.0" layoutY="197.0" prefHeight="35.0" prefWidth="150.0" promptText="Name" />
       <ComboBox fx:id="comboBoxType" layoutX="530.0" layoutY="247.0" prefHeight="35.0" prefWidth="150.0" promptText="Type" />
       <TextField fx:id="txtCapacity" layoutX="530.0" layoutY="447.0" prefHeight="35.0" prefWidth="150.0" promptText="Capacity" />
@@ -160,7 +160,7 @@
       </Text>
       <ComboBox fx:id="comboBoxEventStatus" layoutX="530.0" layoutY="547.0" prefHeight="35.0" prefWidth="150.0" promptText="Status" />
       <Button fx:id="btnAddImage" layoutX="652.0" layoutY="602.0" mnemonicParsing="false" onAction="#onBtnAddImage" prefHeight="25.0" prefWidth="28.0" text="➕" textFill="#ff5946" />
-      <Text fill="#21153d" layoutX="653.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Event" textAlignment="CENTER">
+      <Text fill="#21153d" layoutX="653.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Event" textAlignment="CENTER">
          <font>
             <Font name="Dubai Bold" size="20.0" />
          </font>
@@ -187,5 +187,11 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Text fill="#5d53a8" layoutX="646.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="🗺">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnMap" layoutX="704.0" layoutY="302.0" mnemonicParsing="false" onAction="#onBtnMap" text="Button" />
    </children>
 </AnchorPane>
