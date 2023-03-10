@@ -14,6 +14,7 @@ import com.artmart.services.EventService;
 import com.artmart.services.ParticipationService;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -106,7 +107,7 @@ public class UserCardEventController implements Initializable {
     }
 
     @FXML
-    private void onFeedback(ActionEvent event) {
+    private void onFeedback(ActionEvent event) throws SQLException {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Event/User/Feedback/user_list_feedback.fxml"));
