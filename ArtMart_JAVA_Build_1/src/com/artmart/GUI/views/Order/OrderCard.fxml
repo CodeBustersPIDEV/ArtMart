@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="104.0" prefWidth="288.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.OrderCardController">
+    <stylesheets>
+        <URL value="@/com/artmart/GUI/styles/ordercard.css" />
+    </stylesheets>
+    <children>
+        <Button fx:id="cancelBtn" alignment="TOP_LEFT" contentDisplay="CENTER" layoutY="-7.0" mnemonicParsing="false" onAction="#OnCancelEvent" prefHeight="126.0" prefWidth="288.0">
+            <textFill>
+                <LinearGradient endX="1.0" endY="1.0">
+                    <stops>
+                        <Stop color="#2f0a0a" />
+                        <Stop color="BLACK" offset="1.0" />
+                    </stops>
+                </LinearGradient>
+            </textFill>
+            <effect>
+                <DropShadow color="#00000087" />
+            </effect>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+        <Text layoutX="14.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address :" />
+        <Text layoutX="14.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Date :" />
+        <Text fx:id="productNameValue" layoutX="12.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" wrappingWidth="200.0">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Text>
+        <Text fx:id="AddressValue" layoutX="79.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" wrappingWidth="169.53125" />
+        <Text fx:id="orderValue" layoutX="89.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" />
+        <Text fx:id="statusValue" layoutX="234.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" />
+      <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="234.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../utils/icons/icons8-purchase-order-50.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

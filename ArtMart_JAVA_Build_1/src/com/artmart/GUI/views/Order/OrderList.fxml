@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="693.0" prefWidth="325.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Order.OrderListController">
+    <stylesheets>
+        <URL value="@/com/artmart/GUI/styles/orderlist.css" />
+    </stylesheets>
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="693.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="342.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Rectangle>
+      <ScrollPane layoutX="14.0" layoutY="83.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="596.0" prefWidth="316.0">
+         <content>
+            <VBox fx:id="orderCard" alignment="CENTER" prefHeight="594.0" prefWidth="308.0" />
+         </content>
+      </ScrollPane>
+      <Text layoutX="95.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Orders List">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="46.0" fitWidth="59.0" layoutX="29.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../utils/icons/icons8-mobile-order-50.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

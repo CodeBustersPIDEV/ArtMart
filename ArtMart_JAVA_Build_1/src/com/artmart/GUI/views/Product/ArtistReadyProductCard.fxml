@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ArtistReadyProductCardController">
+   <children>
+      <Label fx:id="pid" layoutX="540.0" layoutY="20.0" text="Id">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="userID" layoutX="550.0" layoutY="30.0" text="userID">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="379.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="949.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke></Rectangle>
+      <Text fx:id="name" fill="#21153d" layoutX="296.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="25.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="imagePreview" fitHeight="255.0" fitWidth="255.0" layoutX="24.0" layoutY="62.0" pickOnBounds="true" />
+      <Text fill="#21153d" layoutX="779.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Label fx:id="category" layoutX="846.0" layoutY="30.0" text="Category" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font></Label>
+      <Label fx:id="price" layoutX="754.0" layoutY="253.0" text="Price" textFill="#f53179">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Label>
+      <Text fill="#f72f78" layoutX="802.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TND" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="delete" alignment="CENTER" layoutX="766.0" layoutY="301.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="29.0" prefWidth="63.0" text="Delete" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
+      <Button fx:id="edit" alignment="CENTER" layoutX="852.0" layoutY="301.0" mnemonicParsing="false" onAction="#onEdit" prefHeight="29.0" prefWidth="63.0" text="Edit" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
+      <Text fill="#21153d" layoutX="297.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensions:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="dimensions" layoutX="411.0" layoutY="80.0" text="Dimensions" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Text fill="#21153d" layoutX="297.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="weight" layoutX="374.0" layoutY="110.0" text="Weight" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Text fill="#21153d" layoutX="296.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Material:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="material" layoutX="385.0" layoutY="140.0" text="Material" textFill="#21153d">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Text fill="#21153d" layoutX="297.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="description" alignment="TOP_LEFT" layoutX="297.0" layoutY="203.0" prefHeight="136.0" prefWidth="355.0" text="Description" textFill="#21153d" wrapText="true">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="reviews" alignment="CENTER" layoutX="672.0" layoutY="301.0" mnemonicParsing="false" onAction="#onReviews" prefHeight="38.0" prefWidth="72.0" text="Reviews" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </Button>
+   </children>
+</Pane>

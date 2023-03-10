@@ -95,32 +95,21 @@
          <content>
             <VBox fx:id="vBox" prefHeight="539.0" prefWidth="931.0" />
          </content></ScrollPane>
-      <Text fill="#ff5946" layoutX="561.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event List">
-         <font>
-            <Font name="Brush Script MT Italic" size="64.0" />
-         </font>
-      </Text>
       <TextField fx:id="txtSearch" layoutX="66.0" layoutY="165.0" onKeyPressed="#onTxtSearch" prefHeight="28.0" prefWidth="192.0" promptText="Type name of desired event here" />
-      <ComboBox fx:id="comboBox" layoutX="422.0" layoutY="116.0" onAction="#onComboBox" prefHeight="25.0" prefWidth="112.0" promptText="My events" />
-      <Button fx:id="btnAddEvent" layoutX="1011.0" layoutY="114.0" mnemonicParsing="false" onAction="#onBtnAddEvent" text="➕" textFill="#5d53a8">
+      <ComboBox fx:id="comboBox" layoutX="672.0" layoutY="113.0" onAction="#onComboBox" prefHeight="25.0" prefWidth="112.0" promptText="My events" />
+      <Button fx:id="btnAddEvent" layoutX="1132.0" layoutY="114.0" mnemonicParsing="false" onAction="#onBtnAddEvent" text="➕" textFill="#5d53a8">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <ComboBox fx:id="comboBox" layoutX="1117.0" layoutY="208.0" onAction="#onComboBox" prefHeight="25.0" prefWidth="112.0" promptText="My events" />
-      <Button fx:id="btnAddEvent" layoutX="1198.0" layoutY="167.0" mnemonicParsing="false" onAction="#onBtnAddEvent" text="➕" textFill="#5d53a8">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Button>
-      <Text fill="#5d53a8" layoutX="1097.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Event">
+      <Text fill="#5d53a8" layoutX="1031.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Event">
          <font>
             <Font name="Brush Script MT Italic" size="24.0" />
          </font>
       </Text>
-      <Text fill="#21153d" layoutX="646.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event List" textAlignment="CENTER">
+      <Text fill="#21153d" layoutX="645.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event List" textAlignment="CENTER">
          <font>
-            <Font name="Dubai Bold" size="20.0" />
+            <Font name="Dubai Bold" size="39.0" />
          </font>
       </Text>
       <Button fx:id="btnReturn" alignment="CENTER" layoutX="32.0" layoutY="24.0" mnemonicParsing="false" onAction="#returnToEventHomepage" prefHeight="18.0" prefWidth="48.0" text="←" textAlignment="CENTER" textFill="#21153d">

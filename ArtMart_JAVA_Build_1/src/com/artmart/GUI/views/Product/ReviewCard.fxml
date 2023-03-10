@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Product.ReviewCardController">
+   <children>
+      <Label fx:id="pid" layoutX="540.0" layoutY="20.0" text="Id">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="rid" layoutX="550.0" layoutY="30.0" text="Id">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dedce4" height="280.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="1.5" width="689.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke></Rectangle>
+      <Text fx:id="title" fill="#21153d" layoutX="37.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="25.0" />
+         </font>
+      </Text>
+      <Text fx:id="username" fill="#21153d" layoutX="68.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Label fx:id="text" alignment="TOP_LEFT" layoutX="38.0" layoutY="103.0" prefHeight="112.0" prefWidth="611.0" text="Text" textFill="#21153d" wrapText="true">
+         <font>
+            <Font name="Dubai Light" size="20.0" />
+         </font>
+      </Label>
+      <Text fx:id="rating" fill="#21153d" layoutX="107.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#21153d" layoutX="38.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="date" fill="#21153d" layoutX="587.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fill="#21153d" layoutX="513.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Posted on:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fill="#21153d" layoutX="38.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating:" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#21153d" layoutX="134.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/10" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>
