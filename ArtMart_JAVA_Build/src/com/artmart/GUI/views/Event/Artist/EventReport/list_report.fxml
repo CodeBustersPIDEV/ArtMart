@@ -1,54 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="716.0" prefWidth="637.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.EventReport.ListReportController">
+<AnchorPane id="AnchorPane" prefHeight="770.0" prefWidth="1366.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.artmart.GUI.controllers.Event.Artist.EventReport.ListReportController">
     <stylesheets>
         <URL value="@/com/artmart/GUI/styles/eventReport/list_report.css" />
     </stylesheets>
    <children>
-      <ScrollPane fx:id="scrollPaneEventList" hbarPolicy="NEVER" layoutY="152.0" prefHeight="564.0" prefWidth="650.0" vbarPolicy="ALWAYS">
+      <ScrollPane fx:id="scrollPaneEventList" hbarPolicy="NEVER" layoutX="271.0" layoutY="157.0" prefHeight="564.0" prefWidth="931.0" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="vBox" prefHeight="550.0" prefWidth="650.0" />
+            <VBox fx:id="vBox" prefHeight="550.0" prefWidth="931.0" />
          </content>
       </ScrollPane>
-      <Text fill="#ff5946" layoutX="265.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports">
-         <font>
-            <Font name="Brush Script MT Italic" size="48.0" />
-         </font>
-      </Text>
-      <Button fx:id="btnReturn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#returnToEventHomepage" text="&lt;&lt; Return" textFill="#5d53a8">
+      <TextField fx:id="txtSearch" layoutX="270.0" layoutY="120.0" onKeyPressed="#onTxtSearch" prefHeight="28.0" prefWidth="192.0" promptText="Type name of desired event here." />
+      <Button fx:id="btnAddReport" layoutX="1166.0" layoutY="117.0" mnemonicParsing="false" onAction="#onBtnAddReport" text="➕" textFill="#5d53a8">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnSearch" layoutX="233.0" layoutY="114.0" mnemonicParsing="false" onAction="#onBtnSearch" text="Search" textFill="#10a12f">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Button>
-      <TextField fx:id="txtSearch" layoutX="20.0" layoutY="114.0" onKeyPressed="#onTxtSearch" prefHeight="28.0" prefWidth="192.0" promptText="Type name of desired event here." />
-      <Button layoutX="301.0" layoutY="114.0" mnemonicParsing="false" onAction="#onBtnCancel" text="Cancel" textFill="RED">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnAddReport" layoutX="608.0" layoutY="115.0" mnemonicParsing="false" onAction="#onBtnAddReport" text="➕" textFill="#5d53a8">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Button>
-      <Text fill="#5d53a8" layoutX="496.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Report">
+      <Text fill="#5d53a8" layoutX="1054.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Report">
          <font>
             <Font name="Brush Script MT Italic" size="24.0" />
          </font>
       </Text>
+      <Circle fill="#fa7a1e00" layoutX="1282.0" layoutY="134.0" radius="57.0" strokeType="OUTSIDE" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="0.6333333333333333">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.5071295967136706" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Circle>
+      <Line endX="-100.00003051757812" endY="-114.0" layoutX="203.0" layoutY="742.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="6.0" layoutX="162.0" layoutY="685.0" startX="-124.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="100.0" layoutX="457.0" layoutY="41.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.6987004779397243" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Line endX="354.0" layoutX="203.0" layoutY="55.0" startX="-32.0" startY="-7.62939453125E-6" strokeLineCap="ROUND" strokeWidth="7.0">
+         <stroke>
+            <LinearGradient endX="0.5619047619047619" endY="1.0">
+               <stops>
+                  <Stop color="#f72f78" />
+                  <Stop color="#f72f78" offset="0.533949520085318" />
+                  <Stop color="#fe7b1d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Button fx:id="btnReturn" alignment="CENTER" layoutX="44.0" layoutY="22.0" mnemonicParsing="false" onAction="#returnToEventHomepage" prefHeight="18.0" prefWidth="48.0" text="←" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="20.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text fill="#21153d" layoutX="653.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#21153d" layoutX="1152.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
+         <font>
+            <Font name="Dubai Bold" size="16.0" />
+         </font>
+      </Text>
+      <Label fx:id="username" layoutX="1220.0" layoutY="30.0" text="Username" textFill="#21153d">
+         <font>
+            <Font name="Dubai Bold" size="16.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="profileChoiceBox" layoutX="1297.0" layoutY="32.0" prefHeight="25.0" prefWidth="20.0">
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+      </ChoiceBox>
+      <Button alignment="CENTER" layoutX="561.0" layoutY="122.0" mnemonicParsing="false" onAction="#onBtnCancel" prefHeight="25.0" prefWidth="72.0" text="Cancel" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btnSearch" alignment="CENTER" layoutX="473.0" layoutY="122.0" mnemonicParsing="false" onAction="#onBtnSearch" prefHeight="25.0" prefWidth="72.0" text="Search" textAlignment="CENTER" textFill="#21153d">
+         <font>
+            <Font name="Rockwell Nova Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000087" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
