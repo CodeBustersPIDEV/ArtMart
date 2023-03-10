@@ -8,8 +8,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -33,7 +31,7 @@
          </stroke>
       </Circle>
       <TextField fx:id="search" layoutX="888.0" layoutY="76.0" prefHeight="31.0" prefWidth="145.0" promptText="Search" />
-      <Text fill="#21153d" layoutX="1160.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
+      <Text fill="#21153d" layoutX="1168.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
          <font>
             <Font name="Dubai Bold" size="16.0" />
          </font>
@@ -59,9 +57,12 @@
             <Font size="15.0" />
          </font></Text>
       <Text fx:id="totalp" layoutX="151.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" wrappingWidth="9.219728618860245" />
-      <Button layoutX="22.0" layoutY="140.0" mnemonicParsing="false" onAction="#goToInstagram" text="Instagram" />
-      <Button layoutX="23.0" layoutY="102.0" mnemonicParsing="false" onAction="#gofb" text="Facebook" />
-      <Button layoutX="25.0" layoutY="179.0" mnemonicParsing="false" onAction="#goR" text="Reddit" />
+    <Button layoutX="22.0" layoutY="140.0" mnemonicParsing="false" onAction="#goToInstagram" text="Instagram" style="-fx-background-color: #C13584; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 5px;" />
+
+<Button layoutX="23.0" layoutY="102.0" mnemonicParsing="false" onAction="#gofb" text="Facebook" style="-fx-background-color: #3b5998; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 5px;" />
+
+<Button layoutX="25.0" layoutY="179.0" mnemonicParsing="false" onAction="#goR" text="Reddit" style="-fx-background-color: #FF4500; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 5px;" />
+
       <Text layoutX="21.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check Others Reviews" />
       <ScrollPane layoutX="176.0" layoutY="146.0" prefHeight="621.0" prefWidth="1176.0">
          <content>
@@ -159,18 +160,16 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button alignment="CENTER" layoutX="1107.0" layoutY="17.0" mnemonicParsing="false" onAction="#GoToShoppingCart" prefHeight="31.0" prefWidth="40.0" textAlignment="CENTER" textFill="#21153d">
+      <Button alignment="CENTER" layoutX="14.0" layoutY="315.0" mnemonicParsing="false" onAction="#finish" prefHeight="25.0" prefWidth="100.0" text="Finished Works" textAlignment="CENTER" textFill="#21153d">
          <font>
-            <Font name="Dubai Bold" size="15.0" />
+            <Font name="Rockwell Nova Bold" size="12.0" />
          </font>
          <effect>
             <DropShadow color="#00000087" />
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="1113.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../utils/icons/icons8-buy-50.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

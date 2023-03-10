@@ -43,8 +43,6 @@ public class ArtistReadyProductsListController implements Initializable {
     @FXML
     private Button searchBtn;
     @FXML
-    private Button backBtn;
-    @FXML
     private Button addProduct;
     private List<ReadyProduct> readyProductslist;
     @FXML

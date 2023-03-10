@@ -382,4 +382,20 @@ public class CustomproductslistController implements Initializable {
         this.orderSerivce.goToCheckOut();
     }
 
+    @FXML
+    private void finish(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader
+                    .load(getClass().getResource("/com/artmart/GUI/views/CustomProduct/donelist.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("Custom Product Managment");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApplyDao {
+       private CustomProductDao productDAO = new CustomProductDao();
     private final SQLConnection sqlConnection = SQLConnection.getInstance();
 
     // Create a new application
@@ -39,9 +40,22 @@ public class ApplyDao {
         String query = "DELETE FROM Apply WHERE apply_ID = ?";
         PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
         statement.setInt(1, applyId);
-        return statement.executeUpdate();
+      statement.executeUpdate();
+     
+             this.productDAO.deleteCustomProduct(this.getApplyId(applyId));
+               return 1;
     }
 
+    public int getApplyId(int id) throws SQLException {
+        String query = "SELECT customproduct_ID FROM apply WHERE apply_ID = ?";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("customproduct_ID");
+        } else {
+            return 0;
+        }}
     // Get an application by ID
     public Apply getApplyById(int applyId) throws SQLException {
         String query = "SELECT customproduct_ID, artist_ID, status FROM Apply WHERE apply_ID = ?";
@@ -92,6 +106,22 @@ public class ApplyDao {
          public List<Apply> getAllApplies2() throws SQLException {
         List<Apply> applies = new ArrayList<>();
         String query = "SELECT apply_ID, customproduct_ID, artist_ID, status FROM Apply WHERE status IN ('Pending')";
+        PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
+        ResultSet result = statement.executeQuery();
+        while (result.next()) {
+            int applyId = result.getInt("apply_ID");
+            int customProductId = result.getInt("customproduct_ID");
+            int artistId = result.getInt("artist_ID");
+            String status = result.getString("status");
+            Apply x = new Apply(applyId, customProductId, artistId, status);
+            applies.add(x);
+        }
+        return applies;
+    }
+         
+          public List<Apply> getAllApplies3() throws SQLException {
+        List<Apply> applies = new ArrayList<>();
+        String query = "SELECT apply_ID, customproduct_ID, artist_ID, status FROM Apply WHERE status IN ('done')";
         PreparedStatement statement = sqlConnection.getConnection().prepareStatement(query);
         ResultSet result = statement.executeQuery();
         while (result.next()) {

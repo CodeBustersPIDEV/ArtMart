@@ -62,7 +62,7 @@
          <font>
             <Font name="System Bold" size="21.0" />
          </font></Text>
-      <Text fill="#21153d" fontSmoothingType="LCD" layoutX="1175.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORY:">
+      <Text fill="#21153d" fontSmoothingType="LCD" layoutX="1166.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORY:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font></Text>
