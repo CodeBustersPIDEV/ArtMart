@@ -23,10 +23,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -294,24 +291,7 @@ public class OrderService implements IOrderService {
         alert.showAndWait();
         return this.wishlistDao.createWishlist(new Wishlist(this.connectedUser.getUser_id(), productToOrder.getProductId(), Date.valueOf(formattedDate), quantity, price));
     }
-
-    @Override
-    public void goToAdminOrderBoard() {
-        try {
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/Order/OrderManagment.fxml"));
-            Parent root = loader.load();
-            stage.setResizable(false);
-            stage.initStyle(StageStyle.UTILITY);
-            stage.setTitle("Artmart");
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(OrderGUIMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    
     @Override
     public void goToCheckOut() {
         try {

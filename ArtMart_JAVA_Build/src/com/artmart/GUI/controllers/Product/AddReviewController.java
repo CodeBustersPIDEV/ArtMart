@@ -128,7 +128,6 @@ public class AddReviewController implements Initializable {
                     } catch (IOException e) {
                         System.out.print(e.getMessage());
                     }
-
                 }
             });
             // Get all ready products from the database
