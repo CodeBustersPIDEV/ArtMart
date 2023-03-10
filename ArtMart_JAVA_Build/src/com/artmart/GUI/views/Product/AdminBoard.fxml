@@ -110,10 +110,9 @@
                         <TableView fx:id="readyProductsTableView" prefHeight="591.0" prefWidth="920.0">
                            <columns>
                               <TableColumn fx:id="productNameColumn" prefWidth="304.0" text="Ready Product name" />
-                              <TableColumn fx:id="productUserColumn" prefWidth="108.0" text="By" />
-                              <TableColumn fx:id="priceColumn" prefWidth="89.0" text="Price" />
-                              <TableColumn fx:id="categoryColumn" prefWidth="133.0" text="Category" />
-                              <TableColumn fx:id="operationColumn" prefWidth="285.0" text="Operations" />
+                              <TableColumn fx:id="productUserColumn" prefWidth="121.0" text="By" />
+                              <TableColumn fx:id="priceColumn" prefWidth="123.0" text="Price" />
+                              <TableColumn fx:id="operationColumn" prefWidth="371.0" text="Operations" />
                            </columns>
                         </TableView>
                      </children>

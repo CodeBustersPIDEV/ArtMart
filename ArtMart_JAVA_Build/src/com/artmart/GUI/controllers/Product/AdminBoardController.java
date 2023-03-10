@@ -74,8 +74,6 @@ public class AdminBoardController implements Initializable {
     @FXML
     private TableColumn<ReadyProduct, Integer> priceColumn;
     @FXML
-    private TableColumn<ReadyProduct, String> categoryColumn;
-    @FXML
     private TableColumn<ReadyProduct, Void> operationColumn;
     @FXML
     private TableColumn<ProductReview, Integer> reviewUserColumn;
@@ -174,7 +172,7 @@ public class AdminBoardController implements Initializable {
         });
 
         try {
-//            this.productsList = this.productService.getProductById(UserID)
+            this.productsList = this.productService.getAllProduct();
             this.readyProductsList = this.readyProductService.getAllReadyProducts();
         } catch (SQLException ex) {
             Logger.getLogger(AdminBoardController.class.getName()).log(Level.SEVERE, null, ex);
@@ -183,10 +181,13 @@ public class AdminBoardController implements Initializable {
                 this.readyProductsList.stream().collect(Collectors.toList())
         );
         
+        ObservableList<Product> prodItems = FXCollections.observableArrayList(
+                this.productsList.stream().collect(Collectors.toList())
+        );
+        
         this.productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.productUserColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         this.priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        this.categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category_ID"));
 
         this.readyProductsTableView.setItems(items);
 
@@ -229,9 +230,8 @@ public class AdminBoardController implements Initializable {
                             readyProductsList.stream().collect(Collectors.toList())
                     );
                     productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-                    productUserColumn.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
+                    productUserColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
                     priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-                    categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category_ID"));
 
                     readyProductsTableView.setItems(items);
 
@@ -261,7 +261,7 @@ public class AdminBoardController implements Initializable {
                 this.productReviewsList.stream().collect(Collectors.toList())
         );
 
-        this.reviewUserColumn.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
+        this.reviewUserColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         this.titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         this.textColumn.setCellValueFactory(new PropertyValueFactory<>("text"));
         this.ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));

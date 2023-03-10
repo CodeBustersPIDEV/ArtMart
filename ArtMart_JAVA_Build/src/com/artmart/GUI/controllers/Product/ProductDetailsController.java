@@ -13,6 +13,7 @@ import com.artmart.models.Categories;
 import com.artmart.models.Product;
 import com.artmart.models.ReadyProduct;
 import com.artmart.models.Session;
+import com.artmart.services.OrderService;
 import com.artmart.services.ProductService;
 import com.artmart.services.ReadyProductService;
 import java.io.IOException;
@@ -227,7 +228,8 @@ public class ProductDetailsController implements Initializable {
         alert.showAndWait().ifPresent(result -> {
             if (result == ButtonType.OK) {
                 int quantity = Integer.parseInt(quantityTextField.getText());
-                // Perform action with quantity
+                OrderService orderService = new OrderService();
+                orderService.addToShoppingCart(p, quantity, p.getPrice());
             }
         });
     }
