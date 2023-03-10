@@ -61,8 +61,9 @@ public class ProfileAdminController implements Initializable {
     public void setProfile(int id) {
 
         User test = user_ser.getUser(UserID);
-        if (test.getRole().equals("admin")) {
+        if (test.getRole().equals("admin") ) {
             logout.setVisible(false);
+          //  editProfileBtn.setVisible(false);
         }
         admin = user_ser.getAdmin(id);
         nameProfile.setText(admin.getName());

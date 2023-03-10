@@ -24,8 +24,11 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -106,7 +109,7 @@ public class UpdateProfileController implements Initializable {
             bioField.setVisible(true);
             Label.setText("Department");
             Admin ad = user_ser.getAdmin(user.getUser_id());
-            bioField.setText(ad.getDepartment()); 
+            bioField.setText(ad.getDepartment());
         } else {
             bioField.setVisible(false);
         }
@@ -177,6 +180,22 @@ public class UpdateProfileController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Account updated");
                 alert.showAndWait();
+                if (user.getRole().equals("artist")) {
+                   
+                        Stage stage = (Stage) updateBtn.getScene().getWindow();
+                        stage.close();
+                        
+                } else if (user.getRole().equals("admin")) {
+                  
+                        Stage stage = (Stage) updateBtn.getScene().getWindow();
+                        stage.close();
+                       
+                } else if (user.getRole().equals("client")) {
+                
+                        Stage stage = (Stage) updateBtn.getScene().getWindow();
+                        stage.close();
+                        
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -261,5 +280,4 @@ public class UpdateProfileController implements Initializable {
 
     }
 
-   
 }

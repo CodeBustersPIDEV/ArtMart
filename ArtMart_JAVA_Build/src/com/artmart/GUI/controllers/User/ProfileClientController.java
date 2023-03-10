@@ -72,6 +72,7 @@ public class ProfileClientController implements Initializable {
         User test = user_ser.getUser(UserID);
         if (test.getRole().equals("admin")) {
             logout.setVisible(false);
+            editProfileBtn.setVisible(false);
         }
         client = user_ser.getClient(id);
         System.out.println(client);
