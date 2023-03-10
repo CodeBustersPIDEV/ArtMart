@@ -48,7 +48,7 @@ public class ProfileClientController implements Initializable {
     private Label nbrOrderProfile;
     @FXML
     private Label nbrCusDemProfile;
-   
+
     @FXML
     private Button editProfileBtn;
     @FXML
@@ -111,10 +111,11 @@ public class ProfileClientController implements Initializable {
 
     }
 
-   
     @FXML
     public void OnEditProfile(ActionEvent event) {
         try {
+            Stage stageToClose = (Stage) editProfileBtn.getScene().getWindow();
+            stageToClose.close();
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/artmart/GUI/views/User/updateProfile.fxml"));
             Parent root = loader.load();
