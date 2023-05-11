@@ -35,7 +35,7 @@ public class ApplyCardClientController implements Initializable {
     private ApplyDao applyDao;
     
  public static final String ACCOUNT_SID = "AC85fdc289caf6aa747109220798d39394";
-  public static final String AUTH_TOKEN = "df3d004d8411369066d20af591ac52a0";
+  public static final String AUTH_TOKEN = "a7cf8e9f23b024eecf639933d2d169c1";
       private Session session = new Session();
   HashMap user = (HashMap) Session.getActiveSessions();
     @FXML
